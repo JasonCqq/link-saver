@@ -1,0 +1,175 @@
+$secondary: #1c0749;
+$accent: #504eeb;
+
+.home-page {
+  .nav-bar {
+    position: fixed;
+    top: 0;
+    background-color: white;
+    display: flex;
+    height: 10vh;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-bottom: 3px solid $secondary;
+
+    #logo {
+      font-weight: bold;
+      font-size: 2rem;
+      margin-left: 10vw;
+    }
+
+    .nav-right {
+      display: flex;
+      margin-left: auto;
+      align-items: center;
+      font-size: 1.1rem;
+      gap: 3vw;
+
+      #getStarted {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-right: 10vw;
+        color: white;
+        padding: 10px 50px;
+        border-radius: 5px;
+        background-color: $accent;
+      }
+    }
+  }
+
+  .landing-page {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .landing-heading {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 4rem;
+      margin-top: 20vh;
+      width: 75%;
+    }
+
+    #placeholder {
+      border: 5px solid black;
+      width: 100%;
+      height: 700px;
+      margin-top: 5vh;
+    }
+  }
+
+  .landing-features {
+    margin-top: 10vh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .landing-features-heading {
+      font-size: 3rem;
+    }
+
+    .landing-features-flex {
+      display: flex;
+      width: 80%;
+      gap: 5vw;
+      margin-top: 5vh;
+      justify-content: center;
+
+      .landing-features-item {
+        height: 400px;
+        width: 350px;
+        border: 3px solid black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+
+        .landing-features-item-heading {
+          font-size: 1.5rem;
+          padding-top: 2vh;
+          border-bottom: 5px solid $accent;
+        }
+
+        .landing-features-item-text {
+          text-align: center;
+          padding-top: 5vh;
+          line-height: 3vh;
+        }
+      }
+    }
+  }
+
+  .landing-tutorial {
+    margin-top: 10vh;
+    height: auto;
+
+    .landing-tutorial-heading {
+      font-size: 4rem;
+      text-align: center;
+      padding-bottom: 10vh;
+      text-decoration: underline;
+    }
+
+    .landing-tutorial-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 80%;
+      margin: 0 auto;
+      .landing-tutorial-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 30vh;
+
+        .landing-tutorial-item-head {
+          font-size: 3rem;
+          padding-bottom: 3vh;
+          margin-top: 2vh;
+        }
+
+        .vl {
+          background-color: $accent;
+          height: 100%;
+          width: 3px;
+          border-radius: 5px;
+          margin: 20px 0px;
+        }
+      }
+    }
+  }
+
+  .landing-footer {
+    background-color: black;
+    margin-top: 5vh;
+    height: 50vh;
+    font-size: 4rem;
+    font-weight: bold;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    .landing-footer-note {
+      padding-top: 4vh;
+    }
+
+    .landing-footer-button {
+      padding: 10px 50px;
+      border-radius: 5px;
+      background-color: $accent;
+      font-size: 3rem;
+    }
+  }
+}
