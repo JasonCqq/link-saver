@@ -1,33 +1,73 @@
+$accent: #f77a4a;
+$line: #e6e6e6;
+
 .dashboard-container {
   display: flex;
   width: 100%;
 
   .d-sidebar {
     width: 17.5%;
-    border-right: 1px solid #000000;
+    border-right: 1px solid $line;
     height: 100vh;
+
     > div {
-      border-bottom: 1px solid #000000;
-      padding: 20px 10px;
+      padding: 10px 10px;
     }
 
     > div > h1 {
       font-size: 0.8rem;
+    }
+
+    .sidebar-profile {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+    }
+
+    .sidebar-search {
+      display: flex;
+      border-bottom: 1px solid $line;
+      #search {
+        border: none;
+        margin-left: 5px;
+
+        &:focus {
+          outline: none;
+          border-bottom: 1px solid $accent;
+        }
+      }
+    }
+
+    .sidebar-pins {
+      border-bottom: 1px solid $line;
+      display: flex;
+    }
+
+    .sidebar-folders {
+      .folders-flex {
+        display: flex;
+
+        > h1 {
+          font-size: 0.8rem;
+        }
+      }
+
+      > button {
+        border: none;
+      }
     }
   }
 
   .d-main {
     width: 82.5%;
 
-    > div {
-      border-bottom: 1px solid black;
-    }
-
     .main-title {
-      padding: 0px 20px;
+      padding: 15px 20px;
       display: flex;
-      height: 3vh;
       align-items: center;
+      border-bottom: 1px solid $line;
     }
 
     .main-functions {
@@ -36,6 +76,16 @@
       height: 10vh;
 
       > button {
+        margin-left: 3vw;
+        font-size: 1.5rem;
+        border: 1px solid $line;
+        color: black;
+        padding: 10px 20px;
+        height: 6vh;
+        width: 15vw;
+        font-size: 1rem;
+        font-weight: 800;
+        background: none;
       }
     }
 

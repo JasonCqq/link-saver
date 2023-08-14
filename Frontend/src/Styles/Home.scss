@@ -1,5 +1,5 @@
 $secondary: #1c0749;
-$accent: #f77a4a;
+$accent: #5b4dbe;
 
 .home-page {
   .nav-bar {
@@ -47,11 +47,12 @@ $accent: #f77a4a;
 
       #getStarted {
         font-size: 1.1rem;
-        font-weight: 600;
-        color: white;
-        padding: 10px 25px;
+        font-weight: 400;
+        padding: 15px 25px;
         border-radius: 5px;
         background-color: $accent;
+        transition: box-shadow 0.15s ease-in-out;
+        color: white;
 
         &:hover {
           box-shadow: 1px 1px 20px $accent;
@@ -71,7 +72,7 @@ $accent: #f77a4a;
 
   .landing-page {
     width: 100%;
-    height: 100vh;
+    height: 70vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -87,14 +88,6 @@ $accent: #f77a4a;
       margin-top: 20vh;
       width: 50%;
     }
-
-    #placeholder {
-      border: 2px solid black;
-      border-radius: 5px;
-      width: 100%;
-      height: 700px;
-      margin-top: 5vh;
-    }
   }
 
   #home-features {
@@ -103,6 +96,7 @@ $accent: #f77a4a;
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 70vh;
 
     > h1 {
       font-size: 3rem;
@@ -145,11 +139,46 @@ $accent: #f77a4a;
   #home-faq {
     margin-top: 10vh;
     height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 120vh;
 
     > h1 {
       font-size: 2.5rem;
       text-align: center;
-      padding-bottom: 10vh;
+      padding-bottom: 6vh;
+    }
+
+    .home-faq-container {
+      display: flex;
+      flex-direction: column;
+      gap: 4vh;
+      width: 80%;
+
+      .faq-item {
+        min-height: 65px;
+
+        &:hover {
+          cursor: pointer;
+          color: $accent;
+        }
+
+        .faq-flex {
+          display: flex;
+
+          > p {
+            font-weight: 900;
+            font-size: 1.5rem;
+            margin-right: auto;
+          }
+        }
+        .faq-answer {
+          width: 75%;
+          height: 50px;
+          padding: 25px 0px 50px 0px;
+        }
+      }
     }
   }
 
@@ -172,17 +201,19 @@ $accent: #f77a4a;
       gap: 1vh;
 
       > button {
-        border: 2px solid $secondary;
-        padding: 5px 10px;
-        font-size: 1.5rem;
-        font-weight: 900;
+        border: none;
+        padding: 15px 10px;
+        font-size: 1.15rem;
+        font-weight: 600;
+        transition: box-shadow 0.15s ease-in-out;
+        background-color: $accent;
+        margin-top: 2vh;
         border-radius: 5px;
-        transition: background-color 0.2s ease-in-out;
+        color: white;
 
         &:hover {
-          background-color: $secondary;
-          color: $accent;
           cursor: pointer;
+          box-shadow: 1px 1px 10px $accent;
         }
       }
 
@@ -199,17 +230,17 @@ $accent: #f77a4a;
         border: none;
         font-size: 1.5rem;
         margin-left: 2vw;
-        border-bottom: 3px solid $secondary;
+        border-bottom: 2px solid $secondary;
 
         &:focus {
           outline: none;
-          border-color: #f77a4a;
+          border-color: $accent;
         }
       }
 
       #message {
         resize: none;
-        border: 3px solid $secondary;
+        border: 2px solid $secondary;
         border-radius: 5px;
         font-size: 1.5rem;
         font-family: "Inter";
