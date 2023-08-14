@@ -1,4 +1,4 @@
-$accent: #f77a4a;
+$accent: #5b4dbe;
 $line: #e6e6e6;
 
 .dashboard-container {
@@ -35,7 +35,7 @@ $line: #e6e6e6;
 
         &:focus {
           outline: none;
-          border-bottom: 1px solid $accent;
+          border-bottom: 2px solid $accent;
         }
       }
     }
@@ -43,11 +43,15 @@ $line: #e6e6e6;
     .sidebar-pins {
       border-bottom: 1px solid $line;
       display: flex;
+      align-items: center;
+      gap: 5px;
     }
 
     .sidebar-folders {
       .folders-flex {
         display: flex;
+        align-items: center;
+        gap: 5px;
 
         > h1 {
           font-size: 0.8rem;
@@ -56,6 +60,12 @@ $line: #e6e6e6;
 
       > button {
         border: none;
+        background: none;
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        gap: 5px;
+        margin-top: 5px;
       }
     }
   }
@@ -86,11 +96,33 @@ $line: #e6e6e6;
         font-size: 1rem;
         font-weight: 800;
         background: none;
+
+        &:hover {
+          border-color: $accent;
+          cursor: pointer;
+        }
       }
     }
 
     .main-content {
-      height: 87vh;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      margin-left: 3vw;
+
+      .content-nav {
+        display: flex;
+        align-items: center;
+        gap: 2vw;
+        margin-top: 2vh;
+        font-size: 0.75rem;
+      }
+
+      .content-grid {
+        border: 1px solid #6d6d6d;
+        height: 100vh;
+        width: 95%;
+      }
     }
   }
 }

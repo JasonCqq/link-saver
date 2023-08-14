@@ -80,16 +80,18 @@ function Home() {
     <main className="home-page">
       <nav>
         <ul className="nav-bar">
-          <li id="logo">LinkStorage</li>
+          <a href="#" id="logo">
+            LinkStorage
+          </a>
 
           <div className="nav-mid">
             <a href="#home-features">About</a>
-            <a href="#home-contact">Contact</a>
             <a href="#home-faq">FAQ</a>
+            <a href="#home-contact">Contact</a>
           </div>
 
           <div className="nav-right">
-            <a>Log in</a>
+            <Link to="login">Log in</Link>
             <Link to="register" id="getStarted">
               Get Started
             </Link>
@@ -140,8 +142,12 @@ function Home() {
         <div className="home-faq-container">
           {faqs.map((faq) => {
             return (
-              <div className="faq-item" key={uniqid()}>
-                <div className="faq-flex" onClick={() => toggleFAQ(faq.id)}>
+              <div
+                className="faq-item"
+                key={uniqid()}
+                onClick={() => toggleFAQ(faq.id)}
+              >
+                <div className="faq-flex">
                   <p>{faq.question}</p>
                   <AiOutlinePlus color={"#5b4dbe"} size={30} />
                 </div>

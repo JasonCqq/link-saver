@@ -142,7 +142,7 @@ $accent: #5b4dbe;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 120vh;
+    height: 110vh;
 
     > h1 {
       font-size: 2.5rem;
@@ -183,13 +183,13 @@ $accent: #5b4dbe;
   }
 
   #home-contact {
-    margin-top: 5vh;
     height: 60vh;
     font-size: 3rem;
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    margin-bottom: 15vh;
 
     > h1 {
       font-size: 3rem;

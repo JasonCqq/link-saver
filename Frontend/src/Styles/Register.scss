@@ -1,0 +1,99 @@
+$accent: #5b4dbe;
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 10px);
+  border-top: 10px solid $accent;
+
+  > .home-ref {
+    font-size: 3rem;
+    color: $accent;
+    margin-bottom: 10vh;
+
+    &:hover {
+      font-weight: 500;
+    }
+  }
+
+  .register-form {
+    height: 40vh;
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+
+    > h1 {
+      color: $accent;
+      text-align: center;
+      padding-bottom: 2vh;
+      font-size: 1.5rem;
+    }
+
+    > div {
+      display: flex;
+      flex-direction: column;
+
+      > label {
+        font-weight: 600;
+        padding-bottom: 10px;
+      }
+
+      > input {
+        border: 1px solid $accent;
+        border-radius: 5px;
+        font-size: 1.25rem;
+        padding: 5px;
+
+        &:focus {
+          outline: none;
+          border: 2px solid $accent;
+        }
+      }
+    }
+
+    > button {
+      border: none;
+      font-size: 0.9rem;
+      background-color: $accent;
+      padding: 10px 0;
+      border-radius: 5px;
+      margin-top: 1vh;
+      color: white;
+      transition: box-shadow 0.15s ease;
+      font-weight: bold;
+
+      &:hover {
+        cursor: pointer;
+        box-shadow: 1px 1px 10px $accent;
+      }
+    }
+  }
+
+  .google-auth {
+    border: 2px solid $accent;
+    background: none;
+    font-weight: 600;
+    padding: 10px;
+    font-size: 0.85rem;
+    width: 25vw;
+    border-radius: 5px;
+    margin-top: 2vh;
+    transition: background-color 0.15s ease-in-out;
+
+    &:hover {
+      background-color: $accent;
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+  .login-ref {
+    margin-top: 2vh;
+    &:hover {
+      color: $accent;
+    }
+  }
+}

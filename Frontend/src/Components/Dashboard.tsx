@@ -1,5 +1,6 @@
 import React from "react";
 import "../Styles/Dashboard.scss";
+
 import { RiArrowDropDownLine } from "react-icons/ri";
 import {
   AiOutlineSearch,
@@ -9,6 +10,9 @@ import {
   AiOutlineLink,
 } from "react-icons/ai";
 import { TfiLink } from "react-icons/tfi";
+import { BsGrid } from "react-icons/bs";
+import { CiGrid2H } from "react-icons/ci";
+import { FiMenu } from "react-icons/fi";
 
 function Dashboard() {
   // SET REMINDERS/NOTIFICATIONS SO USER CAN COME BACK ON RIGHT DAY
@@ -22,23 +26,23 @@ function Dashboard() {
         </div>
 
         <div className="sidebar-search">
-          <AiOutlineSearch />
+          <AiOutlineSearch color="#5b4dbe" />
           <input id="search" placeholder="Search links or folders..."></input>
         </div>
 
         <div className="sidebar-pins">
-          <AiOutlinePushpin />
+          <AiOutlinePushpin color="#5b4dbe" />
           <h1>Pinned</h1>
         </div>
 
         <div className="sidebar-folders">
           <div className="folders-flex">
-            <AiOutlineFolder />
+            <AiOutlineFolder color="#5b4dbe" />
             <h1>Folders</h1>
           </div>
 
           <button>
-            <AiOutlinePlus color="#f77a4a" size={20} />
+            <AiOutlinePlus color="#5b4dbe" size={20} />
             Create new folder
           </button>
         </div>
@@ -50,17 +54,22 @@ function Dashboard() {
         <div className="main-functions">
           <button>
             <AiOutlineLink /> Add Link{" "}
-            <AiOutlinePlus color="#f77a4a" size={20} />{" "}
           </button>
           <button>
             <TfiLink />
-            Add Multiple <AiOutlinePlus color="#f77a4a" size={20} />
+            Add Multiple
           </button>
         </div>
 
         <div className="main-content">
-          <div>GRID NAV</div>
-          <div>GRID</div>
+          <div className="content-nav">
+            <p>Recently Viewed</p>
+            <p>Filter</p>
+            <BsGrid />
+            <CiGrid2H />
+            <FiMenu />
+          </div>
+          <div className="content-grid"></div>
         </div>
       </div>
     </main>
