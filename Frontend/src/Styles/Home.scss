@@ -13,12 +13,12 @@ $accent: #f77a4a;
     width: 100%;
     padding-top: 1vh;
     padding-bottom: 1vh;
-    border-bottom: 1px solid $secondary;
 
     #logo {
       font-size: 1.2rem;
       font-weight: bold;
       margin-left: 10vw;
+      color: $accent;
     }
 
     .nav-mid {
@@ -30,6 +30,11 @@ $accent: #f77a4a;
       margin-right: auto;
       & > a {
         font-weight: 500;
+        transition: color 0.2s ease-in-out;
+
+        &:hover {
+          color: $accent;
+        }
       }
     }
 
@@ -47,10 +52,19 @@ $accent: #f77a4a;
         padding: 10px 25px;
         border-radius: 5px;
         background-color: $accent;
+
+        &:hover {
+          box-shadow: 1px 1px 20px $accent;
+        }
       }
 
       & > a {
         font-weight: 500;
+
+        &:hover {
+          color: $accent;
+          cursor: pointer;
+        }
       }
     }
   }
@@ -83,7 +97,7 @@ $accent: #f77a4a;
     }
   }
 
-  .home-features {
+  #home-features {
     margin-top: 10vh;
     height: auto;
     display: flex;
@@ -104,7 +118,7 @@ $accent: #f77a4a;
       .home-features-item {
         height: 400px;
         width: 350px;
-        border: 2px solid $secondary;
+        border: 2px solid #b6b4b4;
         border-radius: 10px;
         display: flex;
         flex-direction: column;
@@ -128,7 +142,7 @@ $accent: #f77a4a;
     }
   }
 
-  .home-faq {
+  #home-faq {
     margin-top: 10vh;
     height: auto;
 
@@ -137,38 +151,9 @@ $accent: #f77a4a;
       text-align: center;
       padding-bottom: 10vh;
     }
-
-    .landing-tutorial-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 80%;
-      margin: 0 auto;
-      .landing-tutorial-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        height: 30vh;
-
-        .landing-tutorial-item-head {
-          font-size: 3rem;
-          padding-bottom: 3vh;
-          margin-top: 2vh;
-        }
-
-        .vl {
-          background-color: $accent;
-          height: 100%;
-          width: 3px;
-          border-radius: 5px;
-          margin: 20px 0px;
-        }
-      }
-    }
   }
 
-  .home-contact {
+  #home-contact {
     margin-top: 5vh;
     height: 60vh;
     font-size: 3rem;
@@ -230,6 +215,7 @@ $accent: #f77a4a;
         font-family: "Inter";
         font-weight: 500;
         padding: 10px;
+        height: 20vh;
 
         &:focus {
           outline: none;

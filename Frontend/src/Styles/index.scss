@@ -2,6 +2,10 @@
 
 $fontColor: #091135;
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -68,6 +72,7 @@ ol {
 }
 a {
   text-decoration: none;
+  color: #091135;
 }
 
 // Small devices (landscape phones, 576px and up)

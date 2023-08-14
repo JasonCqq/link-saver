@@ -1,17 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./Styles/index.scss";
-import App from "./Components/App";
-import Home from "./Components/Home";
 import reportWebVitals from "./reportWebVitals";
+import Routeswitch from "./Components/Routeswitch";
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 root.render(
   <React.StrictMode>
-    <Home />
-  </React.StrictMode>
+    <Routeswitch />
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,0 +1,46 @@
+.dashboard-container {
+  display: flex;
+  width: 100%;
+
+  .d-sidebar {
+    width: 17.5%;
+    border-right: 1px solid #000000;
+    height: 100vh;
+    > div {
+      border-bottom: 1px solid #000000;
+      padding: 20px 10px;
+    }
+
+    > div > h1 {
+      font-size: 0.8rem;
+    }
+  }
+
+  .d-main {
+    width: 82.5%;
+
+    > div {
+      border-bottom: 1px solid black;
+    }
+
+    .main-title {
+      padding: 0px 20px;
+      display: flex;
+      height: 3vh;
+      align-items: center;
+    }
+
+    .main-functions {
+      display: flex;
+      align-items: center;
+      height: 10vh;
+
+      > button {
+      }
+    }
+
+    .main-content {
+      height: 87vh;
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import React from "react";
 import "../Styles/Home.scss";
 import { AiOutlineCheck, AiFillPicture, AiFillFilter } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -10,14 +11,16 @@ function Home() {
           <li id="logo">LinkSaver</li>
 
           <div className="nav-mid">
-            <a>About</a>
-            <a>Contact</a>
-            <a>FAQ</a>
+            <a href="#home-features">About</a>
+            <a href="#home-contact">Contact</a>
+            <a href="#home-faq">FAQ</a>
           </div>
 
           <div className="nav-right">
             <a>Log in</a>
-            <a id="getStarted">Get Started</a>
+            <Link to="register" id="getStarted">
+              Get Started
+            </Link>
           </div>
         </ul>
       </nav>
@@ -29,7 +32,7 @@ function Home() {
         <div id="placeholder"></div>
       </header>
 
-      <section className="home-features">
+      <section id="home-features">
         <h1>Why Us?</h1>
         <div className="home-features-flex">
           <div className="home-features-item">
@@ -59,13 +62,13 @@ function Home() {
         </div>
       </section>
 
-      <section className="home-faq">
+      <section id="home-faq">
         <h1>Frequently Asked Questions</h1>
 
         <div className="landing-tutorial-container"></div>
       </section>
 
-      <footer className="home-contact">
+      <footer id="home-contact">
         <h1>CONTACT</h1>
         <form className="contact-form">
           <div>
