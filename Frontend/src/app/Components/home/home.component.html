@@ -1,0 +1,117 @@
+<main class="home-page">
+  <nav>
+    <ul class="nav-bar">
+      <a href="javascript:void(0)" (click)="scroll(home)" id="logo">
+        LinkStorage
+      </a>
+
+      <div class="nav-mid">
+        <a href="javascript:void(0)" (click)="scroll(home_features)">About</a>
+        <a href="javascript:void(0)" (click)="scroll(home_faq)">FAQ</a>
+        <a href="javascript:void(0)" (click)="scroll(home_contact)">Contact</a>
+      </div>
+
+      <div class="nav-right">
+        <a routerLink="/login">Log in</a>
+        <a routerLink="/register" id="getStarted"> Get Started </a>
+      </div>
+    </ul>
+  </nav>
+
+  <header class="landing-page" #home>
+    <div class="landing-heading">
+      <section>Keep all your links in one place</section>
+    </div>
+    <p>125,258 links saved</p>
+  </header>
+
+  <section #home_features class="home_features">
+    <h1>Why Us?</h1>
+    <div class="home-features-flex">
+      <div class="home-features-item">
+        <mat-icon
+          fontIcon="filter_list"
+          style="color: #5b4dbe; transform: scale(2.5)"
+        ></mat-icon>
+        <h2>Filtering</h2>
+        <p>
+          Quickly find your links. With a few clicks, you can locate your links,
+          making it simple.
+        </p>
+      </div>
+      <div class="home-features-item">
+        <mat-icon
+          fontIcon="visibility"
+          style="color: #5b4dbe; transform: scale(2.5)"
+        ></mat-icon>
+        <h2>Visualization</h2>
+        <p>
+          Every saved link comes with a thumbnail, allowing you to identify your
+          content at a glance.
+        </p>
+      </div>
+      <div class="home-features-item">
+        <mat-icon
+          fontIcon="done"
+          style="color: #5b4dbe; transform: scale(2.5)"
+        ></mat-icon>
+        <h2>Simplified</h2>
+        <p>
+          Hassle-free link saving with our user-friendly interface, making it
+          easy to stay organized
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section #home_faq class="home_faq">
+    <h1>FAQ</h1>
+
+    <div class="home-faq-container">
+      <!--onClick={() => toggleFAQ(faq.id)}-->
+      <!-- {activeID === faq.id && (
+                <p class="faq-answer">{faq.answer}</p>
+              )} -->
+
+      <div
+        class="faq-item"
+        *ngFor="let faq of faqs"
+        (click)="toggleFAQ(faq.id)"
+      >
+        <div class="faq-flex">
+          <p>{{ faq.question }}</p>
+          <mat-icon
+            fontIcon="add"
+            style="color: #5b4dbe; transform: scale(1.25)"
+          ></mat-icon>
+        </div>
+        <p *ngIf="activeID === faq.id">{{ faq.answer }}</p>
+      </div>
+    </div>
+  </section>
+
+  <footer #home_contact class="home_contact">
+    <h1>CONTACT</h1>
+    <form class="contact-form">
+      <div>
+        <label htmlFor="name">NAME</label>
+        <input type="text" #name name="name" required />
+      </div>
+
+      <div>
+        <label htmlFor="email">EMAIL</label>
+        <input type="email" #email name="email" required />
+      </div>
+
+      <div>
+        <label htmlFor="subject">SUBJECT</label>
+        <input type="text" #subject name="subject" required />
+      </div>
+
+      <label htmlFor="message">MESSAGE</label>
+      <textarea #message name="message" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </footer>
+</main>

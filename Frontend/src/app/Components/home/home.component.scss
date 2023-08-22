@@ -72,7 +72,7 @@ $accent: #5b4dbe;
 
   .landing-page {
     width: 100%;
-    height: 70vh;
+    height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -90,7 +90,7 @@ $accent: #5b4dbe;
     }
   }
 
-  #home-features {
+  .home_features {
     margin-top: 10vh;
     height: auto;
     display: flex;
@@ -120,6 +120,7 @@ $accent: #5b4dbe;
         justify-content: center;
         padding: 30px;
         box-shadow: 15px 15px $accent;
+        gap: 1.5vh;
 
         > h2 {
           font-size: 1.5rem;
@@ -136,7 +137,7 @@ $accent: #5b4dbe;
     }
   }
 
-  #home-faq {
+  .home_faq {
     margin-top: 10vh;
     height: auto;
     display: flex;
@@ -182,7 +183,7 @@ $accent: #5b4dbe;
     }
   }
 
-  #home-contact {
+  .home_contact {
     height: 60vh;
     font-size: 3rem;
     font-weight: bold;
@@ -238,7 +239,7 @@ $accent: #5b4dbe;
         }
       }
 
-      #message {
+      > textarea {
         resize: none;
         border: 2px solid $secondary;
         border-radius: 5px;
