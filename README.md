@@ -1,1 +1,1 @@
-# code-planner
+legacy project, converted to Angular
