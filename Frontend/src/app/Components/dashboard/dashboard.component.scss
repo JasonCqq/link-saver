@@ -1,83 +1,68 @@
 $accent: #5b4dbe;
-$line: #e6e6e6;
 
 .dashboard-container {
   display: flex;
   width: 100%;
+  color: #262626;
 
   .d-sidebar {
     width: 17.5%;
-    border-right: 1px solid $line;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2vh;
+    padding: 0px 1vw;
 
     > div {
       padding: 10px 10px;
+      display: flex;
+      margin-left: 1vw;
+      gap: 0.5vw;
     }
 
     > div > h1 {
-      font-size: 0.8rem;
-    }
-
-    .sidebar-profile {
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.85rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
     }
 
     .sidebar-search {
       display: flex;
-      border-bottom: 1px solid $line;
+      border: 2px solid #cbcaca;
+      box-shadow: 1px 1px 3px #dee2e6;
+      margin-top: 5vh;
+      margin-bottom: 3vh;
+      border-radius: 10px;
+
       #search {
         border: none;
-        margin-left: 5px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        width: 75%;
 
         &:focus {
           outline: none;
-          border-bottom: 2px solid $accent;
         }
-      }
-    }
-
-    .sidebar-pins {
-      border-bottom: 1px solid $line;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .sidebar-folders {
-      .folders-flex {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-
-        > h1 {
-          font-size: 0.8rem;
-        }
-      }
-
-      > button {
-        border: none;
-        background: none;
-        display: flex;
-        align-items: center;
-        font-weight: 600;
-        gap: 5px;
-        margin-top: 5px;
       }
     }
   }
 
   .d-main {
     width: 82.5%;
+    background-color: #fcfdfd;
 
     .main-title {
       padding: 15px 20px;
       display: flex;
       align-items: center;
-      border-bottom: 1px solid $line;
+      border-bottom: 3px solid $accent;
+      width: 92.5%;
+      margin: auto;
+
+      > p {
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
     }
 
     .main-functions {
@@ -87,15 +72,19 @@ $line: #e6e6e6;
 
       > button {
         margin-left: 3vw;
-        font-size: 1.5rem;
-        border: 1px solid $line;
-        color: black;
+        font-family: "Nunito";
+        color: white;
         padding: 10px 20px;
-        height: 6vh;
-        width: 15vw;
+        height: 5vh;
+        width: 12.5vw;
         font-size: 1rem;
         font-weight: 800;
-        background: none;
+        background: #5b4dbe;
+        border: none;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
         &:hover {
           border-color: $accent;

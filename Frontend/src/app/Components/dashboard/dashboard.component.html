@@ -1,14 +1,14 @@
 <!-- SET REMINDERS/NOTIFICATIONS SO USER CAN COME BACK ON RIGHT DAY -->
 <main class="dashboard-container">
   <div class="d-sidebar">
-    <div class="sidebar-profile">
-      <p>Jason</p>
-      <mat-icon fontIcon="expand_more"></mat-icon>
-    </div>
-
     <div class="sidebar-search">
       <mat-icon fontIcon="search"></mat-icon>
-      <input id="search" placeholder="Search links or folders..." />
+      <input id="search" placeholder="Search" />
+    </div>
+
+    <div style="background-color: #5b4dbe; color: white; border-radius: 10px">
+      <mat-icon fontIcon="dashboard"></mat-icon>
+      <h1>Dashboard</h1>
     </div>
 
     <div class="sidebar-pins">
@@ -17,26 +17,33 @@
     </div>
 
     <div class="sidebar-folders">
-      <div class="folders-flex">
-        <mat-icon fontIcon="folder"></mat-icon>
-        <h1>Folders</h1>
-      </div>
+      <mat-icon fontIcon="folder"></mat-icon>
+      <h1>Folders</h1>
+    </div>
 
-      <button>
-        <mat-icon fontIcon="add"></mat-icon>
-        Create new folder
-      </button>
+    <div>
+      <mat-icon fontIcon="settings"></mat-icon>
+      <h1>Settings</h1>
     </div>
   </div>
 
   <div class="d-main">
-    <div class="main-title">Recent</div>
+    <div class="main-title">
+      <p>Recent</p>
+
+      <div class="profile">
+        <p>Jason!</p>
+      </div>
+    </div>
 
     <div class="main-functions">
-      <button><mat-icon fontIcon="add_link"></mat-icon> Add Link</button>
       <button>
-        <mat-icon fontIcon="dataset_linked"></mat-icon>
+        Add Link
+        <mat-icon fontIcon="add"></mat-icon>
+      </button>
+      <button>
         Add Multiple
+        <mat-icon fontIcon="add"></mat-icon>
       </button>
     </div>
 

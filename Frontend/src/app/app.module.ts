@@ -7,6 +7,7 @@ import { DashboardComponent } from "./Components/dashboard/dashboard.component";
 import { HomeComponent } from "./Components/home/home.component";
 import { LoginComponent } from "./Components/login/login.component";
 import { RegisterComponent } from "./Components/register/register.component";
+import { LinkComponent } from './Components/link/link.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { RegisterComponent } from "./Components/register/register.component";
     HomeComponent,
     LoginComponent,
     RegisterComponent,
+    LinkComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, MatIconModule],
   providers: [],
