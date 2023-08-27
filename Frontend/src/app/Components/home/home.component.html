@@ -87,10 +87,21 @@
 
   <footer #home_contact class="home_contact">
     <h1>CONTACT</h1>
-    <form class="contact-form">
+    <form
+      class="contact-form"
+      action="https://formsubmit.co/jason.cq.huang@gmail.com"
+      method="POST"
+    >
       <div>
         <label htmlFor="name">NAME</label>
-        <input type="text" #name name="name" required />
+        <input
+          type="text"
+          #name
+          name="name"
+          minlength="3"
+          maxlength="20"
+          required
+        />
       </div>
 
       <div>
@@ -100,11 +111,11 @@
 
       <div>
         <label htmlFor="subject">SUBJECT</label>
-        <input type="text" #subject name="subject" required />
+        <input type="text" #subject name="subject" minlength="3" required />
       </div>
 
       <label htmlFor="message">MESSAGE</label>
-      <textarea #message name="message" required></textarea>
+      <textarea #message name="message" minlength="10" required></textarea>
 
       <button type="submit">Send Message</button>
     </form>

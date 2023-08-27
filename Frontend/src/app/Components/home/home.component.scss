@@ -160,6 +160,7 @@ $accent: #5b4dbe;
 
       .faq-item {
         min-height: 65px;
+        transition: color 0.15s ease-in-out;
 
         &:hover {
           cursor: pointer;
@@ -245,7 +246,7 @@ $accent: #5b4dbe;
         border: 2px solid $secondary;
         border-radius: 5px;
         font-size: 1.5rem;
-        font-family: "Inter";
+        font-family: "Nunito";
         font-weight: 500;
         padding: 10px;
         height: 20vh;

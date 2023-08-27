@@ -1,29 +1,50 @@
 <main class="register-container">
   <a class="home-ref" routerLink="/home"> LinkStorage </a>
 
-  <form class="register-form">
+  <form
+    class="register-form"
+    [formGroup]="applyForm"
+    (submit)="submitApplication()"
+  >
     <h1>Sign Up</h1>
 
     <div>
-      <label>Username *</label>
-      <input />
+      <label for="username">Username *</label>
+
+      <input id="username" formControlName="username" />
+      <mat-error *ngIf="username?.invalid && username?.touched"
+        >Username required</mat-error
+      >
     </div>
     <div>
-      <label>Email address *</label>
-      <input />
+      <label for="email">Email address *</label>
+
+      <input id="email" formControlName="email" />
+      <mat-error *ngIf="email?.invalid && email?.touched"
+        >Invalid Email</mat-error
+      >
     </div>
 
     <div>
-      <label>Password *</label>
-      <input />
+      <label for="password">Password *</label>
+
+      <input
+        id="password"
+        type="password"
+        formControlName="password"
+        placeholder="8-20 characters"
+      />
+      <mat-error *ngIf="password?.invalid && password?.touched"
+        >Invalid Password</mat-error
+      >
     </div>
 
-    <button type="submit">Register</button>
+    <button type="submit" mat-raised-button [disabled]="applyForm.invalid">
+      Register
+    </button>
+
+    <a class="login-ref" routerLink="/login">
+      Already have an account? Log in
+    </a>
   </form>
-
-  <p>——— or ———</p>
-
-  <button class="google-auth">Continue with Google</button>
-
-  <a class="login-ref" routerLink="/login"> Already have an account? Log in </a>
 </main>

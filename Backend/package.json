@@ -7,14 +7,17 @@
     "devstart": "nodemon ./bin/www",
     "serverstart": "npm run devstart",
     "build": "npm i",
-    "prisma": "nodemon script.ts"
+    "prisma": "nodemon db.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.2.0",
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^16.3.1",
     "express": "~4.16.1",
+    "express-async-handler": "^1.2.0",
+    "express-validator": "^7.0.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
@@ -24,6 +27,7 @@
   "devDependencies": {
     "@types/node": "^20.5.6",
     "kill-port": "^2.0.1",
+    "prettier": "^3.0.2",
     "prisma": "^5.2.0",
     "ts-node": "^10.9.1"
   }

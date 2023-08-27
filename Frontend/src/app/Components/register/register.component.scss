@@ -69,29 +69,15 @@ $accent: #5b4dbe;
         cursor: pointer;
         box-shadow: 1px 1px 10px $accent;
       }
-    }
-  }
 
-  .google-auth {
-    border: 2px solid $accent;
-    background: none;
-    font-weight: 600;
-    padding: 10px;
-    font-size: 0.85rem;
-    width: 25vw;
-    border-radius: 5px;
-    margin-top: 2vh;
-    transition: background-color 0.15s ease-in-out;
-
-    &:hover {
-      background-color: $accent;
-      color: white;
-      cursor: pointer;
+      .disabled {
+        background-color: gray;
+      }
     }
   }
 
   .login-ref {
-    margin-top: 2vh;
+    margin-top: 4vh;
     &:hover {
       color: $accent;
     }
