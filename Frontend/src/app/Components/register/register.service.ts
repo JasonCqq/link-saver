@@ -10,15 +10,20 @@ export class RegisterService {
 
   private apiUrl = environment.apiUrl;
 
-  async submitApplication(username: string, email: string, password: string) {
+  // Registration & Login Form (Sends POST to /create or /login)
+  async submitApplication(
+    username: string,
+    email: string,
+    password: string,
+    action: "create" | "login",
+  ) {
     try {
       await this.http
-        .post(`${this.apiUrl}/user/create`, {
+        .post(`${this.apiUrl}/user/${action}`, {
           username: username,
           email: email,
           password: password,
         })
-
         .subscribe(
           (val) => {
             console.log("POST call successful value returned in body", val);

@@ -18,8 +18,6 @@ exports.create_user = [
     if (!errs.isEmpty()) {
       return res.json({ errors: errs.array().map((error) => error.msg) });
     } else {
-      console.log(req.body);
-
       const user = await prisma.user.create({
         data: {
           username: req.body.username,
@@ -28,10 +26,27 @@ exports.create_user = [
         },
       });
 
-      console.log(user);
       return res.json(user);
     }
   }),
 ];
 
-exports.login_user = [];
+exports.login_user = [
+  body("username").trim().escape(),
+  body("password", "Password must be between 8-20 characters")
+    .trim()
+    .isLength({ min: 8, max: 20 })
+    .escape(),
+
+  asyncHandler(async (req, res) => {
+    const errs = validationResult(req);
+
+    if (!errs.isEmpty()) {
+      return res.json({ errors: errs.array().map((error) => error.msg) });
+    } else {
+      // To Be Determined
+      // const user = await;
+      // return res.json(user);
+    }
+  }),
+];

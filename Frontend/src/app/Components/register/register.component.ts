@@ -25,6 +25,7 @@ export class RegisterComponent implements OnInit {
       this.applyForm.value.username ?? "",
       this.applyForm.value.email ?? "",
       this.applyForm.value.password ?? "",
+      "create",
     );
   }
 

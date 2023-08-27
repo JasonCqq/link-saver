@@ -234,6 +234,7 @@ $accent: #5b4dbe;
         font-size: 1.5rem;
         margin-left: 2vw;
         border-bottom: 2px solid $secondary;
+        background: none;
 
         &:focus {
           outline: none;
@@ -250,6 +251,7 @@ $accent: #5b4dbe;
         font-weight: 500;
         padding: 10px;
         height: 20vh;
+        background: none;
 
         &:focus {
           outline: none;

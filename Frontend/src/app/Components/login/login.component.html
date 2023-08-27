@@ -1,23 +1,42 @@
 <main class="register-container">
   <a class="home-ref" routerLink="/home"> LinkStorage </a>
 
-  <form class="register-form">
+  <form
+    class="login-form"
+    [formGroup]="applyLoginForm"
+    (submit)="submitLoginApplication()"
+  >
     <h1>Log in</h1>
 
     <div>
-      <label>Username *</label>
-      <input />
+      <label for="username">Username *</label>
+
+      <input id="login_username" formControlName="username" />
+      <mat-error *ngIf="username?.invalid && username?.touched"
+        >Username required</mat-error
+      >
     </div>
 
     <div>
-      <label>Password *</label>
-      <input />
+      <label for="password">Password *</label>
+
+      <input
+        id="login_password"
+        type="password"
+        formControlName="password"
+        placeholder="8-20 characters"
+      />
+      <mat-error *ngIf="password?.invalid && password?.touched"
+        >Invalid Password</mat-error
+      >
     </div>
 
-    <button type="submit">Login</button>
-  </form>
+    <button type="submit" mat-raised-button [disabled]="applyLoginForm.invalid">
+      Login
+    </button>
 
-  <a class="login-ref" routerLink="/register">
-    Dont have an account? Register
-  </a>
+    <a class="login-ref" routerLink="/register">
+      Dont have an account? Register
+    </a>
+  </form>
 </main>

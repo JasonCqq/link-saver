@@ -5,9 +5,6 @@ const userController = require("../controllers/userController");
 /* GET users listing. */
 router.post("/create", userController.create_user);
 
-router.post("/login", function (req, res, next) {
-  console.log("works!");
-  res.json({ test: "test" });
-});
+router.post("/login", userController.login_user);
 
 module.exports = router;

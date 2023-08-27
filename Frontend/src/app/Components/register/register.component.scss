@@ -18,12 +18,14 @@ $accent: #5b4dbe;
     }
   }
 
-  .register-form {
+  .register-form,
+  .login-form {
     height: 40vh;
     width: 25vw;
     display: flex;
     flex-direction: column;
     gap: 2vh;
+    margin-bottom: 20vh;
 
     > h1 {
       color: $accent;
@@ -44,8 +46,9 @@ $accent: #5b4dbe;
       > input {
         border: 1px solid $accent;
         border-radius: 5px;
-        font-size: 1.25rem;
-        padding: 5px;
+        font-size: 1.1rem;
+        padding: 10px;
+        background: none;
 
         &:focus {
           outline: none;
