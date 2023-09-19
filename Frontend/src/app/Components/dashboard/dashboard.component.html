@@ -1,51 +1,71 @@
 <!-- SET REMINDERS/NOTIFICATIONS SO USER CAN COME BACK ON RIGHT DAY -->
 <main class="dashboard-container">
   <div class="d-sidebar">
-    <div class="sidebar-search">
-      <mat-icon fontIcon="search"></mat-icon>
-      <input id="search" placeholder="Search" />
+    <div class="sidebar-profile">
+      <div class="temp-circ"></div>
+      <p>Jason</p>
     </div>
 
-    <div style="background-color: #5b4dbe; color: white; border-radius: 10px">
-      <mat-icon fontIcon="dashboard"></mat-icon>
+    <div class="sidebar-tab">
+      <mat-icon fontIcon="dashboard" class="sidebar-icon"></mat-icon>
       <h1>Dashboard</h1>
     </div>
 
-    <div class="sidebar-pins">
-      <mat-icon fontIcon="star"></mat-icon>
-      <h1>Pinned</h1>
+    <div class="sidebar-tab">
+      <mat-icon fontIcon="bookmarks" class="sidebar-icon"></mat-icon>
+      <h1>Bookmark</h1>
     </div>
 
-    <div class="sidebar-folders">
-      <mat-icon fontIcon="folder"></mat-icon>
+    <div class="sidebar-tab">
+      <mat-icon fontIcon="folder" class="sidebar-icon"></mat-icon>
       <h1>Folders</h1>
     </div>
 
-    <div>
-      <mat-icon fontIcon="settings"></mat-icon>
+    <div class="sidebar-tab">
+      <mat-icon fontIcon="upcoming" class="sidebar-icon"></mat-icon>
+      <h1>Upcoming</h1>
+    </div>
+
+    <div class="sidebar-tab">
+      <mat-icon fontIcon="delete" class="sidebar-icon"></mat-icon>
+      <h1>Trash</h1>
+    </div>
+
+    <div class="sidebar-tab sidebar-bottom">
+      <mat-icon fontIcon="logout" class="sidebar-icon"></mat-icon>
+      <h1>Logout</h1>
+    </div>
+
+    <div class="sidebar-tab" style="margin-bottom: 5vh">
+      <mat-icon fontIcon="settings" class="sidebar-icon"></mat-icon>
       <h1>Settings</h1>
     </div>
   </div>
 
   <div class="d-main">
-    <div class="main-title">
-      <p>Recent</p>
+    <nav class="main-nav">
+      <p>Dashboard</p>
 
-      <div class="profile">
-        <p>Jason!</p>
+      <div class="nav-right">
+        <div class="nav-search">
+          <mat-icon fontIcon="search" class="search-icon"></mat-icon>
+          <input id="search" placeholder="Search" />
+        </div>
+
+        <div class="nav-function">
+          <button (click)="toggleForm()">
+            <mat-icon fontIcon="add"></mat-icon>
+            Add a new link
+          </button>
+
+          <div *ngIf="createForm === true" class="create-form-overlay">
+            <div class="create-form">
+              <p (click)="toggleForm()">CLOSE</p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="main-functions">
-      <button>
-        Add Link
-        <mat-icon fontIcon="add"></mat-icon>
-      </button>
-      <button>
-        Add Multiple
-        <mat-icon fontIcon="add"></mat-icon>
-      </button>
-    </div>
+    </nav>
 
     <div class="main-content">
       <div class="content-nav">
@@ -55,7 +75,9 @@
         <mat-icon fontIcon="view_list"></mat-icon>
         <mat-icon fontIcon="view_headline"></mat-icon>
       </div>
-      <div class="content-grid"></div>
+      <div class="content-grid">
+        <app-link></app-link>
+      </div>
     </div>
   </div>
 </main>

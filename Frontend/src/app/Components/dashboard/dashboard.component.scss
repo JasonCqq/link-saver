@@ -1,4 +1,5 @@
-$accent: #5b4dbe;
+$accent: #214cd6;
+$line: #dbdada;
 
 .dashboard-container {
   display: flex;
@@ -6,89 +7,172 @@ $accent: #5b4dbe;
   color: #262626;
 
   .d-sidebar {
-    width: 17.5%;
+    width: 15vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 1.2vh;
+    gap: 1.5vh;
     padding: 0px 1vw;
+    background-color: #f7f7f7;
+    position: fixed;
+    left: 0;
 
-    > div {
-      padding: 10px 10px;
+    .sidebar-profile {
+      margin-top: 5vh;
+      display: flex;
+      align-items: center;
+      gap: 1vw;
+      padding-bottom: 3vh;
+      border-bottom: 2px solid $accent;
+      margin-bottom: 5vh;
+      margin-left: 1vw;
+
+      > .temp-circ {
+        background-color: black;
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+      }
+
+      > p {
+        font-size: 1.1rem;
+        font-weight: bold;
+      }
+    }
+
+    > .sidebar-tab {
+      padding: 7px 15px;
       display: flex;
       margin-left: 1vw;
       gap: 0.5vw;
-    }
+      border-radius: 5px;
 
-    > div > h1 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
+      &:hover {
+        background-color: $accent;
+        cursor: pointer;
 
-    .sidebar-search {
-      display: flex;
-      border: 2px solid #cbcaca;
-      box-shadow: 1px 1px 3px #dee2e6;
-      margin-top: 5vh;
-      margin-bottom: 3vh;
-      border-radius: 10px;
+        > h1 {
+          color: white;
+        }
 
-      #search {
-        border: none;
-        font-size: 0.9rem;
-        font-weight: 600;
-        width: 75%;
-
-        &:focus {
-          outline: none;
+        > .sidebar-icon {
+          color: white;
         }
       }
+    }
+
+    > .sidebar-bottom {
+      margin-top: auto;
+    }
+
+    > .sidebar-tab > h1 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: black;
+    }
+
+    > .sidebar-tab > .sidebar-icon {
+      color: $accent;
+      font-size: 1.5rem;
+
+      font-variation-settings:
+        "FILL" 0,
+        "wght" 400,
+        "GRAD" 0,
+        "opsz" 24;
     }
   }
 
   .d-main {
-    width: 82.5%;
-    background-color: #fcfdfd;
+    width: 85vw;
+    background-color: white;
+    height: auto;
+    margin-left: 15vw;
 
-    .main-title {
-      padding: 15px 20px;
+    .main-nav {
+      height: 10vh;
       display: flex;
       align-items: center;
-      border-bottom: 3px solid $accent;
-      width: 92.5%;
-      margin: auto;
+      width: 100%;
+      margin-top: 4vh;
 
       > p {
         font-size: 1.8rem;
         font-weight: 700;
-      }
-    }
-
-    .main-functions {
-      display: flex;
-      align-items: center;
-      height: 10vh;
-
-      > button {
         margin-left: 3vw;
-        font-family: "Nunito";
-        color: white;
-        padding: 10px 20px;
-        height: 5vh;
-        width: 12.5vw;
-        font-size: 1rem;
-        font-weight: 800;
-        background: #5b4dbe;
-        border: none;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+      }
 
-        &:hover {
-          border-color: $accent;
-          cursor: pointer;
+      .nav-right {
+        display: flex;
+        margin-left: auto;
+        gap: 2vw;
+        margin-right: 5vw;
+
+        > .nav-search {
+          display: flex;
+          border-radius: 5px;
+          background-color: #f0f0f0;
+          align-items: center;
+
+          .search-icon {
+            font-size: 1.5rem;
+            padding: 10px;
+          }
+
+          #search {
+            border: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            width: 75%;
+            background-color: #f0f0f0;
+            padding: 10px;
+
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+
+        > .nav-function {
+          > button {
+            font-family: "Nunito";
+            color: white;
+            padding: 10px 15px;
+            width: auto;
+            font-size: 1rem;
+            font-weight: 700;
+            background: $accent;
+            border: none;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            transition: box-shadow 0.15s ease-in-out;
+
+            &:hover {
+              cursor: pointer;
+              box-shadow: 1px 1px 5px $accent;
+            }
+          }
+
+          > .create-form-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: rgba($color: #000000, $alpha: 0.3);
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            > .create-form {
+              background-color: white;
+              height: 60vh;
+              width: 30vw;
+              border-radius: 10px;
+            }
+          }
         }
       }
     }
@@ -108,8 +192,7 @@ $accent: #5b4dbe;
       }
 
       .content-grid {
-        border: 1px solid #6d6d6d;
-        height: 100vh;
+        height: auto;
         width: 95%;
       }
     }

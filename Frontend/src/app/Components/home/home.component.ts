@@ -8,9 +8,11 @@ import { Component } from "@angular/core";
 export class HomeComponent {
   // Toggle FAQ
   activeID: number = 0;
+
   toggleFAQ(id: number): void {
     this.activeID = this.activeID === id ? 0 : id;
   }
+
   faqs = [
     {
       id: 1,
