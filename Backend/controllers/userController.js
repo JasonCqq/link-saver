@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
-// const bcrypt = require("bcrypt");
-// const passport = require("passport");
+const bcrypt = require("bcrypt");
+const passport = require("passport");
 const prisma = require("../prisma/prismaClient");
 
 exports.create_user = [
@@ -18,15 +18,41 @@ exports.create_user = [
     if (!errs.isEmpty()) {
       return res.json({ errors: errs.array().map((error) => error.msg) });
     } else {
-      const user = await prisma.user.create({
-        data: {
-          username: req.body.username,
+      // Checks for existing users
+      const existCheck = await prisma.user.findUnique({
+        where: {
           email: req.body.email,
-          password: req.body.password,
+          username: req.body.username,
         },
       });
 
-      return res.json(user);
+      if (existCheck) {
+        return res.json({ errors: "User already exists" });
+      }
+
+      // Hash Password
+      bcrypt.hash(req.body.password, 10, async (err, hashedPass) => {
+        if (err) {
+          return res.status(500).json({
+            error: "Error Hashing Password. (Bcrypt Error)",
+            oldData: {
+              username: req.body.username,
+              email: req.body.email,
+              password: req.body.password,
+            },
+          });
+        }
+
+        const user = await prisma.user.create({
+          data: {
+            username: req.body.username,
+            email: req.body.email,
+            password: hashedPass,
+          },
+        });
+
+        return res.json(user);
+      });
     }
   }),
 ];
@@ -43,10 +69,23 @@ exports.login_user = [
 
     if (!errs.isEmpty()) {
       return res.json({ errors: errs.array().map((error) => error.msg) });
-    } else {
-      // To Be Determined
-      // const user = await;
-      // return res.json(user);
     }
+
+    passport.authenticate("local", (err, user, info) => {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        return res.json({ success: false, message: info.message });
+      }
+
+      // const userData = {
+      //   id: user.id,
+      //   username: user.username,
+      //   email: user.email,
+      // };
+
+      return res.json({ success: true, user: user });
+    })(req, res, next);
   }),
 ];

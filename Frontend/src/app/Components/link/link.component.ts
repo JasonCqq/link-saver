@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-link',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./link.component.scss']
 })
 export class LinkComponent {
-
+  @Input() itemData: any;
 }

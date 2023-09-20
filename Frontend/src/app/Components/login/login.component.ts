@@ -22,8 +22,8 @@ export class LoginComponent implements OnInit {
   submitLoginApplication(): void {
     this.registerService.submitApplication(
       this.applyLoginForm.value.username ?? "",
-      this.applyLoginForm.value.password ?? "",
       "",
+      this.applyLoginForm.value.password ?? "",
       "login",
     );
   }
