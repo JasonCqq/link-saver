@@ -1,10 +1,9 @@
-$accent: #214cd6;
-$line: #dbdada;
+@import "../../../styles.scss";
 
 .dashboard-container {
   display: flex;
   width: 100%;
-  color: #262626;
+  color: $text;
 
   .d-sidebar {
     width: 15vw;
@@ -13,26 +12,21 @@ $line: #dbdada;
     flex-direction: column;
     gap: 1.5vh;
     padding: 0px 1vw;
-    background-color: #f7f7f7;
+    background-color: $background;
     position: fixed;
     left: 0;
+    border-right: 2px solid #171f2c;
 
     .sidebar-profile {
       margin-top: 5vh;
       display: flex;
       align-items: center;
       gap: 1vw;
-      padding-bottom: 3vh;
+      padding-bottom: 2vh;
       border-bottom: 2px solid $accent;
       margin-bottom: 5vh;
       margin-left: 1vw;
-
-      > .temp-circ {
-        background-color: black;
-        width: 50px;
-        height: 50px;
-        border-radius: 25px;
-      }
+      justify-content: center;
 
       > p {
         font-size: 1.1rem;
@@ -46,17 +40,14 @@ $line: #dbdada;
       margin-left: 1vw;
       gap: 0.5vw;
       border-radius: 5px;
+      transition: background-color 0.05s ease-in-out;
 
       &:hover {
         background-color: $accent;
         cursor: pointer;
 
-        > h1 {
-          color: white;
-        }
-
         > .sidebar-icon {
-          color: white;
+          color: $text;
         }
       }
     }
@@ -69,7 +60,7 @@ $line: #dbdada;
       font-size: 1.1rem;
       font-weight: 700;
       letter-spacing: 0.5px;
-      color: black;
+      color: $text;
     }
 
     > .sidebar-tab > .sidebar-icon {
@@ -86,8 +77,9 @@ $line: #dbdada;
 
   .d-main {
     width: 85vw;
-    background-color: white;
-    height: auto;
+    background-color: $background;
+    //change to auto later
+    height: 100vh;
     margin-left: 15vw;
 
     .main-nav {
@@ -95,7 +87,7 @@ $line: #dbdada;
       display: flex;
       align-items: center;
       width: 100%;
-      margin-top: 4vh;
+      border-bottom: 2px solid #171f2c;
 
       > p {
         font-size: 1.8rem;
@@ -112,7 +104,7 @@ $line: #dbdada;
         > .nav-search {
           display: flex;
           border-radius: 5px;
-          background-color: #f0f0f0;
+          border: 2px solid $accent;
           align-items: center;
 
           .search-icon {
@@ -125,8 +117,8 @@ $line: #dbdada;
             font-size: 0.9rem;
             font-weight: 600;
             width: 75%;
-            background-color: #f0f0f0;
             padding: 10px;
+            background-color: $background;
 
             &:focus {
               outline: none;
@@ -138,7 +130,7 @@ $line: #dbdada;
           > button {
             font-family: "Nunito";
             color: white;
-            padding: 10px 15px;
+            padding: 12px 17px;
             width: auto;
             font-size: 1rem;
             font-weight: 700;
@@ -159,7 +151,7 @@ $line: #dbdada;
             position: fixed;
             top: 0;
             left: 0;
-            background-color: rgba($color: #000000, $alpha: 0.3);
+            background-color: rgba($color: #000000, $alpha: 0.2);
             height: 100vh;
             width: 100vw;
             display: flex;
@@ -167,7 +159,7 @@ $line: #dbdada;
             justify-content: center;
 
             > .create-form {
-              background-color: white;
+              background-color: $background;
               height: 60vh;
               width: 30vw;
               border-radius: 10px;
@@ -182,13 +174,15 @@ $line: #dbdada;
       display: flex;
       flex-direction: column;
       margin-left: 3vw;
+      background-color: $background;
 
       .content-nav {
         display: flex;
         align-items: center;
-        gap: 2vw;
+        gap: 1vw;
         margin-top: 2vh;
         font-size: 0.75rem;
+        height: 5vh;
       }
 
       .content-grid {

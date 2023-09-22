@@ -34,7 +34,10 @@ $Frontend-theme: mat.define-light-theme(
 // that you are using.
 @include mat.all-component-themes($Frontend-theme);
 
-$fontColor: #091135;
+$secondary: #6569ef;
+$accent: #6569ef;
+$background: #1e2633;
+$text: white;
 
 html {
   scroll-behavior: smooth;
@@ -59,7 +62,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: $fontColor;
+  color: $text;
 }
 
 code {
@@ -72,12 +75,12 @@ code {
   width: 15px;
 }
 ::-webkit-scrollbar-track {
-  background: white;
+  background: #1e2633;
 }
 ::-webkit-scrollbar-thumb {
-  background: black;
+  background: $accent;
   &:hover {
-    background: #3e3e3e;
+    background: #4c4fb8;
   }
 }
 
@@ -105,7 +108,10 @@ ol {
 }
 a {
   text-decoration: none;
-  color: #091135;
+  color: $text;
+}
+input {
+  color: $text;
 }
 
 html,

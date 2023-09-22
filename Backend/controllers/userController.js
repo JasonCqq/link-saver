@@ -64,28 +64,41 @@ exports.login_user = [
     .isLength({ min: 8, max: 20 })
     .escape(),
 
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res, next) => {
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
       return res.json({ errors: errs.array().map((error) => error.msg) });
     }
 
-    passport.authenticate("local", (err, user, info) => {
-      if (err) {
-        return next(err);
-      }
-      if (!user) {
-        return res.json({ success: false, message: info.message });
-      }
+    try {
+      passport.authenticate("local", (err, user, info) => {
+        if (err) {
+          return next(err);
+        }
+        if (!user) {
+          return res.json({ success: false, message: info.message });
+        } else {
+          const userData = {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+          };
 
-      // const userData = {
-      //   id: user.id,
-      //   username: user.username,
-      //   email: user.email,
-      // };
+          console.log(userData);
 
-      return res.json({ success: true, user: user });
-    })(req, res, next);
+          return res.json({ success: true, user: userData });
+        }
+      })(req, res, next);
+    } catch (err) {
+      console.log(err);
+    }
   }),
 ];
+
+// Logout function, uncomment after implementing cookie-session
+
+// exports.logout_user = asyncHandler(async (req, res) => {
+//   req.session = null;
+//   res.json({success: true, message: "User session deleted"});
+// })
