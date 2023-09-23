@@ -1,0 +1,36 @@
+<form>
+  <h1>Add a link</h1>
+
+  <div>
+    <label for="title">Title</label>
+    <input #title formControlName="title" />
+  </div>
+
+  <div>
+    <label for="url">URL</label>
+    <input #url formControlName="url" />
+  </div>
+
+  <!--Maybe put this to next page of form-->
+  <div>
+    <label for="thumbnail">Thumbnail</label>
+    <input #thumbnail formControlName="thumbnail" />
+  </div>
+
+  <div>
+    <label for="folder">Folder</label>
+    <input #folder formControlName="folder" />
+  </div>
+
+  <div>
+    <label for="bookmark">Bookmark</label>
+    <input #bookmark formControlName="bookmark" />
+  </div>
+
+  <div>
+    <label for="reminder">Reminder</label>
+    <input #reminder formControlName="reminder" />
+  </div>
+
+  <button type="submit">Next</button>
+</form>

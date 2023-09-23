@@ -1,10 +1,10 @@
 import { Component, Input } from "@angular/core";
-import { LinkService } from "./link.service";
+import { LinkService } from "./link-item.service";
 
 @Component({
-  selector: "app-link",
-  templateUrl: "./link.component.html",
-  styleUrls: ["./link.component.scss"],
+  selector: "app-link-item",
+  templateUrl: "./link-item.component.html",
+  styleUrls: ["./link-item.component.scss"],
 })
 export class LinkComponent {
   constructor(private linkService: LinkService) {}

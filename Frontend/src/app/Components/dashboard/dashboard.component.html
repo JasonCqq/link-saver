@@ -65,6 +65,7 @@
           <div *ngIf="createForm === true" class="create-form-overlay">
             <div class="create-form">
               <p (click)="toggleForm()">CLOSE</p>
+              <app-link-form></app-link-form>
             </div>
           </div>
         </div>
@@ -80,7 +81,7 @@
         <mat-icon fontIcon="view_headline"></mat-icon>
       </div>
       <div class="content-grid">
-        <app-link></app-link>
+        <app-link-item></app-link-item>
       </div>
     </div>
   </div>

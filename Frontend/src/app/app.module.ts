@@ -13,7 +13,12 @@ import { DashboardComponent } from "./Components/dashboard/dashboard.component";
 import { HomeComponent } from "./Components/home/home.component";
 import { LoginComponent } from "./Components/login/login.component";
 import { RegisterComponent } from "./Components/register/register.component";
-import { LinkComponent } from "./Components/link/link.component";
+import { LinkComponent } from "./Components/link-item/link-item.component";
+import { BookmarksComponent } from "./Components/bookmarks/bookmarks.component";
+import { TrashbinComponent } from './Components/trashbin/trashbin.component';
+import { SettingsComponent } from './Components/settings/settings.component';
+import { UpcomingComponent } from './Components/upcoming/upcoming.component';
+import { LinkFormComponent } from './Components/link-form/link-form.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +28,11 @@ import { LinkComponent } from "./Components/link/link.component";
     LoginComponent,
     LinkComponent,
     RegisterComponent,
+    BookmarksComponent,
+    TrashbinComponent,
+    SettingsComponent,
+    UpcomingComponent,
+    LinkFormComponent,
   ],
   imports: [
     BrowserModule,
