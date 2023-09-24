@@ -1,4 +1,4 @@
-<main class="register-container">
+<main class="register-container" *ngIf="!user">
   <a class="home-ref" routerLink="/home"> LinkStorage </a>
 
   <form
@@ -40,7 +40,5 @@
     </button>
 
     <a class="login-ref" routerLink="/register"> Register for an account </a>
-
-    <p>Forgot Username or Password</p>
   </form>
 </main>

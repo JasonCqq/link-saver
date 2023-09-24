@@ -1,8 +1,7 @@
-<!-- SET REMINDERS/NOTIFICATIONS SO USER CAN COME BACK ON RIGHT DAY -->
-<main class="dashboard-container">
+<main class="dashboard-container" *ngIf="user">
   <div class="d-sidebar">
-    <div class="sidebar-profile">
-      <p>Welcome, Jason</p>
+    <div class="sidebar-profile" *ngIf="user">
+      <p *ngIf="user">Welcome, {{ user.username }}</p>
     </div>
 
     <div class="sidebar-tab">
@@ -30,12 +29,12 @@
       <h1>Trash</h1>
     </div>
 
-    <div class="sidebar-tab sidebar-bottom">
+    <div class="sidebar-tab sidebar-bottom" (click)="logOut()">
       <mat-icon fontIcon="logout" class="sidebar-icon"></mat-icon>
       <h1>Logout</h1>
     </div>
 
-    <a href="/" class="sidebar-tab">
+    <a routerLink="/" class="sidebar-tab">
       <mat-icon fontIcon="home" class="sidebar-icon"></mat-icon>
       <h1>Home</h1>
     </a>

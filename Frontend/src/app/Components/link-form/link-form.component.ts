@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { LinkFormService } from "./link-form.service";
+import { UserService } from "../user/user.service";
 
 @Component({
   selector: "app-link-form",
@@ -8,7 +9,12 @@ import { LinkFormService } from "./link-form.service";
   styleUrls: ["./link-form.component.scss"],
 })
 export class LinkFormComponent implements OnInit {
-  constructor(private linkFormService: LinkFormService) {}
+  constructor(
+    private linkFormService: LinkFormService,
+    private userService: UserService,
+  ) {}
+
+  user: any;
 
   linkForm = new FormGroup({
     title: new FormControl(""),
@@ -32,6 +38,7 @@ export class LinkFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.linkForm.valueChanges.subscribe();
+    this.user = this.userService.getUser();
   }
 
   get title() {

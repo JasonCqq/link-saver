@@ -7,6 +7,8 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
 
+const session = require("express-session");
+
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
@@ -24,6 +26,15 @@ app.use(
     origin: `${process.env.FRONT_END}`,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
+  }),
+);
+
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: true },
   }),
 );
 
@@ -67,7 +78,7 @@ passport.deserializeUser(async function (id, done) {
 });
 
 app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.session());
 
 app.use(logger("dev"));
 app.use(express.json());

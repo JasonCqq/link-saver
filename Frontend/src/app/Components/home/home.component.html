@@ -12,8 +12,11 @@
       </div>
 
       <div class="nav-right">
-        <a routerLink="/login">Log in</a>
-        <a routerLink="/register" id="getStarted"> Get Started </a>
+        <a routerLink="/login" *ngIf="!user">Log in</a>
+        <a routerLink="/register" *ngIf="!user" class="nav-button">
+          Get Started
+        </a>
+        <a routerLink="/dashboard" *ngIf="user" class="nav-button">Dashboard</a>
       </div>
     </ul>
   </nav>

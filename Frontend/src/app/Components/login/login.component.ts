@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { RegisterService } from "../register/register.service";
+import { UserService } from "../user/user.service";
 
 @Component({
   selector: "app-login",
@@ -8,8 +8,16 @@ import { RegisterService } from "../register/register.service";
   styleUrls: ["../register/register.component.scss"],
 })
 export class LoginComponent implements OnInit {
-  constructor(private registerService: RegisterService) {}
+  // Checks for user
+  constructor(private userService: UserService) {}
+  user: any;
 
+  ngOnInit(): void {
+    this.applyLoginForm.valueChanges.subscribe();
+    this.user = this.userService.getUser();
+  }
+
+  // Login FormGroup
   applyLoginForm = new FormGroup({
     username: new FormControl("", [Validators.required]),
     password: new FormControl("", [
@@ -19,17 +27,14 @@ export class LoginComponent implements OnInit {
     ]),
   });
 
+  // Submit Login Form
   submitLoginApplication(): void {
-    this.registerService.submitApplication(
+    this.userService.submitApplication(
       this.applyLoginForm.value.username ?? "",
       "",
       this.applyLoginForm.value.password ?? "",
       "login",
     );
-  }
-
-  ngOnInit(): void {
-    this.applyLoginForm.valueChanges.subscribe();
   }
 
   get username() {

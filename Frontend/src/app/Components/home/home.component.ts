@@ -1,11 +1,20 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { UserService } from "../user/user.service";
 
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  constructor(private userService: UserService) {}
+
+  user: any;
+
+  ngOnInit() {
+    this.user = this.userService.getUser();
+  }
+
   // Toggle FAQ
   activeID: number = 0;
 

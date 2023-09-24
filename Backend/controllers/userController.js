@@ -85,9 +85,9 @@ exports.login_user = [
             email: user.email,
           };
 
-          console.log(userData);
+          req.session.user = userData;
 
-          return res.json({ success: true, user: userData });
+          return res.json({ user: req.session.user });
         }
       })(req, res, next);
     } catch (err) {
@@ -96,9 +96,7 @@ exports.login_user = [
   }),
 ];
 
-// Logout function, uncomment after implementing cookie-session
-
-// exports.logout_user = asyncHandler(async (req, res) => {
-//   req.session = null;
-//   res.json({success: true, message: "User session deleted"});
-// })
+exports.logout_user = asyncHandler(async (req, res) => {
+  req.session = null;
+  res.json({ success: true, message: "User session deleted" });
+});
