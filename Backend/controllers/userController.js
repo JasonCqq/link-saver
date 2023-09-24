@@ -19,7 +19,7 @@ exports.create_user = [
       return res.json({ errors: errs.array().map((error) => error.msg) });
     } else {
       // Checks for existing users
-      const existCheck = await prisma.user.findUnique({
+      const existCheck = await prisma.User.findUnique({
         where: {
           email: req.body.email,
           username: req.body.username,
@@ -43,7 +43,7 @@ exports.create_user = [
           });
         }
 
-        const user = await prisma.user.create({
+        const user = await prisma.User.create({
           data: {
             username: req.body.username,
             email: req.body.email,

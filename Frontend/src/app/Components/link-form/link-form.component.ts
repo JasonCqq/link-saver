@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup } from "@angular/forms";
 import { LinkFormService } from "./link-form.service";
 
 @Component({
@@ -7,7 +7,7 @@ import { LinkFormService } from "./link-form.service";
   templateUrl: "./link-form.component.html",
   styleUrls: ["./link-form.component.scss"],
 })
-export class LinkFormComponent {
+export class LinkFormComponent implements OnInit {
   constructor(private linkFormService: LinkFormService) {}
 
   linkForm = new FormGroup({
@@ -15,20 +15,18 @@ export class LinkFormComponent {
     url: new FormControl(""),
     thumbnail: new FormControl(""),
     folder: new FormControl(""),
-    bookmark: new FormControl(),
-    reminder: new FormControl(),
+    bookmarked: new FormControl(false),
+    remind: new FormControl(),
   });
 
   submitForm(): void {
-    // const currentDate = new Date();
-
     this.linkFormService.submitLinkForm(
       this.linkForm.value.title ?? "",
       this.linkForm.value.url ?? "",
       this.linkForm.value.thumbnail ?? "",
       this.linkForm.value.folder ?? "",
-      this.linkForm.value.bookmark ?? false,
-      this.linkForm.value.reminder,
+      this.linkForm.value.bookmarked ?? false,
+      this.linkForm.value.remind,
     );
   }
 
@@ -39,24 +37,19 @@ export class LinkFormComponent {
   get title() {
     return this.linkForm.get("title");
   }
-
   get url() {
     return this.linkForm.get("url");
   }
-
   get thumbnail() {
     return this.linkForm.get("thumbnail");
   }
-
   get folder() {
     return this.linkForm.get("folder");
   }
-
-  get bookmark() {
+  get bookmarked() {
     return this.linkForm.get("bookmark");
   }
-
-  get reminder() {
-    return this.linkForm.get("reminder");
+  get remind() {
+    return this.linkForm.get("remind");
   }
 }

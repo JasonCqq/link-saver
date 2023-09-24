@@ -10,24 +10,23 @@ export class LinkFormService {
 
   private apiUrl = environment.apiUrl;
 
-  // Registration & Login Form (Sends POST to /create or /login)
   async submitLinkForm(
     title: string,
     url: string,
     thumbnail: string,
     folder: string,
-    bookmark: boolean,
-    reminder: Date,
+    bookmarked: boolean,
+    remind: Date,
   ) {
     try {
       await this.http
-        .post(`${this.apiUrl}/link/`, {
+        .post(`${this.apiUrl}/link/create`, {
           title: title,
           url: url,
           thumbnail: thumbnail,
           folder: folder,
-          bookmark: bookmark,
-          reminder: reminder,
+          bookmarked: bookmarked,
+          remind: remind,
         })
         .subscribe(
           (val) => {

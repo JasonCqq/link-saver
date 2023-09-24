@@ -1,21 +1,23 @@
-<form>
+<form class="add-link-form" [formGroup]="linkForm" (submit)="submitForm()">
   <h1>Add a link</h1>
 
   <div>
-    <label for="title">Title</label>
-    <input #title formControlName="title" />
+    <mat-form-field appearance="outline">
+      <mat-label for="title">Title</mat-label>
+      <input matInput type="text" #title formControlName="title" />
+    </mat-form-field>
   </div>
 
   <div>
     <label for="url">URL</label>
-    <input #url formControlName="url" />
+    <input type="text" #url formControlName="url" />
   </div>
 
   <!--Maybe put this to next page of form-->
-  <div>
+  <!-- <div>
     <label for="thumbnail">Thumbnail</label>
     <input #thumbnail formControlName="thumbnail" />
-  </div>
+  </div> -->
 
   <div>
     <label for="folder">Folder</label>
@@ -24,12 +26,12 @@
 
   <div>
     <label for="bookmark">Bookmark</label>
-    <input #bookmark formControlName="bookmark" />
+    <input type="checkbox" #bookmarked formControlName="bookmarked" />
   </div>
 
   <div>
-    <label for="reminder">Reminder</label>
-    <input #reminder formControlName="reminder" />
+    <label for="remind">Remind Me</label>
+    <input type="date" #remind formControlName="remind" />
   </div>
 
   <button type="submit">Next</button>

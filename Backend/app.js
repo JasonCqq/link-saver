@@ -31,7 +31,7 @@ app.use(
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
-      const user = await prisma.user.findUnique({
+      const user = await prisma.User.findUnique({
         where: { username: username },
       });
       if (!user) {
@@ -57,7 +57,7 @@ passport.serializeUser(function (user, done) {
 });
 passport.deserializeUser(async function (id, done) {
   try {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.User.findUnique({
       where: { id: id },
     });
     done(null, user);

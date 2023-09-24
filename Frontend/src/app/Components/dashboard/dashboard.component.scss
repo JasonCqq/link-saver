@@ -150,7 +150,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            background-color: rgba($color: #000000, $alpha: 0.2);
+            background-color: rgba($color: #000000, $alpha: 0.6);
             height: 100vh;
             width: 100vw;
             display: flex;
@@ -159,9 +159,18 @@
 
             > .create-form {
               background-color: $background;
-              height: 60vh;
-              width: 30vw;
+              height: 75vh;
+              width: 50vw;
               border-radius: 10px;
+
+              > .create-form-close {
+                font-size: 1.75rem;
+                margin: 15px;
+                &:hover {
+                  cursor: pointer;
+                  color: $accent;
+                }
+              }
             }
           }
         }

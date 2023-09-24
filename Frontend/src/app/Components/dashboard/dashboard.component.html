@@ -12,7 +12,7 @@
 
     <div class="sidebar-tab">
       <mat-icon fontIcon="bookmarks" class="sidebar-icon"></mat-icon>
-      <h1>Bookmark</h1>
+      <h1>Bookmarks</h1>
     </div>
 
     <div class="sidebar-tab">
@@ -64,7 +64,11 @@
 
           <div *ngIf="createForm === true" class="create-form-overlay">
             <div class="create-form">
-              <p (click)="toggleForm()">CLOSE</p>
+              <mat-icon
+                fontIcon="close"
+                (click)="toggleForm()"
+                class="create-form-close"
+              ></mat-icon>
               <app-link-form></app-link-form>
             </div>
           </div>

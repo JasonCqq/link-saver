@@ -1,2 +1,8 @@
 During registration remind user that email has to end with .com
 Add success messages after authentication/registration
+
+Changed captilization of "prisma.user.create to primsa.User.create
+if something doesn't work in backend, try fixing
+
+Add prisma.$disconnect to database operations
+Remove option "User" and "Folder" in Schema once finished testing
