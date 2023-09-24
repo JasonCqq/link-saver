@@ -8,6 +8,9 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatNativeDateModule } from "@angular/material/core";
 
 import { AppComponent } from "./app.component";
 import { DashboardComponent } from "./Components/dashboard/dashboard.component";
@@ -45,6 +48,9 @@ import { LinkFormComponent } from "./Components/link-form/link-form.component";
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDatepickerModule,
+    MatCheckboxModule,
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

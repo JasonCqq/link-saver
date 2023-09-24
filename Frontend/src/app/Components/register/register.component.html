@@ -8,36 +8,34 @@
   >
     <h1>Sign Up</h1>
 
-    <div>
-      <label for="username">Username *</label>
-
-      <input id="username" formControlName="username" />
+    <mat-form-field appearance="outline">
+      <mat-label for="username">Username</mat-label>
+      <input matInput type="text" id="username" formControlName="username" />
       <mat-error *ngIf="username?.invalid && username?.touched"
         >Username required</mat-error
       >
-    </div>
-    <div>
-      <label for="email">Email address *</label>
+    </mat-form-field>
 
-      <input id="email" formControlName="email" />
+    <mat-form-field appearance="outline">
+      <mat-label for="email">Email address</mat-label>
+      <input matInput type="text" id="email" formControlName="email" />
       <mat-error *ngIf="email?.invalid && email?.touched"
         >Invalid Email</mat-error
       >
-    </div>
+    </mat-form-field>
 
-    <div>
-      <label for="password">Password *</label>
-
+    <mat-form-field appearance="outline">
+      <mat-label for="password">Password (8-20 characters)</mat-label>
       <input
+        matInput
         id="password"
         type="password"
         formControlName="password"
-        placeholder="8-20 characters"
       />
       <mat-error *ngIf="password?.invalid && password?.touched"
         >Invalid Password</mat-error
       >
-    </div>
+    </mat-form-field>
 
     <button type="submit" mat-raised-button [disabled]="applyForm.invalid">
       Register

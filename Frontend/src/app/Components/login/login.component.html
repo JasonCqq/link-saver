@@ -8,28 +8,32 @@
   >
     <h1>Log in</h1>
 
-    <div>
-      <label for="username">Username *</label>
-
-      <input id="login_username" formControlName="username" />
+    <mat-form-field appearance="outline">
+      <mat-label for="username">Username</mat-label>
+      <input
+        matInput
+        type="text"
+        id="login_username"
+        formControlName="username"
+      />
       <mat-error *ngIf="username?.invalid && username?.touched"
         >Username required</mat-error
       >
-    </div>
+    </mat-form-field>
 
-    <div>
-      <label for="password">Password *</label>
+    <mat-form-field appearance="outline">
+      <mat-label for="password">Password (8-20 characters)</mat-label>
 
       <input
+        matInput
         id="login_password"
         type="password"
         formControlName="password"
-        placeholder="8-20 characters"
       />
       <mat-error *ngIf="password?.invalid && password?.touched"
         >Invalid Password</mat-error
       >
-    </div>
+    </mat-form-field>
 
     <button type="submit" mat-raised-button [disabled]="applyLoginForm.invalid">
       Login

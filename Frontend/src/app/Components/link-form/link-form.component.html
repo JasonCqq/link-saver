@@ -1,17 +1,15 @@
 <form class="add-link-form" [formGroup]="linkForm" (submit)="submitForm()">
   <h1>Add a link</h1>
 
-  <div>
-    <mat-form-field appearance="outline">
-      <mat-label for="title">Title</mat-label>
-      <input matInput type="text" #title formControlName="title" />
-    </mat-form-field>
-  </div>
+  <mat-form-field appearance="outline">
+    <mat-label for="title">Title *</mat-label>
+    <input matInput type="text" #title formControlName="title" />
+  </mat-form-field>
 
-  <div>
-    <label for="url">URL</label>
-    <input type="text" #url formControlName="url" />
-  </div>
+  <mat-form-field appearance="outline">
+    <mat-label for="url">URL *</mat-label>
+    <input matInput type="text" #url formControlName="url" />
+  </mat-form-field>
 
   <!--Maybe put this to next page of form-->
   <!-- <div>
@@ -19,20 +17,21 @@
     <input #thumbnail formControlName="thumbnail" />
   </div> -->
 
-  <div>
-    <label for="folder">Folder</label>
-    <input #folder formControlName="folder" />
-  </div>
+  <mat-form-field appearance="outline">
+    <mat-label for="folder">Folder</mat-label>
+    <input matInput type="text" #folder formControlName="folder" />
+  </mat-form-field>
 
-  <div>
-    <label for="bookmark">Bookmark</label>
-    <input type="checkbox" #bookmarked formControlName="bookmarked" />
-  </div>
+  <p>Remind me on</p>
+  <mat-form-field>
+    <input #remind formControlName="remind" matInput [matDatepicker]="picker" />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
 
-  <div>
-    <label for="remind">Remind Me</label>
-    <input type="date" #remind formControlName="remind" />
-  </div>
+  <mat-checkbox #bookmarked formControlName="bookmarked">
+    Bookmark
+  </mat-checkbox>
 
   <button type="submit">Next</button>
 </form>
