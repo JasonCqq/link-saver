@@ -38,8 +38,13 @@ $Frontend-theme: mat.define-light-theme(
   color: gray !important;
 }
 
+// Checkbox
 ::ng-deep {
   .mat-mdc-checkbox .mdc-form-field {
+    .mat-mdc-floating-label.mdc-floating-label {
+      color: gray !important;
+    }
+
     color: white !important;
   }
 
@@ -48,17 +53,21 @@ $Frontend-theme: mat.define-light-theme(
     padding: 5px;
   }
 }
-
+// Date picker
 ::ng-deep {
   .mdc-text-field--filled:not(.mdc-text-field--disabled) {
     background-color: transparent !important;
   }
   .mdc-line-ripple::before {
     border-bottom-color: $accent !important;
+    color: white !important;
   }
-
   .mat-mdc-icon-button {
     color: $accent !important;
+  }
+  .mdc-text-field--filled:not(.mdc-text-field--disabled)
+    .mdc-text-field__input {
+    color: white !important;
   }
 }
 

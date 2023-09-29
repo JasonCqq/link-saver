@@ -17,15 +17,17 @@ exports.create_link = [
       return res.json({ errors: errs.array().map((err) => err.msg) });
     } else {
       try {
-        const date = new Date();
+        // let isBookmarked;
+        // req.body.bookmarked === "true"
+        //   ? (isBookmarked = true)
+        //   : (isBookmarked = false);
 
         const link = await prisma.Link.create({
           data: {
             url: req.body.url,
             title: req.body.title,
-            bookmarked: false,
+            bookmarked: JSON.parse(req.body.bookmarked),
             thumbnail: req.body.thumbnail,
-            remind: date,
           },
         });
         return res.json({ success: true });
@@ -35,3 +37,11 @@ exports.create_link = [
     }
   }),
 ];
+
+exports.get_links = asyncHandler(async (req, res) => {
+  const links = await prisma.Link.findMany();
+
+  console.log(links);
+
+  res.json({ links: links });
+});

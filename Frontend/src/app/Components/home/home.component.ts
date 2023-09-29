@@ -7,17 +7,15 @@ import { UserService } from "../user/user.service";
   styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
+  // Checks for user
   constructor(private userService: UserService) {}
-
   user: any;
-
   ngOnInit() {
     this.user = this.userService.getUser();
   }
 
   // Toggle FAQ
   activeID: number = 0;
-
   toggleFAQ(id: number): void {
     this.activeID = this.activeID === id ? 0 : id;
   }

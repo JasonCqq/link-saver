@@ -1,4 +1,4 @@
-@import "../../../styles.scss";
+@import "../../../../styles.scss";
 
 .dashboard-container {
   display: flex;
@@ -31,6 +31,13 @@
       > p {
         font-size: 1.1rem;
         font-weight: bold;
+      }
+    }
+
+    > .active {
+      background-color: $accent;
+      > .sidebar-icon {
+        color: $text !important;
       }
     }
 
@@ -159,7 +166,8 @@
 
             > .create-form {
               background-color: $background;
-              height: 75vh;
+              height: auto;
+              padding: 0 0 10vh 0;
               width: 35vw;
               border-radius: 10px;
 

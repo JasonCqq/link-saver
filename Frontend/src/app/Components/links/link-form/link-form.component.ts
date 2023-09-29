@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { LinkFormService } from "./link-form.service";
-import { UserService } from "../user/user.service";
+import { UserService } from "../../user/user.service";
 
 @Component({
   selector: "app-link-form",
@@ -17,11 +17,11 @@ export class LinkFormComponent implements OnInit {
   user: any;
 
   linkForm = new FormGroup({
-    title: new FormControl(""),
-    url: new FormControl(""),
-    thumbnail: new FormControl(""),
-    folder: new FormControl(""),
-    bookmarked: new FormControl(false),
+    title: new FormControl(),
+    url: new FormControl(),
+    thumbnail: new FormControl(),
+    folder: new FormControl(),
+    bookmarked: new FormControl(),
     remind: new FormControl(),
   });
 

@@ -189,22 +189,18 @@
   }
 
   .home_contact {
-    height: 80vh;
-    font-size: 3rem;
+    height: 60vh;
+    font-size: 1.1rem;
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     margin-bottom: 15vh;
 
-    > h1 {
-      font-size: 3rem;
-    }
-
     .contact-form {
       display: flex;
       flex-direction: column;
-      gap: 1vh;
+      gap: 5vh;
 
       > button {
         border: none;
@@ -213,7 +209,7 @@
         font-weight: 600;
         transition: box-shadow 0.15s ease-in-out;
         background-color: $accent;
-        margin-top: 2vh;
+        margin-top: 10vh;
         border-radius: 5px;
         color: $text;
 
@@ -222,48 +218,25 @@
           box-shadow: 1px 1px 10px $accent;
         }
       }
-
-      > div {
-        display: flex;
-        align-items: center;
-      }
-
-      > div > label {
-        font-size: 2rem;
-        color: $text;
-      }
-
-      > div > input {
-        border: none;
-        font-size: 1.5rem;
-        margin-left: 2vw;
-        border-bottom: 2px solid $secondary;
-        background: none;
-        color: $text;
-
-        &:focus {
-          outline: none;
-          border-color: $accent;
-        }
-      }
-
-      > textarea {
-        resize: none;
-        border: 2px solid $secondary;
-        border-radius: 5px;
-        font-size: 1.5rem;
-        font-family: "Nunito";
-        font-weight: 500;
-        padding: 10px;
-        height: 20vh;
-        background: none;
-        color: $text;
-
-        &:focus {
-          outline: none;
-          border-color: $accent;
-        }
-      }
     }
   }
+
+  .foot-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 6vh;
+    background-color: $accent;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+}
+
+mat-form-field {
+  width: 20vw;
+  height: 5vh;
+}
+
+textarea {
+  resize: none;
 }

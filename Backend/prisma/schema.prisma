@@ -25,23 +25,25 @@ model UserSettings {
 
 model Folder {
   id     String @id @default(uuid())
-  name   String @unique
+  name   String
   user   User?  @relation(fields: [userId], references: [id])
-  userId String
+  userId String @unique
   links  Link[]
 }
 
 model Link {
-  id         String   @id @default(uuid())
-  user       User?    @relation(fields: [userId], references: [id])
-  userId     String?
+  id         String    @id @default(uuid())
+  user       User?     @relation(fields: [userId], references: [id])
+  userId     String?   @unique
   url        String
-  folder     Folder?  @relation(fields: [folderId], references: [id])
+  folder     Folder?   @relation(fields: [folderId], references: [id])
+  // Maybe reference the folder name instead?
   folderId   String?
   title      String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
   bookmarked Boolean
   thumbnail  String
-  remind     DateTime
+  remind     DateTime?
+  trash      Boolean?
 }

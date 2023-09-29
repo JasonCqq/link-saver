@@ -1,4 +1,4 @@
-@import "../../../styles.scss";
+@import "../../../../styles.scss";
 
 .register-container {
   display: flex;
@@ -60,9 +60,9 @@
 
     > button {
       border: none;
-      font-size: 0.9rem;
+      font-size: 1rem;
       background-color: $accent;
-      padding: 2vh 0;
+      padding: 2.25vh 0;
       border-radius: 5px;
       margin-top: 1vh;
       color: $text;

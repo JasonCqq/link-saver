@@ -1,32 +1,58 @@
-<main class="dashboard-container" *ngIf="user">
+<!--Add *ngIf="user" after finished testing-->
+<main class="dashboard-container">
   <div class="d-sidebar">
-    <div class="sidebar-profile" *ngIf="user">
-      <p *ngIf="user">Welcome, {{ user.username }}</p>
+    <div class="sidebar-profile">
+      <p>Welcome, realjason</p>
     </div>
 
-    <div class="sidebar-tab">
+    <div
+      class="sidebar-tab"
+      (click)="selectTab(dashboard)"
+      #dashboard
+      [ngClass]="{ active: tab === 'Dashboard' }"
+    >
       <mat-icon fontIcon="dashboard" class="sidebar-icon"></mat-icon>
-      <h1>Dashboard</h1>
+      <h1 class="tab-id">Dashboard</h1>
     </div>
 
-    <div class="sidebar-tab">
+    <div
+      class="sidebar-tab"
+      (click)="selectTab(bookmarks)"
+      #bookmarks
+      [ngClass]="{ active: tab === 'Bookmarks' }"
+    >
       <mat-icon fontIcon="bookmarks" class="sidebar-icon"></mat-icon>
-      <h1>Bookmarks</h1>
+      <h1 class="tab-id">Bookmarks</h1>
     </div>
 
-    <div class="sidebar-tab">
+    <div
+      class="sidebar-tab"
+      (click)="selectTab(folders)"
+      #folders
+      [ngClass]="{ active: tab === 'Folders' }"
+    >
       <mat-icon fontIcon="folder" class="sidebar-icon"></mat-icon>
-      <h1>Folders</h1>
+      <h1 class="tab-id">Folders</h1>
     </div>
 
-    <div class="sidebar-tab">
+    <div
+      class="sidebar-tab"
+      (click)="selectTab(upcoming)"
+      #upcoming
+      [ngClass]="{ active: tab === 'Upcoming' }"
+    >
       <mat-icon fontIcon="upcoming" class="sidebar-icon"></mat-icon>
-      <h1>Upcoming</h1>
+      <h1 class="tab-id">Upcoming</h1>
     </div>
 
-    <div class="sidebar-tab">
+    <div
+      class="sidebar-tab"
+      (click)="selectTab(trash)"
+      #trash
+      [ngClass]="{ active: tab === 'Trash' }"
+    >
       <mat-icon fontIcon="delete" class="sidebar-icon"></mat-icon>
-      <h1>Trash</h1>
+      <h1 class="tab-id">Trash</h1>
     </div>
 
     <div class="sidebar-tab sidebar-bottom" (click)="logOut()">
@@ -39,15 +65,20 @@
       <h1>Home</h1>
     </a>
 
-    <div class="sidebar-tab" style="margin-bottom: 5vh">
+    <div
+      class="sidebar-tab"
+      style="margin-bottom: 5vh"
+      (click)="selectTab(settings)"
+      #settings
+    >
       <mat-icon fontIcon="settings" class="sidebar-icon"></mat-icon>
-      <h1>Settings</h1>
+      <h1 class="tab-id">Settings</h1>
     </div>
   </div>
 
   <div class="d-main">
     <nav class="main-nav">
-      <p>Dashboard</p>
+      <p>{{ tab }}</p>
 
       <div class="nav-right">
         <div class="nav-search">
@@ -77,14 +108,25 @@
 
     <div class="main-content">
       <div class="content-nav">
-        <p>Recently Viewed</p>
+        <p>Recent</p>
         <p>Filter</p>
         <mat-icon fontIcon="apps"></mat-icon>
         <mat-icon fontIcon="view_list"></mat-icon>
-        <mat-icon fontIcon="view_headline"></mat-icon>
       </div>
       <div class="content-grid">
-        <app-link-item></app-link-item>
+        <app-bookmarks *ngIf="tab === 'Bookmarks'"></app-bookmarks>
+        <app-folders *ngIf="tab === 'Folders'"></app-folders>
+        <app-upcoming *ngIf="tab === 'Upcoming'"></app-upcoming>
+        <app-trashbin *ngIf="tab === 'Trash'"></app-trashbin>
+        <app-settings *ngIf="tab === 'Settings'"></app-settings>
+
+        <div *ngIf="tab === 'Dashboard' && links">
+          <div *ngFor="let link of links">
+            <p>{{ link }}</p>
+            <!-- <app-link-item [itemData]="link"></app-link-item> -->
+          </div>
+          <p (click)="test()">TEST</p>
+        </div>
       </div>
     </div>
   </div>

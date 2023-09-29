@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./Components/home/home.component";
-import { DashboardComponent } from "./Components/dashboard/dashboard.component";
-import { LoginComponent } from "./Components/login/login.component";
-import { RegisterComponent } from "./Components/register/register.component";
+import { DashboardComponent } from "./Components/dashboard/main-dashboard/dashboard.component";
+import { LoginComponent } from "./Components/user/login/login.component";
+import { RegisterComponent } from "./Components/user/register/register.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "/home", pathMatch: "full" },

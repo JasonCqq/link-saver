@@ -88,39 +88,41 @@
     </div>
   </section>
 
-  <footer #home_contact class="home_contact">
+  <section #home_contact class="home_contact">
     <h1>CONTACT</h1>
     <form
       class="contact-form"
       action="https://formsubmit.co/jason.cq.huang@gmail.com"
       method="POST"
     >
-      <div>
-        <label htmlFor="name">NAME</label>
-        <input
-          type="text"
-          #name
-          name="name"
-          minlength="3"
-          maxlength="20"
-          required
-        />
-      </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" #name required />
+      </mat-form-field>
 
-      <div>
-        <label htmlFor="email">EMAIL</label>
-        <input type="email" #email name="email" required />
-      </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" #email required />
+      </mat-form-field>
 
-      <div>
-        <label htmlFor="subject">SUBJECT</label>
-        <input type="text" #subject name="subject" minlength="3" required />
-      </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Subject</mat-label>
+        <input matInput type="text" #subject required />
+      </mat-form-field>
 
-      <label htmlFor="message">MESSAGE</label>
-      <textarea #message name="message" minlength="10" required></textarea>
+      <mat-form-field appearance="outline">
+        <mat-label>Your Message</mat-label>
+        <textarea matInput #message type="text" required rows="5"></textarea>
+      </mat-form-field>
 
       <button type="submit">Send Message</button>
     </form>
+  </section>
+
+  <footer class="foot-note">
+    All of the website's source code is available on -
+    <a href="https://github.com/JasonCqq/link-saver" target="_blank"
+      ><u> GitHub!</u></a
+    >
   </footer>
 </main>

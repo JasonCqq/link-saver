@@ -13,16 +13,17 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatNativeDateModule } from "@angular/material/core";
 
 import { AppComponent } from "./app.component";
-import { DashboardComponent } from "./Components/dashboard/dashboard.component";
+import { DashboardComponent } from "./Components/dashboard/main-dashboard/dashboard.component";
 import { HomeComponent } from "./Components/home/home.component";
-import { LoginComponent } from "./Components/login/login.component";
-import { RegisterComponent } from "./Components/register/register.component";
-import { LinkComponent } from "./Components/link-item/link-item.component";
-import { BookmarksComponent } from "./Components/bookmarks/bookmarks.component";
-import { TrashbinComponent } from "./Components/trashbin/trashbin.component";
-import { SettingsComponent } from "./Components/settings/settings.component";
-import { UpcomingComponent } from "./Components/upcoming/upcoming.component";
-import { LinkFormComponent } from "./Components/link-form/link-form.component";
+import { LoginComponent } from "./Components/user/login/login.component";
+import { RegisterComponent } from "./Components/user/register/register.component";
+import { LinkComponent } from "./Components/links/link-item/link-item.component";
+import { BookmarksComponent } from "./Components/dashboard/bookmarks/bookmarks.component";
+import { TrashbinComponent } from "./Components/dashboard/trashbin/trashbin.component";
+import { SettingsComponent } from "./Components/dashboard/settings/settings.component";
+import { UpcomingComponent } from "./Components/dashboard/upcoming/upcoming.component";
+import { LinkFormComponent } from "./Components/links/link-form/link-form.component";
+import { FoldersComponent } from "./Components/dashboard/folders/folders.component";
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { LinkFormComponent } from "./Components/link-form/link-form.component";
     SettingsComponent,
     UpcomingComponent,
     LinkFormComponent,
+    FoldersComponent,
   ],
   imports: [
     BrowserModule,

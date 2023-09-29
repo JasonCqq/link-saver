@@ -7,3 +7,5 @@ Remove option "User" and "Folder" in Schema once finished testing
 Remember to add validators and stuff in link-form
 
 Restrict users from certain links
+
+Keep user session
