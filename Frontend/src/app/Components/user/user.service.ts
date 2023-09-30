@@ -48,7 +48,7 @@ export class UserService {
     }
   }
 
-  // Set user
+  // Assign user
   private user?: User;
   setUser(user: User) {
     this.user = user;

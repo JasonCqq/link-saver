@@ -10,6 +10,7 @@ export class HomeComponent implements OnInit {
   // Checks for user
   constructor(private userService: UserService) {}
   user: any;
+
   ngOnInit() {
     this.user = this.userService.getUser();
   }

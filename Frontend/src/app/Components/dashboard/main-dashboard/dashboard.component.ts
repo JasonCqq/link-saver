@@ -16,12 +16,7 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   user: any;
-  tab = "Dashboard";
   links: Link[] = [];
-
-  test() {
-    console.log(this.links[0]);
-  }
 
   ngOnInit(): void {
     this.user = this.userService.getUser();
@@ -41,8 +36,5 @@ export class DashboardComponent implements OnInit {
   createForm: boolean = false;
   toggleForm(): void {
     this.createForm = !this.createForm;
-  }
-  selectTab(element: HTMLElement): void {
-    this.tab = String(element.querySelector(".tab-id")?.textContent);
   }
 }

@@ -7,7 +7,6 @@ import { environment } from "src/environments/environment.development";
 })
 export class LinkFormService {
   constructor(private http: HttpClient) {}
-
   private apiUrl = environment.apiUrl;
 
   async submitLinkForm(
@@ -28,17 +27,7 @@ export class LinkFormService {
           bookmarked: bookmarked,
           remind: remind,
         })
-        .subscribe(
-          (val) => {
-            console.log("POST call successful value returned in body", val);
-          },
-          (response) => {
-            console.log("POST call in error", response);
-          },
-          () => {
-            console.log("The POST observable is now completed.");
-          },
-        );
+        .subscribe();
     } catch (err) {
       console.log("POST call failed", err);
       throw err;

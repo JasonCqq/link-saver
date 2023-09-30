@@ -5,52 +5,27 @@
       <p>Welcome, realjason</p>
     </div>
 
-    <div
-      class="sidebar-tab"
-      (click)="selectTab(dashboard)"
-      #dashboard
-      [ngClass]="{ active: tab === 'Dashboard' }"
-    >
+    <div class="sidebar-tab" #dashboard>
       <mat-icon fontIcon="dashboard" class="sidebar-icon"></mat-icon>
       <h1 class="tab-id">Dashboard</h1>
     </div>
 
-    <div
-      class="sidebar-tab"
-      (click)="selectTab(bookmarks)"
-      #bookmarks
-      [ngClass]="{ active: tab === 'Bookmarks' }"
-    >
+    <div class="sidebar-tab" #bookmarks>
       <mat-icon fontIcon="bookmarks" class="sidebar-icon"></mat-icon>
       <h1 class="tab-id">Bookmarks</h1>
     </div>
 
-    <div
-      class="sidebar-tab"
-      (click)="selectTab(folders)"
-      #folders
-      [ngClass]="{ active: tab === 'Folders' }"
-    >
+    <div class="sidebar-tab" #folders>
       <mat-icon fontIcon="folder" class="sidebar-icon"></mat-icon>
       <h1 class="tab-id">Folders</h1>
     </div>
 
-    <div
-      class="sidebar-tab"
-      (click)="selectTab(upcoming)"
-      #upcoming
-      [ngClass]="{ active: tab === 'Upcoming' }"
-    >
+    <div class="sidebar-tab" #upcoming>
       <mat-icon fontIcon="upcoming" class="sidebar-icon"></mat-icon>
       <h1 class="tab-id">Upcoming</h1>
     </div>
 
-    <div
-      class="sidebar-tab"
-      (click)="selectTab(trash)"
-      #trash
-      [ngClass]="{ active: tab === 'Trash' }"
-    >
+    <div class="sidebar-tab" #trash>
       <mat-icon fontIcon="delete" class="sidebar-icon"></mat-icon>
       <h1 class="tab-id">Trash</h1>
     </div>
@@ -65,12 +40,7 @@
       <h1>Home</h1>
     </a>
 
-    <div
-      class="sidebar-tab"
-      style="margin-bottom: 5vh"
-      (click)="selectTab(settings)"
-      #settings
-    >
+    <div class="sidebar-tab" style="margin-bottom: 5vh" #settings>
       <mat-icon fontIcon="settings" class="sidebar-icon"></mat-icon>
       <h1 class="tab-id">Settings</h1>
     </div>
@@ -78,7 +48,7 @@
 
   <div class="d-main">
     <nav class="main-nav">
-      <p>{{ tab }}</p>
+      <p>Dashboard</p>
 
       <div class="nav-right">
         <div class="nav-search">
@@ -114,18 +84,10 @@
         <mat-icon fontIcon="view_list"></mat-icon>
       </div>
       <div class="content-grid">
-        <app-bookmarks *ngIf="tab === 'Bookmarks'"></app-bookmarks>
-        <app-folders *ngIf="tab === 'Folders'"></app-folders>
-        <app-upcoming *ngIf="tab === 'Upcoming'"></app-upcoming>
-        <app-trashbin *ngIf="tab === 'Trash'"></app-trashbin>
-        <app-settings *ngIf="tab === 'Settings'"></app-settings>
-
-        <div *ngIf="tab === 'Dashboard' && links">
+        <div *ngIf="links" class="dashboard-container">
           <div *ngFor="let link of links">
-            <p>{{ link }}</p>
-            <!-- <app-link-item [itemData]="link"></app-link-item> -->
+            <app-link-item [itemData]="link"></app-link-item>
           </div>
-          <p (click)="test()">TEST</p>
         </div>
       </div>
     </div>

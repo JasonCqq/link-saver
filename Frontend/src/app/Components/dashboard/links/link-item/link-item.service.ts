@@ -7,7 +7,6 @@ import { environment } from "src/environments/environment.development";
 })
 export class LinkService {
   constructor(private http: HttpClient) {}
-
   private apiUrl = environment.apiUrl;
 
   // Retrieve all user's links from database.

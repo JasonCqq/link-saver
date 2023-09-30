@@ -1,0 +1,19 @@
+.link-item {
+  width: 175px;
+  height: 125px;
+  border-radius: 5px;
+
+  > .link-thumbnail {
+    width: 175px;
+    height: 125px;
+    background-color: gray;
+    border-radius: 5px;
+  }
+
+  > .link-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    padding-top: 5px;
+  }
+}
