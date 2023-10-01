@@ -1,0 +1,23 @@
+@import "./styles.scss";
+
+.content-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  column-gap: 2vw;
+  row-gap: 5vh;
+}
+
+.default-dash-container {
+  margin-left: 15vw;
+  margin-top: 10vh;
+  width: 85vw;
+  // height: auto;
+  height: 90vh;
+  background-color: $background;
+
+  > .container-nav {
+    display: flex;
+    gap: 2vw;
+  }
+}

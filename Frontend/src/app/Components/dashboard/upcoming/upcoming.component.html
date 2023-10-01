@@ -1,1 +1,17 @@
-<p>upcoming works!</p>
+<app-main-sidebar></app-main-sidebar>
+<app-main-nav [title]="'Upcoming'"></app-main-nav>
+
+<main class="default-dash-container">
+  <div class="container-nav">
+    <p>Recent</p>
+    <p>Filter</p>
+    <mat-icon fontIcon="apps"></mat-icon>
+    <mat-icon fontIcon="view_list"></mat-icon>
+  </div>
+
+  <section class="content-grid" *ngIf="upcoming">
+    <div *ngFor="let u of upcoming">
+      <app-link-item [itemData]="u"></app-link-item>
+    </div>
+  </section>
+</main>

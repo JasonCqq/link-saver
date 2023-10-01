@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "../../user/user.service";
-import { DashboardService } from "./dashboard.service";
-import { Link, Links } from "../../../Interfaces/Link";
+import { DashboardService } from "../dashboard.service";
+import { Link } from "../../../Interfaces/Link";
 
 @Component({
   selector: "app-dashboard",
@@ -27,14 +27,5 @@ export class DashboardComponent implements OnInit {
     this.dashboardService
       .getLinks()
       .subscribe((result) => (this.links = result));
-  }
-
-  // Logout
-  logOut(): void {
-    this.userService.logOutUser();
-  }
-  createForm: boolean = false;
-  toggleForm(): void {
-    this.createForm = !this.createForm;
   }
 }

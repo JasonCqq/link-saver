@@ -1,0 +1,70 @@
+@import "../../../../assets/styles.scss";
+.d-sidebar {
+  width: 15vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+  padding: 0px 1vw;
+  background-color: $background;
+  position: fixed;
+  left: 0;
+  top: 0;
+  border-right: 2px solid #171f2c;
+
+  .sidebar-profile {
+    margin-top: 5vh;
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+    padding-bottom: 2vh;
+    border-bottom: 2px solid $accent;
+    margin-bottom: 5vh;
+    margin-left: 1vw;
+    justify-content: center;
+
+    > p {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+  }
+
+  > .sidebar-tab {
+    padding: 7px 15px;
+    display: flex;
+    margin-left: 1vw;
+    gap: 0.5vw;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: $accent;
+      cursor: pointer;
+
+      > .sidebar-icon {
+        color: $text;
+      }
+    }
+  }
+
+  > .sidebar-bottom {
+    margin-top: auto;
+  }
+
+  > .sidebar-tab > h1 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: $text;
+  }
+
+  > .sidebar-tab > .sidebar-icon {
+    color: $accent;
+    font-size: 1.5rem;
+
+    font-variation-settings:
+      "FILL" 0,
+      "wght" 400,
+      "GRAD" 0,
+      "opsz" 24;
+  }
+}

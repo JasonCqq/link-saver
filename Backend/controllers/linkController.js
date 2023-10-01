@@ -41,7 +41,39 @@ exports.create_link = [
 exports.get_links = asyncHandler(async (req, res) => {
   const links = await prisma.Link.findMany();
 
-  console.log(links);
-
   res.json({ links: links });
+});
+
+exports.get_bookmarks = asyncHandler(async (req, res) => {
+  const bookmarks = await prisma.Link.findMany({
+    where: {
+      bookmarked: true,
+    },
+  });
+
+  res.json({ links: bookmarks });
+});
+
+exports.get_upcoming = asyncHandler(async (req, res) => {
+  const upcoming = await prisma.Link.findMany({
+    where: {
+      remind: {
+        not: {
+          equals: null,
+        },
+      },
+    },
+  });
+
+  res.json({ links: upcoming });
+});
+
+exports.get_trash = asyncHandler(async (req, res) => {
+  const trash = await prisma.Link.findMany({
+    where: {
+      trash: true,
+    },
+  });
+
+  res.json({ links: trash });
 });

@@ -1,95 +1,18 @@
 <!--Add *ngIf="user" after finished testing-->
-<main class="dashboard-container">
-  <div class="d-sidebar">
-    <div class="sidebar-profile">
-      <p>Welcome, realjason</p>
-    </div>
+<app-main-sidebar></app-main-sidebar>
+<app-main-nav></app-main-nav>
 
-    <div class="sidebar-tab" #dashboard>
-      <mat-icon fontIcon="dashboard" class="sidebar-icon"></mat-icon>
-      <h1 class="tab-id">Dashboard</h1>
-    </div>
-
-    <div class="sidebar-tab" #bookmarks>
-      <mat-icon fontIcon="bookmarks" class="sidebar-icon"></mat-icon>
-      <h1 class="tab-id">Bookmarks</h1>
-    </div>
-
-    <div class="sidebar-tab" #folders>
-      <mat-icon fontIcon="folder" class="sidebar-icon"></mat-icon>
-      <h1 class="tab-id">Folders</h1>
-    </div>
-
-    <div class="sidebar-tab" #upcoming>
-      <mat-icon fontIcon="upcoming" class="sidebar-icon"></mat-icon>
-      <h1 class="tab-id">Upcoming</h1>
-    </div>
-
-    <div class="sidebar-tab" #trash>
-      <mat-icon fontIcon="delete" class="sidebar-icon"></mat-icon>
-      <h1 class="tab-id">Trash</h1>
-    </div>
-
-    <div class="sidebar-tab sidebar-bottom" (click)="logOut()">
-      <mat-icon fontIcon="logout" class="sidebar-icon"></mat-icon>
-      <h1>Logout</h1>
-    </div>
-
-    <a routerLink="/" class="sidebar-tab">
-      <mat-icon fontIcon="home" class="sidebar-icon"></mat-icon>
-      <h1>Home</h1>
-    </a>
-
-    <div class="sidebar-tab" style="margin-bottom: 5vh" #settings>
-      <mat-icon fontIcon="settings" class="sidebar-icon"></mat-icon>
-      <h1 class="tab-id">Settings</h1>
-    </div>
+<main class="dashboard-container default-dash-container">
+  <div class="container-nav">
+    <p>Recent</p>
+    <p>Filter</p>
+    <mat-icon fontIcon="apps"></mat-icon>
+    <mat-icon fontIcon="view_list"></mat-icon>
   </div>
 
-  <div class="d-main">
-    <nav class="main-nav">
-      <p>Dashboard</p>
-
-      <div class="nav-right">
-        <div class="nav-search">
-          <mat-icon fontIcon="search" class="search-icon"></mat-icon>
-          <input id="search" placeholder="Search" />
-        </div>
-
-        <div class="nav-function">
-          <button (click)="toggleForm()">
-            <mat-icon fontIcon="add"></mat-icon>
-            Add a new link
-          </button>
-
-          <div *ngIf="createForm === true" class="create-form-overlay">
-            <div class="create-form">
-              <mat-icon
-                fontIcon="close"
-                (click)="toggleForm()"
-                class="create-form-close"
-              ></mat-icon>
-              <app-link-form></app-link-form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-
-    <div class="main-content">
-      <div class="content-nav">
-        <p>Recent</p>
-        <p>Filter</p>
-        <mat-icon fontIcon="apps"></mat-icon>
-        <mat-icon fontIcon="view_list"></mat-icon>
-      </div>
-      <div class="content-grid">
-        <div *ngIf="links" class="dashboard-container">
-          <div *ngFor="let link of links">
-            <app-link-item [itemData]="link"></app-link-item>
-          </div>
-        </div>
-      </div>
+  <section class="content-grid" *ngIf="links">
+    <div *ngFor="let link of links">
+      <app-link-item [itemData]="link"></app-link-item>
     </div>
-  </div>
+  </section>
 </main>
