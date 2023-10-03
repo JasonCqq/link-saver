@@ -1,49 +1,49 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 model User {
-  id           String        @id @default(uuid())
-  username     String        @unique
-  email        String        @unique
-  password     String
-  folders      Folder[]
-  links        Link[]
-  userSettings UserSettings?
+    id           String        @id @default(uuid())
+    username     String        @unique
+    email        String        @unique
+    password     String
+    folders      Folder[]
+    links        Link[]
+    userSettings UserSettings?
 }
 
 model UserSettings {
-  id     String @id @default(uuid())
-  user   User?  @relation(fields: [userId], references: [id])
-  userId String @unique
+    id     String @id @default(uuid())
+    user   User?  @relation(fields: [userId], references: [id])
+    userId String @unique
 }
 
 model Folder {
-  id     String @id @default(uuid())
-  name   String
-  user   User?  @relation(fields: [userId], references: [id])
-  userId String @unique
-  links  Link[]
+    id     String  @id @default(uuid())
+    name   String
+    user   User?   @relation(fields: [userId], references: [id])
+    userId String? @unique
+    links  Link[]
 }
 
 model Link {
-  id         String    @id @default(uuid())
-  user       User?     @relation(fields: [userId], references: [id])
-  userId     String?   @unique
-  url        String
-  folder     Folder?   @relation(fields: [folderId], references: [id])
-  // Maybe reference the folder name instead?
-  folderId   String?
-  title      String
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  bookmarked Boolean
-  thumbnail  String
-  remind     DateTime?
-  trash      Boolean?
+    id         String    @id @default(uuid())
+    user       User?     @relation(fields: [userId], references: [id])
+    userId     String?   @unique
+    url        String
+    folder     Folder?   @relation(fields: [folderId], references: [id])
+    // Maybe reference the folder name instead?
+    folderId   String?
+    title      String
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime? @updatedAt
+    bookmarked Boolean
+    thumbnail  String
+    remind     DateTime?
+    trash      Boolean?
 }

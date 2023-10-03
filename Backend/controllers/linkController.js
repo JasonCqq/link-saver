@@ -9,7 +9,6 @@ exports.create_link = [
   body("folder").trim().escape(),
   body("bookmarked").trim().escape(),
   body("remind").trim().escape(),
-
   asyncHandler(async (req, res) => {
     const errs = validationResult(req);
 
@@ -17,19 +16,58 @@ exports.create_link = [
       return res.json({ errors: errs.array().map((err) => err.msg) });
     } else {
       try {
-        // let isBookmarked;
-        // req.body.bookmarked === "true"
-        //   ? (isBookmarked = true)
-        //   : (isBookmarked = false);
+        let date = req.body.remind;
+        if (date === "") {
+          date = null;
+        }
 
-        const link = await prisma.Link.create({
-          data: {
-            url: req.body.url,
-            title: req.body.title,
-            bookmarked: JSON.parse(req.body.bookmarked),
-            thumbnail: req.body.thumbnail,
-          },
+        await prisma.$transaction(async (prisma) => {
+          const existingFolder = await prisma.Folder.findUnique({
+            where: {
+              id: req.body.folder,
+            },
+          });
+          let folderId;
+          if (existingFolder) {
+            folderId = existingFolder.id;
+          } else {
+            const newFolder = await prisma.Folder.create({
+              data: {
+                name: "d",
+              },
+            });
+            folderId = newFolder.id;
+          }
+
+          const link = await prisma.Link.create({
+            data: {
+              url: req.body.url,
+              folder: {
+                connect: {
+                  id: folderId,
+                },
+              },
+              title: req.body.title,
+              bookmarked: JSON.parse(req.body.bookmarked),
+              remind: date,
+              thumbnail: req.body.thumbnail,
+            },
+          });
+
+          const newLinkId = link.id;
+
+          prisma.Folder.update({
+            where: {
+              id: folderId,
+            },
+            data: {
+              links: {
+                connect: { id: newLinkId },
+              },
+            },
+          });
         });
+
         return res.json({ success: true });
       } catch (err) {
         console.log(err);

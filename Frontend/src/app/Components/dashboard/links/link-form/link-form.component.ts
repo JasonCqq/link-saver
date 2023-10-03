@@ -32,7 +32,7 @@ export class LinkFormComponent implements OnInit {
       this.linkForm.value.thumbnail ?? "",
       this.linkForm.value.folder ?? "",
       this.linkForm.value.bookmarked ?? false,
-      this.linkForm.value.remind,
+      this.linkForm.value.remind ?? null,
     );
   }
 
