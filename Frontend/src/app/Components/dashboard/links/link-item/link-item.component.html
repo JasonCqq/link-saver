@@ -1,5 +1,14 @@
 <div class="link-item">
-  <div class="link-thumbnail"></div>
+  <div class="link-thumbnail">
+    <div class="link-options">
+      <mat-icon
+        class="link-delete"
+        fontIcon="delete"
+        (click)="moveToTrash()"
+      ></mat-icon>
+      <mat-icon class="link-edit" fontIcon="edit"></mat-icon>
+    </div>
+  </div>
 
   <div class="link-details">
     <p class="link-title">{{ itemData.title | slice: 0 : 50 }}</p>

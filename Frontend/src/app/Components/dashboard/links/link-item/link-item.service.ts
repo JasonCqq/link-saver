@@ -9,5 +9,16 @@ export class LinkService {
   constructor(private http: HttpClient) {}
   private apiUrl = environment.apiUrl;
 
-  // Retrieve all user's links from database.
+  async moveToTrash(id: string) {
+    try {
+      await this.http
+        .put(`${this.apiUrl}/link/delete`, {
+          id: id,
+        })
+        .subscribe();
+    } catch (err) {
+      console.log("POST call failed", err);
+      throw err;
+    }
+  }
 }

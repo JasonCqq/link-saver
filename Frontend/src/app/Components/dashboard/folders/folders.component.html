@@ -1,3 +1,10 @@
 <app-main-sidebar></app-main-sidebar>
 <app-main-nav [title]="'Folders'"></app-main-nav>
-<p>folders works!</p>
+
+<main class="default-dash-container">
+  <section class="content-grid" *ngIf="folders">
+    <div *ngFor="let folder of folders">
+      <p>{{ folder }}</p>
+    </div>
+  </section>
+</main>

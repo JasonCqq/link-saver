@@ -18,6 +18,10 @@ export class DashboardComponent implements OnInit {
   user: any;
   links: Link[] = [];
 
+  temp(): void {
+    console.log(this.user);
+  }
+
   ngOnInit(): void {
     this.user = this.userService.getUser();
     this.getLinks();

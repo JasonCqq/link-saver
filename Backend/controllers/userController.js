@@ -43,15 +43,43 @@ exports.create_user = [
           });
         }
 
-        const user = await prisma.User.create({
-          data: {
-            username: req.body.username,
-            email: req.body.email,
-            password: hashedPass,
-          },
+        await prisma.$transaction(async (prisma) => {
+          let folderId;
+          const defaultFolder = await prisma.Folder.create({
+            data: {
+              name: "default",
+            },
+          });
+          folderId = defaultFolder.id;
+
+          const user = await prisma.User.create({
+            data: {
+              username: req.body.username,
+              email: req.body.email,
+              password: hashedPass,
+              folders: {
+                connect: {
+                  id: folderId,
+                },
+              },
+            },
+          });
+
+          const connectFolder = await prisma.Folder.update({
+            where: {
+              id: folderId,
+            },
+            data: {
+              user: {
+                connect: {
+                  id: user.id,
+                },
+              },
+            },
+          });
         });
 
-        return res.json(user);
+        return res.json({ success: true });
       });
     }
   }),
@@ -87,6 +115,7 @@ exports.login_user = [
 
           req.session.user = userData;
 
+          console.log(req.session.user);
           return res.json({ user: req.session.user });
         }
       })(req, res, next);

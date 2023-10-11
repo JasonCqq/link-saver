@@ -12,4 +12,6 @@ router.get("/upcoming", linkController.get_upcoming);
 
 router.get("/trash", linkController.get_trash);
 
+router.put("/delete", linkController.delete_link);
+
 module.exports = router;

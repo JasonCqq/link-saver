@@ -10,4 +10,8 @@ export class LinkComponent {
   constructor(private linkService: LinkService) {}
 
   @Input() itemData: any;
+
+  moveToTrash(): void {
+    this.linkService.moveToTrash(this.itemData.id);
+  }
 }

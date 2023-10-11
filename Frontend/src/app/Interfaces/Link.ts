@@ -3,7 +3,7 @@ export interface Links {
 }
 
 export interface Link {
-  id: number;
+  id: string;
   userId: string | null;
   url: string;
   folderId: string | null;

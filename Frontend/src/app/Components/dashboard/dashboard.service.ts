@@ -1,17 +1,31 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment.development";
 import { Observable, of } from "rxjs";
 import { map, tap, catchError } from "rxjs/operators";
 import { Link, Links } from "../../Interfaces/Link";
+import { Folder, Folders } from "../../Interfaces/Folder";
+import { UserService } from "../user/user.service";
 // // Throttle tab switching from user
 
 @Injectable({
   providedIn: "root",
 })
-export class DashboardService {
-  constructor(private http: HttpClient) {}
+export class DashboardService implements OnInit {
+  constructor(
+    private http: HttpClient,
+    private userService: UserService,
+  ) {}
   private apiUrl = environment.apiUrl;
+  user: any;
+
+  ngOnInit(): void {
+    this.getUser();
+  }
+  getUser(): void {
+    this.userService.getUser();
+    // .subscribe()
+  }
 
   private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {
@@ -57,6 +71,20 @@ export class DashboardService {
     );
   }
 
-  //   getFolders(): void {}
+  getFolders(): Observable<Folder[]> {
+    console.log("test", this.user);
+    if (this.user) {
+      return this.http
+        .get<Folders>(`${this.apiUrl}/folders/${this.user.id}`)
+        .pipe(
+          map((response) => response.folders),
+          tap((_) => console.log("Received Folders")),
+          catchError(this.handleError<Folder[]>("getFolders()", [])),
+        );
+    } else {
+      return of<Folder[]>([]);
+    }
+  }
+
   //   getSettings(): void {}
 }

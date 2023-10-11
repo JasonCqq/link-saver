@@ -16,12 +16,14 @@ exports.create_link = [
       return res.json({ errors: errs.array().map((err) => err.msg) });
     } else {
       try {
+        // Convert date to null if no date provided
         let date = req.body.remind;
         if (date === "") {
           date = null;
         }
 
         await prisma.$transaction(async (prisma) => {
+          // Check for folder, create "default" if none
           const existingFolder = await prisma.Folder.findUnique({
             where: {
               id: req.body.folder,
@@ -38,7 +40,7 @@ exports.create_link = [
             });
             folderId = newFolder.id;
           }
-
+          // Create new link and connect folder
           const link = await prisma.Link.create({
             data: {
               url: req.body.url,
@@ -55,7 +57,7 @@ exports.create_link = [
           });
 
           const newLinkId = link.id;
-
+          // Add link to folder.
           prisma.Folder.update({
             where: {
               id: folderId,
@@ -72,6 +74,30 @@ exports.create_link = [
       } catch (err) {
         console.log(err);
       }
+    }
+  }),
+];
+
+exports.delete_link = [
+  body("id").trim().escape(),
+
+  asyncHandler(async (req, res) => {
+    const errs = validationResult(req);
+
+    if (!errs.isEmpty()) {
+      return res.json({ errors: errs.array().map((err) => err.msg) });
+    } else {
+      const link = await prisma.Link.update({
+        where: {
+          id: req.body.id,
+        },
+
+        data: {
+          trash: true,
+        },
+      });
+
+      return res.json({ success: true });
     }
   }),
 ];

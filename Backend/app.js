@@ -16,7 +16,7 @@ const bcrypt = require("bcrypt");
 // Routes
 const homeRouter = require("./routes/home");
 const userRouter = require("./routes/user");
-const folderRouter = require("./routes/folder");
+const folderRouter = require("./routes/folders");
 const linkRouter = require("./routes/link");
 
 var app = express();
@@ -89,7 +89,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Routes
 app.use("/", homeRouter);
 app.use("/user", userRouter);
-// app.use("/folder", folderRouter);
+app.use("/folders", folderRouter);
 app.use("/link", linkRouter);
 
 // catch 404 and forward to error handler

@@ -1,3 +1,5 @@
+@import "../../../../../assets/styles.scss";
+
 .link-item {
   width: 175px;
   height: 125px;
@@ -8,6 +10,33 @@
     height: 125px;
     background-color: gray;
     border-radius: 5px;
+
+    > .link-options {
+      display: none;
+
+      > .link-delete {
+        background-color: red;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      > .link-edit {
+        background-color: $accent;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+
+    &:hover {
+      > .link-options {
+        display: flex;
+        background-color: rgba(0, 0, 0, 0.3);
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5vw;
+      }
+    }
   }
 
   > .link-details {

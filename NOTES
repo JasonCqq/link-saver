@@ -1,11 +1,10 @@
-During registration remind user that email has to end with .com
-Add success messages after authentication/registration
+Mini features to add:
+- During registration remind user that email has to end with .com
 
-Add prisma.$disconnect to database operations
-Remove option "User" and "Folder" in Schema once finished testing
+- Add success messages after authentication/registration
 
-Remember to add validators and stuff in link-form
+- Remove option "User" and "Folder" in Schema once finished testing
 
-Restrict users from certain links
+- Remember to add validators and stuff in link-form
 
-Keep user session
+- Restrict users from certain links
