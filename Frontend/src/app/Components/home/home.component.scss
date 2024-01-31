@@ -3,80 +3,10 @@
 .home-page {
   background-color: $background;
   color: $text;
-  .nav-bar {
-    position: fixed;
-    top: 0;
-    display: flex;
-    height: 8vh;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding-top: 1vh;
-    padding-bottom: 1vh;
-    z-index: 2;
-    background-color: $background;
-    border-bottom: 1px solid #455776;
-
-    #logo {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-left: 10vw;
-      color: $accent;
-    }
-
-    .nav-mid {
-      display: flex;
-      align-items: center;
-      font-size: 1.1rem;
-      gap: 3vw;
-      margin-left: auto;
-      margin-right: auto;
-      & > a {
-        font-weight: 500;
-        transition: color 0.2s ease-in-out;
-
-        &:hover {
-          color: $accent;
-        }
-      }
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 2vw;
-      justify-content: center;
-      margin-right: 3vw;
-
-      .nav-button {
-        font-size: 1.1rem;
-        font-weight: 400;
-        padding: 10px 25px;
-        border-radius: 5px;
-        background-color: $accent;
-        transition: box-shadow 0.15s ease-in-out;
-        color: $text;
-
-        &:hover {
-          box-shadow: 1px 1px 10px $accent;
-          color: $text;
-        }
-      }
-
-      & > a {
-        font-weight: 500;
-
-        &:hover {
-          color: $accent;
-          cursor: pointer;
-        }
-      }
-    }
-  }
 
   .landing-page {
     width: 100%;
-    height: 90vh;
+    height: 24vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -92,10 +22,28 @@
       margin-top: 20vh;
       width: 50%;
     }
+
+    .landing-body {
+      display: flex;
+      gap: 2.5vw;
+      margin-top: 5vh;
+
+      > a {
+        color: white;
+        background-color: black;
+        border-radius: 5px;
+        padding: 1em;
+        transition: box-shadow 0.15s ease-in-out;
+
+        &:hover {
+          box-shadow: 1px 1px 10px rgb(41, 41, 41);
+        }
+      }
+    }
   }
 
   .home_features {
-    margin-top: 10vh;
+    margin-top: 25vh;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -103,7 +51,7 @@
     height: 70vh;
 
     > h1 {
-      font-size: 3rem;
+      font-size: 1.5rem;
     }
 
     .home-features-flex {
@@ -114,16 +62,16 @@
       justify-content: center;
 
       .home-features-item {
-        height: 400px;
-        width: 350px;
-        border: 2px solid #b6b4b4;
+        height: 300px;
+        width: 250px;
+        border: 1px solid #b6b4b4;
         border-radius: 10px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         padding: 30px;
-        box-shadow: 15px 15px $accent;
+        box-shadow: 5px 5px $accent;
         gap: 1.5vh;
 
         > h2 {
@@ -142,7 +90,7 @@
   }
 
   .home_faq {
-    margin-top: 10vh;
+    margin-top: 3.5vh;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -150,7 +98,7 @@
     height: 110vh;
 
     > h1 {
-      font-size: 2.5rem;
+      font-size: 1.5rem;
       text-align: center;
       padding-bottom: 6vh;
     }
@@ -159,7 +107,7 @@
       display: flex;
       flex-direction: column;
       gap: 4vh;
-      width: 80%;
+      width: 75%;
 
       .faq-item {
         min-height: 65px;
@@ -175,12 +123,12 @@
 
           > p {
             font-weight: 900;
-            font-size: 1.5rem;
+            font-size: 1rem;
             margin-right: auto;
           }
         }
         .faq-answer {
-          width: 50%;
+          width: 75%;
           height: 50px;
           padding: 25px 0px 50px 0px;
         }
@@ -202,6 +150,10 @@
       flex-direction: column;
       gap: 5vh;
 
+      > h1 {
+        text-align: center;
+      }
+
       > button {
         border: none;
         padding: 15px 10px;
@@ -211,7 +163,7 @@
         background-color: $accent;
         margin-top: 10vh;
         border-radius: 5px;
-        color: $text;
+        color: white;
 
         &:hover {
           cursor: pointer;
@@ -229,6 +181,11 @@
     background-color: $accent;
     font-size: 1.1rem;
     font-weight: bold;
+    color: white;
+
+    > a {
+      color: white;
+    }
   }
 }
 

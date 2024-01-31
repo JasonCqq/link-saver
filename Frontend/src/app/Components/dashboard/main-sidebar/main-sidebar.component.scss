@@ -10,7 +10,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  border-right: 2px solid #171f2c;
+  border-right: 1px solid #171f2c;
 
   .sidebar-profile {
     margin-top: 5vh;
@@ -18,7 +18,6 @@
     align-items: center;
     gap: 1vw;
     padding-bottom: 2vh;
-    border-bottom: 2px solid $accent;
     margin-bottom: 5vh;
     margin-left: 1vw;
     justify-content: center;
@@ -37,7 +36,6 @@
     border-radius: 5px;
 
     &:hover {
-      background-color: $accent;
       cursor: pointer;
 
       > .sidebar-icon {
@@ -52,7 +50,7 @@
 
   > .sidebar-tab > h1 {
     font-size: 1.1rem;
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: 0.5px;
     color: $text;
   }

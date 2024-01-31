@@ -3,16 +3,8 @@
   <p>{{ title }}</p>
 
   <div class="nav-right">
-    <div class="nav-search">
-      <mat-icon fontIcon="search" class="search-icon"></mat-icon>
-      <input id="search" placeholder="Search" />
-    </div>
-
     <div class="nav-function">
-      <button (click)="toggleForm()">
-        <mat-icon fontIcon="add"></mat-icon>
-        Add a new link
-      </button>
+      <button (click)="toggleForm()">Add links</button>
 
       <div *ngIf="createForm === true" class="create-form-overlay">
         <div class="create-form">

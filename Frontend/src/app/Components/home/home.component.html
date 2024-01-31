@@ -1,63 +1,36 @@
 <main class="home-page">
-  <nav>
-    <ul class="nav-bar">
-      <a href="javascript:void(0)" (click)="scroll(home)" id="logo">
-        LinkStorage
-      </a>
-
-      <div class="nav-mid">
-        <a href="javascript:void(0)" (click)="scroll(home_features)">About</a>
-        <a href="javascript:void(0)" (click)="scroll(home_faq)">FAQ</a>
-        <a href="javascript:void(0)" (click)="scroll(home_contact)">Contact</a>
-      </div>
-
-      <div class="nav-right">
-        <a routerLink="/user/login" *ngIf="!user">Log in</a>
-        <a routerLink="/user/register" *ngIf="!user" class="nav-button">
-          Get Started
-        </a>
-        <a routerLink="/dashboard" *ngIf="user" class="nav-button">Dashboard</a>
-      </div>
-    </ul>
-  </nav>
-
   <header class="landing-page" #home>
     <div class="landing-heading">
-      <section>Keep all your links in one place.</section>
+      <section>LinkStorage</section>
     </div>
     <p>125,258 links saved</p>
+    <div class="landing-body">
+      <a routerLink="/user/login" *ngIf="!user">Log in</a>
+      <a routerLink="/user/register" *ngIf="!user" class="nav-button">
+        Register
+      </a>
+      <a routerLink="/dashboard" *ngIf="user" class="nav-button">Dashboard</a>
+    </div>
   </header>
 
   <section #home_features class="home_features">
-    <h1>Why Us?</h1>
+    <h1>Features</h1>
     <div class="home-features-flex">
       <div class="home-features-item">
-        <mat-icon
-          fontIcon="filter_list"
-          style="color: #42a5f5; transform: scale(2.5)"
-        ></mat-icon>
-        <h2>Filtering</h2>
+        <h2>Folders</h2>
         <p>
-          Quickly find your links. With a few clicks, you can locate your links,
-          making it simple.
+          Quickly find your links with folders saved to accounts, you can
+          navigate your links easily.
         </p>
       </div>
       <div class="home-features-item">
-        <mat-icon
-          fontIcon="visibility"
-          style="color: #42a5f5; transform: scale(2.5)"
-        ></mat-icon>
         <h2>Visualization</h2>
         <p>
-          Every saved link comes with a thumbnail, allowing you to identify your
-          content at a glance.
+          Every saved link is simple, allowing you to identify your content at a
+          glance.
         </p>
       </div>
       <div class="home-features-item">
-        <mat-icon
-          fontIcon="done"
-          style="color: #42a5f5; transform: scale(2.5)"
-        ></mat-icon>
         <h2>Simplified</h2>
         <p>
           Hassle-free link saving with our user-friendly interface, making it
@@ -80,7 +53,7 @@
           <p>{{ faq.question }}</p>
           <mat-icon
             fontIcon="add"
-            style="color: #42a5f5; transform: scale(1.25)"
+            style="color: #179e7e; transform: scale(1.25)"
           ></mat-icon>
         </div>
         <p class="faq-answer" *ngIf="activeID === faq.id">{{ faq.answer }}</p>
@@ -89,12 +62,13 @@
   </section>
 
   <section #home_contact class="home_contact">
-    <h1>CONTACT</h1>
     <form
       class="contact-form"
       action="https://formsubmit.co/jason.cq.huang@gmail.com"
       method="POST"
     >
+      <h1>CONTACT</h1>
+
       <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
         <input matInput type="text" #name required />
@@ -120,9 +94,9 @@
   </section>
 
   <footer class="foot-note">
-    All of the website's source code is available on -
+    Experimental Project -
     <a href="https://github.com/JasonCqq/link-saver" target="_blank"
-      ><u> GitHub!</u></a
+      ><u> GitHub</u></a
     >
   </footer>
 </main>
