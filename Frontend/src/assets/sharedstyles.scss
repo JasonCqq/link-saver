@@ -1,23 +1,84 @@
 @import "./styles.scss";
 
 .content-grid {
-  width: 100%;
+  width: 85%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   column-gap: 2vw;
-  row-gap: 5vh;
+  margin-left: 3vw;
 }
 
 .default-dash-container {
   margin-left: 15vw;
-  margin-top: 10vh;
+  margin-top: 7.5vh;
   width: 85vw;
   // height: auto;
-  height: 90vh;
+  height: 92.5vh;
   background-color: $background;
+}
 
+.main-nav {
   > .container-nav {
     display: flex;
-    gap: 2vw;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    > * {
+      margin-top: 2vh;
+    }
+
+    > .container-nav-function {
+      display: flex;
+      gap: 10px;
+
+      > button {
+        font-family: "REM";
+        color: $text2;
+        padding: 12px 17px;
+        width: auto;
+        font-weight: 700;
+        background: $secondary;
+        border: none;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        transition: box-shadow 0.15s ease-in-out;
+
+        &:hover {
+          cursor: pointer;
+          box-shadow: 1px 1px 5px $accent;
+        }
+      }
+
+      > .create-form-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgba($color: #000000, $alpha: 0.6);
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        > .create-form {
+          background-color: $background;
+          height: auto;
+          padding: 0 0 10vh 0;
+          width: 35vw;
+          border-radius: 10px;
+
+          > .create-form-close {
+            font-size: 1.75rem;
+            margin: 15px;
+            &:hover {
+              cursor: pointer;
+              color: $accent;
+            }
+          }
+        }
+      }
+    }
   }
 }

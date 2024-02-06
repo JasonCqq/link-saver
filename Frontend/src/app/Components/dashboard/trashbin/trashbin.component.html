@@ -2,11 +2,6 @@
 <app-main-nav [title]="'Trash'"></app-main-nav>
 
 <main class="default-dash-container">
-  <div class="container-nav">
-    <mat-icon fontIcon="apps"></mat-icon>
-    <mat-icon fontIcon="view_list"></mat-icon>
-  </div>
-
   <section class="content-grid" *ngIf="trash">
     <div *ngFor="let t of trash">
       <app-link-item [itemData]="t"></app-link-item>

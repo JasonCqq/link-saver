@@ -1,48 +1,63 @@
 @import "../../../../../assets/styles.scss";
 
 .link-item {
-  width: 175px;
-  height: 125px;
+  width: 15vw;
   border-radius: 5px;
+  margin: 5%;
+  text-align: center;
 
-  > .link-thumbnail {
-    width: 175px;
-    height: 125px;
-    background-color: gray;
-    border-radius: 5px;
+  > .link-options {
+    display: none;
 
-    > .link-options {
-      display: none;
-
-      > .link-delete {
-        background-color: red;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-
-      > .link-edit {
-        background-color: $accent;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+    > .link-delete {
+      background-color: red;
+      border-radius: 5px;
+      cursor: pointer;
     }
 
-    &:hover {
-      > .link-options {
-        display: flex;
-        background-color: rgba(0, 0, 0, 0.3);
-        height: 100%;
-        justify-content: center;
-        align-items: center;
-        gap: 0.5vw;
-      }
+    > .link-edit {
+      background-color: $accent;
+      border-radius: 5px;
+      cursor: pointer;
     }
   }
 
+  // &:hover {
+  //   > .link-options {
+  //     display: flex;
+  //     background-color: rgba(0, 0, 0, 0.3);
+  //     justify-content: center;
+  //     align-items: center;
+  //     gap: 0.5vw;
+  //   }
+  // }
+
   > .link-details {
     display: flex;
+    height: 7.5vh;
+    flex-direction: column;
     justify-content: space-between;
     font-size: 0.8rem;
-    padding-top: 5px;
+    margin: 5px;
+    border-bottom: 2px solid gray;
+    padding-bottom: 5px;
+
+    &:hover {
+      background-color: #111111;
+    }
+
+    > .link-title {
+      font-size: 1.2rem;
+    }
+
+    > .link-url {
+      font-size: 0.9rem;
+      color: rgb(176, 176, 176);
+    }
+
+    > .link-date {
+      font-size: 0.7rem;
+      color: rgb(176, 176, 176);
+    }
   }
 }

@@ -1,7 +1,8 @@
-$secondary: #179e7e;
-$accent: #179e7e;
-$background: #f9f9f9;
-$text: black;
+$secondary: #ffc446;
+$accent: #ffc446;
+$background: #191919;
+$text: #f3f3f3;
+$text2: #191919;
 
 @use "@angular/material" as mat;
 @include mat.core();
@@ -107,12 +108,12 @@ code {
   width: 15px;
 }
 ::-webkit-scrollbar-track {
-  background: #ffffff;
+  background: #191919;
 }
 ::-webkit-scrollbar-thumb {
   background: $accent;
   &:hover {
-    background: #3686c7;
+    background: #fcc499;
   }
 }
 

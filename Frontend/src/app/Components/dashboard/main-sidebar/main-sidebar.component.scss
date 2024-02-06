@@ -10,21 +10,19 @@
   position: fixed;
   left: 0;
   top: 0;
-  border-right: 1px solid #171f2c;
+  border-right: 2px solid $secondary;
 
   .sidebar-profile {
     margin-top: 5vh;
     display: flex;
     align-items: center;
-    gap: 1vw;
     padding-bottom: 2vh;
     margin-bottom: 5vh;
-    margin-left: 1vw;
-    justify-content: center;
 
     > p {
       font-size: 1.1rem;
       font-weight: bold;
+      margin-left: 1vw;
     }
   }
 

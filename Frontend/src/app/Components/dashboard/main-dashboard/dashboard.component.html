@@ -3,11 +3,6 @@
 <app-main-nav></app-main-nav>
 
 <main class="dashboard-container default-dash-container">
-  <div class="container-nav">
-    <mat-icon fontIcon="apps"></mat-icon>
-    <mat-icon fontIcon="view_list"></mat-icon>
-  </div>
-
   <section class="content-grid" *ngIf="links">
     <div *ngFor="let link of links">
       <app-link-item [itemData]="link"></app-link-item>

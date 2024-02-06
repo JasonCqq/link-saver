@@ -1,17 +1,18 @@
-<div class="link-item">
-  <div class="link-thumbnail">
-    <div class="link-options">
-      <mat-icon
-        class="link-delete"
-        fontIcon="delete"
-        (click)="moveToTrash()"
-      ></mat-icon>
-      <mat-icon class="link-edit" fontIcon="edit"></mat-icon>
-    </div>
-  </div>
-
+<a [href]="'//' + itemData.url" target="_blank" class="link-item">
   <div class="link-details">
     <p class="link-title">{{ itemData.title | slice: 0 : 50 }}</p>
-    <p class="link-date">.</p>
+    <p class="link-url">{{ itemData.url }}</p>
+    <p class="link-date">
+      {{ itemData.createdAt | date: "shortDate" }}
+    </p>
   </div>
-</div>
+
+  <div class="link-options">
+    <mat-icon
+      class="link-delete"
+      fontIcon="delete"
+      (click)="moveToTrash()"
+    ></mat-icon>
+    <mat-icon class="link-edit" fontIcon="edit"></mat-icon>
+  </div>
+</a>

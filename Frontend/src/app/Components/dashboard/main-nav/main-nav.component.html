@@ -2,8 +2,8 @@
   <p *ngIf="!title">Dashboard</p>
   <p>{{ title }}</p>
 
-  <div class="nav-right">
-    <div class="nav-function">
+  <div class="container-nav">
+    <div class="container-nav-function">
       <button (click)="toggleForm()">Add links</button>
 
       <div *ngIf="createForm === true" class="create-form-overlay">
@@ -16,6 +16,11 @@
           <app-link-form></app-link-form>
         </div>
       </div>
+
+      <button>Open all</button>
     </div>
+
+    <mat-icon fontIcon="apps"></mat-icon>
+    <mat-icon fontIcon="view_list"></mat-icon>
   </div>
 </nav>

@@ -1,10 +1,10 @@
 @import "../../../../assets/styles.scss";
+
 .main-nav {
   height: 7.5vh;
   display: flex;
   align-items: center;
   width: 85vw;
-  border-bottom: 2px solid #171f2c;
   position: fixed;
   top: 0;
   margin-left: 15vw;
@@ -13,24 +13,28 @@
   > p {
     font-size: 1.4rem;
     font-weight: 600;
-    margin-left: 3vw;
+    margin: 0 3vw;
   }
-
-  .nav-right {
+  > .container-nav {
     display: flex;
-    margin-left: 5vw;
-    gap: 2vw;
-    margin-right: 5vw;
+    align-items: center;
+    gap: 5px;
 
-    > .nav-function {
+    > * {
+      margin-top: 2vh;
+    }
+
+    > .container-nav-function {
+      display: flex;
+      gap: 10px;
+
       > button {
-        font-family: "Nunito";
-        color: white;
+        font-family: "REM";
+        color: $text2;
         padding: 12px 17px;
         width: auto;
-        font-size: 1rem;
         font-weight: 700;
-        background: $accent;
+        background: $secondary;
         border: none;
         border-radius: 5px;
         display: flex;

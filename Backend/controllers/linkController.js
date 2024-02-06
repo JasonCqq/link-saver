@@ -2,6 +2,17 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const prisma = require("../prisma/prismaClient");
 
+function formatLinks(links) {
+  links.map((link) => {
+    link.url = link.url.replace("www.", "");
+    link.url = link.url.replace(/^(https?:\/\/)/, "");
+    link.createdAt = link.createdAt.toLocaleDateString("en-US");
+    return link;
+  });
+
+  return links;
+}
+
 exports.create_link = [
   body("title").trim().escape(),
   body("url").trim().escape(),
@@ -105,21 +116,25 @@ exports.delete_link = [
 exports.get_links = asyncHandler(async (req, res) => {
   const links = await prisma.Link.findMany();
 
-  res.json({ links: links });
+  const formattedLinks = formatLinks(links);
+
+  res.json({ links: formattedLinks });
 });
 
 exports.get_bookmarks = asyncHandler(async (req, res) => {
-  const bookmarks = await prisma.Link.findMany({
+  const links = await prisma.Link.findMany({
     where: {
       bookmarked: true,
     },
   });
 
-  res.json({ links: bookmarks });
+  const formattedLinks = formatLinks(links);
+
+  res.json({ links: formattedLinks });
 });
 
 exports.get_upcoming = asyncHandler(async (req, res) => {
-  const upcoming = await prisma.Link.findMany({
+  const links = await prisma.Link.findMany({
     where: {
       remind: {
         not: {
@@ -129,15 +144,19 @@ exports.get_upcoming = asyncHandler(async (req, res) => {
     },
   });
 
-  res.json({ links: upcoming });
+  const formattedLinks = formatLinks(links);
+
+  res.json({ links: formatLinks });
 });
 
 exports.get_trash = asyncHandler(async (req, res) => {
-  const trash = await prisma.Link.findMany({
+  const links = await prisma.Link.findMany({
     where: {
       trash: true,
     },
   });
 
-  res.json({ links: trash });
+  const formattedLinks = formatLinks(links);
+
+  res.json({ links: formattedLinks });
 });

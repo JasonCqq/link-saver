@@ -2,11 +2,6 @@
 <app-main-nav [title]="'Bookmarks'"></app-main-nav>
 
 <main class="default-dash-container">
-  <div class="container-nav">
-    <mat-icon fontIcon="apps"></mat-icon>
-    <mat-icon fontIcon="view_list"></mat-icon>
-  </div>
-
   <section class="content-grid" *ngIf="bookmarks">
     <div *ngFor="let bookmark of bookmarks">
       <app-link-item [itemData]="bookmark"></app-link-item>

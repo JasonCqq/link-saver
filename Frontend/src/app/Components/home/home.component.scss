@@ -29,14 +29,14 @@
       margin-top: 5vh;
 
       > a {
-        color: white;
-        background-color: black;
+        color: $text2;
+        background-color: $secondary;
         border-radius: 5px;
         padding: 1em;
         transition: box-shadow 0.15s ease-in-out;
 
         &:hover {
-          box-shadow: 1px 1px 10px rgb(41, 41, 41);
+          box-shadow: 1px 1px 15px rgb(119, 118, 118);
         }
       }
     }
@@ -163,7 +163,7 @@
         background-color: $accent;
         margin-top: 10vh;
         border-radius: 5px;
-        color: white;
+        color: $text2;
 
         &:hover {
           cursor: pointer;
@@ -181,10 +181,10 @@
     background-color: $accent;
     font-size: 1.1rem;
     font-weight: bold;
-    color: white;
+    color: $text2;
 
     > a {
-      color: white;
+      color: $text2;
     }
   }
 }
