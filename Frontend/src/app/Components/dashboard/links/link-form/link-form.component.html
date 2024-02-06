@@ -2,13 +2,8 @@
   <h1>Add a link</h1>
 
   <mat-form-field appearance="outline">
-    <mat-label for="title">Title *</mat-label>
-    <input matInput type="text" #title formControlName="title" />
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
     <mat-label for="url">URL *</mat-label>
-    <input matInput type="text" #url formControlName="url" />
+    <input matInput type="url" #url formControlName="url" />
   </mat-form-field>
 
   <!--Maybe put this to next page of form-->
@@ -39,5 +34,5 @@
     Bookmark
   </mat-checkbox>
 
-  <button type="submit">Next</button>
+  <button type="submit">Sumbit</button>
 </form>

@@ -17,9 +17,7 @@ export class LinkFormComponent implements OnInit {
   user: any;
 
   linkForm = new FormGroup({
-    title: new FormControl(),
     url: new FormControl(),
-    thumbnail: new FormControl(),
     folder: new FormControl(),
     bookmarked: new FormControl(),
     remind: new FormControl(),
@@ -27,9 +25,7 @@ export class LinkFormComponent implements OnInit {
 
   submitForm(): void {
     this.linkFormService.submitLinkForm(
-      this.linkForm.value.title ?? "",
-      this.linkForm.value.url ?? "",
-      this.linkForm.value.thumbnail ?? "",
+      this.linkForm.value.url,
       this.linkForm.value.folder ?? "",
       this.linkForm.value.bookmarked ?? false,
       this.linkForm.value.remind ?? null,
@@ -41,14 +37,8 @@ export class LinkFormComponent implements OnInit {
     this.user = this.userService.getUser();
   }
 
-  get title() {
-    return this.linkForm.get("title");
-  }
   get url() {
     return this.linkForm.get("url");
-  }
-  get thumbnail() {
-    return this.linkForm.get("thumbnail");
   }
   get folder() {
     return this.linkForm.get("folder");
