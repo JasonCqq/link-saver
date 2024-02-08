@@ -76,10 +76,11 @@ $Frontend-theme: mat.define-light-theme(
 
 html {
   scroll-behavior: smooth;
+  box-sizing: border-box;
+  background-color: $background;
 }
 
 body {
-  box-sizing: border-box;
   font-family:
     "REM",
     -apple-system,

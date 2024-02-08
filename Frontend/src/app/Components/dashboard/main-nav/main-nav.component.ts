@@ -12,4 +12,8 @@ export class MainNavComponent {
   toggleForm(): void {
     this.createForm = !this.createForm;
   }
+
+  // openAllLinks(): void {
+
+  // }
 }

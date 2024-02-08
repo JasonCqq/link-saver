@@ -1,4 +1,17 @@
-Mini features to add:
+Show upcoming date in upcoming tab
+Permanently delete options in trash
+Open all
+Thumbnail On/Off
+Auto refresh whenever a link gets modified or added
+Grid/List view
+Edit option for each link
+Search
+Folder system
+Settings
+Finish up user related stuff
+
+Additional Features to add/fix:
+
 - During registration remind user that email has to end with .com
 
 - Add success messages after authentication/registration
@@ -8,3 +21,14 @@ Mini features to add:
 - Remember to add validators and stuff in link-form
 
 - Restrict users from certain links
+
+- Rich Previews not working for some sites, causing it to not POST.
+  (Big sites such as Twitter/Reddit etc. Make a default thumbnail)
+
+- Add shareable link for folder
+
+- Mass select for mass options
+
+- Border coloring on add link form?
+
+- Reminder that trash will be deleted in X days

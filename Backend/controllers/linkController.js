@@ -132,7 +132,11 @@ exports.delete_link = [
 ];
 
 exports.get_links = asyncHandler(async (req, res) => {
-  const links = await prisma.Link.findMany();
+  const links = await prisma.Link.findMany({
+    where: {
+      trash: false,
+    },
+  });
 
   const formattedLinks = formatLinks(links);
 
@@ -143,6 +147,7 @@ exports.get_bookmarks = asyncHandler(async (req, res) => {
   const links = await prisma.Link.findMany({
     where: {
       bookmarked: true,
+      trash: false,
     },
   });
 
@@ -154,6 +159,7 @@ exports.get_bookmarks = asyncHandler(async (req, res) => {
 exports.get_upcoming = asyncHandler(async (req, res) => {
   const links = await prisma.Link.findMany({
     where: {
+      trash: false,
       remind: {
         not: {
           equals: null,
@@ -164,7 +170,7 @@ exports.get_upcoming = asyncHandler(async (req, res) => {
 
   const formattedLinks = formatLinks(links);
 
-  res.json({ links: formatLinks });
+  res.json({ links: formattedLinks });
 });
 
 exports.get_trash = asyncHandler(async (req, res) => {

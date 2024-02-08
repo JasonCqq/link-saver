@@ -1,77 +1,73 @@
 @import "../../../../assets/styles.scss";
 
 .main-nav {
-  height: 7.5vh;
+  height: auto;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   width: 85vw;
-  position: fixed;
-  top: 0;
   margin-left: 15vw;
   background-color: $background;
 
-  > p {
+  > .nav-title {
     font-size: 1.4rem;
     font-weight: 600;
-    margin: 0 3vw;
+    margin: 2vh 0 2vh 2vw;
   }
-  > .container-nav {
-    display: flex;
-    align-items: center;
-    gap: 5px;
 
-    > * {
+  > .nav-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-left: 2vw;
+
+    > .nav-search {
       margin-top: 2vh;
     }
 
-    > .container-nav-function {
+    > button {
+      font-family: "REM";
+      color: $text2;
+      padding: 12px 17px;
+      width: auto;
+      font-weight: 700;
+      background: $secondary;
+      border: none;
+      border-radius: 5px;
       display: flex;
-      gap: 10px;
+      align-items: center;
+      transition: box-shadow 0.15s ease-in-out;
 
-      > button {
-        font-family: "REM";
-        color: $text2;
-        padding: 12px 17px;
-        width: auto;
-        font-weight: 700;
-        background: $secondary;
-        border: none;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        transition: box-shadow 0.15s ease-in-out;
-
-        &:hover {
-          cursor: pointer;
-          box-shadow: 1px 1px 5px $accent;
-        }
+      &:hover {
+        cursor: pointer;
+        box-shadow: 1px 1px 5px $accent;
       }
+    }
 
-      > .create-form-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        background-color: rgba($color: #000000, $alpha: 0.6);
-        height: 100vh;
-        width: 100vw;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    > .create-form-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba($color: #000000, $alpha: 0.6);
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99;
 
-        > .create-form {
-          background-color: $background;
-          height: auto;
-          padding: 0 0 10vh 0;
-          width: 35vw;
-          border-radius: 10px;
+      > .create-form {
+        background-color: $background;
+        height: auto;
+        padding: 0 0 10vh 0;
+        width: 35vw;
+        border-radius: 10px;
 
-          > .create-form-close {
-            font-size: 1.75rem;
-            margin: 15px;
-            &:hover {
-              cursor: pointer;
-              color: $accent;
-            }
+        > .create-form-close {
+          font-size: 1.75rem;
+          margin: 15px;
+          &:hover {
+            cursor: pointer;
+            color: $accent;
           }
         }
       }

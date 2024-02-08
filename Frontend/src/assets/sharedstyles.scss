@@ -1,19 +1,19 @@
 @import "./styles.scss";
 
 .content-grid {
-  width: 95%;
+  box-sizing: border-box;
+  width: 85vw;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 400px));
   column-gap: 2vw;
-  margin-left: 3vw;
-  padding-top: 5vh;
+  row-gap: 4vh;
+  padding: 2% 0;
+  padding-left: 2vw;
 }
 
 .default-dash-container {
   margin-left: 15vw;
-  margin-top: 7.5vh;
   width: 85vw;
-  // height: auto;
-  height: 92.5vh;
+  height: auto;
   background-color: $background;
 }

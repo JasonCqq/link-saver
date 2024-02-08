@@ -45,5 +45,5 @@ model Link {
     bookmarked Boolean
     thumbnail  String
     remind     DateTime?
-    trash      Boolean?
+    trash      Boolean?  @default(false)
 }

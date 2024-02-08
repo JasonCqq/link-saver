@@ -1,72 +1,70 @@
 @import "../../../../../assets/styles.scss";
 
 .link-item {
+  position: relative;
   width: 100%;
-  border: 2px solid $secondary;
   text-align: center;
-  display: flex;
-  height: 100px;
+  height: 103px;
   border-radius: 3px;
+  border: 2px solid $secondary;
 
-  // > .link-options {
-  //   display: none;
-
-  //   > .link-delete {
-  //     background-color: red;
-  //     border-radius: 5px;
-  //     cursor: pointer;
-  //   }
-
-  //   > .link-edit {
-  //     background-color: $accent;
-  //     border-radius: 5px;
-  //     cursor: pointer;
-  //   }
-  // }
-
-  &:hover {
-    opacity: 0.85;
-    //   > .link-options {
-    //     display: flex;
-    //     background-color: rgba(0, 0, 0, 0.3);
-    //     justify-content: center;
-    //     align-items: center;
-    //     gap: 0.5vw;
-    //   }
-    > .link-details {
-      > .link-url {
-        color: $secondary;
+  > a {
+    display: flex;
+    &:hover {
+      opacity: 0.85;
+      > .link-details {
+        > .link-url {
+          color: $secondary;
+        }
+        > .link-title {
+          color: rgb(176, 176, 176);
+        }
       }
+    }
+
+    > .link-details {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.8rem;
+      height: 100px;
+      width: 100%;
+      border-right: 2px solid $secondary;
+
       > .link-title {
+        font-size: 0.9rem;
+        height: 50%;
+      }
+
+      > .link-url {
+        font-size: 0.75rem;
         color: rgb(176, 176, 176);
+        height: 25%;
+        padding-top: 2.5%;
+      }
+
+      > .link-date {
+        font-size: 0.6rem;
+        color: rgb(176, 176, 176);
+        height: 15%;
       }
     }
   }
 
-  > .link-details {
+  > .link-options {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: $secondary;
+    color: $text2;
+    border-top-right-radius: 5px;
     display: flex;
-    flex-direction: column;
-    font-size: 0.8rem;
-    height: 100px;
-    width: 100%;
-    border-right: 2px solid $secondary;
+    align-items: center;
+    gap: 5px;
 
-    > .link-title {
-      font-size: 1rem;
-      height: 50%;
-      padding-top: 2.5%;
-    }
-
-    > .link-url {
-      font-size: 0.85rem;
-      color: rgb(176, 176, 176);
-      height: 25%;
-    }
-
-    > .link-date {
-      font-size: 0.7rem;
-      color: rgb(176, 176, 176);
-      height: 15%;
+    > .link-delete:hover,
+    .link-edit:hover {
+      scale: 1.2;
+      cursor: pointer;
     }
   }
 }
