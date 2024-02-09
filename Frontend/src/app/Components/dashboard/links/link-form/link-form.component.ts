@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { LinkFormService } from "./link-form.service";
 import { UserService } from "../../../user/user.service";
@@ -15,6 +15,7 @@ export class LinkFormComponent implements OnInit {
   ) {}
 
   user: any;
+  @Output() closeForm = new EventEmitter();
 
   linkForm = new FormGroup({
     url: new FormControl(),
@@ -30,6 +31,8 @@ export class LinkFormComponent implements OnInit {
       this.linkForm.value.bookmarked ?? false,
       this.linkForm.value.remind ?? null,
     );
+
+    this.closeForm.emit();
   }
 
   ngOnInit(): void {

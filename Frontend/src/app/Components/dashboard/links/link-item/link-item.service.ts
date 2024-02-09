@@ -21,4 +21,15 @@ export class LinkService {
       throw err;
     }
   }
+
+  async permanentDelete(id: string) {
+    try {
+      await this.http
+        .delete(`${this.apiUrl}/link/perma_delete/${id}`)
+        .subscribe();
+    } catch (err) {
+      console.log("POST call failed", err);
+      throw err;
+    }
+  }
 }

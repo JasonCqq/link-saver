@@ -6,8 +6,15 @@
         {{ itemData.title | slice: 0 : 40
         }}{{ itemData.title.length > 40 ? "..." : "" }}
       </p>
-      <p class="link-date">
+      <p class="link-date" *ngIf="specialRequest === 'none'">
         {{ itemData.createdAt | date: "shortDate" }}
+      </p>
+      <p
+        class="link-date"
+        *ngIf="specialRequest === 'upcoming'"
+        style="color: red"
+      >
+        Upcoming: {{ itemData.remind | date: "shortDate" }}
       </p>
     </div>
 
@@ -21,11 +28,29 @@
       fontIcon="close"
       class="link-delete"
       (click)="moveToTrash()"
+      *ngIf="specialRequest !== 'delete'"
     ></mat-icon>
+
     <mat-icon
       fontIcon="edit"
       class="link-edit"
       style="transform: scale(0.8)"
+      *ngIf="specialRequest !== 'delete'"
+    ></mat-icon>
+
+    <mat-icon
+      fontIcon="close"
+      class="link-delete"
+      style="color: red"
+      *ngIf="specialRequest === 'delete'"
+      (click)="permanentDelete()"
+    ></mat-icon>
+
+    <mat-icon
+      fontIcon="restore"
+      class="link-restore"
+      style="transform: scale(0.9)"
+      *ngIf="specialRequest === 'delete'"
     ></mat-icon>
   </div>
 </div>

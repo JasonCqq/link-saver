@@ -4,7 +4,11 @@
 <main class="default-dash-container">
   <section class="content-grid" *ngIf="upcoming">
     <div *ngFor="let u of upcoming">
-      <app-link-item [itemData]="u"></app-link-item>
+      <app-link-item
+        [itemData]="u"
+        [specialRequest]="'upcoming'"
+        (linkUpdate)="deleteLink($event)"
+      ></app-link-item>
     </div>
   </section>
 </main>

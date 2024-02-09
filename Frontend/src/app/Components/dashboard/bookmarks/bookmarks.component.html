@@ -4,7 +4,10 @@
 <main class="default-dash-container">
   <section class="content-grid" *ngIf="bookmarks">
     <div *ngFor="let bookmark of bookmarks">
-      <app-link-item [itemData]="bookmark"></app-link-item>
+      <app-link-item
+        [itemData]="bookmark"
+        (linkUpdate)="deleteLink($event)"
+      ></app-link-item>
     </div>
   </section>
 </main>

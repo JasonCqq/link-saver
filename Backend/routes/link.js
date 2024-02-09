@@ -14,4 +14,6 @@ router.get("/trash", linkController.get_trash);
 
 router.put("/delete", linkController.delete_link);
 
+router.delete("/perma_delete/:id", linkController.perma_delete_link);
+
 module.exports = router;

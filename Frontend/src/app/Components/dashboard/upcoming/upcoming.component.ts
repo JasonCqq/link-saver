@@ -15,6 +15,11 @@ export class UpcomingComponent implements OnInit {
     this.getUpcoming();
   }
 
+  deleteLink(id: any): void {
+    const link = this.upcoming.findIndex((link) => link.id === id);
+    this.upcoming.splice(link, 1);
+  }
+
   getUpcoming(): void {
     this.dashboardService.getUpcoming().subscribe((result) => {
       this.upcoming = result;

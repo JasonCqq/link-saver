@@ -5,7 +5,10 @@
 <main class="dashboard-container default-dash-container">
   <section class="content-grid" *ngIf="links">
     <div *ngFor="let link of links">
-      <app-link-item [itemData]="link"></app-link-item>
+      <app-link-item
+        [itemData]="link"
+        (linkUpdate)="deleteLink($event)"
+      ></app-link-item>
     </div>
   </section>
 </main>

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { UserService } from "../../user/user.service";
 import { DashboardService } from "../dashboard.service";
 import { Link } from "../../../Interfaces/Link";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-dashboard",
@@ -24,12 +25,14 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.userService.getUser();
-    this.getLinks();
-  }
 
-  getLinks(): void {
     this.dashboardService
       .getLinks()
-      .subscribe((result) => (this.links = result));
+      .subscribe((result: Link[]) => (this.links = result));
+  }
+
+  deleteLink(id: any): void {
+    const link = this.links.findIndex((link) => link.id === id);
+    this.links.splice(link, 1);
   }
 }

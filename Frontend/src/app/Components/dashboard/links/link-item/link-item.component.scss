@@ -62,7 +62,8 @@
     gap: 5px;
 
     > .link-delete:hover,
-    .link-edit:hover {
+    .link-edit:hover,
+    .link-restore:hover {
       scale: 1.2;
       cursor: pointer;
     }

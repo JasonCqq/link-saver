@@ -131,6 +131,17 @@ exports.delete_link = [
   }),
 ];
 
+exports.perma_delete_link = asyncHandler(async (req, res) => {
+  const link = await prisma.Link.delete({
+    where: {
+      id: req.params.id,
+      trash: true,
+    },
+  });
+
+  return res.json({ success: true });
+});
+
 exports.get_links = asyncHandler(async (req, res) => {
   const links = await prisma.Link.findMany({
     where: {

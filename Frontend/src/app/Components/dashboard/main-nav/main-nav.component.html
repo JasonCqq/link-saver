@@ -18,7 +18,7 @@
           (click)="toggleForm()"
           class="create-form-close"
         ></mat-icon>
-        <app-link-form></app-link-form>
+        <app-link-form (closeForm)="toggleForm()"></app-link-form>
       </div>
     </div>
 

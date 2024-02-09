@@ -16,6 +16,11 @@ export class BookmarksComponent implements OnInit {
     this.getBookmarks();
   }
 
+  deleteLink(id: any): void {
+    const link = this.bookmarks.findIndex((link) => link.id === id);
+    this.bookmarks.splice(link, 1);
+  }
+
   getBookmarks(): void {
     this.dashboardService.getBookmarks().subscribe((result) => {
       this.bookmarks = result;

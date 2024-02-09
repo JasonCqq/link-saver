@@ -4,7 +4,11 @@
 <main class="default-dash-container">
   <section class="content-grid" *ngIf="trash">
     <div *ngFor="let t of trash">
-      <app-link-item [itemData]="t"></app-link-item>
+      <app-link-item
+        [itemData]="t"
+        (linkUpdate)="deleteLink($event)"
+        [specialRequest]="'delete'"
+      ></app-link-item>
     </div>
   </section>
 </main>
