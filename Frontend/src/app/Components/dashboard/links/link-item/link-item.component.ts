@@ -24,5 +24,8 @@ export class LinkComponent {
     this.linkUpdate.emit(this.itemData.id);
   }
 
-  restoreLink(): void {}
+  restoreLink(): void {
+    this.linkService.restoreLink(this.itemData.id);
+    this.linkUpdate.emit(this.itemData.id);
+  }
 }

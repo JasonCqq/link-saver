@@ -13,6 +13,10 @@ export class UpcomingComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUpcoming();
+
+    this.dashboardService.upcomingUpdated().subscribe(() => {
+      this.getUpcoming();
+    });
   }
 
   deleteLink(id: any): void {

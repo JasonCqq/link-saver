@@ -2,18 +2,16 @@
 
 .content-grid {
   box-sizing: border-box;
-  width: 85vw;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 400px));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 380px));
   column-gap: 2vw;
   row-gap: 4vh;
-  padding: 2% 0;
-  padding-left: 2vw;
+  margin-left: 2vw;
+  margin-top: 2vh;
 }
 
 .default-dash-container {
   margin-left: 15vw;
-  width: 85vw;
   height: auto;
   background-color: $background;
 }

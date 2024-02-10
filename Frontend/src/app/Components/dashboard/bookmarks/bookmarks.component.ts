@@ -14,6 +14,10 @@ export class BookmarksComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBookmarks();
+
+    this.dashboardService.bookmarkUpdated().subscribe(() => {
+      this.getBookmarks();
+    });
   }
 
   deleteLink(id: any): void {

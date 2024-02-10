@@ -107,35 +107,39 @@ exports.create_link = [
   }),
 ];
 
-exports.delete_link = [
-  body("id").trim().escape(),
+exports.delete_link = asyncHandler(async (req, res) => {
+  const link = await prisma.Link.update({
+    where: {
+      id: req.params.id,
+    },
 
-  asyncHandler(async (req, res) => {
-    const errs = validationResult(req);
+    data: {
+      trash: true,
+    },
+  });
 
-    if (!errs.isEmpty()) {
-      return res.json({ errors: errs.array().map((err) => err.msg) });
-    } else {
-      const link = await prisma.Link.update({
-        where: {
-          id: req.body.id,
-        },
-
-        data: {
-          trash: true,
-        },
-      });
-
-      return res.json({ success: true });
-    }
-  }),
-];
+  return res.json({ success: true });
+});
 
 exports.perma_delete_link = asyncHandler(async (req, res) => {
   const link = await prisma.Link.delete({
     where: {
       id: req.params.id,
       trash: true,
+    },
+  });
+
+  return res.json({ success: true });
+});
+
+exports.restore_link = asyncHandler(async (req, res) => {
+  const link = await prisma.Link.update({
+    where: {
+      id: req.params.id,
+    },
+
+    data: {
+      trash: false,
     },
   });
 

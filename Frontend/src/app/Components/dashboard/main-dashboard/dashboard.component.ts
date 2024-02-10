@@ -19,16 +19,24 @@ export class DashboardComponent implements OnInit {
   user: any;
   links: Link[] = [];
 
+  ngOnInit(): void {
+    this.user = this.userService.getUser();
+
+    this.getLinks();
+
+    this.dashboardService.linksUpdated().subscribe(() => {
+      this.getLinks();
+    });
+  }
+
   temp(): void {
     console.log(this.user);
   }
 
-  ngOnInit(): void {
-    this.user = this.userService.getUser();
-
+  getLinks(): void {
     this.dashboardService
       .getLinks()
-      .subscribe((result: Link[]) => (this.links = result));
+      .subscribe((result) => (this.links = result));
   }
 
   deleteLink(id: any): void {

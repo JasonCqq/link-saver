@@ -1,64 +1,71 @@
 @import "../../../../assets/styles.scss";
-.d-sidebar {
-  width: 15vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5vh;
-  background-color: $background;
-  position: fixed;
-  left: 0;
-  top: 0;
-  border-right: 2px solid $secondary;
 
-  .sidebar-profile {
-    margin-top: 5vh;
+.d-sidebar-wrapper {
+  position: relative;
+  width: auto;
+
+  > .d-sidebar {
+    width: 15vw;
+    height: 100vh;
     display: flex;
-    align-items: center;
-    margin-bottom: 5vh;
+    flex-direction: column;
+    gap: 1.5vh;
+    background-color: $background;
+    position: fixed;
+    left: 0;
+    top: 0;
+    border-right: 2px solid $secondary;
+    padding: 0vh 2vw;
 
-    > p {
-      font-size: 1rem;
-      font-weight: bold;
-      margin-left: 1vw;
-    }
-  }
+    .sidebar-profile {
+      margin-top: 5vh;
+      display: flex;
+      align-items: center;
+      margin-bottom: 5vh;
 
-  > .sidebar-tab {
-    padding: 7px 15px;
-    display: flex;
-    margin-left: 1vw;
-    gap: 0.5vw;
-    border-radius: 5px;
-
-    &:hover {
-      cursor: pointer;
-
-      > .sidebar-icon {
-        color: $text;
+      > p {
+        font-size: 1rem;
+        font-weight: bold;
+        margin-left: 1vw;
       }
     }
-  }
 
-  > .sidebar-bottom {
-    margin-top: auto;
-  }
+    > .sidebar-tab {
+      margin: 7px 15px;
+      display: flex;
+      margin-left: 1vw;
+      gap: 0.5vw;
+      border-radius: 5px;
 
-  > .sidebar-tab > h1 {
-    font-size: 1.1rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    color: $text;
-  }
+      &:hover {
+        cursor: pointer;
 
-  > .sidebar-tab > .sidebar-icon {
-    color: $accent;
-    font-size: 1.5rem;
+        > .sidebar-icon {
+          color: $text;
+        }
+      }
+    }
 
-    font-variation-settings:
-      "FILL" 0,
-      "wght" 400,
-      "GRAD" 0,
-      "opsz" 24;
+    > .sidebar-bottom {
+      margin-top: auto;
+    }
+
+    > .sidebar-tab > h1 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: $text;
+    }
+
+    > .sidebar-tab > .sidebar-icon {
+      color: $accent;
+      font-size: 1.5rem;
+
+      font-variation-settings:
+        "FILL" 0,
+        "wght" 400,
+        "GRAD" 0,
+        "opsz" 24;
+    }
   }
 }

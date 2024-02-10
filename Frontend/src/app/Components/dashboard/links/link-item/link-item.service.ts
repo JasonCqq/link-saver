@@ -11,13 +11,18 @@ export class LinkService {
 
   async moveToTrash(id: string) {
     try {
-      await this.http
-        .put(`${this.apiUrl}/link/delete`, {
-          id: id,
-        })
-        .subscribe();
+      await this.http.put(`${this.apiUrl}/link/delete/${id}`, {}).subscribe();
     } catch (err) {
-      console.log("POST call failed", err);
+      console.log("PUT call failed", err);
+      throw err;
+    }
+  }
+
+  async restoreLink(id: string) {
+    try {
+      await this.http.put(`${this.apiUrl}/link/restore/${id}`, {}).subscribe();
+    } catch (err) {
+      console.log("PUT call failed", err);
       throw err;
     }
   }
@@ -28,7 +33,7 @@ export class LinkService {
         .delete(`${this.apiUrl}/link/perma_delete/${id}`)
         .subscribe();
     } catch (err) {
-      console.log("POST call failed", err);
+      console.log("DELETE call failed", err);
       throw err;
     }
   }

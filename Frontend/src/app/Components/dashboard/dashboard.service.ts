@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment.development";
-import { Observable, of } from "rxjs";
+import { Observable, Subject, of } from "rxjs";
 import { map, tap, catchError } from "rxjs/operators";
 import { Link, Links } from "../../Interfaces/Link";
 import { Folder, Folders } from "../../Interfaces/Folder";
@@ -17,6 +17,30 @@ export class DashboardService implements OnInit {
     private userService: UserService,
   ) {}
   private apiUrl = environment.apiUrl;
+
+  // Notifiers
+  private linksSubject = new Subject<void>();
+  private bookmarkSubject = new Subject<void>();
+  private upcomingSubject = new Subject<void>();
+  notifyLinks() {
+    this.linksSubject.next();
+  }
+  linksUpdated(): Observable<void> {
+    return this.linksSubject.asObservable();
+  }
+  notifyBookmark() {
+    this.bookmarkSubject.next();
+  }
+  bookmarkUpdated() {
+    return this.bookmarkSubject.asObservable();
+  }
+  notifyUpcoming() {
+    this.upcomingSubject.next();
+  }
+  upcomingUpdated() {
+    return this.upcomingSubject.asObservable();
+  }
+
   user: any;
 
   ngOnInit(): void {
