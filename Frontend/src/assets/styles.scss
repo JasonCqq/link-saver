@@ -1,14 +1,15 @@
 $secondary: #ffc446;
 $accent: #ffc446;
 $background: #191919;
+$background2: #15171a;
 $text: #f3f3f3;
 $text2: #191919;
 $imp-button: #f73830;
 
 @use "@angular/material" as mat;
 @include mat.core();
-$Frontend-primary: mat.define-palette(mat.$indigo-palette);
-$Frontend-accent: mat.define-palette(mat.$blue-palette, A400);
+$Frontend-primary: mat.define-palette(mat.$amber-palette);
+$Frontend-accent: mat.define-palette(mat.$orange-palette, A200);
 $Frontend-warn: mat.define-palette(mat.$red-palette);
 $Frontend-theme: mat.define-light-theme(
   (
@@ -22,10 +23,11 @@ $Frontend-theme: mat.define-light-theme(
   )
 );
 
-::ng-deep
+::ng-deep {
   .mdc-text-field--outlined:not(.mdc-text-field--disabled)
-  .mdc-text-field__input {
-  color: white !important;
+    .mdc-text-field__input {
+    color: white !important;
+  }
 }
 
 ::ng-deep .mdc-notched-outline > * {
@@ -40,21 +42,6 @@ $Frontend-theme: mat.define-light-theme(
   color: gray !important;
 }
 
-// Checkbox
-::ng-deep {
-  .mat-mdc-checkbox .mdc-form-field {
-    .mat-mdc-floating-label.mdc-floating-label {
-      color: gray !important;
-    }
-
-    color: white !important;
-  }
-
-  .mat-mdc-checkbox .mdc-checkbox__background {
-    border-color: $accent !important;
-    padding: 5px;
-  }
-}
 // Date picker
 ::ng-deep {
   .mdc-text-field--filled:not(.mdc-text-field--disabled) {

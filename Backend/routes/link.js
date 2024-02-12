@@ -16,6 +16,8 @@ router.put("/delete/:id", linkController.delete_link);
 
 router.put("/restore/:id", linkController.restore_link);
 
+router.put("/edit/:id", linkController.edit_link);
+
 router.delete("/perma_delete/:id", linkController.perma_delete_link);
 
 module.exports = router;

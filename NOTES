@@ -1,9 +1,8 @@
-Grid/List view
-Edit option for each link
-Search
-Settings
+Edit option for each link / Search
+
 Finish up user related stuff
 Thumbnail On/Off (We could ngIf the link-item preview, based on user's setting)
+Grid/List view
 Folder system
 Forgot password/Email confirmation?
 
@@ -33,3 +32,5 @@ Additional Features to add/fix:
 - Prevent submission with empty inputs on link-form
 
 - Auto sort date on dashboard
+
+- Warnings on important buttons

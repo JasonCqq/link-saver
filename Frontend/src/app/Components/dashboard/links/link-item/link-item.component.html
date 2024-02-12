@@ -1,6 +1,6 @@
 <div class="link-item">
-  <a [href]="'//' + itemData.url" target="_blank">
-    <div class="link-details">
+  <section>
+    <a class="link-details" [href]="'//' + itemData.url" target="_blank">
       <p class="link-url">{{ itemData.url | slice: 0 : 25 }}</p>
       <p class="link-title">
         {{ itemData.title | slice: 0 : 40
@@ -16,12 +16,12 @@
       >
         Upcoming: {{ itemData.remind | date: "shortDate" }}
       </p>
-    </div>
+    </a>
 
     <div class="link-preview">
       <img [src]="itemData.thumbnail" height="100px" width="175px" />
     </div>
-  </a>
+  </section>
 
   <div class="link-options">
     <mat-icon
@@ -36,6 +36,7 @@
       class="link-edit"
       style="transform: scale(0.8)"
       *ngIf="specialRequest !== 'delete'"
+      (click)="toggleEdit()"
     ></mat-icon>
 
     <mat-icon
@@ -54,4 +55,51 @@
       (click)="restoreLink()"
     ></mat-icon>
   </div>
+</div>
+
+<!-- Edit Form -->
+<form class="add-link-form"></form>
+
+<div *ngIf="editting" class="link-item-edit-overlay">
+  <form
+    class="link-item-edit"
+    [formGroup]="editForm"
+    (submit)="submitEditForm()"
+  >
+    <span>
+      <mat-icon
+        fontIcon="close"
+        (click)="toggleEdit()"
+        class="close-form"
+      ></mat-icon>
+    </span>
+
+    <h1>Edit</h1>
+
+    <mat-form-field appearance="outline">
+      <mat-label for="editTitle">Title</mat-label>
+      <input matInput type="text" #editTitle formControlName="editTitle" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label for="editFolder">Folder</mat-label>
+      <input matInput type="text" #editFolder formControlName="editFolder" />
+    </mat-form-field>
+
+    <p>Remind me on</p>
+    <mat-form-field>
+      <input #remind type="datetime" matInput [matDatepicker]="editPicker" />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="editPicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #editPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-slide-toggle #editBookmarked formControlName="editBookmarked">
+      <p style="color: white; margin-left: 0.5vw">Bookmark</p>
+    </mat-slide-toggle>
+
+    <button type="submit">Apply</button>
+  </form>
 </div>

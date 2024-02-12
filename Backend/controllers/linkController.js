@@ -146,6 +146,42 @@ exports.restore_link = asyncHandler(async (req, res) => {
   return res.json({ success: true });
 });
 
+exports.edit_link = [
+  body("title").trim().escape(),
+  body("folder").trim().escape(),
+  body("bookmarked").trim().escape(),
+  body("remind").trim().escape(),
+
+  asyncHandler(async (req, res) => {
+    const errs = validationResult(req);
+
+    if (!errs.isEmpty()) {
+      return res.json({ errors: errs.array().map((err) => err.msg) });
+    } else {
+      try {
+        console.log(req.body);
+
+        const link = await prisma.Link.update({
+          where: {
+            id: req.params.id,
+          },
+
+          data: {
+            title: req.body.title,
+            bookmarked: JSON.parse(req.body.bookmarked),
+            // folder: not yet ready
+            remind: req.body.remind || null,
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    return res.json({ success: true });
+  }),
+];
+
 exports.get_links = asyncHandler(async (req, res) => {
   const links = await prisma.Link.findMany({
     where: {
