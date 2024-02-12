@@ -1,0 +1,72 @@
+@import "../../../../assets/styles.scss";
+
+.settings-page {
+  margin-left: 15vw;
+  color: $text;
+  padding: 7.5%;
+
+  > .settings-flex {
+    display: flex;
+    padding-bottom: 5vh;
+
+    > .settings-delete {
+      margin-left: auto;
+      background-color: $imp-button;
+      border: none;
+      font-family: "REM";
+      padding: 5px 15px;
+      border-radius: 10px;
+      color: $text;
+
+      &:hover {
+        cursor: pointer;
+        color: $text2;
+      }
+    }
+  }
+
+  > .settings-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 15vh;
+
+    > .settings-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4vh;
+
+      > h3 {
+        color: $accent;
+      }
+
+      > p {
+        font-size: 1.25rem;
+      }
+
+      > span {
+        display: flex;
+        gap: 2vw;
+      }
+
+      > .settings-apply {
+        width: 25%;
+        border: none;
+        font-family: "REM";
+        border-radius: 10px;
+        border: 2px solid $accent;
+        color: $text;
+        background-color: transparent;
+        padding: 10px 15px;
+        transition:
+          background-color 0.2s ease-in-out,
+          color 0.2s ease-in-out;
+
+        &:hover {
+          background-color: $accent;
+          color: $text2;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

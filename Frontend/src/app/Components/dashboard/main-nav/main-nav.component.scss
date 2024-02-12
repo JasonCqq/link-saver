@@ -10,7 +10,7 @@
   > .nav-title {
     font-size: 1.4rem;
     font-weight: 600;
-    margin: 2vh 0 2vh 2vw;
+    margin: 5vh 0 2vh 2vw;
   }
 
   > .nav-container {
@@ -25,19 +25,22 @@
 
     > button {
       font-family: "REM";
-      color: $text2;
-      padding: 12px 17px;
+      color: $text;
+      padding: 10px 17px;
       font-weight: 700;
-      background: $secondary;
-      border: none;
+      background: transparent;
+      border: 2px solid $accent;
       border-radius: 5px;
       display: flex;
       align-items: center;
-      transition: box-shadow 0.15s ease-in-out;
+      transition:
+        background-color 0.15s ease-in-out,
+        color 0.15s ease-in-out;
 
       &:hover {
+        background-color: $accent;
         cursor: pointer;
-        box-shadow: 1px 1px 5px $accent;
+        color: $text2;
       }
     }
 
@@ -57,7 +60,7 @@
         background-color: $background;
         height: auto;
         padding: 0 0 10vh 0;
-        width: 35vw;
+        width: 30vw;
         border-radius: 10px;
 
         > .create-form-close {

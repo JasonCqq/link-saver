@@ -5,12 +5,12 @@
   width: auto;
 
   > .d-sidebar {
-    width: 15vw;
+    width: 14.5vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
     gap: 1.5vh;
-    background-color: $background;
+    background-color: #15171a;
     position: fixed;
     left: 0;
     top: 0;
@@ -20,6 +20,7 @@
     .sidebar-profile {
       margin-top: 5vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       margin-bottom: 5vh;
 

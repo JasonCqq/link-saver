@@ -3,7 +3,7 @@
     <div class="landing-heading">
       <section>LinkStorage</section>
     </div>
-    <p>125,258 links saved</p>
+    <p>125,258 links saved in 2583 folders</p>
     <div class="landing-body">
       <a routerLink="/user/login" *ngIf="!user">Log in</a>
       <a routerLink="/user/register" *ngIf="!user" class="nav-button">
@@ -14,34 +14,76 @@
   </header>
 
   <section #home_features class="home_features">
-    <h1>Features</h1>
-    <div class="home-features-flex">
+    <h1>A Better Way to <u>Store Links</u></h1>
+    <div class="home-features-grid">
       <div class="home-features-item">
-        <h2>Folders</h2>
-        <p>
-          Quickly find your links with folders saved to accounts, you can
-          navigate your links easily.
-        </p>
+        <span>
+          <mat-icon
+            fontIcon="panorama"
+            style="transform: scale(1.75); color: #fcc466"
+          ></mat-icon>
+        </span>
+
+        <span>
+          <h2>Rich Previews</h2>
+          <p>
+            Visually enriched browsing with previews that offer a glimpse into
+            websites.
+          </p>
+        </span>
       </div>
       <div class="home-features-item">
-        <h2>Visualization</h2>
-        <p>
-          Every saved link is simple, allowing you to identify your content at a
-          glance.
-        </p>
+        <span>
+          <mat-icon
+            fontIcon="manage_search"
+            style="transform: scale(2); color: #fcc466"
+          ></mat-icon>
+        </span>
+
+        <span>
+          <h2>Search/Filter</h2>
+          <p>
+            Effortlessly locate your specific links with search and filter
+            (coming soon) functionality.
+          </p>
+        </span>
       </div>
       <div class="home-features-item">
-        <h2>Simplified</h2>
-        <p>
-          Hassle-free link saving with our user-friendly interface, making it
-          easy to stay organized
-        </p>
+        <span>
+          <mat-icon
+            fontIcon="folder_copy"
+            style="transform: scale(1.75); color: #fcc466"
+          ></mat-icon>
+        </span>
+
+        <span>
+          <h2>Folders for Organization</h2>
+          <p>
+            Keep your content organized by sorting your links into folders. Easy
+            navigation.
+          </p>
+        </span>
+      </div>
+      <div class="home-features-item">
+        <span>
+          <mat-icon
+            fontIcon="share"
+            style="transform: scale(1.75); color: #fcc466"
+          ></mat-icon>
+        </span>
+        <span>
+          <h2>Share your links/folders</h2>
+          <p>
+            Share your links or folders with friends, or the world, allowing
+            easy access to material.
+          </p>
+        </span>
       </div>
     </div>
   </section>
 
   <section #home_faq class="home_faq">
-    <h1>FAQ</h1>
+    <h1><u>Frequently Asked Questions</u></h1>
 
     <div class="home-faq-container">
       <div
@@ -67,7 +109,7 @@
       action="https://formsubmit.co/jason.cq.huang@gmail.com"
       method="POST"
     >
-      <h1>CONTACT</h1>
+      <h1><u>CONTACT</u></h1>
 
       <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
@@ -94,9 +136,9 @@
   </section>
 
   <footer class="foot-note">
-    Experimental Project -
+    Experimental Project
     <a href="https://github.com/JasonCqq/link-saver" target="_blank"
-      ><u> GitHub</u></a
+      ><u style="margin-left: 1vw">GitHub</u></a
     >
   </footer>
 </main>

@@ -29,10 +29,12 @@
       height: 100px;
       width: 100%;
       border-right: 2px solid $secondary;
+      align-items: center;
 
       > .link-title {
         font-size: 0.9rem;
         height: 50%;
+        width: 80%;
       }
 
       > .link-url {
@@ -56,15 +58,15 @@
     left: 0;
     background-color: $secondary;
     color: $text2;
-    border-top-right-radius: 5px;
+    border-top-right-radius: 3px;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 1.5px;
 
     > .link-delete:hover,
     .link-edit:hover,
     .link-restore:hover {
-      scale: 1.2;
+      scale: 1.1;
       cursor: pointer;
     }
   }

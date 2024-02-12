@@ -1,2 +1,22 @@
 @import "../../../../assets/sharedstyles.scss";
 @import "../../../../assets/styles.scss";
+
+span > button {
+  position: relative;
+  font-family: "REM";
+  margin-left: 17vw;
+  color: $text;
+  padding: 10px 25px;
+  font-weight: 900;
+  background: $imp-button;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  transition: box-shadow 0.15s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 1px 1px 10px $imp-button;
+  }
+}

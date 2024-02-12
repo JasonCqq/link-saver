@@ -1,7 +1,8 @@
 <nav class="d-sidebar-wrapper">
   <ul class="d-sidebar">
     <li class="sidebar-profile">
-      <p>Welcome, Guest</p>
+      <p>Welcome,</p>
+      <p>test123123gmail.com</p>
     </li>
 
     <a class="sidebar-tab" routerLink="/dashboard">
@@ -9,14 +10,14 @@
       <h1 class="tab-id">Dashboard</h1>
     </a>
 
+    <a class="sidebar-tab" routerLink="/dashboard/folders">
+      <mat-icon fontIcon="folder" class="sidebar-icon"></mat-icon>
+      <h1 class="tab-id">Folders</h1>
+    </a>
+
     <a class="sidebar-tab" routerLink="/dashboard/bookmarks">
       <mat-icon fontIcon="bookmarks" class="sidebar-icon"></mat-icon>
       <h1 class="tab-id">Bookmarks</h1>
-    </a>
-
-    <a class="sidebar-tab" routerLink="/dashboard/folders">
-      <mat-icon fontIcon="folder" class="sidebar-icon"></mat-icon>
-      <h1 class="tab-id" style="opacity: 0.1">Folders</h1>
     </a>
 
     <a class="sidebar-tab" routerLink="/dashboard/upcoming">
@@ -29,9 +30,9 @@
       <h1 class="tab-id">Trash</h1>
     </a>
 
-    <a class="sidebar-tab sidebar-bottom" (click)="logOut()">
-      <mat-icon fontIcon="logout" class="sidebar-icon"></mat-icon>
-      <h1>Logout</h1>
+    <a routerLink="/dashboard/settings" class="sidebar-tab sidebar-bottom">
+      <mat-icon fontIcon="settings" class="sidebar-icon"></mat-icon>
+      <h1 class="tab-id">Settings</h1>
     </a>
 
     <a routerLink="" class="sidebar-tab">
@@ -39,13 +40,9 @@
       <h1>Home</h1>
     </a>
 
-    <a
-      routerLink="/dashboard/settings"
-      class="sidebar-tab"
-      style="margin-bottom: 5vh"
-    >
-      <mat-icon fontIcon="settings" class="sidebar-icon"></mat-icon>
-      <h1 class="tab-id">Settings</h1>
+    <a class="sidebar-tab" style="margin-bottom: 5vh" (click)="logOut()">
+      <mat-icon fontIcon="logout" class="sidebar-icon"></mat-icon>
+      <h1>Logout</h1>
     </a>
   </ul>
 </nav>

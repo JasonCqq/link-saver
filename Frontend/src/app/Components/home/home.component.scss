@@ -26,7 +26,7 @@
     .landing-body {
       display: flex;
       gap: 2.5vw;
-      margin-top: 5vh;
+      margin-top: 10vh;
 
       > a {
         color: $text2;
@@ -44,53 +44,50 @@
 
   .home_features {
     margin-top: 25vh;
-    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 70vh;
+    height: 60vh;
 
     > h1 {
       font-size: 1.5rem;
     }
 
-    .home-features-flex {
-      display: flex;
+    .home-features-grid {
+      display: grid;
       width: 80%;
-      gap: 5vw;
       margin-top: 5vh;
+      grid-template-columns: repeat(2, 375px);
+      grid-template-rows: repeat(2, 125px);
       justify-content: center;
+      column-gap: 1.5vw;
+      row-gap: 3vh;
 
       .home-features-item {
-        height: 300px;
-        width: 250px;
-        border: 1px solid #b6b4b4;
-        border-radius: 10px;
         display: flex;
-        flex-direction: column;
+        background-color: #27292a;
         align-items: center;
-        justify-content: center;
-        padding: 30px;
-        box-shadow: 5px 5px $accent;
-        gap: 1.5vh;
+        border-radius: 10px;
 
-        > h2 {
-          font-size: 1.5rem;
-          padding-top: 2vh;
-          border-bottom: 5px solid $accent;
-        }
+        > span {
+          padding-left: 1.5vw;
 
-        > p {
-          text-align: center;
-          padding-top: 5vh;
-          line-height: 3vh;
+          > p {
+            color: rgb(176, 176, 176);
+            font-size: 0.85rem;
+            width: 95%;
+          }
+
+          > h2 {
+            font-size: 1.3rem;
+            padding-bottom: 5px;
+          }
         }
       }
     }
   }
 
   .home_faq {
-    margin-top: 3.5vh;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -144,6 +141,7 @@
     align-items: center;
     justify-content: space-evenly;
     margin-bottom: 15vh;
+    margin-top: 5vh;
 
     .contact-form {
       display: flex;
@@ -155,19 +153,22 @@
       }
 
       > button {
-        border: none;
+        border: 2px solid $accent;
         padding: 15px 10px;
         font-size: 1.15rem;
         font-weight: 600;
-        transition: box-shadow 0.15s ease-in-out;
-        background-color: $accent;
+        background-color: transparent;
         margin-top: 10vh;
         border-radius: 5px;
-        color: $text2;
+        color: $text;
+        transition:
+          background-color 0.15s ease-in-out,
+          color 0.15s ease-in-out;
 
         &:hover {
+          background-color: $accent;
           cursor: pointer;
-          box-shadow: 1px 1px 10px $accent;
+          color: $text2;
         }
       }
     }
@@ -177,9 +178,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 6vh;
+    height: 3vh;
     background-color: $accent;
-    font-size: 1.1rem;
+    font-size: 0.8rem;
     font-weight: bold;
     color: $text2;
 

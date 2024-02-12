@@ -1,7 +1,7 @@
 <div class="link-item">
   <a [href]="'//' + itemData.url" target="_blank">
     <div class="link-details">
-      <p class="link-url">{{ itemData.url | slice: 0 : 30 }}</p>
+      <p class="link-url">{{ itemData.url | slice: 0 : 25 }}</p>
       <p class="link-title">
         {{ itemData.title | slice: 0 : 40
         }}{{ itemData.title.length > 40 ? "..." : "" }}
@@ -12,7 +12,7 @@
       <p
         class="link-date"
         *ngIf="specialRequest === 'upcoming'"
-        style="color: red"
+        style="color: #f73830"
       >
         Upcoming: {{ itemData.remind | date: "shortDate" }}
       </p>
@@ -41,7 +41,7 @@
     <mat-icon
       fontIcon="close"
       class="link-delete"
-      style="color: red"
+      style="color: #f73830"
       *ngIf="specialRequest === 'delete'"
       (click)="permanentDelete()"
     ></mat-icon>
@@ -49,7 +49,7 @@
     <mat-icon
       fontIcon="restore"
       class="link-restore"
-      style="transform: scale(0.9)"
+      style="transform: scale(0.95)"
       *ngIf="specialRequest === 'delete'"
       (click)="restoreLink()"
     ></mat-icon>

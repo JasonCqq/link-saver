@@ -4,31 +4,45 @@
   display: flex;
   flex-direction: column;
   margin-left: 5vw;
+  gap: 1vh;
 
   > h1 {
     font-size: 2rem;
     padding: 0px 0px 2vh 0px;
   }
 
-  > button {
-    background-color: $accent;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 10px;
-    color: $text;
-    width: 8vw;
-    font-size: 1rem;
-    font-weight: bold;
-    transition: box-shadow 0.1s ease-in-out;
-    margin-top: 2vh;
-    color: $text2;
+  > .add-link-form-buttons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
 
-    &:hover {
-      cursor: pointer;
+    > a {
+      padding: 2vh 0 0 0;
+    }
+
+    > button {
+      background-color: transparent;
+      border: 2px solid $accent;
+      border-radius: 5px;
+      padding: 10px 10px;
+      color: $text;
+      width: 8vw;
+      font-size: 1rem;
+      font-weight: bold;
+      transition:
+        background-color 0.15s ease-in-out,
+        color 0.15s ease-in-out;
+      margin-top: 2vh;
+
+      &:hover {
+        background-color: $accent;
+        cursor: pointer;
+        color: $text2;
+      }
     }
   }
 }
 
 mat-form-field {
-  width: 25vw;
+  width: 20vw;
 }

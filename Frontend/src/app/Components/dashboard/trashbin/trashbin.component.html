@@ -1,6 +1,10 @@
 <app-main-sidebar></app-main-sidebar>
 <app-main-nav [title]="'Trash'"></app-main-nav>
 
+<span>
+  <button>Clear All</button>
+</span>
+
 <main class="default-dash-container">
   <section class="content-grid" *ngIf="trash">
     <div *ngFor="let t of trash">

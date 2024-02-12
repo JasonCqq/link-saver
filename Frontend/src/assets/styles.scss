@@ -3,6 +3,7 @@ $accent: #ffc446;
 $background: #191919;
 $text: #f3f3f3;
 $text2: #191919;
+$imp-button: #f73830;
 
 @use "@angular/material" as mat;
 @include mat.core();
@@ -101,13 +102,13 @@ body {
 }
 
 code {
-  font-family: "Nunito", source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: "REM", "Nunito", source-code-pro, Menlo, Monaco, Consolas,
+    "Courier New", monospace;
 }
 
 // Scrollbar
 ::-webkit-scrollbar {
-  width: 15px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
   background: #191919;
@@ -115,7 +116,7 @@ code {
 ::-webkit-scrollbar-thumb {
   background: $accent;
   &:hover {
-    background: #fcc499;
+    background: #fcc480;
   }
 }
 
