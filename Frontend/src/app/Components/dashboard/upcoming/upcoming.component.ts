@@ -24,6 +24,10 @@ export class UpcomingComponent implements OnInit {
     this.upcoming.splice(link, 1);
   }
 
+  displayResults(results: Link[]): void {
+    this.upcoming = results;
+  }
+
   getUpcoming(): void {
     this.dashboardService.getUpcoming().subscribe((result) => {
       this.upcoming = result;

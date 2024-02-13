@@ -20,4 +20,6 @@ router.put("/edit/:id", linkController.edit_link);
 
 router.delete("/perma_delete/:id", linkController.perma_delete_link);
 
+router.get("/search", linkController.search_link);
+
 module.exports = router;

@@ -159,8 +159,6 @@ exports.edit_link = [
       return res.json({ errors: errs.array().map((err) => err.msg) });
     } else {
       try {
-        console.log(req.body);
-
         const link = await prisma.Link.update({
           where: {
             id: req.params.id,
@@ -187,6 +185,10 @@ exports.get_links = asyncHandler(async (req, res) => {
     where: {
       trash: false,
     },
+
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   const formattedLinks = formatLinks(links);
@@ -199,6 +201,10 @@ exports.get_bookmarks = asyncHandler(async (req, res) => {
     where: {
       bookmarked: true,
       trash: false,
+    },
+
+    orderBy: {
+      createdAt: "desc",
     },
   });
 
@@ -217,6 +223,10 @@ exports.get_upcoming = asyncHandler(async (req, res) => {
         },
       },
     },
+
+    orderBy: {
+      remind: "desc",
+    },
   });
 
   const formattedLinks = formatLinks(links);
@@ -228,6 +238,65 @@ exports.get_trash = asyncHandler(async (req, res) => {
   const links = await prisma.Link.findMany({
     where: {
       trash: true,
+    },
+
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  const formattedLinks = formatLinks(links);
+
+  res.json({ links: formattedLinks });
+});
+
+exports.search_link = asyncHandler(async (req, res) => {
+  const property = req.query.t;
+  const query = req.query.q;
+  let condition = {};
+  // let folder
+
+  if (property === "Dashboard") {
+    condition = { trash: false };
+  } else if (property === "Bookmarks") {
+    condition = { bookmarked: true, trash: false };
+  } else if (property === "Upcoming") {
+    condition = {
+      remind: {
+        not: null,
+      },
+
+      trash: false,
+    };
+  } else if (property === "Trash") {
+    condition = { trash: true };
+  }
+
+  const links = await prisma.Link.findMany({
+    where: {
+      AND: [
+        condition,
+        {
+          OR: [
+            {
+              title: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+            {
+              url: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+          ],
+        },
+      ],
+    },
+
+    orderBy: {
+      createdAt: "desc",
     },
   });
 

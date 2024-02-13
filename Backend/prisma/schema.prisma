@@ -12,15 +12,20 @@ model User {
     username     String        @unique
     email        String        @unique
     password     String
+    // New
+    creationDate DateTime      @default(now())
     folders      Folder[]
     links        Link[]
     userSettings UserSettings?
 }
 
 model UserSettings {
-    id     String @id @default(uuid())
-    user   User?  @relation(fields: [userId], references: [id])
-    userId String @unique
+    id                 String  @id @default(uuid())
+    user               User?   @relation(fields: [userId], references: [id])
+    userId             String  @unique
+    // New
+    previews           Boolean @default(true)
+    emailNotifications Boolean @default(false)
 }
 
 model Folder {

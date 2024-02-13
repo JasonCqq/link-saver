@@ -1,5 +1,8 @@
 <app-main-sidebar></app-main-sidebar>
-<app-main-nav [title]="'Trash'"></app-main-nav>
+<app-main-nav
+  [title]="'Trash'"
+  (searchResults)="displayResults($event)"
+></app-main-nav>
 
 <span>
   <button>Clear All</button>

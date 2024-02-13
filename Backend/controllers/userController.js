@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const prisma = require("../prisma/prismaClient");
 
+// If someone is malfunction, it might be due to user schema update
+
 exports.create_user = [
   body("username").trim().escape(),
   body("email").trim().isEmail().escape(),

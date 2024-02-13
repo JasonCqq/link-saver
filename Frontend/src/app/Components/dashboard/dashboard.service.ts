@@ -41,12 +41,11 @@ export class DashboardService implements OnInit {
     return this.upcomingSubject.asObservable();
   }
 
+  // User Information
   user: any;
-
   ngOnInit(): void {
     this.getUser();
   }
-
   getUser(): void {
     this.userService.getUser();
     // .subscribe()
@@ -111,5 +110,15 @@ export class DashboardService implements OnInit {
     }
   }
 
-  //   getSettings(): void {}
+  // getSettings(): void {}
+
+  searchLink(query: string, linkType: string): Observable<Link[]> {
+    return this.http
+      .get<Links>(`${this.apiUrl}/link/search/?q=${query}&t=${linkType}`)
+      .pipe(
+        map((response) => response.links),
+        tap((_) => console.log("Received Queries")),
+        catchError(this.handleError<Link[]>("searchlink()", [])),
+      );
+  }
 }

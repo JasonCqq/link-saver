@@ -1,5 +1,8 @@
 <app-main-sidebar></app-main-sidebar>
-<app-main-nav [title]="'Bookmarks'"></app-main-nav>
+<app-main-nav
+  [title]="'Bookmarks'"
+  (searchResults)="displayResults($event)"
+></app-main-nav>
 
 <main class="default-dash-container">
   <section class="content-grid" *ngIf="bookmarks">

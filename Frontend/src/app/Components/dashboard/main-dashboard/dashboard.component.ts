@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { UserService } from "../../user/user.service";
 import { DashboardService } from "../dashboard.service";
 import { Link } from "../../../Interfaces/Link";
-import { Observable } from "rxjs";
 
 @Component({
   selector: "app-dashboard",
@@ -31,6 +30,10 @@ export class DashboardComponent implements OnInit {
 
   temp(): void {
     console.log(this.user);
+  }
+
+  displayResults(results: Link[]): void {
+    this.links = results;
   }
 
   getLinks(): void {

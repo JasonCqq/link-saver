@@ -25,6 +25,10 @@ export class BookmarksComponent implements OnInit {
     this.bookmarks.splice(link, 1);
   }
 
+  displayResults(results: Link[]): void {
+    this.bookmarks = results;
+  }
+
   getBookmarks(): void {
     this.dashboardService.getBookmarks().subscribe((result) => {
       this.bookmarks = result;

@@ -1,5 +1,4 @@
-Edit option for each link / Search
-
+Search
 Finish up user related stuff
 Thumbnail On/Off (We could ngIf the link-item preview, based on user's setting)
 Grid/List view
@@ -34,3 +33,7 @@ Additional Features to add/fix:
 - Auto sort date on dashboard
 
 - Warnings on important buttons
+
+- Finishing touches, quick animations
+
+- ngOnDestroy to delete subscriptions?

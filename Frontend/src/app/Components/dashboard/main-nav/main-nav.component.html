@@ -3,9 +3,15 @@
 
   <div class="nav-container">
     <p class="nav-search">
-      <mat-form-field appearance="outline">
-        <mat-label>Search</mat-label>
-        <input matInput style="display: flex; align-items: center" />
+      <mat-form-field appearance="outline" [formGroup]="query">
+        <mat-label for="linkQuery">Search</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="linkQuery"
+          #linkQuery
+          style="display: flex; align-items: center"
+        />
       </mat-form-field>
     </p>
 

@@ -21,6 +21,10 @@ export class TrashbinComponent implements OnInit {
     });
   }
 
+  displayResults(results: Link[]): void {
+    this.trash = results;
+  }
+
   deleteLink(id: any): void {
     const link = this.trash.findIndex((link) => link.id === id);
     this.trash.splice(link, 1);

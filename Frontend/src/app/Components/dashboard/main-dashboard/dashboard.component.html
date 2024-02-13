@@ -1,6 +1,6 @@
 <!--Add *ngIf="user" after finished testing-->
 <app-main-sidebar></app-main-sidebar>
-<app-main-nav></app-main-nav>
+<app-main-nav (searchResults)="displayResults($event)"></app-main-nav>
 
 <main class="dashboard-container default-dash-container">
   <section class="content-grid" *ngIf="links">

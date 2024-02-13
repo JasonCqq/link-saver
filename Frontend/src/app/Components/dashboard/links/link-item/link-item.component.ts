@@ -45,6 +45,9 @@ export class LinkComponent implements OnInit {
       this.editForm.value.editBookmarked,
       this.editForm.value.editRemind,
     );
+
+    this.toggleEdit();
+    this.linkUpdate.emit(this.itemData.id);
   }
 
   moveToTrash(): void {
