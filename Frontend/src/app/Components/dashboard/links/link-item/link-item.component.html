@@ -83,7 +83,9 @@
 
     <mat-form-field appearance="outline">
       <mat-label for="editFolder">Folder</mat-label>
-      <input matInput type="text" #editFolder formControlName="editFolder" />
+      <mat-select #editFolder formControlName="editFolder">
+        <mat-option [value]="">Test</mat-option>
+      </mat-select>
     </mat-form-field>
 
     <p>Remind me on</p>

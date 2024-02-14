@@ -96,18 +96,24 @@ export class DashboardService implements OnInit {
   }
 
   getFolders(): Observable<Folder[]> {
-    console.log("test", this.user);
-    if (this.user) {
-      return this.http
-        .get<Folders>(`${this.apiUrl}/folders/${this.user.id}`)
-        .pipe(
-          map((response) => response.folders),
-          tap((_) => console.log("Received Folders")),
-          catchError(this.handleError<Folder[]>("getFolders()", [])),
-        );
-    } else {
-      return of<Folder[]>([]);
-    }
+    return this.http.get<Folders>(`${this.apiUrl}/folders/`).pipe(
+      map((response) => response.folders),
+      tap((_) => console.log("Received Folders")),
+      catchError(this.handleError<Folder[]>("getFolders()", [])),
+    );
+
+    // console.log("test", this.user);
+    // if (this.user) {
+    //   return this.http
+    //     .get<Folders>(`${this.apiUrl}/folders/${this.user.id}`)
+    //     .pipe(
+    //       map((response) => response.folders),
+    //       tap((_) => console.log("Received Folders")),
+    //       catchError(this.handleError<Folder[]>("getFolders()", [])),
+    //     );
+    // } else {
+    //   return of<Folder[]>([]);
+    // }
   }
 
   // getSettings(): void {}

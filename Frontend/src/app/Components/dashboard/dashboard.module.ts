@@ -9,6 +9,7 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatNativeDateModule } from "@angular/material/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatSelectModule } from "@angular/material/select";
 
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { DashboardComponent } from "./main-dashboard/dashboard.component";
@@ -48,6 +49,7 @@ import { MainNavComponent } from "./main-nav/main-nav.component";
     MatNativeDateModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
+    MatSelectModule,
   ],
 })
 export class DashboardModule {}

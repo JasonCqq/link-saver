@@ -1,10 +1,57 @@
 <app-main-sidebar></app-main-sidebar>
 <app-main-nav [title]="'Folders'"></app-main-nav>
 
-<main class="default-dash-container">
-  <section class="content-grid" *ngIf="folders">
-    <div *ngFor="let folder of folders">
-      <p>{{ folder }}</p>
+<main class="folders-container">
+  <button class="folders-back" *ngIf="folderOpened" (click)="closeFolder()">
+    <mat-icon fontIcon="arrow_back"></mat-icon>
+    Go Back
+  </button>
+
+  <section class="folders-grid" *ngIf="!folderOpened">
+    <div class="folders-item" (click)="toggleCreateWindow()">
+      <mat-icon fontIcon="add" style="color: #fcc466"></mat-icon>
+      <p>Create a new folder</p>
+    </div>
+
+    <div class="folders-create-overlay" *ngIf="createWindowOpened">
+      <form
+        class="folders-create"
+        [formGroup]="createFolderForm"
+        (submit)="createFolder()"
+      >
+        <mat-icon
+          fontIcon="close"
+          (click)="toggleCreateWindow()"
+          class="folders-create-close"
+        ></mat-icon>
+
+        <mat-form-field appearance="outline">
+          <mat-label for="folderName">Folder Name</mat-label>
+          <input
+            matInput
+            type="text"
+            #folderName
+            formControlName="folderName"
+          />
+        </mat-form-field>
+        <button type="submit" class="folders-create-button">Create</button>
+      </form>
+    </div>
+
+    <div
+      *ngFor="let folder of folders"
+      class="folders-item"
+      (click)="openFolder(folder.id)"
+    >
+      <mat-icon fontIcon="folder" style="color: #fcc466"></mat-icon>
+      <p>{{ folder.name | slice: 0 : 50 }}</p>
+    </div>
+  </section>
+
+  <section class="content-grid" *ngIf="folderOpened && tempLinks">
+    <div *ngFor="let link of tempLinks">
+      <app-link-item [itemData]="link"></app-link-item>
+      <!-- (linkUpdate)="deleteLink($event)" -->
     </div>
   </section>
 </main>

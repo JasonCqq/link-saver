@@ -2,7 +2,7 @@
 <app-main-sidebar></app-main-sidebar>
 <app-main-nav (searchResults)="displayResults($event)"></app-main-nav>
 
-<main class="dashboard-container default-dash-container">
+<main class="dashboard-container default-dash-container" (click)="temp()">
   <section class="content-grid" *ngIf="links">
     <div *ngFor="let link of links">
       <app-link-item

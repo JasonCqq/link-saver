@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
 
   temp(): void {
     console.log(this.user);
+    console.log(this.userService.getUser());
   }
 
   displayResults(results: Link[]): void {

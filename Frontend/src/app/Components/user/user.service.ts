@@ -51,10 +51,12 @@ export class UserService {
   // Assign user
   private user?: User;
 
+  //Asychronous timing issues
   setUser(user: User) {
     this.user = user;
   }
   getUser() {
+    console.log(this.user);
     return this.user;
   }
 

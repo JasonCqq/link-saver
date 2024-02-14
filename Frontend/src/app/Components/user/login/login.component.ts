@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { UserService } from "../user.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-login",
@@ -9,7 +10,10 @@ import { UserService } from "../user.service";
 })
 export class LoginComponent implements OnInit {
   // Checks for user
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+  ) {}
   user: any;
 
   ngOnInit(): void {
@@ -35,6 +39,8 @@ export class LoginComponent implements OnInit {
       this.applyLoginForm.value.password ?? "",
       "login",
     );
+
+    this.router.navigate(["/dashboard"]);
   }
 
   get username() {

@@ -1,2 +1,115 @@
-@import "../../../../assets/sharedstyles.scss";
 @import "../../../../assets/styles.scss";
+@import "../../../../assets/sharedstyles.scss";
+
+.folders-container {
+  margin-left: 17vw;
+  margin-top: 2vh;
+
+  > .folders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 200px);
+    row-gap: 2vh;
+    column-gap: 2vw;
+
+    > .folders-item {
+      display: flex;
+      align-items: center;
+      border: 2px solid $accent;
+      border-radius: 5px;
+      padding: 5px;
+      gap: 7px;
+      height: 50px;
+      transition: border-color 0.15s ease-in-out;
+
+      &:hover {
+        border-color: white;
+        cursor: pointer;
+      }
+    }
+
+    > .folders-create-overlay {
+      position: fixed;
+      background-color: rgba(0, 0, 0, 0.8);
+      height: 100vh;
+      width: 100vw;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      > .folders-create {
+        width: 27vw;
+        height: 24vh;
+        background-color: $background;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        > .folders-create-close {
+          transform: scale(1.25);
+          margin: 2% 1vw;
+
+          &:hover {
+            color: $accent;
+            cursor: pointer;
+          }
+        }
+
+        > .folders-create-button {
+          border: none;
+          border-radius: 5px;
+          border: 2px solid $accent;
+          background-color: transparent;
+          font-family: "REM";
+          font-weight: bold;
+          padding: 1vh 0vw;
+          width: 5vw;
+          transition:
+            background-color 0.15s ease-in-out,
+            color 0.15s ease-in-out;
+          color: $text;
+          gap: 5px;
+
+          &:hover {
+            background-color: $accent;
+            color: $text2;
+            cursor: pointer;
+          }
+        }
+
+        > * {
+          margin-left: 3vw;
+        }
+      }
+    }
+  }
+
+  > .folders-back {
+    border: none;
+    border-radius: 5px;
+    border: 2px solid $accent;
+    background-color: transparent;
+    font-family: "REM";
+    font-weight: bold;
+    padding: 1vh 1vw;
+    transition:
+      background-color 0.15s ease-in-out,
+      color 0.15s ease-in-out;
+    color: $text;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &:hover {
+      background-color: $accent;
+      color: $text2;
+      cursor: pointer;
+    }
+  }
+}
+
+mat-form-field {
+  width: 20vw;
+}

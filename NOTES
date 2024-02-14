@@ -1,11 +1,9 @@
-Search
 Finish up user related stuff
 Thumbnail On/Off (We could ngIf the link-item preview, based on user's setting)
 Grid/List view
 Folder system
-Forgot password/Email confirmation?
 
-Additional Features to add/fix:
+Additional Features to add/fix: (separate later)
 
 - During registration remind user that email has to end with .com
 
@@ -22,6 +20,8 @@ Additional Features to add/fix:
 
 - Add shareable link for folder
 
+- Password locked folderss?
+
 - Mass select for mass options
 
 - Border coloring on add link form?
@@ -37,3 +37,5 @@ Additional Features to add/fix:
 - Finishing touches, quick animations
 
 - ngOnDestroy to delete subscriptions?
+
+- Forgot password/Email confirmation?
