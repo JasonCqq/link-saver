@@ -36,6 +36,8 @@ export class RegisterComponent implements OnInit {
     this.user = this.userService.getUser();
   }
 
+  // Getters
+
   get email() {
     return this.applyForm.get("email");
   }

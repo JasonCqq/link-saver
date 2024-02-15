@@ -8,4 +8,8 @@ router.post("/create", foldersController.create_folder);
 
 router.get("/:userId", foldersController.get_folder);
 
+router.put("/edit/:folderId", foldersController.edit_folder);
+
+router.delete("/delete/:folderId", foldersController.delete_folder);
+
 module.exports = router;

@@ -20,11 +20,13 @@ export class BookmarksComponent implements OnInit {
     });
   }
 
+  // Moves link
   deleteLink(id: any): void {
     const link = this.bookmarks.findIndex((link) => link.id === id);
     this.bookmarks.splice(link, 1);
   }
 
+  // Display search results
   displayResults(results: Link[]): void {
     this.bookmarks = results;
   }

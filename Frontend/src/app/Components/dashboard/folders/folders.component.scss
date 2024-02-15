@@ -8,7 +8,7 @@
   > .folders-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, 200px);
-    row-gap: 2vh;
+    row-gap: 3vh;
     column-gap: 2vw;
 
     > .folders-item {
@@ -25,6 +25,25 @@
         border-color: white;
         cursor: pointer;
       }
+
+      > .folders-item-flex {
+        display: flex;
+        width: 100%;
+        gap: 5px;
+        align-items: center;
+      }
+
+      > .folders-item-options {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+
+        > * {
+          &:hover {
+            transform: scale(1.2);
+          }
+        }
+      }
     }
 
     > .folders-create-overlay {
@@ -37,6 +56,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      z-index: 99;
 
       > .folders-create {
         width: 27vw;

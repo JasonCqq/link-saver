@@ -17,7 +17,8 @@ export class FoldersComponent implements OnInit {
 
   folders: Folder[] = [];
   folderOpened: boolean = false;
-  createWindowOpened: boolean = false;
+  windowOpened: boolean = false;
+  editWindowOpened: boolean = false;
   tempLinks: any = [];
 
   ngOnInit(): void {
@@ -30,17 +31,18 @@ export class FoldersComponent implements OnInit {
 
   createFolderForm = new FormGroup({
     folderName: new FormControl(),
+    editFolderName: new FormControl(),
   });
 
-  toggleCreateWindow(): void {
-    this.createWindowOpened = !this.createWindowOpened;
+  toggleWindow(): void {
+    this.windowOpened = !this.windowOpened;
   }
 
   createFolder(): void {
     if (this.createFolderForm.value.folderName.length > 0) {
       this.foldersService.createFolder(this.createFolderForm.value.folderName);
 
-      this.toggleCreateWindow();
+      this.toggleWindow();
     }
     return;
   }
@@ -64,5 +66,41 @@ export class FoldersComponent implements OnInit {
     this.dashboardService.getFolders().subscribe((result) => {
       this.folders = result;
     });
+  }
+
+  tempEditID: string = "";
+
+  toggleEditWindow(id: string): void {
+    if (id === "none") {
+      this.editWindowOpened = !this.editWindowOpened;
+    } else {
+      this.editWindowOpened = !this.editWindowOpened;
+
+      const folderIndex = this.folders.findIndex((folder) => {
+        return folder.id === id;
+      });
+
+      const folderName = this.folders[folderIndex].name;
+      this.createFolderForm.patchValue({
+        editFolderName: folderName,
+      });
+
+      this.tempEditID = id;
+    }
+  }
+
+  editFolder(): void {
+    if (this.tempEditID) {
+      this.foldersService.editFolder(
+        this.tempEditID,
+        this.createFolderForm.value.editFolderName,
+      );
+    }
+
+    this.toggleEditWindow("none");
+  }
+
+  deleteFolder(id: string): void {
+    this.foldersService.deleteFolder(id);
   }
 }

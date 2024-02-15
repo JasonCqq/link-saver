@@ -8,12 +8,13 @@
   </button>
 
   <section class="folders-grid" *ngIf="!folderOpened">
-    <div class="folders-item" (click)="toggleCreateWindow()">
+    <div class="folders-item" (click)="toggleWindow()">
       <mat-icon fontIcon="add" style="color: #fcc466"></mat-icon>
       <p>Create a new folder</p>
     </div>
 
-    <div class="folders-create-overlay" *ngIf="createWindowOpened">
+    <!--Create Folder Form-->
+    <div class="folders-create-overlay" *ngIf="windowOpened">
       <form
         class="folders-create"
         [formGroup]="createFolderForm"
@@ -21,7 +22,7 @@
       >
         <mat-icon
           fontIcon="close"
-          (click)="toggleCreateWindow()"
+          (click)="toggleWindow()"
           class="folders-create-close"
         ></mat-icon>
 
@@ -38,13 +39,49 @@
       </form>
     </div>
 
-    <div
-      *ngFor="let folder of folders"
-      class="folders-item"
-      (click)="openFolder(folder.id)"
-    >
-      <mat-icon fontIcon="folder" style="color: #fcc466"></mat-icon>
-      <p>{{ folder.name | slice: 0 : 50 }}</p>
+    <!--Edit Folder Form, same form, but need for future scaling-->
+    <div class="folders-create-overlay" *ngIf="editWindowOpened">
+      <form
+        class="folders-create"
+        [formGroup]="createFolderForm"
+        (submit)="editFolder()"
+      >
+        <mat-icon
+          fontIcon="close"
+          (click)="toggleEditWindow('none')"
+          class="folders-create-close"
+        ></mat-icon>
+
+        <mat-form-field appearance="outline">
+          <mat-label for="editFolderName">Folder Name</mat-label>
+          <input
+            matInput
+            type="text"
+            #editFolderName
+            formControlName="editFolderName"
+          />
+        </mat-form-field>
+        <button type="submit" class="folders-create-button">Edit</button>
+      </form>
+    </div>
+
+    <div *ngFor="let folder of folders" class="folders-item">
+      <div (click)="openFolder(folder.id)" class="folders-item-flex">
+        <mat-icon fontIcon="folder" style="color: #fcc466"></mat-icon>
+        <p>{{ folder.name | slice: 0 : 50 }}</p>
+      </div>
+
+      <div class="folders-item-options">
+        <mat-icon
+          fontIcon="edit"
+          (click)="toggleEditWindow(folder.id)"
+        ></mat-icon>
+        <mat-icon
+          fontIcon="close"
+          style="color: #f73830"
+          (click)="deleteFolder(folder.id)"
+        ></mat-icon>
+      </div>
     </div>
   </section>
 

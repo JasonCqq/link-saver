@@ -51,7 +51,7 @@ export class UserService {
   // Assign user
   private user?: User;
 
-  //Asychronous timing issues
+  //Asychronous timing issues (To Be Fixed)
   setUser(user: User) {
     this.user = user;
   }

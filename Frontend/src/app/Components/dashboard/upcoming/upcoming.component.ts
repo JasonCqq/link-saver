@@ -19,11 +19,13 @@ export class UpcomingComponent implements OnInit {
     });
   }
 
+  // Moves link
   deleteLink(id: any): void {
     const link = this.upcoming.findIndex((link) => link.id === id);
     this.upcoming.splice(link, 1);
   }
 
+  // Displays search results
   displayResults(results: Link[]): void {
     this.upcoming = results;
   }

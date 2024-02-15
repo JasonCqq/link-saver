@@ -11,6 +11,7 @@ export class FoldersService {
   private apiUrl = environment.apiUrl;
   private foldersSubject = new Subject<void>();
 
+  // Notifiers for updates
   notifyFolders() {
     this.foldersSubject.next();
   }
@@ -24,6 +25,32 @@ export class FoldersService {
         .post(`${this.apiUrl}/folders/create`, {
           name: name,
         })
+        .subscribe(() => {
+          this.notifyFolders();
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async editFolder(id: string, name: string) {
+    try {
+      await this.http
+        .put(`${this.apiUrl}/folders/edit/${id}`, {
+          name: name,
+        })
+        .subscribe(() => {
+          this.notifyFolders();
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async deleteFolder(id: string) {
+    try {
+      await this.http
+        .delete(`${this.apiUrl}/folders/delete/${id}`)
         .subscribe(() => {
           this.notifyFolders();
         });

@@ -8,10 +8,10 @@ exports.get_folder = asyncHandler(async (req, res) => {
       links: true,
     },
   });
-  console.log(folders);
 
   res.json({ folders: folders });
 
+  // Need user to get folders
   // console.log(req.session.user);
   // if (req.session.user.id === req.params.userId) {
   //   console.log(req.session.user);
@@ -51,3 +51,50 @@ exports.create_folder = [
     }
   }),
 ];
+
+exports.edit_folder = [
+  body("name").trim().escape(),
+
+  asyncHandler(async (req, res) => {
+    const errs = validationResult(req);
+
+    if (!errs.isEmpty()) {
+      return res.json({ errors: errs.array().map((err) => err.msg) });
+    } else {
+      try {
+        console.log(
+          req.body.name,
+          req.body.editFolderName,
+          req.params.folderId,
+        );
+
+        const folder = await prisma.Folder.update({
+          where: {
+            id: req.params.folderId,
+          },
+
+          data: {
+            name: req.body.name,
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    return res.json({ success: true });
+  }),
+];
+
+exports.delete_folder = asyncHandler(async (req, res) => {
+  try {
+    const folder = await prisma.Folder.delete({
+      where: {
+        id: req.params.folderId,
+      },
+    });
+    return res.json({ success: true });
+  } catch (err) {
+    console.log(err);
+  }
+});

@@ -18,7 +18,7 @@ export class DashboardService implements OnInit {
   ) {}
   private apiUrl = environment.apiUrl;
 
-  // Notifiers
+  // Notifiers for updates
   private linksSubject = new Subject<void>();
   private bookmarkSubject = new Subject<void>();
   private upcomingSubject = new Subject<void>();
@@ -102,7 +102,7 @@ export class DashboardService implements OnInit {
       catchError(this.handleError<Folder[]>("getFolders()", [])),
     );
 
-    // console.log("test", this.user);
+    // Get User's folders, once folder system is finished
     // if (this.user) {
     //   return this.http
     //     .get<Folders>(`${this.apiUrl}/folders/${this.user.id}`)
@@ -116,6 +116,7 @@ export class DashboardService implements OnInit {
     // }
   }
 
+  // Get User's settings, once folder system is finished
   // getSettings(): void {}
 
   searchLink(query: string, linkType: string): Observable<Link[]> {

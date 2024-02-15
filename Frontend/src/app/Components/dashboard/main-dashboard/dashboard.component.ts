@@ -20,7 +20,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.userService.getUser();
-
     this.getLinks();
 
     this.dashboardService.linksUpdated().subscribe(() => {
@@ -28,11 +27,13 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  // Temporary loggers
   temp(): void {
     console.log(this.user);
     console.log(this.userService.getUser());
   }
 
+  // Displays search results
   displayResults(results: Link[]): void {
     this.links = results;
   }
@@ -43,6 +44,7 @@ export class DashboardComponent implements OnInit {
       .subscribe((result) => (this.links = result));
   }
 
+  // Moves link
   deleteLink(id: any): void {
     const link = this.links.findIndex((link) => link.id === id);
     this.links.splice(link, 1);

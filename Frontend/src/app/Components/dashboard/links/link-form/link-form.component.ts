@@ -2,7 +2,6 @@ import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { LinkFormService } from "./link-form.service";
 import { UserService } from "../../../user/user.service";
-import { DashboardService } from "../../dashboard.service";
 
 @Component({
   selector: "app-link-form",
@@ -13,7 +12,6 @@ export class LinkFormComponent implements OnInit {
   constructor(
     private linkFormService: LinkFormService,
     private userService: UserService,
-    private dashboardService: DashboardService,
   ) {}
 
   user: any;
@@ -42,6 +40,7 @@ export class LinkFormComponent implements OnInit {
     this.user = this.userService.getUser();
   }
 
+  // Getters
   get url() {
     return this.linkForm.get("url");
   }

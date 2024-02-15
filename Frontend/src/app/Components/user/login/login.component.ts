@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
     this.user = this.userService.getUser();
   }
 
-  // Login FormGroup
   applyLoginForm = new FormGroup({
     username: new FormControl("", [Validators.required]),
     password: new FormControl("", [

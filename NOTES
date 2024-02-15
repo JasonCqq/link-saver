@@ -39,3 +39,5 @@ Additional Features to add/fix: (separate later)
 - ngOnDestroy to delete subscriptions?
 
 - Forgot password/Email confirmation?
+
+- No folder defaults to dashboard
