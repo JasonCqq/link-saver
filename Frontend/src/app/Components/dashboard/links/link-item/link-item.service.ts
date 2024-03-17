@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment.development";
 import { DashboardService } from "../../dashboard.service";
+import { FoldersService } from "../../folders/folders.service";
 
 @Injectable({
   providedIn: "root",
@@ -10,6 +11,7 @@ export class LinkService {
   constructor(
     private http: HttpClient,
     private dashboardService: DashboardService,
+    private foldersService: FoldersService,
   ) {}
   private apiUrl = environment.apiUrl;
 
@@ -36,6 +38,7 @@ export class LinkService {
             this.dashboardService.notifyUpcoming();
           }
           this.dashboardService.notifyLinks();
+          this.foldersService.notifyFolders();
         });
     } catch (err) {
       console.log("POST call failed", err);

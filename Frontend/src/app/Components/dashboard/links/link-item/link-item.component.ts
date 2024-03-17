@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { LinkService } from "./link-item.service";
 import { Link } from "src/app/Interfaces/Link";
 import { FormControl, FormGroup } from "@angular/forms";
+import { DashboardService } from "../../dashboard.service";
 
 @Component({
   selector: "app-link-item",
@@ -9,7 +10,10 @@ import { FormControl, FormGroup } from "@angular/forms";
   styleUrls: ["./link-item.component.scss"],
 })
 export class LinkComponent implements OnInit {
-  constructor(private linkService: LinkService) {}
+  constructor(
+    private linkService: LinkService,
+    private dashboardService: DashboardService,
+  ) {}
 
   @Input() itemData: any;
   @Input() specialRequest: string = "none";
@@ -28,12 +32,17 @@ export class LinkComponent implements OnInit {
     editRemind: new FormControl(),
   });
 
+  // This is causing many folder requests
+  folders: any;
   ngOnInit(): void {
+    this.dashboardService.getFolders().subscribe((result) => {
+      this.folders = result;
+    });
+
     this.editForm.patchValue({
       editTitle: this.itemData.title,
-      editFolder: this.itemData.folder,
       editBookmarked: this.itemData.bookmarked,
-      editRemind: this.itemData.remind,
+      editFolder: this.itemData.folderId,
     });
   }
 

@@ -38,8 +38,6 @@ export class LoginComponent implements OnInit {
       this.applyLoginForm.value.password ?? "",
       "login",
     );
-
-    this.router.navigate(["/dashboard"]);
   }
 
   get username() {

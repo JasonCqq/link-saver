@@ -61,46 +61,56 @@ export class DashboardService implements OnInit {
 
   // All links
   getLinks(): Observable<Link[]> {
-    return this.http.get<Links>(`${this.apiUrl}/link/links`).pipe(
-      map((response) => response.links),
-      tap((_) => console.log("Received links")),
-      catchError(this.handleError<Link[]>("getLinks()", [])),
-    );
+    return this.http
+      .get<Links>(`${this.apiUrl}/link/links`, { withCredentials: true })
+      .pipe(
+        map((response) => response.links),
+        tap((_) => console.log("Received links")),
+        catchError(this.handleError<Link[]>("getLinks()", [])),
+      );
   }
 
   getBookmarks(): Observable<Link[]> {
-    return this.http.get<Links>(`${this.apiUrl}/link/bookmarks`).pipe(
-      tap((response) => {
-        console.log("Response", response);
-      }),
-      map((response) => response.links),
-      tap((_) => console.log("Received Bookmarks")),
-      catchError(this.handleError<Link[]>("getBookmarks()", [])),
-    );
+    return this.http
+      .get<Links>(`${this.apiUrl}/link/bookmarks`, { withCredentials: true })
+      .pipe(
+        tap((response) => {
+          console.log("Response", response);
+        }),
+        map((response) => response.links),
+        tap((_) => console.log("Received Bookmarks")),
+        catchError(this.handleError<Link[]>("getBookmarks()", [])),
+      );
   }
 
   getUpcoming(): Observable<Link[]> {
-    return this.http.get<Links>(`${this.apiUrl}/link/upcoming`).pipe(
-      map((response) => response.links),
-      tap((_) => console.log("Received Upcomings")),
-      catchError(this.handleError<Link[]>("getUpcoming()", [])),
-    );
+    return this.http
+      .get<Links>(`${this.apiUrl}/link/upcoming`, { withCredentials: true })
+      .pipe(
+        map((response) => response.links),
+        tap((_) => console.log("Received Upcomings")),
+        catchError(this.handleError<Link[]>("getUpcoming()", [])),
+      );
   }
 
   getTrash(): Observable<Link[]> {
-    return this.http.get<Links>(`${this.apiUrl}/link/trash`).pipe(
-      map((response) => response.links),
-      tap((_) => console.log("Received Trash")),
-      catchError(this.handleError<Link[]>("getTrash()", [])),
-    );
+    return this.http
+      .get<Links>(`${this.apiUrl}/link/trash`, { withCredentials: true })
+      .pipe(
+        map((response) => response.links),
+        tap((_) => console.log("Received Trash")),
+        catchError(this.handleError<Link[]>("getTrash()", [])),
+      );
   }
 
   getFolders(): Observable<Folder[]> {
-    return this.http.get<Folders>(`${this.apiUrl}/folders/`).pipe(
-      map((response) => response.folders),
-      tap((_) => console.log("Received Folders")),
-      catchError(this.handleError<Folder[]>("getFolders()", [])),
-    );
+    return this.http
+      .get<Folders>(`${this.apiUrl}/folders/`, { withCredentials: true })
+      .pipe(
+        map((response) => response.folders),
+        tap((_) => console.log("Received Folders")),
+        catchError(this.handleError<Folder[]>("getFolders()", [])),
+      );
 
     // Get User's folders, once folder system is finished
     // if (this.user) {
@@ -116,16 +126,39 @@ export class DashboardService implements OnInit {
     // }
   }
 
-  // Get User's settings, once folder system is finished
-  // getSettings(): void {}
-
   searchLink(query: string, linkType: string): Observable<Link[]> {
     return this.http
-      .get<Links>(`${this.apiUrl}/link/search/?q=${query}&t=${linkType}`)
+      .get<Links>(`${this.apiUrl}/link/search/?q=${query}&t=${linkType}`, {
+        withCredentials: true,
+      })
       .pipe(
         map((response) => response.links),
         tap((_) => console.log("Received Queries")),
         catchError(this.handleError<Link[]>("searchlink()", [])),
       );
   }
+
+  getSettings(userId: string): Observable<Settings> {
+    return this.http.get<Settings>(`${this.apiUrl}/user/settings/${userId}`);
+  }
+
+  submitSettings(
+    previews: boolean,
+    emailNotifications: boolean,
+    userId: string,
+  ) {
+    return this.http.put(`${this.apiUrl}/user/submit_settings/${userId}`, {
+      previews: previews,
+      emailNotifications: emailNotifications,
+    });
+  }
 }
+
+interface Settings {
+  id: string;
+  userId: string;
+  previews: boolean;
+  emailNotifications: boolean;
+}
+
+// Add async and try catch statements to all functions

@@ -80,9 +80,4 @@ export class HomeComponent implements OnInit {
         "We value your input! To suggest new features or improvements for LinkStorage, please visit our Contact Section below. We're always eager to hear your ideas and make our platform even better based on user feedback.",
     },
   ];
-
-  // Anchor Link Scroll
-  scroll(el: HTMLElement) {
-    el.scrollIntoView();
-  }
 }

@@ -1,14 +1,36 @@
-import { NgModule } from "@angular/core";
+import { NgModule, APP_INITIALIZER, Injector } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatIconModule } from "@angular/material/icon";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { catchError, Observable, map, tap } from "rxjs";
 
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./Components/home/home.component";
+import { UserService } from "./Components/user/user.service";
+import { environment } from "src/environments/environment.development";
+
+interface User {
+  id: string;
+  username: string;
+  email: string;
+  creationDate: Date;
+}
+
+function initializeAppFactory(
+  httpClient: HttpClient,
+  injector: Injector,
+): () => Observable<any> {
+  const userService = injector.get(UserService);
+
+  return () =>
+    httpClient
+      .get<User>(`${environment.apiUrl}/check`, { withCredentials: true })
+      .pipe(map((res) => userService.setUser(res)));
+}
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -21,7 +43,15 @@ import { HomeComponent } from "./Components/home/home.component";
     MatInputModule,
     MatFormFieldModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: (httpClient: HttpClient, injector: Injector) =>
+        initializeAppFactory(httpClient, injector),
+      deps: [HttpClient, Injector],
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

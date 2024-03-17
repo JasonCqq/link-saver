@@ -7,6 +7,7 @@ interface User {
   id: string;
   username: string;
   email: string;
+  creationDate: Date;
 }
 
 @Injectable({
@@ -29,15 +30,20 @@ export class UserService {
   ) {
     try {
       await this.http
-        .post(`${this.apiUrl}/user/${action}`, {
-          username: username,
-          email: email,
-          password: password,
-        })
+        .post(
+          `${this.apiUrl}/user/${action}`,
+          {
+            username: username,
+            email: email,
+            password: password,
+          },
+          { withCredentials: true },
+        )
         .subscribe({
           next: (response) => {
             if (response && (response as any).user) {
               this.setUser((response as any).user as User);
+              this.router.navigate(["/dashboard"]);
             }
           },
           error: (error) => console.log(error),
@@ -63,15 +69,17 @@ export class UserService {
   // Logout user
   async logOutUser() {
     try {
-      await this.http.put(`${this.apiUrl}/user/logout`, {}).subscribe({
-        next: (response) => {
-          if (response && (response as any).success === true) {
-            this.router.navigate(["/"]);
-          }
-          this.user = undefined;
-        },
-        error: (error) => console.log(error),
-      });
+      await this.http
+        .get(`${this.apiUrl}/user/logout`, { withCredentials: true })
+        .subscribe({
+          next: (response) => {
+            if (response && (response as any).success === true) {
+              this.router.navigate(["/"]);
+            }
+            this.user = undefined;
+          },
+          error: (error) => console.log(error),
+        });
     } catch (err) {
       console.log(err);
     }

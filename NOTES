@@ -1,7 +1,13 @@
 Finish up user related stuff
+Link data to user
+Settings page + User settings
+Account management like password reset
 Thumbnail On/Off (We could ngIf the link-item preview, based on user's setting)
 Grid/List view
-Folder system
+
+\*IMPORTANT, change Postgres Information. ENV file accidentally pushed
+
+\*IMPORTANT, NEED TO CONNECT EXPRESS-SESSION INTO A DATABASE. DEFAULT HAS MEMORY LEAK, NOT MEANT FOR PROD.
 
 Additional Features to add/fix: (separate later)
 
@@ -41,3 +47,9 @@ Additional Features to add/fix: (separate later)
 - Forgot password/Email confirmation?
 
 - No folder defaults to dashboard
+
+- Unique folder names
+
+- Fix searching for links inside folders
+
+- Make /check only trigger once

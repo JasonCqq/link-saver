@@ -4,7 +4,9 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const prisma = require("../prisma/prismaClient");
 
-// If someone is malfunction, it might be due to user schema update
+require("dotenv").config();
+
+// If something is malfunctioning, it might be due to user schema update
 
 exports.create_user = [
   body("username").trim().escape(),
@@ -27,6 +29,8 @@ exports.create_user = [
           username: req.body.username,
         },
       });
+
+      const currentDate = new Date();
 
       if (existCheck) {
         return res.json({ errors: "User already exists" });
@@ -63,6 +67,9 @@ exports.create_user = [
                 connect: {
                   id: folderId,
                 },
+              },
+              userSettings: {
+                create: {},
               },
             },
           });
@@ -102,23 +109,37 @@ exports.login_user = [
     }
 
     try {
-      passport.authenticate("local", (err, user, info) => {
+      passport.authenticate("local", async (err, authenticated, info) => {
         if (err) {
           return next(err);
         }
-        if (!user) {
+        if (!authenticated) {
           return res.json({ success: false, message: info.message });
         } else {
+          console.log(authenticated);
+
+          const user = await prisma.User.findUnique({
+            where: {
+              id: authenticated.id,
+            },
+          });
+
           const userData = {
             id: user.id,
             username: user.username,
             email: user.email,
+            creationDate: user.creationDate,
           };
 
+          // store user information in session, typically a user id
           req.session.user = userData;
 
-          console.log(req.session.user);
-          return res.json({ user: req.session.user });
+          // save the session before redirection to ensure page
+          // load does not happen before session is saved
+          req.session.save(function (err) {
+            if (err) return next(err);
+            res.json({ user: req.session.user });
+          });
         }
       })(req, res, next);
     } catch (err) {
@@ -128,6 +149,50 @@ exports.login_user = [
 ];
 
 exports.logout_user = asyncHandler(async (req, res) => {
-  req.session = null;
-  res.json({ success: true, message: "User session deleted" });
+  req.session.user = null;
+
+  req.session.save(function (err) {
+    if (err) next(err);
+    req.session.regenerate(function (err) {
+      if (err) next(err);
+      res.json({ success: true });
+    });
+  });
 });
+
+// Remove unneeded success messages
+
+exports.get_settings = [
+  asyncHandler(async (req, res) => {
+    const userSettings = await prisma.UserSettings.findUnique({
+      where: {
+        userId: req.params.userId,
+      },
+    });
+    res.json({ settings: userSettings });
+  }),
+];
+
+exports.submit_settings = [
+  asyncHandler(async (req, res) => {
+    const errs = validationResult(req);
+
+    if (!errs.isEmpty()) {
+      return res.json({ errors: errs.array().map((err) => err.msg) });
+    } else {
+      console.log(req.body, typeof req.body.previews);
+      const user = await prisma.UserSettings.update({
+        where: {
+          userId: req.params.userId,
+        },
+
+        data: {
+          previews: req.body.previews,
+          emailNotifications: req.body.emailNotifications,
+        },
+      });
+
+      res.json({ success: true });
+    }
+  }),
+];

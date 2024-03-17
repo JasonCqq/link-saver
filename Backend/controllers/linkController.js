@@ -159,17 +159,36 @@ exports.edit_link = [
       return res.json({ errors: errs.array().map((err) => err.msg) });
     } else {
       try {
-        const link = await prisma.Link.update({
-          where: {
-            id: req.params.id,
-          },
+        console.log(req.body.remind);
+        await prisma.$transaction(async (prisma) => {
+          const link = await prisma.Link.update({
+            where: {
+              id: req.params.id,
+            },
 
-          data: {
-            title: req.body.title,
-            bookmarked: JSON.parse(req.body.bookmarked),
-            // folder: not yet ready
-            remind: req.body.remind || null,
-          },
+            data: {
+              title: req.body.title,
+              bookmarked: JSON.parse(req.body.bookmarked),
+              folder: {
+                connect: {
+                  id: req.body.folder,
+                },
+              },
+              remind: req.body.remind || null,
+            },
+          });
+
+          // Update link for folder.
+          prisma.Folder.update({
+            where: {
+              id: req.body.folder,
+            },
+            data: {
+              links: {
+                connect: { id: req.params.id },
+              },
+            },
+          });
         });
       } catch (err) {
         console.log(err);

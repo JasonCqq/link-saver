@@ -2,37 +2,54 @@
 
 <main class="settings-page">
   <div class="settings-flex">
-    <h1><u>User Settings</u></h1>
-    <button class="settings-delete">Delete Account</button>
+    <h1>User Settings</h1>
+    <button class="settings-delete" style="opacity: 0.25">
+      Delete Account
+    </button>
   </div>
 
   <div class="settings-grid">
     <section class="settings-item">
       <h3>Account</h3>
-      <p>Email: test123123gmail.com</p>
-      <p>Password: *****************</p>
-      <p>Account Created: 01/01/2024</p>
+      <p>Email: {{ user.email }}</p>
+      <p>Account Created: {{ user.creationDate | date: "shortDate" }}</p>
+      <p style="opacity: 0.25">Change Password</p>
     </section>
 
-    <section class="settings-item">
+    <form
+      class="settings-item"
+      [formGroup]="preferenceForm"
+      (submit)="submitForm()"
+    >
       <h3>Preferences</h3>
+
       <span>
-        <p>Rich Previews</p>
-        <mat-slide-toggle></mat-slide-toggle
+        <mat-label for="previews">Rich Previews</mat-label>
+        <mat-slide-toggle
+          #previews
+          formControlName="previews"
+        ></mat-slide-toggle
       ></span>
 
       <span>
-        <p>Email Notifications for Upcomings</p>
-        <mat-slide-toggle></mat-slide-toggle>
+        <mat-label for="emailNotifications" style="opacity: 0.25"
+          >Email Notifications for Upcomings</mat-label
+        >
+        <mat-slide-toggle
+          #emailNotifications
+          formControlName="emailNotifications"
+        ></mat-slide-toggle>
       </span>
 
-      <button class="settings-apply">Apply Changes</button>
-    </section>
+      <p *ngIf="changesApplied" style="color: green">Changes Applied!</p>
+
+      <button type="submit" class="settings-apply">Apply Changes</button>
+    </form>
 
     <section class="settings-item">
       <h3>Extra</h3>
-      <a>Contact Page</a>
-      <a>Request Account Data</a>
+      <a routerLink="" fragment="home_contact">Contact Page</a>
+      <a style="opacity: 0.25">Request Account Data</a>
     </section>
   </div>
 </main>

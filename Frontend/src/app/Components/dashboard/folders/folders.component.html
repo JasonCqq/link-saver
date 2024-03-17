@@ -87,8 +87,10 @@
 
   <section class="content-grid" *ngIf="folderOpened && tempLinks">
     <div *ngFor="let link of tempLinks">
-      <app-link-item [itemData]="link"></app-link-item>
-      <!-- (linkUpdate)="deleteLink($event)" -->
+      <app-link-item
+        [itemData]="link"
+        (linkUpdate)="deleteLink($event)"
+      ></app-link-item>
     </div>
   </section>
 </main>

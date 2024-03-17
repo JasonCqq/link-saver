@@ -103,4 +103,10 @@ export class FoldersComponent implements OnInit {
   deleteFolder(id: string): void {
     this.foldersService.deleteFolder(id);
   }
+
+  // Moves link
+  deleteLink(id: any): void {
+    const link = this.tempLinks.findIndex((link: any) => link.id === id);
+    this.tempLinks.splice(link, 1);
+  }
 }

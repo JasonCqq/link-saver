@@ -23,6 +23,7 @@
     </div>
   </section>
 
+  <!--Link CRUD Options-->
   <div class="link-options">
     <mat-icon
       fontIcon="close"
@@ -84,13 +85,26 @@
     <mat-form-field appearance="outline">
       <mat-label for="editFolder">Folder</mat-label>
       <mat-select #editFolder formControlName="editFolder">
-        <mat-option [value]="">Test</mat-option>
+        <mat-option *ngFor="let folder of folders" [value]="folder.id">{{
+          folder.name
+        }}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <p>Remind me on</p>
+    <p style="color: gray; font-size: 0.8rem">
+      Current remind date -
+      {{ itemData.remind ? (itemData.remind | date: "shortDate") : "N/A" }}
+    </p>
+
     <mat-form-field>
-      <input #remind type="datetime" matInput [matDatepicker]="editPicker" />
+      <input
+        #editRemind
+        type="datetime"
+        formControlName="editRemind"
+        matInput
+        [matDatepicker]="editPicker"
+      />
       <mat-datepicker-toggle
         matSuffix
         [for]="editPicker"

@@ -28,6 +28,13 @@ model UserSettings {
     emailNotifications Boolean @default(false)
 }
 
+model Session {
+    id        String   @id
+    sid       String   @unique
+    data      String
+    expiresAt DateTime
+}
+
 model Folder {
     id     String  @id @default(uuid())
     name   String
