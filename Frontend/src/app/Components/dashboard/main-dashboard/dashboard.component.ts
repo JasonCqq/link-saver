@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   links: Link[] = [];
 
   ngOnInit(): void {
-    this.user = this.userService.getUser();
+    this.user = this.userService.getUser().user;
     this.getLinks();
 
     this.dashboardService.linksUpdated().subscribe(() => {

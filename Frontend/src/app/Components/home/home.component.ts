@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   user: any;
 
   ngOnInit() {
-    this.user = this.userService.getUser();
+    this.user = this.userService.getUser().user;
   }
 
   // Toggle FAQ

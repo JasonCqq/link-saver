@@ -2,22 +2,51 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment.development";
 import { Router } from "@angular/router";
+import { BehaviorSubject, empty } from "rxjs";
 
 interface User {
-  id: string;
-  username: string;
-  email: string;
-  creationDate: Date;
+  user: {
+    id: string;
+    username: string;
+    email: string;
+    creationDate: Date;
+  };
+  settings: {
+    id: string;
+    userId: string;
+    previews: boolean;
+    emailNotifications: boolean;
+  };
 }
 
 @Injectable({
   providedIn: "root",
 })
 export class UserService {
+  // Assign user
   constructor(
     private http: HttpClient,
     private router: Router,
   ) {}
+
+  // Guest User
+  emptyUser = {
+    user: {
+      id: "",
+      username: "",
+      email: "",
+      creationDate: new Date(0),
+    },
+    settings: {
+      id: "",
+      userId: "",
+      previews: true,
+      emailNotifications: true,
+    },
+  };
+
+  private userSubject = new BehaviorSubject<User>(this.emptyUser);
+  user$ = this.userSubject.asObservable();
 
   private apiUrl = environment.apiUrl;
 
@@ -54,16 +83,16 @@ export class UserService {
     }
   }
 
-  // Assign user
-  private user?: User;
-
   //Asychronous timing issues (To Be Fixed)
   setUser(user: User) {
-    this.user = user;
+    this.userSubject.next(user);
   }
   getUser() {
-    console.log(this.user);
-    return this.user;
+    console.log(this.userSubject.value);
+    return this.userSubject.value;
+  }
+  updateUser(user: any) {
+    this.userSubject.next(user);
   }
 
   // Logout user
@@ -76,7 +105,7 @@ export class UserService {
             if (response && (response as any).success === true) {
               this.router.navigate(["/"]);
             }
-            this.user = undefined;
+            this.userSubject.next(this.emptyUser);
           },
           error: (error) => console.log(error),
         });

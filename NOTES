@@ -5,6 +5,8 @@ Account management like password reset
 Thumbnail On/Off (We could ngIf the link-item preview, based on user's setting)
 Grid/List view
 
+INCLUDE USERSETTINGS WHEN RETRIEVING USER
+
 \*IMPORTANT, change Postgres Information. ENV file accidentally pushed
 
 \*IMPORTANT, NEED TO CONNECT EXPRESS-SESSION INTO A DATABASE. DEFAULT HAS MEMORY LEAK, NOT MEANT FOR PROD.

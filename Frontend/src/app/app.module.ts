@@ -14,10 +14,18 @@ import { UserService } from "./Components/user/user.service";
 import { environment } from "src/environments/environment.development";
 
 interface User {
-  id: string;
-  username: string;
-  email: string;
-  creationDate: Date;
+  user: {
+    id: string;
+    username: string;
+    email: string;
+    creationDate: Date;
+  };
+  settings: {
+    id: string;
+    userId: string;
+    previews: boolean;
+    emailNotifications: boolean;
+  };
 }
 
 function initializeAppFactory(

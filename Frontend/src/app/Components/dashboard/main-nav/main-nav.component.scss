@@ -23,6 +23,18 @@
       margin-left: 2vw;
     }
 
+    > .selected-icon {
+      color: $accent;
+    }
+
+    > .nav-grid-icon,
+    .nav-preview-icon {
+      &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+      }
+    }
+
     > button {
       font-family: "REM";
       color: $text;

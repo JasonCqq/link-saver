@@ -181,7 +181,7 @@ exports.submit_settings = [
       return res.json({ errors: errs.array().map((err) => err.msg) });
     } else {
       console.log(req.body, typeof req.body.previews);
-      const user = await prisma.UserSettings.update({
+      const userSettings = await prisma.UserSettings.update({
         where: {
           userId: req.params.userId,
         },
@@ -190,9 +190,11 @@ exports.submit_settings = [
           previews: req.body.previews,
           emailNotifications: req.body.emailNotifications,
         },
+
+        include: { user: true },
       });
 
-      res.json({ success: true });
+      res.json({ user: userSettings.user, settings: userSettings });
     }
   }),
 ];

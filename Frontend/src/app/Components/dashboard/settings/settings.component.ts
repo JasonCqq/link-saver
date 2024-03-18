@@ -21,15 +21,12 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.userService.getUser();
 
-    // Get Settings and Set values
-    this.dashboardService.getSettings(this.user.id).subscribe((results) => {
-      this.userSettings = results;
-
+    if (this.user) {
       this.preferenceForm.patchValue({
-        previews: this.userSettings.settings.previews,
-        emailNotifications: this.userSettings.settings.emailNotifications,
+        previews: this.user.settings.previews,
+        emailNotifications: this.user.settings.emailNotifications,
       });
-    });
+    }
   }
 
   preferenceForm = new FormGroup({
@@ -45,10 +42,11 @@ export class SettingsComponent implements OnInit {
       .submitSettings(
         this.preferenceForm.value.previews,
         this.preferenceForm.value.emailNotifications,
-        this.user.id,
+        this.user.user.id,
       )
       .subscribe((res) => {
         this.changesApplied = true;
+        this.userService.updateUser(res);
       });
   }
 }

@@ -41,7 +41,7 @@ export class LinkFormComponent implements OnInit {
   folders: any;
   ngOnInit(): void {
     this.linkForm.valueChanges.subscribe();
-    this.user = this.userService.getUser();
+    this.user = this.userService.getUser().user;
 
     this.dashboardService.getFolders().subscribe((result) => {
       this.folders = result;

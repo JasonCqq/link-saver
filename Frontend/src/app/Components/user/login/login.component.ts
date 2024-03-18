@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.applyLoginForm.valueChanges.subscribe();
-    this.user = this.userService.getUser();
+    this.user = this.userService.getUser().user;
   }
 
   applyLoginForm = new FormGroup({

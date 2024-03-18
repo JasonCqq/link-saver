@@ -28,8 +28,14 @@
       </div>
     </div>
 
-    <mat-icon fontIcon="apps"></mat-icon>
-    <mat-icon fontIcon="view_list"></mat-icon>
-    <mat-icon fontIcon="visibility_off"></mat-icon>
+    <mat-icon fontIcon="apps" class="nav-grid-icon"></mat-icon>
+    <mat-icon fontIcon="view_list" class="nav-grid-icon"></mat-icon>
+
+    <mat-icon
+      fontIcon="visibility"
+      class="nav-preview-icon"
+      [ngClass]="{ 'selected-icon': this.previews === true }"
+      (click)="toggleThumbnail()"
+    ></mat-icon>
   </div>
 </nav>

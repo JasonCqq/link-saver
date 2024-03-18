@@ -11,8 +11,8 @@
   <div class="settings-grid">
     <section class="settings-item">
       <h3>Account</h3>
-      <p>Email: {{ user.email }}</p>
-      <p>Account Created: {{ user.creationDate | date: "shortDate" }}</p>
+      <p>Email: {{ user.user.email }}</p>
+      <p>Account Created: {{ user.user.creationDate | date: "shortDate" }}</p>
       <p style="opacity: 0.25">Change Password</p>
     </section>
 

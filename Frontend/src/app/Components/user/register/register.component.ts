@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.applyForm.valueChanges.subscribe();
-    this.user = this.userService.getUser();
+    this.user = this.userService.getUser().user;
   }
 
   // Getters

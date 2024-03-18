@@ -3,6 +3,8 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { DashboardService } from "../dashboard.service";
 import { Link } from "src/app/Interfaces/Link";
 import { debounceTime } from "rxjs";
+import { UserService } from "../../user/user.service";
+import { LinkService } from "../links/link-item/link-item.service";
 
 @Component({
   selector: "app-main-nav",
@@ -10,12 +12,28 @@ import { debounceTime } from "rxjs";
   styleUrls: ["./main-nav.component.scss"],
 })
 export class MainNavComponent implements OnInit {
-  constructor(private dashboardService: DashboardService) {}
+  constructor(
+    private dashboardService: DashboardService,
+    private userService: UserService,
+    private linkService: LinkService,
+  ) {}
+
+  user: any;
+  previews: any;
 
   ngOnInit(): void {
     this.query.valueChanges
       .pipe(debounceTime(500))
       .subscribe(() => this.searchLinks());
+
+    this.linkService.thumbnails$.subscribe((state) => {
+      this.previews = state;
+    });
+
+    // NgOnDestroy subscription
+    this.userService.user$.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   // Will need user's id to search eventually
@@ -39,5 +57,9 @@ export class MainNavComponent implements OnInit {
         this.searchResults.emit(result);
       });
     console.log(this.searchResults);
+  }
+
+  toggleThumbnail(): void {
+    this.linkService.toggleThumbnail();
   }
 }

@@ -46,8 +46,9 @@ export class DashboardService implements OnInit {
   ngOnInit(): void {
     this.getUser();
   }
+  // Issue here
   getUser(): void {
-    this.userService.getUser();
+    this.userService.getUser().user;
     // .subscribe()
   }
 
