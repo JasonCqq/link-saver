@@ -6,7 +6,9 @@ import { map, tap, catchError } from "rxjs/operators";
 import { Link, Links } from "../../Interfaces/Link";
 import { Folder, Folders } from "../../Interfaces/Folder";
 import { UserService } from "../user/user.service";
+
 // // Throttle tab switching from user
+//, { withCredentials: true }
 
 @Injectable({
   providedIn: "root",
@@ -46,12 +48,11 @@ export class DashboardService implements OnInit {
   ngOnInit(): void {
     this.getUser();
   }
-  // Issue here
   getUser(): void {
     this.userService.getUser().user;
-    // .subscribe()
   }
 
+  // Error Handler
   private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
@@ -60,10 +61,12 @@ export class DashboardService implements OnInit {
     };
   }
 
-  // All links
   getLinks(): Observable<Link[]> {
     return this.http
-      .get<Links>(`${this.apiUrl}/link/links`, { withCredentials: true })
+      .get<Links>(
+        `${this.apiUrl}/link/links/${this.userService.getUser().user.id}`,
+        { withCredentials: true },
+      )
       .pipe(
         map((response) => response.links),
         tap((_) => console.log("Received links")),
@@ -73,7 +76,10 @@ export class DashboardService implements OnInit {
 
   getBookmarks(): Observable<Link[]> {
     return this.http
-      .get<Links>(`${this.apiUrl}/link/bookmarks`, { withCredentials: true })
+      .get<Links>(
+        `${this.apiUrl}/link/bookmarks/${this.userService.getUser().user.id}`,
+        { withCredentials: true },
+      )
       .pipe(
         tap((response) => {
           console.log("Response", response);
@@ -86,7 +92,10 @@ export class DashboardService implements OnInit {
 
   getUpcoming(): Observable<Link[]> {
     return this.http
-      .get<Links>(`${this.apiUrl}/link/upcoming`, { withCredentials: true })
+      .get<Links>(
+        `${this.apiUrl}/link/upcoming/${this.userService.getUser().user.id}`,
+        { withCredentials: true },
+      )
       .pipe(
         map((response) => response.links),
         tap((_) => console.log("Received Upcomings")),
@@ -96,7 +105,10 @@ export class DashboardService implements OnInit {
 
   getTrash(): Observable<Link[]> {
     return this.http
-      .get<Links>(`${this.apiUrl}/link/trash`, { withCredentials: true })
+      .get<Links>(
+        `${this.apiUrl}/link/trash/${this.userService.getUser().user.id}`,
+        { withCredentials: true },
+      )
       .pipe(
         map((response) => response.links),
         tap((_) => console.log("Received Trash")),
@@ -106,32 +118,27 @@ export class DashboardService implements OnInit {
 
   getFolders(): Observable<Folder[]> {
     return this.http
-      .get<Folders>(`${this.apiUrl}/folders/`, { withCredentials: true })
+      .get<Folders>(
+        `${this.apiUrl}/folders/${this.userService.getUser().user.id}`,
+        { withCredentials: true },
+      )
       .pipe(
         map((response) => response.folders),
         tap((_) => console.log("Received Folders")),
         catchError(this.handleError<Folder[]>("getFolders()", [])),
       );
-
-    // Get User's folders, once folder system is finished
-    // if (this.user) {
-    //   return this.http
-    //     .get<Folders>(`${this.apiUrl}/folders/${this.user.id}`)
-    //     .pipe(
-    //       map((response) => response.folders),
-    //       tap((_) => console.log("Received Folders")),
-    //       catchError(this.handleError<Folder[]>("getFolders()", [])),
-    //     );
-    // } else {
-    //   return of<Folder[]>([]);
-    // }
   }
 
   searchLink(query: string, linkType: string): Observable<Link[]> {
     return this.http
-      .get<Links>(`${this.apiUrl}/link/search/?q=${query}&t=${linkType}`, {
-        withCredentials: true,
-      })
+      .get<Links>(
+        `${this.apiUrl}/link/search/${
+          this.userService.getUser().user.id
+        }/?q=${query}&t=${linkType}`,
+        {
+          withCredentials: true,
+        },
+      )
       .pipe(
         map((response) => response.links),
         tap((_) => console.log("Received Queries")),

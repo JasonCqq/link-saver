@@ -8,7 +8,6 @@ import { UserService } from "../user.service";
   styleUrls: ["./register.component.scss"],
 })
 export class RegisterComponent implements OnInit {
-  // Checks for user
   constructor(private userService: UserService) {}
   user: any;
 
@@ -36,16 +35,12 @@ export class RegisterComponent implements OnInit {
     this.user = this.userService.getUser().user;
   }
 
-  // Getters
-
   get email() {
     return this.applyForm.get("email");
   }
-
   get username() {
     return this.applyForm.get("username");
   }
-
   get password() {
     return this.applyForm.get("password");
   }

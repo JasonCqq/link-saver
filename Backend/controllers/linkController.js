@@ -27,17 +27,21 @@ exports.create_link = [
       return res.json({ errors: errs.array().map((err) => err.msg) });
     } else {
       try {
+        // || req.session.user.id !== req.params.userId
+        if (!req.params.userId) {
+          res.status(401).send("Not authenticated");
+        }
+
         // Convert date to null if no date provided
         let date = req.body.remind;
         if (date === "") {
           date = null;
         }
 
-        // Adding Rich Previews
+        // Add Rich Previews
         let decodedUrl = decode(req.body.url, { level: "html5" });
         let tempTitle;
         let tempThumbnail;
-
         const options = { url: decodedUrl };
         ogs(options)
           .then(async (data) => {
@@ -45,54 +49,51 @@ exports.create_link = [
             tempTitle = result?.ogTitle || "A simple website";
             tempThumbnail = result?.ogImage?.[0]?.url || "";
 
+            // Find folder, If no folder, just creates link
             await prisma.$transaction(async (prisma) => {
-              // Check for folder, create "default" folder if none
-              const existingFolder = await prisma.Folder.findUnique({
-                where: {
-                  id: req.body.folder,
-                },
-              });
-              let folderId;
-              if (existingFolder) {
-                folderId = existingFolder.id;
-              } else {
-                const newFolder = await prisma.Folder.create({
-                  data: {
-                    name: "d",
+              if (req.body.folder) {
+                let folder = await prisma.Folder.findFirst({
+                  where: {
+                    id: req.body.folder,
+                    userId: req.params.userId,
                   },
                 });
-                folderId = newFolder.id;
-              }
 
-              // Create new link and connect folder
-              const link = await prisma.Link.create({
-                data: {
-                  url: decodedUrl,
-                  folder: {
-                    connect: {
-                      id: folderId,
+                const link = await prisma.Link.create({
+                  data: {
+                    url: decodedUrl,
+                    user: {
+                      connect: {
+                        id: req.params.userId,
+                      },
                     },
+                    folder: {
+                      connect: {
+                        id: folder.id,
+                      },
+                    },
+                    title: tempTitle,
+                    bookmarked: JSON.parse(req.body.bookmarked),
+                    remind: date,
+                    thumbnail: tempThumbnail,
                   },
-                  title: tempTitle,
-                  bookmarked: JSON.parse(req.body.bookmarked),
-                  remind: date,
-                  thumbnail: tempThumbnail,
-                },
-              });
-
-              const newLinkId = link.id;
-
-              // Add link to folder.
-              prisma.Folder.update({
-                where: {
-                  id: folderId,
-                },
-                data: {
-                  links: {
-                    connect: { id: newLinkId },
+                });
+              } else {
+                const link = await prisma.Link.create({
+                  data: {
+                    url: decodedUrl,
+                    user: {
+                      connect: {
+                        id: req.params.userId,
+                      },
+                    },
+                    title: tempTitle,
+                    bookmarked: JSON.parse(req.body.bookmarked),
+                    remind: date,
+                    thumbnail: tempThumbnail,
                   },
-                },
-              });
+                });
+              }
             });
 
             return res.json({ success: true });
@@ -164,21 +165,20 @@ exports.edit_link = [
           const link = await prisma.Link.update({
             where: {
               id: req.params.id,
+              userId: req.params.userId,
             },
 
             data: {
               title: req.body.title,
               bookmarked: JSON.parse(req.body.bookmarked),
-              folder: {
-                connect: {
-                  id: req.body.folder,
-                },
-              },
+              ...(req.body.folder
+                ? { folder: { connect: { id: req.body.folder } } }
+                : {}),
               remind: req.body.remind || null,
             },
           });
 
-          // Update link for folder.
+          // Update link for folder. ???
           prisma.Folder.update({
             where: {
               id: req.body.folder,
@@ -203,6 +203,7 @@ exports.get_links = asyncHandler(async (req, res) => {
   const links = await prisma.Link.findMany({
     where: {
       trash: false,
+      userId: req.params.userId,
     },
 
     orderBy: {
@@ -220,6 +221,7 @@ exports.get_bookmarks = asyncHandler(async (req, res) => {
     where: {
       bookmarked: true,
       trash: false,
+      userId: req.params.userId,
     },
 
     orderBy: {
@@ -235,6 +237,7 @@ exports.get_bookmarks = asyncHandler(async (req, res) => {
 exports.get_upcoming = asyncHandler(async (req, res) => {
   const links = await prisma.Link.findMany({
     where: {
+      userId: req.params.userId,
       trash: false,
       remind: {
         not: {
@@ -256,6 +259,7 @@ exports.get_upcoming = asyncHandler(async (req, res) => {
 exports.get_trash = asyncHandler(async (req, res) => {
   const links = await prisma.Link.findMany({
     where: {
+      userId: req.params.userId,
       trash: true,
     },
 
@@ -273,7 +277,6 @@ exports.search_link = asyncHandler(async (req, res) => {
   const property = req.query.t;
   const query = req.query.q;
   let condition = {};
-  // let folder
 
   if (property === "Dashboard") {
     condition = { trash: false };
@@ -293,6 +296,7 @@ exports.search_link = asyncHandler(async (req, res) => {
 
   const links = await prisma.Link.findMany({
     where: {
+      userId: req.params.userId,
       AND: [
         condition,
         {

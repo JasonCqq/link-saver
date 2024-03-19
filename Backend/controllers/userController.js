@@ -6,8 +6,6 @@ const prisma = require("../prisma/prismaClient");
 
 require("dotenv").config();
 
-// If something is malfunctioning, it might be due to user schema update
-
 exports.create_user = [
   body("username").trim().escape(),
   body("email").trim().isEmail().escape(),
@@ -22,8 +20,7 @@ exports.create_user = [
     if (!errs.isEmpty()) {
       return res.json({ errors: errs.array().map((error) => error.msg) });
     } else {
-      // Checks for existing users
-      const existCheck = await prisma.User.findUnique({
+      const userCheck = await prisma.User.findUnique({
         where: {
           email: req.body.email,
           username: req.body.username,
@@ -32,7 +29,7 @@ exports.create_user = [
 
       const currentDate = new Date();
 
-      if (existCheck) {
+      if (userCheck) {
         return res.json({ errors: "User already exists" });
       }
 
@@ -131,11 +128,7 @@ exports.login_user = [
             creationDate: user.creationDate,
           };
 
-          // store user information in session, typically a user id
           req.session.user = userData;
-
-          // save the session before redirection to ensure page
-          // load does not happen before session is saved
           req.session.save(function (err) {
             if (err) return next(err);
             res.json({ user: req.session.user });
@@ -159,8 +152,6 @@ exports.logout_user = asyncHandler(async (req, res) => {
     });
   });
 });
-
-// Remove unneeded success messages
 
 exports.get_settings = [
   asyncHandler(async (req, res) => {

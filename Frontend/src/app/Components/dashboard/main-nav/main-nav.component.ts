@@ -36,7 +36,6 @@ export class MainNavComponent implements OnInit {
     });
   }
 
-  // Will need user's id to search eventually
   @Input() title: string = "Dashboard";
 
   @Output() searchResults: EventEmitter<Link[]> = new EventEmitter<Link[]>();

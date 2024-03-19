@@ -28,6 +28,7 @@ interface User {
   };
 }
 
+// Checks for user session
 function initializeAppFactory(
   httpClient: HttpClient,
   injector: Injector,

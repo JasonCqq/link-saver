@@ -14,7 +14,6 @@ export class MainSidebarComponent implements OnInit {
     this.user = this.userService.getUser().user;
   }
 
-  // Logout
   logOut(): void {
     this.userService.logOutUser();
   }

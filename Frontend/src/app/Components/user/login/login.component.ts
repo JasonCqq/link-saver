@@ -43,7 +43,6 @@ export class LoginComponent implements OnInit {
   get username() {
     return this.applyLoginForm.get("username");
   }
-
   get password() {
     return this.applyLoginForm.get("password");
   }

@@ -27,12 +27,6 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // Temporary loggers
-  temp(): void {
-    console.log(this.user);
-    console.log(this.userService.getUser());
-  }
-
   // Displays search results
   displayResults(results: Link[]): void {
     this.links = results;

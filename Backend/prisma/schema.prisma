@@ -12,7 +12,6 @@ model User {
     username     String        @unique
     email        String        @unique
     password     String
-    // New
     creationDate DateTime      @default(now())
     folders      Folder[]
     links        Link[]
@@ -23,7 +22,6 @@ model UserSettings {
     id                 String  @id @default(uuid())
     user               User?   @relation(fields: [userId], references: [id])
     userId             String  @unique
-    // New
     previews           Boolean @default(true)
     emailNotifications Boolean @default(false)
 }
@@ -39,17 +37,16 @@ model Folder {
     id     String  @id @default(uuid())
     name   String
     user   User?   @relation(fields: [userId], references: [id])
-    userId String? @unique
+    userId String?
     links  Link[]
 }
 
 model Link {
     id         String    @id @default(uuid())
     user       User?     @relation(fields: [userId], references: [id])
-    userId     String?   @unique
+    userId     String?
     url        String
     folder     Folder?   @relation(fields: [folderId], references: [id])
-    // Maybe reference the folder name instead?
     folderId   String?
     title      String
     createdAt  DateTime  @default(now())

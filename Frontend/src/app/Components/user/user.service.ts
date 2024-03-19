@@ -83,12 +83,10 @@ export class UserService {
     }
   }
 
-  //Asychronous timing issues (To Be Fixed)
   setUser(user: User) {
     this.userSubject.next(user);
   }
   getUser() {
-    console.log(this.userSubject.value);
     return this.userSubject.value;
   }
   updateUser(user: any) {

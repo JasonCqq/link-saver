@@ -2,12 +2,16 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment.development";
 import { Observable, Subject } from "rxjs";
+import { UserService } from "../../user/user.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class FoldersService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private userService: UserService,
+  ) {}
   private apiUrl = environment.apiUrl;
   private foldersSubject = new Subject<void>();
 
@@ -22,9 +26,12 @@ export class FoldersService {
   async createFolder(name: string) {
     try {
       await this.http
-        .post(`${this.apiUrl}/folders/create`, {
-          name: name,
-        })
+        .post(
+          `${this.apiUrl}/folders/create/${this.userService.getUser().user.id}`,
+          {
+            name: name,
+          },
+        )
         .subscribe(() => {
           this.notifyFolders();
         });
@@ -36,9 +43,14 @@ export class FoldersService {
   async editFolder(id: string, name: string) {
     try {
       await this.http
-        .put(`${this.apiUrl}/folders/edit/${id}`, {
-          name: name,
-        })
+        .put(
+          `${this.apiUrl}/folders/edit/${id}/${
+            this.userService.getUser().user.id
+          }`,
+          {
+            name: name,
+          },
+        )
         .subscribe(() => {
           this.notifyFolders();
         });
@@ -50,7 +62,11 @@ export class FoldersService {
   async deleteFolder(id: string) {
     try {
       await this.http
-        .delete(`${this.apiUrl}/folders/delete/${id}`)
+        .delete(
+          `${this.apiUrl}/folders/delete/${id}/${
+            this.userService.getUser().user.id
+          }`,
+        )
         .subscribe(() => {
           this.notifyFolders();
         });

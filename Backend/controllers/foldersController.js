@@ -4,28 +4,15 @@ const { body, validationResult } = require("express-validator");
 
 exports.get_folder = asyncHandler(async (req, res) => {
   const folders = await prisma.Folder.findMany({
+    where: {
+      userId: req.params.userId,
+    },
     include: {
       links: true,
     },
   });
 
   res.json({ folders: folders });
-
-  // Need user to get folders
-  // console.log(req.session.user);
-  // if (req.session.user.id === req.params.userId) {
-  //   console.log(req.session.user);
-
-  //   const folders = await prisma.Folder.findMany({
-  //     where: {
-  //       userId: `${req.params.userId}`,
-  //     },
-  //   });
-
-  //   return res.json({ folders: folders });
-  // } else {
-  //   return res.json({ error: "Forbidden" });
-  // }
 });
 
 exports.create_folder = [
@@ -41,6 +28,10 @@ exports.create_folder = [
         const folder = await prisma.Folder.create({
           data: {
             name: req.body.name,
+
+            user: {
+              connect: { id: req.params.userId },
+            },
           },
         });
 
@@ -62,15 +53,10 @@ exports.edit_folder = [
       return res.json({ errors: errs.array().map((err) => err.msg) });
     } else {
       try {
-        console.log(
-          req.body.name,
-          req.body.editFolderName,
-          req.params.folderId,
-        );
-
         const folder = await prisma.Folder.update({
           where: {
             id: req.params.folderId,
+            userId: req.params.userId,
           },
 
           data: {
@@ -91,6 +77,7 @@ exports.delete_folder = asyncHandler(async (req, res) => {
     const folder = await prisma.Folder.delete({
       where: {
         id: req.params.folderId,
+        userId: req.params.userId,
       },
     });
     return res.json({ success: true });
