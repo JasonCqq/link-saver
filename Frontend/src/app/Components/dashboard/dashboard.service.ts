@@ -49,7 +49,7 @@ export class DashboardService implements OnInit {
     this.getUser();
   }
   getUser(): void {
-    this.userService.getUser().user;
+    this.userService.getUser()?.user;
   }
 
   // Error Handler
@@ -64,12 +64,11 @@ export class DashboardService implements OnInit {
   getLinks(): Observable<Link[]> {
     return this.http
       .get<Links>(
-        `${this.apiUrl}/link/links/${this.userService.getUser().user.id}`,
+        `${this.apiUrl}/link/links/${this.userService.getUser()?.user.id}`,
         { withCredentials: true },
       )
       .pipe(
         map((response) => response.links),
-        tap((_) => console.log("Received links")),
         catchError(this.handleError<Link[]>("getLinks()", [])),
       );
   }
@@ -77,15 +76,11 @@ export class DashboardService implements OnInit {
   getBookmarks(): Observable<Link[]> {
     return this.http
       .get<Links>(
-        `${this.apiUrl}/link/bookmarks/${this.userService.getUser().user.id}`,
+        `${this.apiUrl}/link/bookmarks/${this.userService.getUser()?.user.id}`,
         { withCredentials: true },
       )
       .pipe(
-        tap((response) => {
-          console.log("Response", response);
-        }),
         map((response) => response.links),
-        tap((_) => console.log("Received Bookmarks")),
         catchError(this.handleError<Link[]>("getBookmarks()", [])),
       );
   }
@@ -93,12 +88,11 @@ export class DashboardService implements OnInit {
   getUpcoming(): Observable<Link[]> {
     return this.http
       .get<Links>(
-        `${this.apiUrl}/link/upcoming/${this.userService.getUser().user.id}`,
+        `${this.apiUrl}/link/upcoming/${this.userService.getUser()?.user.id}`,
         { withCredentials: true },
       )
       .pipe(
         map((response) => response.links),
-        tap((_) => console.log("Received Upcomings")),
         catchError(this.handleError<Link[]>("getUpcoming()", [])),
       );
   }
@@ -106,12 +100,11 @@ export class DashboardService implements OnInit {
   getTrash(): Observable<Link[]> {
     return this.http
       .get<Links>(
-        `${this.apiUrl}/link/trash/${this.userService.getUser().user.id}`,
+        `${this.apiUrl}/link/trash/${this.userService.getUser()?.user.id}`,
         { withCredentials: true },
       )
       .pipe(
         map((response) => response.links),
-        tap((_) => console.log("Received Trash")),
         catchError(this.handleError<Link[]>("getTrash()", [])),
       );
   }
@@ -119,12 +112,11 @@ export class DashboardService implements OnInit {
   getFolders(): Observable<Folder[]> {
     return this.http
       .get<Folders>(
-        `${this.apiUrl}/folders/${this.userService.getUser().user.id}`,
+        `${this.apiUrl}/folders/${this.userService.getUser()?.user.id}`,
         { withCredentials: true },
       )
       .pipe(
         map((response) => response.folders),
-        tap((_) => console.log("Received Folders")),
         catchError(this.handleError<Folder[]>("getFolders()", [])),
       );
   }
@@ -132,16 +124,14 @@ export class DashboardService implements OnInit {
   searchLink(query: string, linkType: string): Observable<Link[]> {
     return this.http
       .get<Links>(
-        `${this.apiUrl}/link/search/${
-          this.userService.getUser().user.id
-        }/?q=${query}&t=${linkType}`,
+        `${this.apiUrl}/link/search/${this.userService.getUser()?.user
+          .id}/?q=${query}&t=${linkType}`,
         {
           withCredentials: true,
         },
       )
       .pipe(
         map((response) => response.links),
-        tap((_) => console.log("Received Queries")),
         catchError(this.handleError<Link[]>("searchlink()", [])),
       );
   }

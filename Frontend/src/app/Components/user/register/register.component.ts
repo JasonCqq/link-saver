@@ -9,7 +9,6 @@ import { UserService } from "../user.service";
 })
 export class RegisterComponent implements OnInit {
   constructor(private userService: UserService) {}
-  user: any;
 
   applyForm = new FormGroup({
     username: new FormControl("", [Validators.required]),
@@ -32,7 +31,6 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.applyForm.valueChanges.subscribe();
-    this.user = this.userService.getUser().user;
   }
 
   get email() {

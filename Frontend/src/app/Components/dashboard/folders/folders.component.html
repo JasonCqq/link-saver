@@ -65,21 +65,28 @@
       </form>
     </div>
 
-    <div *ngFor="let folder of folders" class="folders-item">
-      <div (click)="openFolder(folder.id)" class="folders-item-flex">
+    <div
+      *ngFor="let folder of folders"
+      class="folders-item"
+      (click)="openFolder(folder.id)"
+    >
+      <div class="folders-item-flex">
         <mat-icon fontIcon="folder" style="color: #fcc466"></mat-icon>
-        <p>{{ folder.name | slice: 0 : 50 }}</p>
+        <p>
+          {{ folder.name | slice: 0 : 10
+          }}{{ folder.name.length > 10 ? "..." : "" }}
+        </p>
       </div>
 
       <div class="folders-item-options">
         <mat-icon
           fontIcon="edit"
-          (click)="toggleEditWindow(folder.id)"
+          (click)="$event.stopPropagation(); toggleEditWindow(folder.id)"
         ></mat-icon>
         <mat-icon
           fontIcon="close"
           style="color: #f73830"
-          (click)="deleteFolder(folder.id)"
+          (click)="$event.stopPropagation(); deleteFolder(folder.id)"
         ></mat-icon>
       </div>
     </div>

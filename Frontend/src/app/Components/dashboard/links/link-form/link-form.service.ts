@@ -24,7 +24,7 @@ export class LinkFormService {
     try {
       await this.http
         .post(
-          `${this.apiUrl}/link/create/${this.userService.getUser().user.id}`,
+          `${this.apiUrl}/link/create/${this.userService.getUser()?.user.id}`,
           {
             url: url,
             folder: folder,

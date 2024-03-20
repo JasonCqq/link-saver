@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "../user/user.service";
+import { HomeService } from "./home.service";
 
 @Component({
   selector: "app-home",
@@ -8,11 +9,22 @@ import { UserService } from "../user/user.service";
 })
 export class HomeComponent implements OnInit {
   // Checks for user
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private homeService: HomeService,
+  ) {}
   user: any;
 
+  data: any;
+
   ngOnInit() {
-    this.user = this.userService.getUser().user;
+    this.userService.user$.subscribe((user) => {
+      this.user = user?.user;
+    });
+
+    this.homeService.getStats().subscribe((response) => {
+      this.data = response;
+    });
   }
 
   // Toggle FAQ

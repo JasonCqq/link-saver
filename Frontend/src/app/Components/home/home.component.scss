@@ -36,7 +36,7 @@
         transition: box-shadow 0.15s ease-in-out;
 
         &:hover {
-          box-shadow: 1px 1px 15px rgb(119, 118, 118);
+          box-shadow: 1px 1px 10px $accent;
         }
       }
     }
@@ -87,6 +87,23 @@
     }
   }
 
+  @keyframes fadeIn {
+    0% {
+      display: none;
+      opacity: 0;
+    }
+
+    1% {
+      display: block;
+      opacity: 0;
+    }
+
+    100% {
+      display: block;
+      opacity: 1;
+    }
+  }
+
   .home_faq {
     height: auto;
     display: flex;
@@ -128,6 +145,7 @@
           width: 75%;
           height: 50px;
           padding: 25px 0px 50px 0px;
+          animation: 0.25s ease-in-out 0s 1 fadeIn;
         }
       }
     }

@@ -3,6 +3,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { UserService } from "../../user/user.service";
 import { FormControl, FormGroup } from "@angular/forms";
 import { DashboardService } from "../dashboard.service";
+import { LinkService } from "../links/link-item/link-item.service";
 
 @Component({
   selector: "app-settings",
@@ -13,10 +14,10 @@ export class SettingsComponent implements OnInit {
   constructor(
     private userService: UserService,
     private dashboardService: DashboardService,
+    private linkService: LinkService,
   ) {}
 
   user: any;
-  userSettings: any;
 
   ngOnInit(): void {
     this.user = this.userService.getUser();
@@ -46,7 +47,7 @@ export class SettingsComponent implements OnInit {
       )
       .subscribe((res) => {
         this.changesApplied = true;
-        this.userService.updateUser(res);
+        this.linkService.toggleThumbnail();
       });
   }
 }

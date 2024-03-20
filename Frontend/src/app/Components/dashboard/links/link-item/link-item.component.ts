@@ -37,7 +37,6 @@ export class LinkComponent implements OnInit {
   });
 
   // This is causing many folder requests
-
   ngOnInit(): void {
     this.dashboardService.getFolders().subscribe((result) => {
       this.folders = result;

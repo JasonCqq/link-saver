@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment.development";
 import { Router } from "@angular/router";
-import { BehaviorSubject, empty } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 
 interface User {
   user: {
@@ -45,8 +45,18 @@ export class UserService {
     },
   };
 
-  private userSubject = new BehaviorSubject<User>(this.emptyUser);
+  private userSubject = new BehaviorSubject<User | null>(this.emptyUser);
   user$ = this.userSubject.asObservable();
+
+  setUser(user: User) {
+    this.userSubject.next(user);
+  }
+  getUser() {
+    return this.userSubject.value;
+  }
+  updateUser(user: any) {
+    this.userSubject.next(user);
+  }
 
   private apiUrl = environment.apiUrl;
 
@@ -70,27 +80,23 @@ export class UserService {
         )
         .subscribe({
           next: (response) => {
-            if (response && (response as any).user) {
-              this.setUser((response as any).user as User);
+            if ((response as User) && action === "login") {
+              this.updateUser(response);
               this.router.navigate(["/dashboard"]);
+            } else if ((response as User) && action === "create") {
+              this.updateUser(response);
+              this.router.navigate(["/user/login"]);
             }
           },
-          error: (error) => console.log(error),
+          error: (error) =>
+            action === "create"
+              ? alert(JSON.stringify(error.error.errors))
+              : alert(error.error.message),
         });
     } catch (err) {
       console.log("POST call failed", err);
       throw err;
     }
-  }
-
-  setUser(user: User) {
-    this.userSubject.next(user);
-  }
-  getUser() {
-    return this.userSubject.value;
-  }
-  updateUser(user: any) {
-    this.userSubject.next(user);
   }
 
   // Logout user
@@ -100,12 +106,12 @@ export class UserService {
         .get(`${this.apiUrl}/user/logout`, { withCredentials: true })
         .subscribe({
           next: (response) => {
-            if (response && (response as any).success === true) {
+            if (response) {
+              this.userSubject.next(null);
               this.router.navigate(["/"]);
             }
-            this.userSubject.next(this.emptyUser);
           },
-          error: (error) => console.log(error),
+          error: (error) => alert(JSON.stringify(error.error.errors)),
         });
     } catch (err) {
       console.log(err);

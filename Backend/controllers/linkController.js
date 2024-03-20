@@ -16,7 +16,7 @@ function formatLinks(links) {
 }
 
 exports.create_link = [
-  body("url").trim().escape(),
+  body("url").trim().isLength({ min: 1 }).escape(),
   body("folder").trim().escape(),
   body("bookmarked").trim().escape(),
   body("remind").trim().escape(),
@@ -24,7 +24,7 @@ exports.create_link = [
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
-      return res.json({ errors: errs.array().map((err) => err.msg) });
+      res.status(400).json({ errors: errs.array().map((err) => err.msg) });
     } else {
       try {
         // || req.session.user.id !== req.params.userId
@@ -32,7 +32,6 @@ exports.create_link = [
           res.status(401).send("Not authenticated");
         }
 
-        // Convert date to null if no date provided
         let date = req.body.remind;
         if (date === "") {
           date = null;
@@ -96,7 +95,7 @@ exports.create_link = [
               }
             });
 
-            return res.json({ success: true });
+            res.status(200).json({});
           })
           .catch((err) => {
             console.error(err);
@@ -119,7 +118,7 @@ exports.delete_link = asyncHandler(async (req, res) => {
     },
   });
 
-  return res.json({ success: true });
+  res.status(200).json({});
 });
 
 exports.perma_delete_link = asyncHandler(async (req, res) => {
@@ -130,7 +129,7 @@ exports.perma_delete_link = asyncHandler(async (req, res) => {
     },
   });
 
-  return res.json({ success: true });
+  res.status(200).json({});
 });
 
 exports.restore_link = asyncHandler(async (req, res) => {
@@ -144,7 +143,7 @@ exports.restore_link = asyncHandler(async (req, res) => {
     },
   });
 
-  return res.json({ success: true });
+  res.status(200).json({ success: true });
 });
 
 exports.edit_link = [
@@ -157,10 +156,9 @@ exports.edit_link = [
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
-      return res.json({ errors: errs.array().map((err) => err.msg) });
+      res.status(400).json({ errors: errs.array().map((err) => err.msg) });
     } else {
       try {
-        console.log(req.body.remind);
         await prisma.$transaction(async (prisma) => {
           const link = await prisma.Link.update({
             where: {
@@ -195,7 +193,7 @@ exports.edit_link = [
       }
     }
 
-    return res.json({ success: true });
+    res.status(200).json({});
   }),
 ];
 
@@ -213,7 +211,7 @@ exports.get_links = asyncHandler(async (req, res) => {
 
   const formattedLinks = formatLinks(links);
 
-  res.json({ links: formattedLinks });
+  res.status(200).json({ links: formattedLinks });
 });
 
 exports.get_bookmarks = asyncHandler(async (req, res) => {
@@ -231,7 +229,7 @@ exports.get_bookmarks = asyncHandler(async (req, res) => {
 
   const formattedLinks = formatLinks(links);
 
-  res.json({ links: formattedLinks });
+  res.status(200).json({ links: formattedLinks });
 });
 
 exports.get_upcoming = asyncHandler(async (req, res) => {
@@ -253,7 +251,7 @@ exports.get_upcoming = asyncHandler(async (req, res) => {
 
   const formattedLinks = formatLinks(links);
 
-  res.json({ links: formattedLinks });
+  res.status(200).json({ links: formattedLinks });
 });
 
 exports.get_trash = asyncHandler(async (req, res) => {
@@ -270,7 +268,7 @@ exports.get_trash = asyncHandler(async (req, res) => {
 
   const formattedLinks = formatLinks(links);
 
-  res.json({ links: formattedLinks });
+  res.status(200).json({ links: formattedLinks });
 });
 
 exports.search_link = asyncHandler(async (req, res) => {
@@ -325,5 +323,5 @@ exports.search_link = asyncHandler(async (req, res) => {
 
   const formattedLinks = formatLinks(links);
 
-  res.json({ links: formattedLinks });
+  res.status(200).json({ links: formattedLinks });
 });

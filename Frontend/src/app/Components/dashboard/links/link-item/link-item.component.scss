@@ -10,6 +10,7 @@
 
   > section {
     display: flex;
+
     &:hover {
       opacity: 0.85;
       > .link-details {
@@ -22,13 +23,18 @@
       }
     }
 
+    > .link-preview {
+      border-left: 2px solid $accent;
+      height: 100px;
+      width: 175px;
+    }
+
     > .link-details {
       display: flex;
       flex-direction: column;
       font-size: 0.8rem;
       height: 100px;
       width: 100%;
-      border-right: 2px solid $secondary;
       align-items: center;
 
       > .link-title {

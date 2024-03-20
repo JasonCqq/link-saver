@@ -8,7 +8,7 @@ require("dotenv").config();
 
 exports.create_user = [
   body("username").trim().escape(),
-  body("email").trim().isEmail().escape(),
+  body("email", "Invalid Email").trim().isEmail().escape(),
   body("password", "Password must be between 8-20 characters")
     .trim()
     .isLength({ min: 8, max: 20 })
@@ -18,7 +18,7 @@ exports.create_user = [
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
-      return res.json({ errors: errs.array().map((error) => error.msg) });
+      res.status(400).json({ errors: errs.array().map((error) => error.msg) });
     } else {
       const userCheck = await prisma.User.findUnique({
         where: {
@@ -30,13 +30,13 @@ exports.create_user = [
       const currentDate = new Date();
 
       if (userCheck) {
-        return res.json({ errors: "User already exists" });
+        res.status(400).json({ errors: "User already exists" });
       }
 
       // Hash Password
       bcrypt.hash(req.body.password, 10, async (err, hashedPass) => {
         if (err) {
-          return res.status(500).json({
+          res.status(500).json({
             error: "Error Hashing Password. (Bcrypt Error)",
             oldData: {
               username: req.body.username,
@@ -85,7 +85,7 @@ exports.create_user = [
           });
         });
 
-        return res.json({ success: true });
+        res.status(200).json({});
       });
     }
   }),
@@ -102,7 +102,7 @@ exports.login_user = [
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
-      return res.json({ errors: errs.array().map((error) => error.msg) });
+      res.status(400).json({ errors: errs.array().map((error) => error.msg) });
     }
 
     try {
@@ -111,13 +111,14 @@ exports.login_user = [
           return next(err);
         }
         if (!authenticated) {
-          return res.json({ success: false, message: info.message });
+          res.status(400).json({ message: info.message });
         } else {
-          console.log(authenticated);
-
           const user = await prisma.User.findUnique({
             where: {
               id: authenticated.id,
+            },
+            include: {
+              userSettings: true,
             },
           });
 
@@ -131,7 +132,9 @@ exports.login_user = [
           req.session.user = userData;
           req.session.save(function (err) {
             if (err) return next(err);
-            res.json({ user: req.session.user });
+            res
+              .status(200)
+              .json({ user: userData, settings: user.userSettings });
           });
         }
       })(req, res, next);
@@ -148,7 +151,7 @@ exports.logout_user = asyncHandler(async (req, res) => {
     if (err) next(err);
     req.session.regenerate(function (err) {
       if (err) next(err);
-      res.json({ success: true });
+      res.status(200).json({});
     });
   });
 });
@@ -160,7 +163,7 @@ exports.get_settings = [
         userId: req.params.userId,
       },
     });
-    res.json({ settings: userSettings });
+    res.status(200).json({ settings: userSettings });
   }),
 ];
 
@@ -169,7 +172,7 @@ exports.submit_settings = [
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
-      return res.json({ errors: errs.array().map((err) => err.msg) });
+      res.status(400).json({ errors: errs.array().map((err) => err.msg) });
     } else {
       console.log(req.body, typeof req.body.previews);
       const userSettings = await prisma.UserSettings.update({
@@ -185,7 +188,7 @@ exports.submit_settings = [
         include: { user: true },
       });
 
-      res.json({ user: userSettings.user, settings: userSettings });
+      res.status(200).json({ user: userSettings.user, settings: userSettings });
     }
   }),
 ];

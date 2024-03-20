@@ -29,6 +29,8 @@
 
     > .nav-grid-icon,
     .nav-preview-icon {
+      transform: scale(1.2);
+      margin-left: 0.5vw;
       &:hover {
         cursor: pointer;
         opacity: 0.8;

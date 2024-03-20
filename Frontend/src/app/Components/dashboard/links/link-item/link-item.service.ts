@@ -18,9 +18,10 @@ export class LinkService {
   ) {}
   private apiUrl = environment.apiUrl;
 
-  private thumbnails = new BehaviorSubject<boolean>(
-    this.userService.getUser().settings.previews,
+  private thumbnails = new BehaviorSubject<boolean | undefined>(
+    this.userService.getUser()?.settings.previews,
   );
+
   thumbnails$ = this.thumbnails.asObservable();
   toggleThumbnail() {
     this.thumbnails.next(!this.thumbnails.value);
@@ -36,9 +37,8 @@ export class LinkService {
     try {
       await this.http
         .put(
-          `${this.apiUrl}/link/edit/${id}/${
-            this.userService.getUser().user.id
-          }`,
+          `${this.apiUrl}/link/edit/${id}/${this.userService.getUser()?.user
+            .id}`,
           {
             title: title,
             folder: folder,
@@ -66,9 +66,8 @@ export class LinkService {
     try {
       await this.http
         .put(
-          `${this.apiUrl}/link/delete/${id}/${
-            this.userService.getUser().user.id
-          }`,
+          `${this.apiUrl}/link/delete/${id}/${this.userService.getUser()?.user
+            .id}`,
           {},
         )
         .subscribe();
@@ -82,9 +81,8 @@ export class LinkService {
     try {
       await this.http
         .put(
-          `${this.apiUrl}/link/restore/${id}/${
-            this.userService.getUser().user.id
-          }`,
+          `${this.apiUrl}/link/restore/${id}/${this.userService.getUser()?.user
+            .id}`,
           {},
         )
         .subscribe();
@@ -98,9 +96,8 @@ export class LinkService {
     try {
       await this.http
         .delete(
-          `${this.apiUrl}/link/perma_delete/${id}/${
-            this.userService.getUser().user.id
-          }`,
+          `${this.apiUrl}/link/perma_delete/${id}/${this.userService.getUser()
+            ?.user.id}`,
         )
         .subscribe();
     } catch (err) {

@@ -11,7 +11,7 @@ export class MainSidebarComponent implements OnInit {
   user: any;
 
   ngOnInit(): void {
-    this.user = this.userService.getUser().user;
+    this.user = this.userService.getUser()?.user;
   }
 
   logOut(): void {

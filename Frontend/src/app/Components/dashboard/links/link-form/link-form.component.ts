@@ -13,11 +13,9 @@ import { DashboardService } from "../../dashboard.service";
 export class LinkFormComponent implements OnInit {
   constructor(
     private linkFormService: LinkFormService,
-    private userService: UserService,
     private dashboardService: DashboardService,
   ) {}
 
-  user: any;
   @Output() closeForm = new EventEmitter();
 
   linkForm = new FormGroup({
@@ -41,7 +39,6 @@ export class LinkFormComponent implements OnInit {
   folders: any;
   ngOnInit(): void {
     this.linkForm.valueChanges.subscribe();
-    this.user = this.userService.getUser().user;
 
     this.dashboardService.getFolders().subscribe((result) => {
       this.folders = result;

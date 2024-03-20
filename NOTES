@@ -1,29 +1,27 @@
-Grid/List view
-\*IMPORTANT, change Postgres Information. ENV file accidentally pushed
-\*IMPORTANT, DOUBLE CHECK SESSION STORES.
+BEFORE PUBLISHING:
+\*Change Postgres Information. ENV file accidentally pushed
+\*DOUBLE CHECK SESSION STORES.
 
-Additional Features to add/fix: (separate later)
+Additional Features to add/fix:
 
-- During registration remind user that email has to end with .com
-- Add success messages after authentication/registration
-- Remove option "User" and "Folder" in Schema once finished testing
-- Remember to add validators and stuff in link-form
-- Restrict users from certain links
 - Rich Previews not working for some sites, causing it to not POST.
   (Big sites such as Twitter/Reddit etc. Make a default thumbnail)
-- Add shareable link for folder
-- Password locked folders?
-- Mass select for mass options
-- Border coloring on add link form?
+- Let user add Non-URLS, just add default stuff
+
+- Clear All Links
 - Reminder that trash will be deleted in X days
-- Prevent submission with empty inputs on link-form
-- Auto sort date on dashboard
+
 - Warnings on important buttons
 - Animations
-- ngOnDestroy to delete subscriptions?
-- Forgot password/Email confirmation?
-- No folder defaults to dashboard
-- Unique folder names
-- Fix searching for links inside folders
-- Make /check only trigger once
 - Mobile responsiveness
+
+- ngOnDestroy to delete subscriptions
+- Fix searching for links inside folders
+- Remove the folder being retreived from link-items
+
+- Add shareable link for folder?
+- Password locked folders?
+- Mass select for mass options?
+- Forgot password/Email confirmation?
+- Add multiple links?
+- Demo Video, Update link data on Home Page?

@@ -10,16 +10,11 @@ import { Link } from "../../../Interfaces/Link";
 })
 export class DashboardComponent implements OnInit {
   // Checks for user
-  constructor(
-    private userService: UserService,
-    private dashboardService: DashboardService,
-  ) {}
+  constructor(private dashboardService: DashboardService) {}
 
-  user: any;
   links: Link[] = [];
 
   ngOnInit(): void {
-    this.user = this.userService.getUser().user;
     this.getLinks();
 
     this.dashboardService.linksUpdated().subscribe(() => {

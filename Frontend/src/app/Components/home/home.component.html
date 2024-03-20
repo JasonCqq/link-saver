@@ -3,7 +3,9 @@
     <div class="landing-heading">
       <section>LinkStorage</section>
     </div>
-    <p>125,258 links saved in 2583 folders</p>
+    <p *ngIf="this.data">
+      {{ this.data.links }} links saved in {{ this.data.folders }} folders
+    </p>
     <div class="landing-body">
       <a routerLink="/user/login" *ngIf="!user">Log in</a>
       <a routerLink="/user/register" *ngIf="!user" class="nav-button">

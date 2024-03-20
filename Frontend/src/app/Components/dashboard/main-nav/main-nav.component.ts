@@ -3,7 +3,6 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { DashboardService } from "../dashboard.service";
 import { Link } from "src/app/Interfaces/Link";
 import { debounceTime } from "rxjs";
-import { UserService } from "../../user/user.service";
 import { LinkService } from "../links/link-item/link-item.service";
 
 @Component({
@@ -14,11 +13,9 @@ import { LinkService } from "../links/link-item/link-item.service";
 export class MainNavComponent implements OnInit {
   constructor(
     private dashboardService: DashboardService,
-    private userService: UserService,
     private linkService: LinkService,
   ) {}
 
-  user: any;
   previews: any;
 
   ngOnInit(): void {
@@ -28,11 +25,6 @@ export class MainNavComponent implements OnInit {
 
     this.linkService.thumbnails$.subscribe((state) => {
       this.previews = state;
-    });
-
-    // NgOnDestroy subscription
-    this.userService.user$.subscribe((user) => {
-      this.user = user;
     });
   }
 

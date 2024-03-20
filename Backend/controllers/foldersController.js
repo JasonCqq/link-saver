@@ -12,7 +12,7 @@ exports.get_folder = asyncHandler(async (req, res) => {
     },
   });
 
-  res.json({ folders: folders });
+  res.status(200).json({ folders: folders });
 });
 
 exports.create_folder = [
@@ -22,7 +22,9 @@ exports.create_folder = [
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
-      return res.json({ errors: errs.array().map((err) => err.msg) });
+      return res
+        .status(400)
+        .json({ errors: errs.array().map((err) => err.msg) });
     } else {
       try {
         const folder = await prisma.Folder.create({
@@ -35,7 +37,7 @@ exports.create_folder = [
           },
         });
 
-        return res.json({ success: true });
+        return res.status(200).json({});
       } catch (err) {
         console.log(err);
       }
@@ -50,7 +52,9 @@ exports.edit_folder = [
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
-      return res.json({ errors: errs.array().map((err) => err.msg) });
+      return res
+        .status(400)
+        .json({ errors: errs.array().map((err) => err.msg) });
     } else {
       try {
         const folder = await prisma.Folder.update({
@@ -68,7 +72,7 @@ exports.edit_folder = [
       }
     }
 
-    return res.json({ success: true });
+    return res.status(200).json({});
   }),
 ];
 
@@ -80,7 +84,7 @@ exports.delete_folder = asyncHandler(async (req, res) => {
         userId: req.params.userId,
       },
     });
-    return res.json({ success: true });
+    return res.status(200).json({});
   } catch (err) {
     console.log(err);
   }
