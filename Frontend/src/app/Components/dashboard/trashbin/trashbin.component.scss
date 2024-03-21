@@ -1,22 +1,70 @@
 @import "../../../../assets/sharedstyles.scss";
 @import "../../../../assets/styles.scss";
 
-span > button {
-  position: relative;
-  font-family: "REM";
-  margin-left: 17vw;
-  color: $text;
-  padding: 10px 25px;
-  font-weight: 900;
-  background: $imp-button;
-  border: none;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  transition: box-shadow 0.15s ease-in-out;
+span {
+  > .clear-prompt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.75);
+    height: 100vh;
+    width: 100vw;
+    z-index: 99;
 
-  &:hover {
-    cursor: pointer;
-    box-shadow: 1px 1px 10px $imp-button;
+    > .clear-prompt {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2vh;
+      width: 20vw;
+      height: 15vh;
+      border-radius: 5px;
+      background: $background;
+
+      > .clear-prompt-flex {
+        display: flex;
+        gap: 1vw;
+
+        > button {
+          border: none;
+          padding: 5px 15px;
+          font-family: "REM";
+          color: $text;
+          border: 2px solid $accent;
+          background: transparent;
+          border-radius: 5px;
+
+          &:hover {
+            cursor: pointer;
+            background-color: $accent;
+            color: $text2;
+          }
+        }
+      }
+    }
+  }
+
+  > button {
+    position: relative;
+    font-family: "REM";
+    margin-left: 17vw;
+    color: $text;
+    padding: 10px 25px;
+    font-weight: 900;
+    background: $imp-button;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    transition: box-shadow 0.15s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: 1px 1px 10px $imp-button;
+    }
   }
 }

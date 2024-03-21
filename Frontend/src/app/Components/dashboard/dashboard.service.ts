@@ -121,11 +121,24 @@ export class DashboardService implements OnInit {
       );
   }
 
+  deleteAllTrash() {
+    return this.http
+      .delete<Links>(
+        `${this.apiUrl}/link/deleteAll/${this.userService.getUser()?.user.id}`,
+        {
+          withCredentials: true,
+        },
+      )
+      .pipe(catchError(this.handleError("deleteAllTrash()", [])))
+      .subscribe();
+  }
+
   searchLink(query: string, linkType: string): Observable<Link[]> {
     return this.http
       .get<Links>(
-        `${this.apiUrl}/link/search/${this.userService.getUser()?.user
-          .id}/?q=${query}&t=${linkType}`,
+        `${this.apiUrl}/link/search/${
+          this.userService.getUser()?.user.id
+        }/?q=${query}&t=${linkType}`,
         {
           withCredentials: true,
         },

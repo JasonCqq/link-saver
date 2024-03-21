@@ -117,4 +117,27 @@ export class UserService {
       console.log(err);
     }
   }
+
+  // Delete Account
+  async deleteAccount() {
+    try {
+      await this.http
+        .delete(
+          `${this.apiUrl}/user/deleteAccount/${this.getUser()?.user.id}`,
+          { withCredentials: true },
+        )
+        .subscribe({
+          next: (response) => {
+            if (response) {
+              this.userSubject.next(null);
+              this.router.navigate(["/"]);
+              alert("Your account has been deleted.");
+            }
+          },
+          error: (error) => alert(JSON.stringify(error.error.errors)),
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }

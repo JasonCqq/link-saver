@@ -12,4 +12,6 @@ router.get("/settings/:userId", userController.get_settings);
 
 router.put("/submit_settings/:userId", userController.submit_settings);
 
+router.delete("/deleteAccount/:userId", userController.delete_user);
+
 module.exports = router;

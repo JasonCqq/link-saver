@@ -63,7 +63,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
       .subscribe((result) => {
         this.searchResults.emit(result);
       });
-    console.log(this.searchResults);
   }
 
   toggleThumbnail(): void {

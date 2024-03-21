@@ -20,7 +20,7 @@ model User {
 
 model UserSettings {
     id                 String  @id @default(uuid())
-    user               User?   @relation(fields: [userId], references: [id])
+    user               User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId             String  @unique
     previews           Boolean @default(true)
     emailNotifications Boolean @default(false)
@@ -36,14 +36,14 @@ model Session {
 model Folder {
     id     String  @id @default(uuid())
     name   String
-    user   User?   @relation(fields: [userId], references: [id])
+    user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId String?
     links  Link[]
 }
 
 model Link {
     id         String    @id @default(uuid())
-    user       User?     @relation(fields: [userId], references: [id])
+    user       User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId     String?
     url        String
     folder     Folder?   @relation(fields: [folderId], references: [id])

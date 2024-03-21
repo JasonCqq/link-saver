@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const prisma = require("../prisma/prismaClient");
 
+// REMEMBER TO ADD CHECKS TO MAKE SURE SESSION MATCHES THE PARAMS ID BEFORE DELETING
+
 require("dotenv").config();
 
 exports.create_user = [
@@ -154,6 +156,18 @@ exports.logout_user = asyncHandler(async (req, res) => {
       res.status(200).json({});
     });
   });
+});
+
+exports.delete_user = asyncHandler(async (req, res) => {
+  const user = await prisma.User.delete({
+    where: {
+      id: req.params.userId,
+    },
+  });
+  req.session.user = null;
+  req.session = null;
+
+  res.status(200).json({});
 });
 
 exports.get_settings = [

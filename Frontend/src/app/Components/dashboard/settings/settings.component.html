@@ -3,9 +3,32 @@
 <main class="settings-page">
   <div class="settings-flex">
     <h1>User Settings</h1>
-    <button class="settings-delete" style="opacity: 0.25">
+    <button class="settings-delete" (click)="toggleDeletePrompt()">
       Delete Account
     </button>
+
+    <div class="settings-delete-overlay" *ngIf="deletePrompt">
+      <section class="settings-delete-prompt">
+        <mat-icon
+          fontIcon="close"
+          (click)="toggleDeletePrompt()"
+          class="close-form"
+        ></mat-icon>
+
+        <p>Confirm Account Deletion</p>
+        <p>Type "abracadabra" below to confirm</p>
+        <input
+          id="delete-confirm"
+          type="text"
+          required
+          placeholder="...abracadabra"
+        />
+        <mat-error *ngIf="deletePromptError">Input does not match</mat-error>
+        <button (click)="deleteAccount()" class="settings-delete">
+          DELETE
+        </button>
+      </section>
+    </div>
   </div>
 
   <div class="settings-grid">

@@ -5,7 +5,18 @@
 ></app-main-nav>
 
 <span>
-  <button style="opacity: 0.25">Clear All</button>
+  <button (click)="togglePrompt()">Clear All</button>
+
+  <section *ngIf="clearPrompt" class="clear-prompt-overlay">
+    <div class="clear-prompt">
+      <h1>Are you sure?</h1>
+
+      <div class="clear-prompt-flex">
+        <button (click)="deleteAllTrash(); togglePrompt()">Yes</button>
+        <button (click)="togglePrompt()">No</button>
+      </div>
+    </div>
+  </section>
 </span>
 
 <main class="default-dash-container">

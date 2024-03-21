@@ -50,4 +50,24 @@ export class SettingsComponent implements OnInit {
         this.linkService.toggleThumbnail();
       });
   }
+
+  deletePrompt: boolean = false;
+  deletePromptError: boolean = false;
+  toggleDeletePrompt(): void {
+    this.deletePrompt = !this.deletePrompt;
+  }
+
+  deleteAccount(): void {
+    if (
+      (<HTMLInputElement>document.getElementById("delete-confirm")).value !==
+      "abracadabra"
+    ) {
+      this.deletePromptError = true;
+    } else if (
+      (<HTMLInputElement>document.getElementById("delete-confirm")).value ===
+      "abracadabra"
+    ) {
+      this.userService.deleteAccount();
+    }
+  }
 }

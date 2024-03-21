@@ -9,6 +9,64 @@
     display: flex;
     padding-bottom: 5vh;
 
+    > .settings-delete-overlay {
+      display: flex;
+      z-index: 99;
+      background-color: rgba($color: #000000, $alpha: 0.75);
+      position: fixed;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
+
+      > .settings-delete-prompt {
+        background-color: $background;
+        width: 25vw;
+        height: 30vh;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 2vh;
+
+        > input {
+          border: none;
+          border: 2px solid $accent;
+          background: transparent;
+          border-radius: 5px;
+          padding: 1vh 1vw;
+          font-size: 1rem;
+        }
+
+        > .close-form {
+          margin: 15px 0 0 15px;
+          transform: scale(1.25);
+          align-self: flex-start;
+
+          &:hover {
+            cursor: pointer;
+            color: $accent;
+          }
+        }
+
+        > .settings-delete {
+          background-color: $imp-button;
+          border: none;
+          font-family: "REM";
+          padding: 10px 20px;
+          border-radius: 5px;
+          color: $text;
+
+          &:hover {
+            cursor: pointer;
+            box-shadow: 1px 1px 10px $imp-button;
+          }
+        }
+      }
+    }
+
     > .settings-delete {
       margin-left: auto;
       background-color: $imp-button;
@@ -20,7 +78,7 @@
 
       &:hover {
         cursor: pointer;
-        color: $text2;
+        box-shadow: 1px 1px 10px $imp-button;
       }
     }
   }

@@ -14,6 +14,8 @@ router.get("/trash/:userId", linkController.get_trash);
 
 router.put("/delete/:id/:userId", linkController.delete_link);
 
+router.delete("/deleteAll/:userId", linkController.perma_delete_all);
+
 router.put("/restore/:id/:userId", linkController.restore_link);
 
 router.put("/edit/:id/:userId", linkController.edit_link);

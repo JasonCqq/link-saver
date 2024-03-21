@@ -14,6 +14,8 @@ export class TrashbinComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   trash: Link[] = [];
 
+  clearPrompt: boolean = false;
+
   ngOnInit(): void {
     this.getTrash();
   }
@@ -23,6 +25,10 @@ export class TrashbinComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  togglePrompt(): void {
+    this.clearPrompt = !this.clearPrompt;
+  }
+
   getTrash(): void {
     this.dashboardService
       .getTrash()
@@ -30,6 +36,11 @@ export class TrashbinComponent implements OnInit, OnDestroy {
       .subscribe((result) => {
         this.trash = result;
       });
+  }
+
+  deleteAllTrash(): void {
+    this.dashboardService.deleteAllTrash();
+    this.trash = [];
   }
 
   // Displays search results
