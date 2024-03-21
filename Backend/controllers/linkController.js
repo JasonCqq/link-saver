@@ -41,12 +41,19 @@ exports.create_link = [
         let decodedUrl = decode(req.body.url, { level: "html5" });
         let tempTitle;
         let tempThumbnail;
-        const options = { url: decodedUrl };
-        ogs(options)
+
+        const userAgent =
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36";
+
+        ogs({
+          url: decodedUrl,
+          fetchOptions: { headers: { "user-agent": userAgent } },
+        })
           .then(async (data) => {
             const { error, result } = data;
-            tempTitle = result?.ogTitle || "A simple website";
-            tempThumbnail = result?.ogImage?.[0]?.url || "";
+
+            tempTitle = result?.ogTitle;
+            tempThumbnail = result?.ogImage?.[0]?.url;
 
             // Find folder, If no folder, just creates link
             await prisma.$transaction(async (prisma) => {
@@ -98,7 +105,9 @@ exports.create_link = [
             res.status(200).json({});
           })
           .catch((err) => {
-            console.error(err);
+            console.log("Error in Open Graph Scraper:", error);
+            tempTitle = "A simple website";
+            tempThumbnail = "";
           });
       } catch (err) {
         console.log(err);

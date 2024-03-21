@@ -2,7 +2,7 @@ import { Injectable, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment.development";
 import { Observable, Subject, of } from "rxjs";
-import { map, tap, catchError } from "rxjs/operators";
+import { map, catchError } from "rxjs/operators";
 import { Link, Links } from "../../Interfaces/Link";
 import { Folder, Folders } from "../../Interfaces/Folder";
 import { UserService } from "../user/user.service";

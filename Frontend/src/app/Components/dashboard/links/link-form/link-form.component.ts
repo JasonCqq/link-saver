@@ -1,22 +1,45 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { LinkFormService } from "./link-form.service";
-import { UserService } from "../../../user/user.service";
-import { Folder } from "src/app/Interfaces/Folder";
 import { DashboardService } from "../../dashboard.service";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
   selector: "app-link-form",
   templateUrl: "./link-form.component.html",
   styleUrls: ["./link-form.component.scss"],
 })
-export class LinkFormComponent implements OnInit {
+export class LinkFormComponent implements OnInit, OnDestroy {
   constructor(
     private linkFormService: LinkFormService,
     private dashboardService: DashboardService,
   ) {}
 
   @Output() closeForm = new EventEmitter();
+
+  private destroy$ = new Subject<void>();
+
+  ngOnInit(): void {
+    this.linkForm.valueChanges.subscribe();
+
+    this.dashboardService
+      .getFolders()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        this.folders = result;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   linkForm = new FormGroup({
     url: new FormControl(),
@@ -37,13 +60,6 @@ export class LinkFormComponent implements OnInit {
   }
 
   folders: any;
-  ngOnInit(): void {
-    this.linkForm.valueChanges.subscribe();
-
-    this.dashboardService.getFolders().subscribe((result) => {
-      this.folders = result;
-    });
-  }
 
   // Getters
   get url() {

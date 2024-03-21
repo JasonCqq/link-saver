@@ -1,3 +1,6 @@
+@use "@angular/material" as mat;
+@include mat.core();
+
 $secondary: #ffc446;
 $accent: #ffc446;
 $background: #191919;
@@ -6,12 +9,10 @@ $text: #f3f3f3;
 $text2: #191919;
 $imp-button: #f73830;
 
-@use "@angular/material" as mat;
-@include mat.core();
 $Frontend-primary: mat.define-palette(mat.$amber-palette);
 $Frontend-accent: mat.define-palette(mat.$orange-palette, A200);
 $Frontend-warn: mat.define-palette(mat.$red-palette);
-$Frontend-theme: mat.define-light-theme(
+$Frontend-theme: mat.define-dark-theme(
   (
     color: (
       primary: $Frontend-primary,

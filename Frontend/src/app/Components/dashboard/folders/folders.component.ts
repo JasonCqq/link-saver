@@ -1,19 +1,22 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { DashboardService } from "../dashboard.service";
 import { Folder } from "src/app/Interfaces/Folder";
 import { FoldersService } from "./folders.service";
 import { FormGroup, FormControl } from "@angular/forms";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
   selector: "app-folders",
   templateUrl: "./folders.component.html",
   styleUrls: ["./folders.component.scss"],
 })
-export class FoldersComponent implements OnInit {
+export class FoldersComponent implements OnInit, OnDestroy {
   constructor(
     private dashboardService: DashboardService,
     private foldersService: FoldersService,
   ) {}
+
+  private destroy$ = new Subject<void>();
 
   folders: Folder[] = [];
   folderOpened: boolean = false;
@@ -24,9 +27,17 @@ export class FoldersComponent implements OnInit {
   ngOnInit(): void {
     this.getFolders();
 
-    this.foldersService.foldersUpdated().subscribe(() => {
-      this.getFolders();
-    });
+    this.foldersService
+      .foldersUpdated()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.getFolders();
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   createFolderForm = new FormGroup({
@@ -63,9 +74,12 @@ export class FoldersComponent implements OnInit {
   }
 
   getFolders(): void {
-    this.dashboardService.getFolders().subscribe((result) => {
-      this.folders = result;
-    });
+    this.dashboardService
+      .getFolders()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        this.folders = result;
+      });
   }
 
   tempEditID: string = "";

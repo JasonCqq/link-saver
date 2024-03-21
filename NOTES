@@ -4,24 +4,21 @@ BEFORE PUBLISHING:
 
 Additional Features to add/fix:
 
+- ngOnDestroy to delete subscriptions
+- Fix searching for links inside folders
 - Rich Previews not working for some sites, causing it to not POST.
   (Big sites such as Twitter/Reddit etc. Make a default thumbnail)
 - Let user add Non-URLS, just add default stuff
-
 - Clear All Links
 - Reminder that trash will be deleted in X days
-
 - Warnings on important buttons
-- Animations
 - Mobile responsiveness
-
-- ngOnDestroy to delete subscriptions
-- Fix searching for links inside folders
-- Remove the folder being retreived from link-items
-
+- Further Optimization
+  Extras:
 - Add shareable link for folder?
 - Password locked folders?
 - Mass select for mass options?
 - Forgot password/Email confirmation?
+- Delete account option?
 - Add multiple links?
-- Demo Video, Update link data on Home Page?
+- Demo Video?

@@ -1,25 +1,33 @@
-import { Component, OnInit } from "@angular/core";
-import { UserService } from "../../user/user.service";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { DashboardService } from "../dashboard.service";
 import { Link } from "../../../Interfaces/Link";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
   styleUrls: ["./dashboard.component.scss"],
 })
-export class DashboardComponent implements OnInit {
-  // Checks for user
+export class DashboardComponent implements OnInit, OnDestroy {
   constructor(private dashboardService: DashboardService) {}
 
+  private destroy$ = new Subject<void>();
   links: Link[] = [];
 
   ngOnInit(): void {
     this.getLinks();
 
-    this.dashboardService.linksUpdated().subscribe(() => {
-      this.getLinks();
-    });
+    this.dashboardService
+      .linksUpdated()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.getLinks();
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   // Displays search results
@@ -30,6 +38,7 @@ export class DashboardComponent implements OnInit {
   getLinks(): void {
     this.dashboardService
       .getLinks()
+      .pipe(takeUntil(this.destroy$))
       .subscribe((result) => (this.links = result));
   }
 

@@ -1,8 +1,15 @@
-import { Component, Input, Output, OnInit, EventEmitter } from "@angular/core";
+import {
+  Component,
+  Input,
+  Output,
+  OnInit,
+  EventEmitter,
+  OnDestroy,
+} from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { DashboardService } from "../dashboard.service";
 import { Link } from "src/app/Interfaces/Link";
-import { debounceTime } from "rxjs";
+import { Subject, debounceTime, takeUntil } from "rxjs";
 import { LinkService } from "../links/link-item/link-item.service";
 
 @Component({
@@ -10,22 +17,30 @@ import { LinkService } from "../links/link-item/link-item.service";
   templateUrl: "./main-nav.component.html",
   styleUrls: ["./main-nav.component.scss"],
 })
-export class MainNavComponent implements OnInit {
+export class MainNavComponent implements OnInit, OnDestroy {
   constructor(
     private dashboardService: DashboardService,
     private linkService: LinkService,
   ) {}
 
+  private destroy$ = new Subject<void>();
   previews: any;
 
   ngOnInit(): void {
     this.query.valueChanges
-      .pipe(debounceTime(500))
+      .pipe(debounceTime(500), takeUntil(this.destroy$))
       .subscribe(() => this.searchLinks());
 
-    this.linkService.thumbnails$.subscribe((state) => {
-      this.previews = state;
-    });
+    this.linkService.thumbnails$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((state) => {
+        this.previews = state;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   @Input() title: string = "Dashboard";
@@ -44,6 +59,7 @@ export class MainNavComponent implements OnInit {
   searchLinks(): void {
     this.dashboardService
       .searchLink(this.query.value.linkQuery || "", this.title)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((result) => {
         this.searchResults.emit(result);
       });

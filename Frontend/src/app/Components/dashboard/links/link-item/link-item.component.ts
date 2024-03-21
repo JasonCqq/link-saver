@@ -1,69 +1,50 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from "@angular/core";
 import { LinkService } from "./link-item.service";
 import { Link } from "src/app/Interfaces/Link";
-import { FormControl, FormGroup } from "@angular/forms";
-import { DashboardService } from "../../dashboard.service";
-import { UserService } from "src/app/Components/user/user.service";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
   selector: "app-link-item",
   templateUrl: "./link-item.component.html",
   styleUrls: ["./link-item.component.scss"],
 })
-export class LinkComponent implements OnInit {
-  constructor(
-    private linkService: LinkService,
-    private dashboardService: DashboardService,
-    private userService: UserService,
-  ) {}
+export class LinkComponent implements OnInit, OnDestroy {
+  constructor(private linkService: LinkService) {}
 
   @Input() itemData: any;
   @Input() specialRequest: string = "none";
   @Output() linkUpdate = new EventEmitter<Link>();
 
+  private destroy$ = new Subject<void>();
+
   editting: boolean = false;
-  folders: any;
   previews: any;
+  sanitizedTitle: any;
 
   toggleEdit(): void {
     this.editting = !this.editting;
   }
 
-  editForm = new FormGroup({
-    editTitle: new FormControl(),
-    editFolder: new FormControl(),
-    editBookmarked: new FormControl(),
-    editRemind: new FormControl(),
-  });
-
-  // This is causing many folder requests
   ngOnInit(): void {
-    this.dashboardService.getFolders().subscribe((result) => {
-      this.folders = result;
-    });
+    this.linkService.thumbnails$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((state) => {
+        this.previews = state;
+      });
 
-    this.linkService.thumbnails$.subscribe((state) => {
-      this.previews = state;
-    });
-
-    this.editForm.patchValue({
-      editTitle: this.itemData.title,
-      editBookmarked: this.itemData.bookmarked,
-      editFolder: this.itemData.folderId,
-    });
+    this.sanitizedTitle = decodeURIComponent(this.itemData.title);
   }
 
-  submitEditForm(): void {
-    this.linkService.editLink(
-      this.itemData.id,
-      this.editForm.value.editTitle,
-      this.editForm.value.editFolder,
-      this.editForm.value.editBookmarked,
-      this.editForm.value.editRemind,
-    );
-
-    this.toggleEdit();
-    this.linkUpdate.emit(this.itemData.id);
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   moveToTrash(): void {

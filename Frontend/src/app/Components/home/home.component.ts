@@ -1,30 +1,41 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { UserService } from "../user/user.service";
 import { HomeService } from "./home.service";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   // Checks for user
   constructor(
     private userService: UserService,
     private homeService: HomeService,
   ) {}
-  user: any;
 
+  private destroy$ = new Subject<void>();
+
+  user: any;
   data: any;
 
   ngOnInit() {
-    this.userService.user$.subscribe((user) => {
+    this.userService.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       this.user = user?.user;
     });
 
-    this.homeService.getStats().subscribe((response) => {
-      this.data = response;
-    });
+    this.homeService
+      .getStats()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((response) => {
+        this.data = response;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   // Toggle FAQ

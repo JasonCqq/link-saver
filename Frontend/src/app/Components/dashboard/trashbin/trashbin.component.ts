@@ -1,24 +1,35 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { DashboardService } from "../dashboard.service";
 import { Link } from "src/app/Interfaces/Link";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
   selector: "app-trashbin",
   templateUrl: "./trashbin.component.html",
   styleUrls: ["./trashbin.component.scss"],
 })
-export class TrashbinComponent implements OnInit {
+export class TrashbinComponent implements OnInit, OnDestroy {
   constructor(private dashboardService: DashboardService) {}
+
+  private destroy$ = new Subject<void>();
   trash: Link[] = [];
 
   ngOnInit(): void {
     this.getTrash();
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   getTrash(): void {
-    this.dashboardService.getTrash().subscribe((result) => {
-      this.trash = result;
-    });
+    this.dashboardService
+      .getTrash()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        this.trash = result;
+      });
   }
 
   // Displays search results

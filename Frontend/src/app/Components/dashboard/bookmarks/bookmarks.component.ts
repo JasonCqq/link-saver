@@ -1,23 +1,33 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { DashboardService } from "../dashboard.service";
 import { Link } from "../../../Interfaces/Link";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
   selector: "app-bookmarks",
   templateUrl: "./bookmarks.component.html",
   styleUrls: ["./bookmarks.component.scss"],
 })
-export class BookmarksComponent implements OnInit {
+export class BookmarksComponent implements OnInit, OnDestroy {
   constructor(private dashboardService: DashboardService) {}
 
+  private destroy$ = new Subject<void>();
   bookmarks: Link[] = [];
 
   ngOnInit(): void {
     this.getBookmarks();
 
-    this.dashboardService.bookmarkUpdated().subscribe(() => {
-      this.getBookmarks();
-    });
+    this.dashboardService
+      .bookmarkUpdated()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.getBookmarks();
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   // Moves link
@@ -32,8 +42,11 @@ export class BookmarksComponent implements OnInit {
   }
 
   getBookmarks(): void {
-    this.dashboardService.getBookmarks().subscribe((result) => {
-      this.bookmarks = result;
-    });
+    this.dashboardService
+      .getBookmarks()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        this.bookmarks = result;
+      });
   }
 }
