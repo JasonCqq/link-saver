@@ -6,7 +6,7 @@
 
   .landing-page {
     width: 100%;
-    height: 24vh;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -18,69 +18,99 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      font-size: 4rem;
-      margin-top: 20vh;
+      font-size: 2.75rem;
+      margin-top: 7.5vh;
       width: 50%;
     }
 
     .landing-body {
       display: flex;
-      gap: 2.5vw;
+      gap: 4vw;
       margin-top: 10vh;
+
+      @media screen and (max-width: 800px) {
+        gap: 10vw;
+      }
 
       > a {
         color: $text2;
         background-color: $secondary;
         border-radius: 5px;
-        padding: 1em;
+        padding: 1rem;
         transition: box-shadow 0.15s ease-in-out;
+        font-weight: 600;
 
         &:hover {
-          box-shadow: 1px 1px 10px $accent;
+          box-shadow: 1px 1px 15px $accent;
         }
       }
     }
   }
 
   .home_features {
-    margin-top: 25vh;
+    margin-top: 12.5vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 60vh;
+    height: auto;
 
     > h1 {
-      font-size: 1.5rem;
+      font-size: 17.5px;
     }
 
     .home-features-grid {
       display: grid;
       width: 80%;
       margin-top: 5vh;
-      grid-template-columns: repeat(2, 375px);
-      grid-template-rows: repeat(2, 125px);
-      justify-content: center;
-      column-gap: 1.5vw;
-      row-gap: 3vh;
+      column-gap: 2vw;
+      row-gap: 2vh;
+      grid-template-columns: repeat(2, 1fr);
+
+      @media screen and (max-width: 760px) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      @media screen and (max-width: 390px) {
+        row-gap: 4vh;
+      }
 
       .home-features-item {
         display: flex;
         background-color: #27292a;
         align-items: center;
+        justify-content: flex-start;
         border-radius: 10px;
+        min-height: 100px;
+        gap: 2vw;
+
+        @media screen and (max-width: 390px) {
+          padding: 3vh 0vw;
+        }
 
         > span {
-          padding-left: 1.5vw;
-
           > p {
-            color: rgb(176, 176, 176);
+            color: $textSec;
             font-size: 0.85rem;
             width: 95%;
           }
 
           > h2 {
-            font-size: 1.3rem;
+            font-size: 1rem;
             padding-bottom: 5px;
+          }
+
+          > .home-features-icon {
+            color: $accent;
+            transform: scale(1.75);
+            margin-left: 2vw;
+
+            @media screen and (max-width: 620px) {
+              transform: scale(1.25);
+            }
+
+            @media screen and (max-width: 350px) {
+              transform: scale(1);
+            }
           }
         }
       }
@@ -109,7 +139,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 110vh;
+    margin-top: 15vh;
 
     > h1 {
       font-size: 1.5rem;
@@ -120,11 +150,10 @@
     .home-faq-container {
       display: flex;
       flex-direction: column;
-      gap: 4vh;
-      width: 75%;
+      gap: 3vh;
+      width: 85%;
 
       .faq-item {
-        min-height: 65px;
         transition: color 0.15s ease-in-out;
 
         &:hover {
@@ -136,30 +165,54 @@
           display: flex;
 
           > p {
-            font-weight: 900;
+            font-weight: 700;
             font-size: 1rem;
-            margin-right: auto;
+
+            @media screen and (max-width: 815px) {
+              font-size: 0.85rem;
+              font-weight: 500;
+            }
+
+            @media screen and (max-width: 415px) {
+              font-size: 0.75rem;
+              font-weight: 500;
+            }
+          }
+
+          > .faq-icon {
+            margin-left: auto;
+            color: $accent;
+            transform: scale(1);
+
+            @media screen and (max-width: 415px) {
+              transform: scale(0.75);
+            }
+
+            @media screen and (max-width: 300px) {
+              transform: scale(0.5);
+            }
           }
         }
         .faq-answer {
-          width: 75%;
-          height: 50px;
-          padding: 25px 0px 50px 0px;
+          width: 80%;
+          height: auto;
+          padding-top: 2vh;
           animation: 0.25s ease-in-out 0s 1 fadeIn;
+          color: $textSec;
         }
       }
     }
   }
 
   .home_contact {
-    height: 60vh;
+    height: auto;
     font-size: 1.1rem;
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     margin-bottom: 15vh;
-    margin-top: 5vh;
+    margin-top: 20vh;
 
     .contact-form {
       display: flex;
@@ -176,7 +229,7 @@
         font-size: 1.15rem;
         font-weight: 600;
         background-color: transparent;
-        margin-top: 10vh;
+        margin-top: 12.5vh;
         border-radius: 5px;
         color: $text;
         transition:
@@ -196,7 +249,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 3vh;
+    height: 5vh;
     background-color: $accent;
     font-size: 0.8rem;
     font-weight: bold;
@@ -209,8 +262,12 @@
 }
 
 mat-form-field {
-  width: 30vw;
+  width: 35vw;
   height: 5vh;
+
+  @media screen and (max-width: 1000px) {
+    width: 65vw;
+  }
 }
 
 textarea {

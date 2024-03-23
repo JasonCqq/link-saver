@@ -1,26 +1,17 @@
-BEFORE PUBLISHING:
 \*Change Postgres Information. ENV file accidentally pushed
 \*DOUBLE CHECK SESSION STORES.
 
 Additional Features to add/fix:
 
-- Fix searching for links inside folders
 - Rich Previews not working for some sites, causing it to not POST.
   (Big sites such as Twitter/Reddit etc. Make a default thumbnail)
-- Let user add Non-URLS, just add default stuff
-  //
-- Clear All Links
-- Delete account option?
-- Warnings on important buttons
-  //
 - Mobile responsiveness
-- Further Optimization (Angular Theme Duplication)
 
-  Extras:
+Extras:
 
-- Add shareable link for folder?
-- Password locked folders?
-- Mass select for mass options?
-- Forgot password/Email confirmation?
-- Add multiple links?
-- Demo Video?
+- Add shareable link for folder
+- Mass select for mass options
+
+- Forgot/Change password
+- Demo Video
+- Deliver Account data request

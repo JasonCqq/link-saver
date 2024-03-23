@@ -4,6 +4,7 @@ import { Folder } from "src/app/Interfaces/Folder";
 import { FoldersService } from "./folders.service";
 import { FormGroup, FormControl } from "@angular/forms";
 import { Subject, takeUntil } from "rxjs";
+import { Link } from "src/app/Interfaces/Link";
 
 @Component({
   selector: "app-folders",
@@ -20,8 +21,11 @@ export class FoldersComponent implements OnInit, OnDestroy {
 
   folders: Folder[] = [];
   folderOpened: boolean = false;
+  tempId: any;
+
   windowOpened: boolean = false;
   editWindowOpened: boolean = false;
+
   tempLinks: any = [];
 
   ngOnInit(): void {
@@ -52,8 +56,10 @@ export class FoldersComponent implements OnInit, OnDestroy {
   createFolder(): void {
     if (this.createFolderForm.value.folderName.length > 0) {
       this.foldersService.createFolder(this.createFolderForm.value.folderName);
-
       this.toggleWindow();
+      this.createFolderForm.patchValue({
+        folderName: "",
+      });
     }
     return;
   }
@@ -66,11 +72,13 @@ export class FoldersComponent implements OnInit, OnDestroy {
     });
 
     this.tempLinks = this.folders[folderIndex].links;
+    this.tempId = this.folders[folderIndex].id;
   }
 
   closeFolder(): void {
     this.folderOpened = !this.folderOpened;
     this.tempLinks = [];
+    this.tempId = null;
   }
 
   getFolders(): void {
@@ -122,5 +130,10 @@ export class FoldersComponent implements OnInit, OnDestroy {
   deleteLink(id: any): void {
     const link = this.tempLinks.findIndex((link: any) => link.id === id);
     this.tempLinks.splice(link, 1);
+  }
+
+  // Displays search results
+  displayResults(results: Link[]): void {
+    this.tempLinks = results;
   }
 }

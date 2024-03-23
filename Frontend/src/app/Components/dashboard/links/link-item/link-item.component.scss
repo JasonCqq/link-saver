@@ -18,7 +18,7 @@
           color: $secondary;
         }
         > .link-title {
-          color: rgb(176, 176, 176);
+          color: $textSec;
         }
       }
     }
@@ -45,14 +45,14 @@
 
       > .link-url {
         font-size: 0.75rem;
-        color: rgb(176, 176, 176);
+        color: $textSec;
         height: 25%;
         padding-top: 2.5%;
       }
 
       > .link-date {
         font-size: 0.6rem;
-        color: rgb(176, 176, 176);
+        color: $textSec;
         height: 15%;
       }
     }

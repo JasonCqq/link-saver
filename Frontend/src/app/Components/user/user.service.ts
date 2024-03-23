@@ -67,77 +67,63 @@ export class UserService {
     password: string,
     action: "create" | "login",
   ) {
-    try {
-      await this.http
-        .post(
-          `${this.apiUrl}/user/${action}`,
-          {
-            username: username,
-            email: email,
-            password: password,
-          },
-          { withCredentials: true },
-        )
-        .subscribe({
-          next: (response) => {
-            if ((response as User) && action === "login") {
-              this.updateUser(response);
-              this.router.navigate(["/dashboard"]);
-            } else if ((response as User) && action === "create") {
-              this.updateUser(response);
-              this.router.navigate(["/user/login"]);
-            }
-          },
-          error: (error) =>
-            action === "create"
-              ? alert(JSON.stringify(error.error.errors))
-              : alert(error.error.message),
-        });
-    } catch (err) {
-      console.log("POST call failed", err);
-      throw err;
-    }
+    await this.http
+      .post(
+        `${this.apiUrl}/user/${action}`,
+        {
+          username: username,
+          email: email,
+          password: password,
+        },
+        { withCredentials: true },
+      )
+      .subscribe({
+        next: (response) => {
+          if ((response as User) && action === "login") {
+            this.updateUser(response);
+            this.router.navigate(["/dashboard"]);
+          } else if ((response as User) && action === "create") {
+            this.updateUser(response);
+            this.router.navigate(["/user/login"]);
+          }
+        },
+        error: (error) =>
+          action === "create"
+            ? alert(JSON.stringify(error.error.errors))
+            : alert(error.error.message),
+      });
   }
 
   // Logout user
   async logOutUser() {
-    try {
-      await this.http
-        .get(`${this.apiUrl}/user/logout`, { withCredentials: true })
-        .subscribe({
-          next: (response) => {
-            if (response) {
-              this.userSubject.next(null);
-              this.router.navigate(["/"]);
-            }
-          },
-          error: (error) => alert(JSON.stringify(error.error.errors)),
-        });
-    } catch (err) {
-      console.log(err);
-    }
+    await this.http
+      .get(`${this.apiUrl}/user/logout`, { withCredentials: true })
+      .subscribe({
+        next: (response) => {
+          if (response) {
+            this.userSubject.next(null);
+            this.router.navigate(["/"]);
+          }
+        },
+        error: (error) => alert(JSON.stringify(error.error.errors)),
+      });
   }
 
   // Delete Account
   async deleteAccount() {
-    try {
-      await this.http
-        .delete(
-          `${this.apiUrl}/user/deleteAccount/${this.getUser()?.user.id}`,
-          { withCredentials: true },
-        )
-        .subscribe({
-          next: (response) => {
-            if (response) {
-              this.userSubject.next(null);
-              this.router.navigate(["/"]);
-              alert("Your account has been deleted.");
-            }
-          },
-          error: (error) => alert(JSON.stringify(error.error.errors)),
-        });
-    } catch (err) {
-      console.log(err);
-    }
+    await this.http
+      .delete(`${this.apiUrl}/user/deleteAccount/${this.getUser()?.user.id}`, {
+        withCredentials: true,
+      })
+      .subscribe({
+        next: (response) => {
+          if (response) {
+            this.userSubject.next(null);
+            this.router.navigate(["/"]);
+            alert("Your account has been deleted.");
+          }
+        },
+        error: (error) => alert(JSON.stringify(error.error.errors)),
+      });
   }
 }

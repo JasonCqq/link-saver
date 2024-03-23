@@ -4,8 +4,6 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const prisma = require("../prisma/prismaClient");
 
-// REMEMBER TO ADD CHECKS TO MAKE SURE SESSION MATCHES THE PARAMS ID BEFORE DELETING
-
 require("dotenv").config();
 
 exports.create_user = [
@@ -48,43 +46,20 @@ exports.create_user = [
           });
         }
 
-        await prisma.$transaction(async (prisma) => {
-          let folderId;
-          const defaultFolder = await prisma.Folder.create({
-            data: {
-              name: "default",
-            },
-          });
-          folderId = defaultFolder.id;
-
-          const user = await prisma.User.create({
-            data: {
-              username: req.body.username,
-              email: req.body.email,
-              password: hashedPass,
-              folders: {
-                connect: {
-                  id: folderId,
-                },
-              },
-              userSettings: {
-                create: {},
+        const user = await prisma.User.create({
+          data: {
+            username: req.body.username,
+            email: req.body.email,
+            password: hashedPass,
+            folders: {
+              create: {
+                name: "default",
               },
             },
-          });
-
-          const connectFolder = await prisma.Folder.update({
-            where: {
-              id: folderId,
+            userSettings: {
+              create: {},
             },
-            data: {
-              user: {
-                connect: {
-                  id: user.id,
-                },
-              },
-            },
-          });
+          },
         });
 
         res.status(200).json({});
@@ -159,6 +134,10 @@ exports.logout_user = asyncHandler(async (req, res) => {
 });
 
 exports.delete_user = asyncHandler(async (req, res) => {
+  if (!req.params.userId || req.session.user.id !== req.params.userId) {
+    res.status(401).send("Not authenticated");
+  }
+
   const user = await prisma.User.delete({
     where: {
       id: req.params.userId,
@@ -172,6 +151,10 @@ exports.delete_user = asyncHandler(async (req, res) => {
 
 exports.get_settings = [
   asyncHandler(async (req, res) => {
+    if (!req.params.userId || req.session.user.id !== req.params.userId) {
+      res.status(401).send("Not authenticated");
+    }
+
     const userSettings = await prisma.UserSettings.findUnique({
       where: {
         userId: req.params.userId,
@@ -188,7 +171,10 @@ exports.submit_settings = [
     if (!errs.isEmpty()) {
       res.status(400).json({ errors: errs.array().map((err) => err.msg) });
     } else {
-      console.log(req.body, typeof req.body.previews);
+      if (!req.params.userId || req.session.user.id !== req.params.userId) {
+        res.status(401).send("Not authenticated");
+      }
+
       const userSettings = await prisma.UserSettings.update({
         where: {
           userId: req.params.userId,

@@ -39,6 +39,7 @@ export class SettingsComponent implements OnInit {
 
   submitForm(): void {
     // Add checker to see if value have been altered
+
     this.dashboardService
       .submitSettings(
         this.preferenceForm.value.previews,

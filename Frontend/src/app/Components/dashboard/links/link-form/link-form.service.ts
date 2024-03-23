@@ -21,29 +21,27 @@ export class LinkFormService {
     bookmarked: boolean,
     remind: Date,
   ) {
-    try {
-      await this.http
-        .post(
-          `${this.apiUrl}/link/create/${this.userService.getUser()?.user.id}`,
-          {
-            url: url,
-            folder: folder,
-            bookmarked: bookmarked,
-            remind: remind,
-          },
-        )
-        .subscribe(() => {
-          if (bookmarked) {
-            this.dashboardService.notifyBookmark();
-          }
-          if (remind) {
-            this.dashboardService.notifyUpcoming();
-          }
-          this.dashboardService.notifyLinks();
-        });
-    } catch (err) {
-      console.log("POST call failed", err);
-      throw err;
-    }
+    await this.http
+      .post(
+        `${this.apiUrl}/link/create/${this.userService.getUser()?.user.id}`,
+        {
+          url: url,
+          folder: folder,
+          bookmarked: bookmarked,
+          remind: remind,
+        },
+        {
+          withCredentials: true,
+        },
+      )
+      .subscribe(() => {
+        if (bookmarked) {
+          this.dashboardService.notifyBookmark();
+        }
+        if (remind) {
+          this.dashboardService.notifyUpcoming();
+        }
+        this.dashboardService.notifyLinks();
+      });
   }
 }

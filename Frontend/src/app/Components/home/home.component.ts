@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     {
       id: 2,
-      question: "Is my personal information or data shared with third parties?",
+      question: "Is my personal information or data shared?",
       answer:
         "No, your personal information or data will never be shared with third parties. We prioritize the security and privacy of your information.",
     },
@@ -68,8 +68,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     {
       id: 4,
-      question:
-        "Do you offer a premium or paid version of LinkStorage with additional features?",
+      question: "Is there a premium version with more features?",
       answer:
         "No, every feature of LinkStorage is available for free. We believe in providing a comprehensive and valuable link-saving experience to all our users.",
     },
@@ -83,7 +82,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     {
       id: 6,
-      question: "What types of links can I save? Are there any restrictions?",
+      question: "Any restriction on types of links can I save?",
       answer:
         "There are no restrictions on the types of links you can save in LinkStorage. You can save links to websites, articles, videos, and more, making it a versatile tool for all your link-saving needs.",
     },
@@ -97,8 +96,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     {
       id: 8,
-      question:
-        "How can I suggest new features or improvements for LinkStorage?",
+      question: "How can I suggest features/improvements?",
       answer:
         "We value your input! To suggest new features or improvements for LinkStorage, please visit our Contact Section below. We're always eager to hear your ideas and make our platform even better based on user feedback.",
     },

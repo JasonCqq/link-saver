@@ -2,7 +2,22 @@ const asyncHandler = require("express-async-handler");
 const prisma = require("../prisma/prismaClient");
 const { body, validationResult } = require("express-validator");
 
+function formatLinks(links) {
+  links.map((link) => {
+    link.url = link.url.replace("www.", "");
+    link.url = link.url.replace(/^(https?:\/\/)/, "");
+    link.createdAt = link.createdAt.toLocaleDateString("en-US");
+    return link;
+  });
+
+  return links;
+}
+
 exports.get_folder = asyncHandler(async (req, res) => {
+  if (!req.params.userId || req.session.user.id !== req.params.userId) {
+    res.status(401).send("Not authenticated");
+  }
+
   const folders = await prisma.Folder.findMany({
     where: {
       userId: req.params.userId,
@@ -27,6 +42,10 @@ exports.create_folder = [
         .json({ errors: errs.array().map((err) => err.msg) });
     } else {
       try {
+        if (!req.params.userId || req.session.user.id !== req.params.userId) {
+          res.status(401).send("Not authenticated");
+        }
+
         const folder = await prisma.Folder.create({
           data: {
             name: req.body.name,
@@ -57,6 +76,10 @@ exports.edit_folder = [
         .json({ errors: errs.array().map((err) => err.msg) });
     } else {
       try {
+        if (!req.params.userId || req.session.user.id !== req.params.userId) {
+          res.status(401).send("Not authenticated");
+        }
+
         const folder = await prisma.Folder.update({
           where: {
             id: req.params.folderId,
@@ -78,6 +101,10 @@ exports.edit_folder = [
 
 exports.delete_folder = asyncHandler(async (req, res) => {
   try {
+    if (!req.params.userId || req.session.user.id !== req.params.userId) {
+      res.status(401).send("Not authenticated");
+    }
+
     const folder = await prisma.Folder.delete({
       where: {
         id: req.params.folderId,
@@ -88,4 +115,45 @@ exports.delete_folder = asyncHandler(async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+exports.search_folder_links = asyncHandler(async (req, res) => {
+  if (!req.params.userId || req.session.user.id !== req.params.userId) {
+    res.status(401).send("Not authenticated");
+  }
+
+  const query = req.query.q;
+
+  const links = await prisma.Link.findMany({
+    where: {
+      userId: req.params.userId,
+      folderId: req.params.folderId,
+      AND: [
+        {
+          OR: [
+            {
+              title: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+            {
+              url: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+          ],
+        },
+      ],
+    },
+
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  const formattedLinks = formatLinks(links);
+
+  res.status(200).json({ links: formattedLinks });
 });

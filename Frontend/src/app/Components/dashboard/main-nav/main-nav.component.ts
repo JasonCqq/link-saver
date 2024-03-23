@@ -28,7 +28,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.query.valueChanges
-      .pipe(debounceTime(500), takeUntil(this.destroy$))
+      .pipe(debounceTime(1000), takeUntil(this.destroy$))
       .subscribe(() => this.searchLinks());
 
     this.linkService.thumbnails$
@@ -44,7 +44,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   }
 
   @Input() title: string = "Dashboard";
-
+  @Input() folderId: any;
   @Output() searchResults: EventEmitter<Link[]> = new EventEmitter<Link[]>();
 
   createForm: boolean = false;
@@ -57,12 +57,21 @@ export class MainNavComponent implements OnInit, OnDestroy {
   });
 
   searchLinks(): void {
-    this.dashboardService
-      .searchLink(this.query.value.linkQuery || "", this.title)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((result) => {
-        this.searchResults.emit(result);
-      });
+    if (this.title === "Folders" && this.folderId) {
+      this.dashboardService
+        .searchLinkInFolder(this.query.value.linkQuery || "", this.folderId)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((result) => {
+          this.searchResults.emit(result);
+        });
+    } else if (this.title !== "Folders") {
+      this.dashboardService
+        .searchLink(this.query.value.linkQuery || "", this.title)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((result) => {
+          this.searchResults.emit(result);
+        });
+    }
   }
 
   toggleThumbnail(): void {

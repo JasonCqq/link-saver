@@ -20,10 +20,7 @@
     <div class="home-features-grid">
       <div class="home-features-item">
         <span>
-          <mat-icon
-            fontIcon="panorama"
-            style="transform: scale(1.75); color: #fcc466"
-          ></mat-icon>
+          <mat-icon fontIcon="panorama" class="home-features-icon"></mat-icon>
         </span>
 
         <span>
@@ -38,7 +35,7 @@
         <span>
           <mat-icon
             fontIcon="manage_search"
-            style="transform: scale(2); color: #fcc466"
+            class="home-features-icon"
           ></mat-icon>
         </span>
 
@@ -54,7 +51,7 @@
         <span>
           <mat-icon
             fontIcon="folder_copy"
-            style="transform: scale(1.75); color: #fcc466"
+            class="home-features-icon"
           ></mat-icon>
         </span>
 
@@ -68,10 +65,7 @@
       </div>
       <div class="home-features-item">
         <span>
-          <mat-icon
-            fontIcon="share"
-            style="transform: scale(1.75); color: #fcc466"
-          ></mat-icon>
+          <mat-icon fontIcon="share" class="home-features-icon"></mat-icon>
         </span>
         <span>
           <h2>Share your links/folders</h2>
@@ -85,7 +79,7 @@
   </section>
 
   <section #home_faq class="home_faq">
-    <h1><u>Frequently Asked Questions</u></h1>
+    <h1>Frequently Asked Questions</h1>
 
     <div class="home-faq-container">
       <div
@@ -95,10 +89,7 @@
       >
         <div class="faq-flex">
           <p>{{ faq.question }}</p>
-          <mat-icon
-            fontIcon="add"
-            style="color: #fcc466; transform: scale(1.25)"
-          ></mat-icon>
+          <mat-icon class="faq-icon" fontIcon="add"></mat-icon>
         </div>
         <p class="faq-answer" *ngIf="activeID === faq.id">{{ faq.answer }}</p>
       </div>
@@ -111,7 +102,7 @@
       action="https://formsubmit.co/jason.cq.huang@gmail.com"
       method="POST"
     >
-      <h1><u>CONTACT</u></h1>
+      <h1>CONTACT</h1>
 
       <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
@@ -138,9 +129,9 @@
   </section>
 
   <footer class="foot-note">
-    Experimental Project
+    Experimental, source:
     <a href="https://github.com/JasonCqq/link-saver" target="_blank"
-      ><u style="margin-left: 1vw">GitHub</u></a
+      ><u style="margin-left: 4px">GitHub</u></a
     >
   </footer>
 </main>

@@ -27,8 +27,7 @@ exports.create_link = [
       res.status(400).json({ errors: errs.array().map((err) => err.msg) });
     } else {
       try {
-        // || req.session.user.id !== req.params.userId
-        if (!req.params.userId) {
+        if (!req.params.userId || req.session.user.id !== req.params.userId) {
           res.status(401).send("Not authenticated");
         }
 
@@ -48,67 +47,61 @@ exports.create_link = [
         ogs({
           url: decodedUrl,
           fetchOptions: { headers: { "user-agent": userAgent } },
-        })
-          .then(async (data) => {
-            const { error, result } = data;
+        }).then(async (data) => {
+          const { error, result } = data;
 
-            tempTitle = result?.ogTitle;
-            tempThumbnail = result?.ogImage?.[0]?.url;
+          tempTitle = result?.ogTitle || "N/A";
+          tempThumbnail = result?.ogImage?.[0]?.url || "";
 
-            // Find folder, If no folder, just creates link
-            await prisma.$transaction(async (prisma) => {
-              if (req.body.folder) {
-                let folder = await prisma.Folder.findFirst({
-                  where: {
-                    id: req.body.folder,
-                    userId: req.params.userId,
-                  },
-                });
+          // Find folder, If no folder, just creates link
+          await prisma.$transaction(async (prisma) => {
+            if (req.body.folder) {
+              let folder = await prisma.Folder.findFirst({
+                where: {
+                  id: req.body.folder,
+                  userId: req.params.userId,
+                },
+              });
 
-                const link = await prisma.Link.create({
-                  data: {
-                    url: decodedUrl,
-                    user: {
-                      connect: {
-                        id: req.params.userId,
-                      },
+              const link = await prisma.Link.create({
+                data: {
+                  url: decodedUrl,
+                  user: {
+                    connect: {
+                      id: req.params.userId,
                     },
-                    folder: {
-                      connect: {
-                        id: folder.id,
-                      },
-                    },
-                    title: tempTitle,
-                    bookmarked: JSON.parse(req.body.bookmarked),
-                    remind: date,
-                    thumbnail: tempThumbnail,
                   },
-                });
-              } else {
-                const link = await prisma.Link.create({
-                  data: {
-                    url: decodedUrl,
-                    user: {
-                      connect: {
-                        id: req.params.userId,
-                      },
+                  folder: {
+                    connect: {
+                      id: folder.id,
                     },
-                    title: tempTitle,
-                    bookmarked: JSON.parse(req.body.bookmarked),
-                    remind: date,
-                    thumbnail: tempThumbnail,
                   },
-                });
-              }
-            });
-
-            res.status(200).json({});
-          })
-          .catch((err) => {
-            console.log("Error in Open Graph Scraper:", error);
-            tempTitle = "A simple website";
-            tempThumbnail = "";
+                  title: tempTitle,
+                  bookmarked: JSON.parse(req.body.bookmarked),
+                  remind: date,
+                  thumbnail: tempThumbnail,
+                },
+              });
+            } else {
+              const link = await prisma.Link.create({
+                data: {
+                  url: decodedUrl,
+                  user: {
+                    connect: {
+                      id: req.params.userId,
+                    },
+                  },
+                  title: tempTitle,
+                  bookmarked: JSON.parse(req.body.bookmarked),
+                  remind: date,
+                  thumbnail: tempThumbnail,
+                },
+              });
+            }
           });
+
+          res.status(200).json({});
+        });
       } catch (err) {
         console.log(err);
       }
@@ -117,9 +110,13 @@ exports.create_link = [
 ];
 
 exports.delete_link = asyncHandler(async (req, res) => {
+  if (!req.params.userId || req.session.user.id !== req.params.userId) {
+    res.status(401).send("Not authenticated");
+  }
   const link = await prisma.Link.update({
     where: {
       id: req.params.id,
+      userId: req.params.userId,
     },
 
     data: {
@@ -131,10 +128,14 @@ exports.delete_link = asyncHandler(async (req, res) => {
 });
 
 exports.perma_delete_link = asyncHandler(async (req, res) => {
+  if (!req.params.userId || req.session.user.id !== req.params.userId) {
+    res.status(401).send("Not authenticated");
+  }
   const link = await prisma.Link.delete({
     where: {
       id: req.params.id,
       trash: true,
+      userId: req.params.userId,
     },
   });
 
@@ -142,6 +143,10 @@ exports.perma_delete_link = asyncHandler(async (req, res) => {
 });
 
 exports.perma_delete_all = asyncHandler(async (req, res) => {
+  if (!req.params.userId || req.session.user.id !== req.params.userId) {
+    res.status(401).send("Not authenticated");
+  }
+
   const links = await prisma.Link.deleteMany({
     where: {
       trash: true,
@@ -153,9 +158,14 @@ exports.perma_delete_all = asyncHandler(async (req, res) => {
 });
 
 exports.restore_link = asyncHandler(async (req, res) => {
+  if (!req.params.userId || req.session.user.id !== req.params.userId) {
+    res.status(401).send("Not authenticated");
+  }
+
   const link = await prisma.Link.update({
     where: {
       id: req.params.id,
+      userId: req.params.userId,
     },
 
     data: {
@@ -179,6 +189,10 @@ exports.edit_link = [
       res.status(400).json({ errors: errs.array().map((err) => err.msg) });
     } else {
       try {
+        if (!req.params.userId || req.session.user.id !== req.params.userId) {
+          res.status(401).send("Not authenticated");
+        }
+
         await prisma.$transaction(async (prisma) => {
           const link = await prisma.Link.update({
             where: {
@@ -195,18 +209,6 @@ exports.edit_link = [
               remind: req.body.remind || null,
             },
           });
-
-          // Update link for folder. ???
-          prisma.Folder.update({
-            where: {
-              id: req.body.folder,
-            },
-            data: {
-              links: {
-                connect: { id: req.params.id },
-              },
-            },
-          });
         });
       } catch (err) {
         console.log(err);
@@ -218,6 +220,10 @@ exports.edit_link = [
 ];
 
 exports.get_links = asyncHandler(async (req, res) => {
+  if (!req.params.userId || req.session.user.id !== req.params.userId) {
+    res.status(401).send("Not authenticated");
+  }
+
   const links = await prisma.Link.findMany({
     where: {
       trash: false,
@@ -235,6 +241,10 @@ exports.get_links = asyncHandler(async (req, res) => {
 });
 
 exports.get_bookmarks = asyncHandler(async (req, res) => {
+  if (!req.params.userId || req.session.user.id !== req.params.userId) {
+    res.status(401).send("Not authenticated");
+  }
+
   const links = await prisma.Link.findMany({
     where: {
       bookmarked: true,
@@ -253,6 +263,10 @@ exports.get_bookmarks = asyncHandler(async (req, res) => {
 });
 
 exports.get_upcoming = asyncHandler(async (req, res) => {
+  if (!req.params.userId || req.session.user.id !== req.params.userId) {
+    res.status(401).send("Not authenticated");
+  }
+
   const links = await prisma.Link.findMany({
     where: {
       userId: req.params.userId,
@@ -275,6 +289,10 @@ exports.get_upcoming = asyncHandler(async (req, res) => {
 });
 
 exports.get_trash = asyncHandler(async (req, res) => {
+  if (!req.params.userId || req.session.user.id !== req.params.userId) {
+    res.status(401).send("Not authenticated");
+  }
+
   const links = await prisma.Link.findMany({
     where: {
       userId: req.params.userId,
@@ -292,6 +310,10 @@ exports.get_trash = asyncHandler(async (req, res) => {
 });
 
 exports.search_link = asyncHandler(async (req, res) => {
+  if (!req.params.userId || req.session.user.id !== req.params.userId) {
+    res.status(401).send("Not authenticated");
+  }
+
   const property = req.query.t;
   const query = req.query.q;
   let condition = {};

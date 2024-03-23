@@ -7,6 +7,7 @@ $background: #191919;
 $background2: #15171a;
 $text: #f3f3f3;
 $text2: #191919;
+$textSec: rgb(176, 176, 176);
 $imp-button: #f73830;
 
 $Frontend-primary: mat.define-palette(mat.$amber-palette);
@@ -71,6 +72,15 @@ html {
 
 body {
   box-sizing: border-box !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: $text;
+}
+
+body,
+input,
+textarea,
+button {
   font-family:
     "REM",
     -apple-system,
@@ -84,9 +94,6 @@ body {
     "Droid Sans",
     "Helvetica Neue",
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: $text;
 }
 
 code {

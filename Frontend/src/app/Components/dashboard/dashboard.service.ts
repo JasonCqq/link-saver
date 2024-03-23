@@ -7,9 +7,6 @@ import { Link, Links } from "../../Interfaces/Link";
 import { Folder, Folders } from "../../Interfaces/Folder";
 import { UserService } from "../user/user.service";
 
-// // Throttle tab switching from user
-//, { withCredentials: true }
-
 @Injectable({
   providedIn: "root",
 })
@@ -149,8 +146,26 @@ export class DashboardService implements OnInit {
       );
   }
 
+  searchLinkInFolder(query: string, folderId: string): Observable<Link[]> {
+    return this.http
+      .get<Links>(
+        `${this.apiUrl}/folders/search_link/${folderId}/${
+          this.userService.getUser()?.user.id
+        }/?q=${query}`,
+        {
+          withCredentials: true,
+        },
+      )
+      .pipe(
+        map((response) => response.links),
+        catchError(this.handleError<Link[]>("searchlink()", [])),
+      );
+  }
+
   getSettings(userId: string): Observable<Settings> {
-    return this.http.get<Settings>(`${this.apiUrl}/user/settings/${userId}`);
+    return this.http.get<Settings>(`${this.apiUrl}/user/settings/${userId}`, {
+      withCredentials: true,
+    });
   }
 
   submitSettings(
@@ -158,10 +173,16 @@ export class DashboardService implements OnInit {
     emailNotifications: boolean,
     userId: string,
   ) {
-    return this.http.put(`${this.apiUrl}/user/submit_settings/${userId}`, {
-      previews: previews,
-      emailNotifications: emailNotifications,
-    });
+    return this.http.put(
+      `${this.apiUrl}/user/submit_settings/${userId}`,
+      {
+        previews: previews,
+        emailNotifications: emailNotifications,
+      },
+      {
+        withCredentials: true,
+      },
+    );
   }
 }
 
@@ -171,5 +192,3 @@ interface Settings {
   previews: boolean;
   emailNotifications: boolean;
 }
-
-// Add async and try catch statements to all functions

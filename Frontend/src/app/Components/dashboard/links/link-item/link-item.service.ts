@@ -34,75 +34,70 @@ export class LinkService {
     bookmarked: boolean,
     remind: Date,
   ) {
-    try {
-      await this.http
-        .put(
-          `${this.apiUrl}/link/edit/${id}/${this.userService.getUser()?.user
-            .id}`,
-          {
-            title: title,
-            folder: folder,
-            bookmarked: bookmarked,
-            remind: remind,
-          },
-        )
-        .subscribe(() => {
-          if (bookmarked) {
-            this.dashboardService.notifyBookmark();
-          }
-          if (remind) {
-            this.dashboardService.notifyUpcoming();
-          }
-          this.dashboardService.notifyLinks();
-          this.foldersService.notifyFolders();
-        });
-    } catch (err) {
-      console.log("POST call failed", err);
-      throw err;
-    }
+    await this.http
+      .put(
+        `${this.apiUrl}/link/edit/${id}/${this.userService.getUser()?.user.id}`,
+        {
+          title: title,
+          folder: folder,
+          bookmarked: bookmarked,
+          remind: remind,
+        },
+
+        {
+          withCredentials: true,
+        },
+      )
+      .subscribe(() => {
+        if (bookmarked) {
+          this.dashboardService.notifyBookmark();
+        }
+        if (remind) {
+          this.dashboardService.notifyUpcoming();
+        }
+        this.dashboardService.notifyLinks();
+        this.foldersService.notifyFolders();
+      });
   }
 
   async moveToTrash(id: string) {
-    try {
-      await this.http
-        .put(
-          `${this.apiUrl}/link/delete/${id}/${this.userService.getUser()?.user
-            .id}`,
-          {},
-        )
-        .subscribe();
-    } catch (err) {
-      console.log("PUT call failed", err);
-      throw err;
-    }
+    await this.http
+      .put(
+        `${this.apiUrl}/link/delete/${id}/${
+          this.userService.getUser()?.user.id
+        }`,
+        {},
+        {
+          withCredentials: true,
+        },
+      )
+      .subscribe();
   }
 
   async restoreLink(id: string) {
-    try {
-      await this.http
-        .put(
-          `${this.apiUrl}/link/restore/${id}/${this.userService.getUser()?.user
-            .id}`,
-          {},
-        )
-        .subscribe();
-    } catch (err) {
-      console.log("PUT call failed", err);
-      throw err;
-    }
+    await this.http
+      .put(
+        `${this.apiUrl}/link/restore/${id}/${
+          this.userService.getUser()?.user.id
+        }`,
+        {},
+        {
+          withCredentials: true,
+        },
+      )
+      .subscribe();
   }
 
   async permanentDelete(id: string) {
-    try {
-      await this.http
-        .delete(
-          `${this.apiUrl}/link/perma_delete/${id}/${this.userService.getUser()
-            ?.user.id}`,
-        )
-        .subscribe();
-    } catch (err) {
-      console.log("DELETE call failed", err);
-      throw err;
-    }
+    await this.http
+      .delete(
+        `${this.apiUrl}/link/perma_delete/${id}/${
+          this.userService.getUser()?.user.id
+        }`,
+        {
+          withCredentials: true,
+        },
+      )
+      .subscribe();
   }
 }
