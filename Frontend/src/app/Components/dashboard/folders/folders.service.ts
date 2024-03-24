@@ -27,10 +27,14 @@ export class FoldersService {
     try {
       await this.http
         .post(
-          `${this.apiUrl}/folders/create/${this.userService.getUser()?.user
-            .id}`,
+          `${this.apiUrl}/folders/create/${
+            this.userService.getUser()?.user.id
+          }`,
           {
             name: name,
+          },
+          {
+            withCredentials: true,
           },
         )
         .subscribe(() => {
@@ -45,10 +49,14 @@ export class FoldersService {
     try {
       await this.http
         .put(
-          `${this.apiUrl}/folders/edit/${id}/${this.userService.getUser()?.user
-            .id}`,
+          `${this.apiUrl}/folders/edit/${id}/${
+            this.userService.getUser()?.user.id
+          }`,
           {
             name: name,
+          },
+          {
+            withCredentials: true,
           },
         )
         .subscribe(() => {
@@ -63,8 +71,12 @@ export class FoldersService {
     try {
       await this.http
         .delete(
-          `${this.apiUrl}/folders/delete/${id}/${this.userService.getUser()
-            ?.user.id}`,
+          `${this.apiUrl}/folders/delete/${id}/${
+            this.userService.getUser()?.user.id
+          }`,
+          {
+            withCredentials: true,
+          },
         )
         .subscribe(() => {
           this.notifyFolders();

@@ -10,10 +10,7 @@ import { Router } from "@angular/router";
 })
 export class LoginComponent implements OnInit {
   // Checks for user
-  constructor(
-    private userService: UserService,
-    private router: Router,
-  ) {}
+  constructor(private userService: UserService) {}
   user: any;
 
   ngOnInit(): void {

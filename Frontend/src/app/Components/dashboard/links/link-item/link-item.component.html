@@ -3,8 +3,8 @@
     <a class="link-details" [href]="'//' + itemData.url" target="_blank">
       <p class="link-url">{{ itemData.url | slice: 0 : 25 }}</p>
       <p class="link-title">
-        {{ sanitizedTitle | slice: 0 : 30
-        }}{{ sanitizedTitle.length > 30 ? "..." : "" }}
+        {{ itemData.title | slice: 0 : 30
+        }}{{ itemData.title.length > 30 ? "..." : "" }}
       </p>
       <p class="link-date" *ngIf="specialRequest === 'none'">
         {{ itemData.createdAt | date: "shortDate" }}

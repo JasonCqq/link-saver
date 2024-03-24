@@ -25,7 +25,8 @@
         background-color: $background;
         width: 25vw;
         height: 30vh;
-        border-radius: 10px;
+        border-radius: 15px;
+        border: 1px solid $accent;
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -35,7 +36,7 @@
           border: none;
           border: 2px solid $accent;
           background: transparent;
-          border-radius: 5px;
+          border-radius: 15px;
           padding: 1vh 1vw;
           font-size: 1rem;
         }
@@ -56,7 +57,7 @@
           border: none;
           font-family: "REM";
           padding: 10px 20px;
-          border-radius: 5px;
+          border-radius: 15px;
           color: $text;
 
           &:hover {
@@ -73,7 +74,7 @@
       border: none;
       font-family: "REM";
       padding: 5px 15px;
-      border-radius: 10px;
+      border-radius: 15px;
       color: $text;
 
       &:hover {
@@ -111,7 +112,7 @@
         width: 25%;
         border: none;
         font-family: "REM";
-        border-radius: 10px;
+        border-radius: 15px;
         border: 2px solid $accent;
         color: $text;
         background-color: transparent;

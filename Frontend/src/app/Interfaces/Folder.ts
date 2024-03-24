@@ -1,4 +1,4 @@
-import { Link, Links } from "./Link";
+import { Links } from "./Link";
 
 export interface Folders {
   folders: Folder[];

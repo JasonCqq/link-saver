@@ -1,15 +1,15 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnDestroy, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment.development";
 import { DashboardService } from "../../dashboard.service";
 import { FoldersService } from "../../folders/folders.service";
 import { UserService } from "src/app/Components/user/user.service";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, takeUntil, Subject } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
-export class LinkService {
+export class LinkService implements OnInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private dashboardService: DashboardService,
@@ -18,13 +18,25 @@ export class LinkService {
   ) {}
   private apiUrl = environment.apiUrl;
 
-  private thumbnails = new BehaviorSubject<boolean | undefined>(
+  private destroy$ = new Subject<void>();
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  // Thumbnail state for link-item/main-nav/settings
+  private thumbnailsSubject = new BehaviorSubject<boolean | undefined>(
     this.userService.getUser()?.settings.previews,
   );
-
-  thumbnails$ = this.thumbnails.asObservable();
+  thumbnails$ = this.thumbnailsSubject.asObservable();
   toggleThumbnail() {
-    this.thumbnails.next(!this.thumbnails.value);
+    this.thumbnailsSubject.next(!this.thumbnailsSubject.value);
+  }
+
+  ngOnInit(): void {
+    this.userService.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+      this.thumbnailsSubject.next(user?.settings.previews);
+    });
   }
 
   async editLink(
@@ -49,13 +61,7 @@ export class LinkService {
         },
       )
       .subscribe(() => {
-        if (bookmarked) {
-          this.dashboardService.notifyBookmark();
-        }
-        if (remind) {
-          this.dashboardService.notifyUpcoming();
-        }
-        this.dashboardService.notifyLinks();
+        this.dashboardService.notify();
         this.foldersService.notifyFolders();
       });
   }

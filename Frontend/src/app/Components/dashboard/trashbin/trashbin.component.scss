@@ -22,7 +22,8 @@ span {
       gap: 2vh;
       width: 20vw;
       height: 15vh;
-      border-radius: 5px;
+      border-radius: 15px;
+      border: 1px solid $accent;
       background: $background;
 
       > .clear-prompt-flex {
@@ -35,7 +36,7 @@ span {
           color: $text;
           border: 2px solid $accent;
           background: transparent;
-          border-radius: 5px;
+          border-radius: 15px;
 
           &:hover {
             cursor: pointer;
@@ -55,7 +56,7 @@ span {
     font-weight: 900;
     background: $imp-button;
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;
     display: flex;
     align-items: center;
     transition: box-shadow 0.15s ease-in-out;

@@ -10,6 +10,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { LinkService } from "../link-item/link-item.service";
 import { DashboardService } from "../../dashboard.service";
 import { Subject, takeUntil } from "rxjs";
+import { FoldersService } from "../../folders/folders.service";
 
 @Component({
   selector: "app-link-edit-form",
@@ -20,6 +21,7 @@ export class LinkEditFormComponent implements OnInit, OnDestroy {
   constructor(
     private linkService: LinkService,
     private dashboardService: DashboardService,
+    private foldersService: FoldersService,
   ) {}
 
   private destroy$ = new Subject<void>();
@@ -40,6 +42,7 @@ export class LinkEditFormComponent implements OnInit, OnDestroy {
       editTitle: this.itemData.title,
       editBookmarked: this.itemData.bookmarked,
       editFolder: this.itemData.folderId,
+      editRemind: this.itemData.remind,
     });
   }
 
@@ -68,6 +71,8 @@ export class LinkEditFormComponent implements OnInit, OnDestroy {
       this.editForm.value.editRemind,
     );
 
+    this.dashboardService.notify();
+    this.foldersService.notifyFolders();
     this.toggleEdit.emit();
   }
 }

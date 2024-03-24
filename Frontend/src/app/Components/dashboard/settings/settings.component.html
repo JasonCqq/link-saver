@@ -36,7 +36,7 @@
       <h3>Account</h3>
       <p>Email: {{ user.user.email }}</p>
       <p>Account Created: {{ user.user.creationDate | date: "shortDate" }}</p>
-      <p style="opacity: 0.25">Change Password</p>
+      <p>Change Password</p>
     </section>
 
     <form
@@ -54,16 +54,6 @@
         ></mat-slide-toggle
       ></span>
 
-      <span>
-        <mat-label for="emailNotifications" style="opacity: 0.25"
-          >Email Notifications for Upcomings</mat-label
-        >
-        <mat-slide-toggle
-          #emailNotifications
-          formControlName="emailNotifications"
-        ></mat-slide-toggle>
-      </span>
-
       <p *ngIf="changesApplied" style="color: green">Changes Applied</p>
 
       <button type="submit" class="settings-apply">Apply Changes</button>
@@ -72,7 +62,7 @@
     <section class="settings-item">
       <h3>Extra</h3>
       <a routerLink="" fragment="home_contact">Contact Page</a>
-      <a style="opacity: 0.25">Request Account Data</a>
+      <a>Request Account Data</a>
     </section>
   </div>
 </main>

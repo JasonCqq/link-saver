@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment.development";
 import { DashboardService } from "../../dashboard.service";
 import { UserService } from "src/app/Components/user/user.service";
+import { FoldersService } from "../../folders/folders.service";
 
 @Injectable({
   providedIn: "root",
@@ -12,6 +13,7 @@ export class LinkFormService {
     private http: HttpClient,
     private dashboardService: DashboardService,
     private userService: UserService,
+    private folderService: FoldersService,
   ) {}
   private apiUrl = environment.apiUrl;
 
@@ -35,13 +37,8 @@ export class LinkFormService {
         },
       )
       .subscribe(() => {
-        if (bookmarked) {
-          this.dashboardService.notifyBookmark();
-        }
-        if (remind) {
-          this.dashboardService.notifyUpcoming();
-        }
-        this.dashboardService.notifyLinks();
+        this.dashboardService.notify();
+        this.folderService.notifyFolders();
       });
   }
 }

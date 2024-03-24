@@ -18,13 +18,20 @@ exports.get_folder = asyncHandler(async (req, res) => {
     res.status(401).send("Not authenticated");
   }
 
-  const folders = await prisma.Folder.findMany({
+  let folders = await prisma.Folder.findMany({
     where: {
       userId: req.params.userId,
     },
     include: {
-      links: true,
+      links: {
+        where: { trash: false },
+      },
     },
+  });
+
+  folders = folders.map((folder) => {
+    folder.links = formatLinks(folder.links);
+    return folder;
   });
 
   res.status(200).json({ folders: folders });

@@ -18,7 +18,7 @@ export class UpcomingComponent implements OnInit, OnDestroy {
     this.getUpcoming();
 
     this.dashboardService
-      .upcomingUpdated()
+      .linksUpdated()
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.getUpcoming();

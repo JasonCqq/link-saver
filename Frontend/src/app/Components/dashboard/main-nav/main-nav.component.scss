@@ -43,7 +43,7 @@
       font-weight: 700;
       background: transparent;
       border: 2px solid $accent;
-      border-radius: 5px;
+      border-radius: 15px;
       display: flex;
       align-items: center;
       transition:
@@ -74,7 +74,8 @@
         height: auto;
         padding: 0 0 10vh 0;
         width: 30vw;
-        border-radius: 10px;
+        border-radius: 15px;
+        border: 1px solid $accent;
 
         > .create-form-close {
           font-size: 1.75rem;
@@ -87,4 +88,9 @@
       }
     }
   }
+}
+
+mat-form-field {
+  width: 12vw;
+  height: 7vh;
 }

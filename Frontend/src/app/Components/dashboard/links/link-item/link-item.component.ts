@@ -24,9 +24,8 @@ export class LinkComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  editting: boolean = false;
   previews: any;
-  sanitizedTitle: any;
+  editting: boolean = false;
 
   toggleEdit(): void {
     this.editting = !this.editting;
@@ -38,8 +37,6 @@ export class LinkComponent implements OnInit, OnDestroy {
       .subscribe((state) => {
         this.previews = state;
       });
-
-    this.sanitizedTitle = decodeURIComponent(this.itemData.title);
   }
 
   ngOnDestroy(): void {

@@ -53,51 +53,24 @@ exports.create_link = [
           tempTitle = result?.ogTitle || "N/A";
           tempThumbnail = result?.ogImage?.[0]?.url || "";
 
-          // Find folder, If no folder, just creates link
-          await prisma.$transaction(async (prisma) => {
-            if (req.body.folder) {
-              let folder = await prisma.Folder.findFirst({
-                where: {
-                  id: req.body.folder,
-                  userId: req.params.userId,
+          const link = await prisma.Link.create({
+            data: {
+              url: decodedUrl,
+              user: {
+                connect: {
+                  id: req.params.userId,
                 },
-              });
+              },
 
-              const link = await prisma.Link.create({
-                data: {
-                  url: decodedUrl,
-                  user: {
-                    connect: {
-                      id: req.params.userId,
-                    },
-                  },
-                  folder: {
-                    connect: {
-                      id: folder.id,
-                    },
-                  },
-                  title: tempTitle,
-                  bookmarked: JSON.parse(req.body.bookmarked),
-                  remind: date,
-                  thumbnail: tempThumbnail,
-                },
-              });
-            } else {
-              const link = await prisma.Link.create({
-                data: {
-                  url: decodedUrl,
-                  user: {
-                    connect: {
-                      id: req.params.userId,
-                    },
-                  },
-                  title: tempTitle,
-                  bookmarked: JSON.parse(req.body.bookmarked),
-                  remind: date,
-                  thumbnail: tempThumbnail,
-                },
-              });
-            }
+              ...(req.body.folder
+                ? { folder: { connect: { id: req.body.folder } } }
+                : {}),
+
+              title: tempTitle,
+              bookmarked: JSON.parse(req.body.bookmarked),
+              remind: date,
+              thumbnail: tempThumbnail,
+            },
           });
 
           res.status(200).json({});
@@ -177,7 +150,8 @@ exports.restore_link = asyncHandler(async (req, res) => {
 });
 
 exports.edit_link = [
-  body("title").trim().escape(),
+  // Missing escape()
+  body("title").trim(),
   body("folder").trim().escape(),
   body("bookmarked").trim().escape(),
   body("remind").trim().escape(),

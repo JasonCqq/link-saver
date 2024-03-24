@@ -5,7 +5,6 @@ import {
   RouterStateSnapshot,
   Router,
 } from "@angular/router";
-import { Observable } from "rxjs";
 import { UserService } from "./Components/user/user.service";
 
 @Injectable({

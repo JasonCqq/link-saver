@@ -18,7 +18,7 @@ export class BookmarksComponent implements OnInit, OnDestroy {
     this.getBookmarks();
 
     this.dashboardService
-      .bookmarkUpdated()
+      .linksUpdated()
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.getBookmarks();

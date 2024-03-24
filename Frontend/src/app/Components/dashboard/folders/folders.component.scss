@@ -15,7 +15,7 @@
       display: flex;
       align-items: center;
       border: 2px solid $accent;
-      border-radius: 5px;
+      border-radius: 15px;
       padding: 5px;
       gap: 7px;
       height: 50px;
@@ -62,10 +62,12 @@
         width: 27vw;
         height: 24vh;
         background-color: $background;
-        border-radius: 10px;
+        border-radius: 15px;
+        border: 1px solid $accent;
         display: flex;
         flex-direction: column;
         gap: 10px;
+        padding: 2vh 0.5vw;
 
         > .folders-create-close {
           transform: scale(1.25);
@@ -108,7 +110,7 @@
 
   > .folders-back {
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;
     border: 2px solid $accent;
     background-color: transparent;
     font-family: "REM";

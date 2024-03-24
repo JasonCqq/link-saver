@@ -6,6 +6,7 @@ import { map, catchError } from "rxjs/operators";
 import { Link, Links } from "../../Interfaces/Link";
 import { Folder, Folders } from "../../Interfaces/Folder";
 import { UserService } from "../user/user.service";
+import { FoldersService } from "./folders/folders.service";
 
 @Injectable({
   providedIn: "root",
@@ -14,6 +15,7 @@ export class DashboardService implements OnInit {
   constructor(
     private http: HttpClient,
     private userService: UserService,
+    private folderService: FoldersService,
   ) {}
   private apiUrl = environment.apiUrl;
 
@@ -21,23 +23,12 @@ export class DashboardService implements OnInit {
   private linksSubject = new Subject<void>();
   private bookmarkSubject = new Subject<void>();
   private upcomingSubject = new Subject<void>();
-  notifyLinks() {
-    this.linksSubject.next();
-  }
   linksUpdated(): Observable<void> {
     return this.linksSubject.asObservable();
   }
-  notifyBookmark() {
-    this.bookmarkSubject.next();
-  }
-  bookmarkUpdated() {
-    return this.bookmarkSubject.asObservable();
-  }
-  notifyUpcoming() {
-    this.upcomingSubject.next();
-  }
-  upcomingUpdated() {
-    return this.upcomingSubject.asObservable();
+
+  notify() {
+    this.linksSubject.next();
   }
 
   // User Information
@@ -168,16 +159,11 @@ export class DashboardService implements OnInit {
     });
   }
 
-  submitSettings(
-    previews: boolean,
-    emailNotifications: boolean,
-    userId: string,
-  ) {
+  submitSettings(previews: boolean, userId: string) {
     return this.http.put(
       `${this.apiUrl}/user/submit_settings/${userId}`,
       {
         previews: previews,
-        emailNotifications: emailNotifications,
       },
       {
         withCredentials: true,
@@ -190,5 +176,4 @@ interface Settings {
   id: string;
   userId: string;
   previews: boolean;
-  emailNotifications: boolean;
 }

@@ -18,13 +18,14 @@ import { LinkService } from "../links/link-item/link-item.service";
   styleUrls: ["./main-nav.component.scss"],
 })
 export class MainNavComponent implements OnInit, OnDestroy {
+  previews: any;
+
   constructor(
     private dashboardService: DashboardService,
     private linkService: LinkService,
   ) {}
 
   private destroy$ = new Subject<void>();
-  previews: any;
 
   ngOnInit(): void {
     this.query.valueChanges

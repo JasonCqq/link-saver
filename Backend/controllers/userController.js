@@ -182,7 +182,6 @@ exports.submit_settings = [
 
         data: {
           previews: req.body.previews,
-          emailNotifications: req.body.emailNotifications,
         },
 
         include: { user: true },
