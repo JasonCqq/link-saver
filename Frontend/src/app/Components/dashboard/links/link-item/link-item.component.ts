@@ -9,6 +9,7 @@ import {
 import { LinkService } from "./link-item.service";
 import { Link } from "src/app/Interfaces/Link";
 import { Subject, takeUntil } from "rxjs";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
   selector: "app-link-item",
@@ -16,7 +17,10 @@ import { Subject, takeUntil } from "rxjs";
   styleUrls: ["./link-item.component.scss"],
 })
 export class LinkComponent implements OnInit, OnDestroy {
-  constructor(private linkService: LinkService) {}
+  constructor(
+    private linkService: LinkService,
+    private _sanitizer: DomSanitizer,
+  ) {}
 
   @Input() itemData: any;
   @Input() specialRequest: string = "none";

@@ -78,8 +78,12 @@
         box-shadow: 1px 1px 10px $accent;
       }
 
-      .disabled {
-        background-color: gray;
+      &:disabled {
+        opacity: 0.4;
+        &:hover {
+          cursor: default;
+          color: $text2;
+        }
       }
     }
   }

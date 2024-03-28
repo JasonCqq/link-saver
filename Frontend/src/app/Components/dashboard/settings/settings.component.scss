@@ -32,7 +32,7 @@
       > .settings-delete-prompt {
         background-color: $background;
         width: 25vw;
-        height: 30vh;
+        height: 35vh;
         border-radius: 15px;
         border: 1px solid $accent;
         display: flex;
@@ -152,6 +152,13 @@
         transition:
           background-color 0.2s ease-in-out,
           color 0.2s ease-in-out;
+
+        &:disabled {
+          opacity: 0.4;
+          &:hover {
+            cursor: default;
+          }
+        }
 
         &:hover {
           background-color: $accent;

@@ -1,8 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
-const ogs = require("open-graph-scraper");
 const prisma = require("../prisma/prismaClient");
 const { decode } = require("html-entities");
+const puppeteer = require("puppeteer");
 
 function formatLinks(links) {
   links.map((link) => {
@@ -36,45 +36,45 @@ exports.create_link = [
           date = null;
         }
 
-        // Add Rich Previews
-        let decodedUrl = decode(req.body.url, { level: "html5" });
-        let tempTitle;
-        let tempThumbnail;
+        let userUrl = decode(req.body.url, { level: "html5" });
+        let decodedUrl = userUrl;
 
-        const userAgent =
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36";
+        if (!userUrl.startsWith("http://") && !userUrl.startsWith("https://")) {
+          decodedUrl = "https://" + userUrl;
+        }
 
-        ogs({
-          url: decodedUrl,
-          fetchOptions: { headers: { "user-agent": userAgent } },
-        }).then(async (data) => {
-          const { error, result } = data;
+        // Scrape for title/screenshot
+        const browser = await puppeteer.launch({ headless: false });
+        const page = await browser.newPage();
 
-          tempTitle = result?.ogTitle || "N/A";
-          tempThumbnail = result?.ogImage?.[0]?.url || "";
+        await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
 
-          const link = await prisma.Link.create({
-            data: {
-              url: decodedUrl,
-              user: {
-                connect: {
-                  id: req.params.userId,
-                },
+        const title = await page.title();
+        const thumbnail = await page.screenshot({ encoding: "base64" });
+
+        await browser.close();
+
+        const link = await prisma.Link.create({
+          data: {
+            url: decodedUrl,
+            user: {
+              connect: {
+                id: req.params.userId,
               },
-
-              ...(req.body.folder
-                ? { folder: { connect: { id: req.body.folder } } }
-                : {}),
-
-              title: tempTitle,
-              bookmarked: JSON.parse(req.body.bookmarked),
-              remind: date,
-              thumbnail: tempThumbnail,
             },
-          });
 
-          res.status(200).json({});
+            ...(req.body.folder
+              ? { folder: { connect: { id: req.body.folder } } }
+              : {}),
+
+            title: title,
+            bookmarked: JSON.parse(req.body.bookmarked),
+            remind: date,
+            thumbnail: thumbnail,
+          },
         });
+
+        res.status(200).json({});
       } catch (err) {
         console.log(err);
       }

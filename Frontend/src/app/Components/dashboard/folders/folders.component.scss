@@ -101,7 +101,6 @@
           border-radius: 5px;
           border: 2px solid $accent;
           background-color: transparent;
-          font-family: "REM";
           font-weight: bold;
           padding: 1vh 0vw;
           width: 75px;
@@ -110,6 +109,13 @@
             color 0.15s ease-in-out;
           color: $text;
           gap: 5px;
+
+          &:disabled {
+            opacity: 0.4;
+            &:hover {
+              cursor: default;
+            }
+          }
 
           &:hover {
             background-color: $accent;

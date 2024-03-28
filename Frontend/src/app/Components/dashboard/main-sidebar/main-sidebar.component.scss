@@ -89,17 +89,17 @@
 
     .sidebar-icon {
       background-color: $accent;
-      padding: 10px;
+      padding: 8px;
       transform: scale(1);
-      color: black;
       border: 2px solid $accent;
       margin-top: 4vh;
-      margin-left: 2vw;
+      margin-left: 1vw;
       border-radius: 10px;
-      opacity: 0.5;
+      opacity: 0.6;
 
       &:hover {
         cursor: pointer;
+        opacity: 1;
       }
     }
   }

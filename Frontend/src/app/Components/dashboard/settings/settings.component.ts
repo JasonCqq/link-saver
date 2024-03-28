@@ -35,9 +35,6 @@ export class SettingsComponent implements OnInit {
   changesApplied = false;
 
   submitForm(): void {
-    // Add checker to see if value have been altered
-    // .touched, disabled button
-    // Add this to other forms as well.
     this.dashboardService
       .submitSettings(this.preferenceForm.value.previews, this.user.user.id)
       .subscribe((res) => {

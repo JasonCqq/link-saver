@@ -68,7 +68,13 @@
 
       <p *ngIf="changesApplied" style="color: green">Changes Applied</p>
 
-      <button type="submit" class="settings-apply">Apply Changes</button>
+      <button
+        type="submit"
+        class="settings-apply"
+        [disabled]="!preferenceForm.dirty"
+      >
+        Apply Changes
+      </button>
     </form>
   </div>
 </main>

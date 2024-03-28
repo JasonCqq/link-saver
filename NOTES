@@ -1,16 +1,10 @@
-Features to add/fix:
-
-- Further Mobile responsiveness
-- Add form securities by checking if form have been altered
-
-- Rich Previews not working for some sites, causing it to not POST
-- Could further improve titles, if there is video on website, use video title.
 - Add shareable link for folder
-
-- Fix all comments, and Look for ways to decrease requests
-- Mass select for mass options
-
-- Pagination ?
 - Forgot/Change password
-- Change Postgres Information + Test Session Stores
+- Improve Lighthouse score
+- Change Postgres Information + Check/Change Session Stores
   (Remove emailNotification from Schema)
+
+Future:
+
+- Mass select for mass options (check)
+- Pagination

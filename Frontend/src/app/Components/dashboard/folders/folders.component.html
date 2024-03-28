@@ -69,7 +69,13 @@
             formControlName="editFolderName"
           />
         </mat-form-field>
-        <button type="submit" class="folders-create-button">Edit</button>
+        <button
+          type="submit"
+          class="folders-create-button"
+          [disabled]="!createFolderForm.dirty"
+        >
+          Edit
+        </button>
       </form>
     </div>
 

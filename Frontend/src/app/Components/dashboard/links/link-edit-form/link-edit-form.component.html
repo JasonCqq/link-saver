@@ -54,6 +54,6 @@
       <p style="color: white; margin-left: 0.5vw">Bookmark</p>
     </mat-slide-toggle>
 
-    <button type="submit">Confirm Edit</button>
+    <button type="submit" [disabled]="!editForm.dirty">Confirm Edit</button>
   </form>
 </div>

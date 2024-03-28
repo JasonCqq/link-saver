@@ -10,10 +10,17 @@ export class MainSidebarComponent implements OnInit {
   constructor(private userService: UserService) {}
   user: any;
 
-  opened: boolean = true;
+  opened: any;
 
   ngOnInit(): void {
     this.user = this.userService.getUser()?.user;
+
+    let isMobile =
+      /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent,
+      );
+
+    isMobile ? (this.opened = false) : (this.opened = true);
   }
 
   logOut(): void {

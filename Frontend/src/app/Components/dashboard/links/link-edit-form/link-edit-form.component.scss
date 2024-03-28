@@ -79,6 +79,13 @@
       align-items: center;
       justify-content: center;
 
+      &:disabled {
+        opacity: 0.4;
+        &:hover {
+          cursor: default;
+        }
+      }
+
       &:hover {
         cursor: pointer;
         background-color: $accent;
