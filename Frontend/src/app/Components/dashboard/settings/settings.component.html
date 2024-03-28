@@ -3,9 +3,6 @@
 <main class="settings-page">
   <div class="settings-flex">
     <h1>User Settings</h1>
-    <button class="settings-delete" (click)="toggleDeletePrompt()">
-      Delete Account
-    </button>
 
     <div class="settings-delete-overlay" *ngIf="deletePrompt">
       <section class="settings-delete-prompt">
@@ -34,9 +31,24 @@
   <div class="settings-grid">
     <section class="settings-item">
       <h3>Account</h3>
-      <p>Email: {{ user.user.email }}</p>
-      <p>Account Created: {{ user.user.creationDate | date: "shortDate" }}</p>
-      <p>Change Password</p>
+      <p>
+        Email: <span style="color: white">{{ user.user.email }}</span>
+      </p>
+      <p>
+        Account Created:
+        <span style="color: white">{{
+          user.user.creationDate | date: "shortDate"
+        }}</span>
+      </p>
+      <p style="color: white">Change Password</p>
+    </section>
+
+    <section class="settings-item">
+      <h3>Extra</h3>
+      <a routerLink="" fragment="home_contact">Contact Page</a>
+      <button class="settings-delete" (click)="toggleDeletePrompt()">
+        Delete Account
+      </button>
     </section>
 
     <form
@@ -58,11 +70,5 @@
 
       <button type="submit" class="settings-apply">Apply Changes</button>
     </form>
-
-    <section class="settings-item">
-      <h3>Extra</h3>
-      <a routerLink="" fragment="home_contact">Contact Page</a>
-      <a>Request Account Data</a>
-    </section>
   </div>
 </main>

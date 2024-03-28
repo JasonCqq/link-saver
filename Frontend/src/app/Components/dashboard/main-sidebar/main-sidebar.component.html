@@ -1,7 +1,7 @@
-<nav class="d-sidebar-wrapper">
-  <ul class="d-sidebar">
+<mat-drawer-container class="d-sidebar-container">
+  <mat-drawer [(opened)]="opened" mode="side" #drawer class="d-sidebar">
     <li class="sidebar-profile">
-      <p>Welcome,</p>
+      <p>Welcome</p>
       <p>{{ user.username }}</p>
     </li>
 
@@ -30,19 +30,37 @@
       <h1 class="tab-id">Trash</h1>
     </a>
 
-    <a routerLink="/dashboard/settings" class="sidebar-tab sidebar-bottom">
-      <mat-icon fontIcon="settings" class="sidebar-icon"></mat-icon>
-      <h1 class="tab-id">Settings</h1>
-    </a>
+    <section class="sidebar-bottom">
+      <a routerLink="/dashboard/settings" class="sidebar-tab">
+        <mat-icon fontIcon="settings" class="sidebar-icon"></mat-icon>
+        <h1 class="tab-id">Settings</h1>
+      </a>
 
-    <a routerLink="" class="sidebar-tab">
-      <mat-icon fontIcon="home" class="sidebar-icon"></mat-icon>
-      <h1>Home</h1>
-    </a>
+      <a routerLink="" class="sidebar-tab">
+        <mat-icon fontIcon="home" class="sidebar-icon"></mat-icon>
+        <h1>Home</h1>
+      </a>
 
-    <a class="sidebar-tab" style="margin-bottom: 5vh" (click)="logOut()">
-      <mat-icon fontIcon="logout" class="sidebar-icon"></mat-icon>
-      <h1>Logout</h1>
-    </a>
-  </ul>
-</nav>
+      <a class="sidebar-tab" (click)="logOut()">
+        <mat-icon fontIcon="logout" class="sidebar-icon"></mat-icon>
+        <h1>Logout</h1>
+      </a>
+    </section>
+  </mat-drawer>
+
+  <div class="sidebar-icon-contain">
+    <mat-icon
+      fontIcon="menu"
+      (click)="drawer.toggle(); opened = !opened"
+      *ngIf="!opened"
+      class="sidebar-icon"
+    ></mat-icon>
+    <mat-icon
+      fontIcon="close"
+      (click)="drawer.toggle(); opened = !opened"
+      *ngIf="opened"
+      class="sidebar-icon"
+    >
+    </mat-icon>
+  </div>
+</mat-drawer-container>

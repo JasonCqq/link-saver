@@ -3,11 +3,11 @@
 
 $secondary: #ffc446;
 $accent: #ffc446;
-$background: #0a0a0a;
+$background: #161616;
 $background2: #131212;
 $text: #f3f3f3;
 $text2: #191919;
-$textSec: rgb(176, 176, 176);
+$textSec: #a9a9a9;
 $imp-button: #f73830;
 
 $Frontend-primary: mat.define-palette(mat.$amber-palette);
@@ -75,6 +75,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $text;
+  background-color: $background;
 }
 
 body,

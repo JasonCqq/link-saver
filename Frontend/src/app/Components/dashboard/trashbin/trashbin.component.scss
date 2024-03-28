@@ -26,9 +26,25 @@ span {
       border: 1px solid $accent;
       background: $background;
 
+      @media screen and (max-width: 1000px) {
+        width: 35vw;
+      }
+
+      @media screen and (max-width: 850px) {
+        width: 50vw;
+      }
+
+      @media screen and (max-width: 425px) {
+        width: 75vw;
+      }
+
       > .clear-prompt-flex {
         display: flex;
-        gap: 1vw;
+        gap: 2.5vw;
+
+        @media screen and (max-width: 850px) {
+          gap: 5vw;
+        }
 
         > button {
           border: none;
@@ -52,7 +68,7 @@ span {
     position: relative;
     margin-left: 17vw;
     color: $text;
-    padding: 10px 25px;
+    padding: 12px 21px;
     font-weight: 900;
     background: $imp-button;
     border: none;
@@ -60,6 +76,16 @@ span {
     display: flex;
     align-items: center;
     transition: box-shadow 0.15s ease-in-out;
+    margin-top: 3vh;
+
+    @media screen and (max-width: 440px) {
+      margin-top: 2vh;
+    }
+
+    @media screen and (max-width: 340px) {
+      margin-top: 2vh;
+      margin-left: 10vw;
+    }
 
     &:hover {
       cursor: pointer;

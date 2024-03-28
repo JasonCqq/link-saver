@@ -10,6 +10,8 @@ export class MainSidebarComponent implements OnInit {
   constructor(private userService: UserService) {}
   user: any;
 
+  opened: boolean = true;
+
   ngOnInit(): void {
     this.user = this.userService.getUser()?.user;
   }

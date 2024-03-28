@@ -1,9 +1,17 @@
 @import "../../../../assets/styles.scss";
 
 .settings-page {
-  margin-left: 15vw;
+  margin-left: 20vw;
   color: $text;
   padding: 7.5%;
+
+  @media screen and (max-width: 850px) {
+    margin-left: 30vw;
+  }
+
+  @media screen and (max-width: 450px) {
+    margin-left: 15vw;
+  }
 
   > .settings-flex {
     display: flex;
@@ -32,6 +40,38 @@
         flex-direction: column;
         gap: 2vh;
 
+        @media screen and (max-width: 1365px) {
+          width: 35vw;
+        }
+
+        @media screen and (max-width: 870px) {
+          width: 75vw;
+        }
+
+        @media screen and (max-width: 435px) {
+          height: 35vh;
+        }
+
+        > .settings-delete {
+          background-color: $imp-button;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 15px;
+          color: $text;
+
+          &:hover {
+            cursor: pointer;
+            box-shadow: 1px 1px 10px $imp-button;
+          }
+        }
+
+        > p {
+          @media screen and (max-width: 370px) {
+            font-size: 0.8rem;
+            text-align: center;
+          }
+        }
+
         > input {
           border: none;
           border: 2px solid $accent;
@@ -39,6 +79,10 @@
           border-radius: 15px;
           padding: 1vh 1vw;
           font-size: 1rem;
+
+          @media screen and (max-width: 370px) {
+            width: 75%;
+          }
         }
 
         > .close-form {
@@ -51,35 +95,6 @@
             color: $accent;
           }
         }
-
-        > .settings-delete {
-          background-color: $imp-button;
-          border: none;
-          font-family: "REM";
-          padding: 10px 20px;
-          border-radius: 15px;
-          color: $text;
-
-          &:hover {
-            cursor: pointer;
-            box-shadow: 1px 1px 10px $imp-button;
-          }
-        }
-      }
-    }
-
-    > .settings-delete {
-      margin-left: auto;
-      background-color: $imp-button;
-      border: none;
-      font-family: "REM";
-      padding: 5px 15px;
-      border-radius: 15px;
-      color: $text;
-
-      &:hover {
-        cursor: pointer;
-        box-shadow: 1px 1px 10px $imp-button;
       }
     }
   }
@@ -89,18 +104,24 @@
     grid-template-columns: repeat(2, 1fr);
     row-gap: 15vh;
 
+    @media screen and (max-width: 850px) {
+      grid-template-columns: repeat(1, 1fr);
+      row-gap: 10vh;
+    }
+
     > .settings-item {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 4vh;
+      gap: 2vh;
 
       > h3 {
         color: $accent;
       }
 
       > p {
-        font-size: 1.25rem;
+        font-size: 1.1rem;
+        color: $textSec;
       }
 
       > span {
@@ -108,15 +129,26 @@
         gap: 2vw;
       }
 
-      > .settings-apply {
-        width: 25%;
+      > .settings-delete {
+        background-color: $imp-button;
         border: none;
-        font-family: "REM";
+        padding: 10px 15px;
+        border-radius: 10px;
+        color: $text;
+
+        &:hover {
+          cursor: pointer;
+          box-shadow: 1px 1px 10px $imp-button;
+        }
+      }
+
+      > .settings-apply {
+        padding: 10px 15px;
+        border: none;
         border-radius: 15px;
         border: 2px solid $accent;
         color: $text;
         background-color: transparent;
-        padding: 10px 15px;
         transition:
           background-color 0.2s ease-in-out,
           color 0.2s ease-in-out;

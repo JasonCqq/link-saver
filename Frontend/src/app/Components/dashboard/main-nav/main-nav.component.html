@@ -15,7 +15,16 @@
       </mat-form-field>
     </p>
 
-    <button (click)="toggleForm()">Add links</button>
+    <div class="nav-buttons">
+      <button (click)="toggleForm()">Add links</button>
+
+      <mat-icon
+        fontIcon="visibility"
+        class="nav-preview-icon"
+        [ngClass]="{ 'selected-icon': this.previews === true }"
+        (click)="toggleThumbnail()"
+      ></mat-icon>
+    </div>
 
     <div *ngIf="createForm === true" class="create-form-overlay">
       <div class="create-form">
@@ -27,12 +36,5 @@
         <app-link-form (closeForm)="toggleForm()"></app-link-form>
       </div>
     </div>
-
-    <mat-icon
-      fontIcon="visibility"
-      class="nav-preview-icon"
-      [ngClass]="{ 'selected-icon': this.previews === true }"
-      (click)="toggleThumbnail()"
-    ></mat-icon>
   </div>
 </nav>

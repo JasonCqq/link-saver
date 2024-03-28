@@ -9,11 +9,7 @@
       <p class="link-date" *ngIf="specialRequest === 'none'">
         {{ itemData.createdAt | date: "shortDate" }}
       </p>
-      <p
-        class="link-date"
-        *ngIf="specialRequest === 'upcoming'"
-        style="color: #f73830"
-      >
+      <p class="link-date link-date2" *ngIf="specialRequest === 'upcoming'">
         Upcoming: {{ itemData.remind | date: "shortDate" }}
       </p>
     </a>

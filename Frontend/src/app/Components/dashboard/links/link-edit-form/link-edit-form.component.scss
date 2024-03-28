@@ -26,9 +26,22 @@
     justify-content: center;
     padding: 3% 5%;
 
+    @media screen and (max-width: 1275px) {
+      width: 35vw;
+    }
+
+    @media screen and (max-width: 850px) {
+      width: 50vw;
+    }
+
+    @media screen and (max-width: 450px) {
+      width: 75vw;
+      height: 65vh;
+    }
+
     > span {
       > .close-form {
-        transform: scale(1.25);
+        transform: scale(1);
         transition: color 0.25s ease-in-out;
         margin-right: 15vw;
         position: absolute;
@@ -46,22 +59,25 @@
 
     > h1 {
       padding-bottom: 1vh;
-      font-size: 2rem;
+      text-align: center;
+      font-size: 1.5rem;
     }
 
     > button {
       border: none;
       border: 2px solid $accent;
-      padding: 10px 25px;
+      padding: 10px 3vw;
       background-color: transparent;
       margin-top: 3vh;
       color: $text;
       border-radius: 15px;
-      width: 5vw;
       font-weight: 600;
       transition:
         background-color 0.25s ease-in-out,
         color 0.25s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       &:hover {
         cursor: pointer;
@@ -74,6 +90,18 @@
 
 mat-form-field {
   width: 20vw;
+
+  @media screen and (max-width: 1275px) {
+    width: 35vw;
+  }
+
+  @media screen and (max-width: 850px) {
+    width: 50vw;
+  }
+
+  @media screen and (max-width: 425px) {
+    width: 75vw;
+  }
 }
 
 mat-select {

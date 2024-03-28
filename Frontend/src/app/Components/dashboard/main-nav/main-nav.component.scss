@@ -7,6 +7,10 @@
   margin-left: 15vw;
   background-color: $background;
 
+  @media screen and (max-width: 340px) {
+    margin-left: 8vw;
+  }
+
   > .nav-title {
     font-size: 1.4rem;
     font-weight: 600;
@@ -15,45 +19,62 @@
 
   > .nav-container {
     display: flex;
-    gap: 10px;
+    margin-left: 2vw;
     align-items: center;
+    gap: 10px;
 
-    > .nav-search {
-      margin-top: 2vh;
-      margin-left: 2vw;
+    @media screen and (max-width: 440px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
     }
 
-    > .selected-icon {
-      color: $accent;
-    }
-
-    > .nav-grid-icon,
-    .nav-preview-icon {
-      transform: scale(1.2);
-      margin-left: 0.5vw;
-      &:hover {
-        cursor: pointer;
-        opacity: 0.8;
-      }
-    }
-
-    > button {
-      color: $text;
-      padding: 11px 20px;
-      font-weight: 700;
-      background: transparent;
-      border: 2px solid $accent;
-      border-radius: 15px;
+    > .nav-buttons {
       display: flex;
       align-items: center;
-      transition:
-        background-color 0.15s ease-in-out,
-        color 0.15s ease-in-out;
+      justify-content: center;
+      gap: 1vw;
 
-      &:hover {
-        background-color: $accent;
-        cursor: pointer;
-        color: $text2;
+      @media screen and (max-width: 440px) {
+        margin-top: 1vh;
+      }
+
+      > .selected-icon {
+        color: $accent;
+      }
+
+      > .nav-preview-icon {
+        transform: scale(1.2);
+        margin-left: 0.5vw;
+
+        @media screen and (max-width: 440px) {
+          margin-left: 4vw;
+        }
+
+        &:hover {
+          cursor: pointer;
+          opacity: 0.8;
+        }
+      }
+
+      > button {
+        color: $text;
+        padding: 11px 20px;
+        font-weight: 700;
+        background: transparent;
+        border: 2px solid $accent;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        transition:
+          background-color 0.15s ease-in-out,
+          color 0.15s ease-in-out;
+
+        &:hover {
+          background-color: $accent;
+          cursor: pointer;
+          color: $text2;
+        }
       }
     }
 
@@ -77,6 +98,18 @@
         border-radius: 15px;
         border: 1px solid $accent;
 
+        @media screen and (max-width: 1275px) {
+          width: 35vw;
+        }
+
+        @media screen and (max-width: 850px) {
+          width: 50vw;
+        }
+
+        @media screen and (max-width: 425px) {
+          width: 75vw;
+        }
+
         > .create-form-close {
           font-size: 1.75rem;
           margin: 15px;
@@ -91,6 +124,6 @@
 }
 
 mat-form-field {
-  width: 12vw;
-  height: 7vh;
+  height: 45px;
+  width: clamp(100px, 200px, 400px);
 }

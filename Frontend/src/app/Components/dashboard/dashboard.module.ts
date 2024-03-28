@@ -10,6 +10,7 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatSelectModule } from "@angular/material/select";
+import { MatSidenavModule } from "@angular/material/sidenav";
 
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { DashboardComponent } from "./main-dashboard/dashboard.component";
@@ -52,6 +53,7 @@ import { LinkEditFormComponent } from "./links/link-edit-form/link-edit-form.com
     ReactiveFormsModule,
     MatSlideToggleModule,
     MatSelectModule,
+    MatSidenavModule,
   ],
 })
 export class DashboardModule {}
