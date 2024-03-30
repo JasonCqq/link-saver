@@ -6,7 +6,6 @@ import { FormGroup, FormControl } from "@angular/forms";
 import { Subject, takeUntil } from "rxjs";
 import { Link } from "src/app/Interfaces/Link";
 
-// Removing void, and also fixing timing helped fix realtime updates
 @Component({
   selector: "app-folders",
   templateUrl: "./folders.component.html",
@@ -22,11 +21,12 @@ export class FoldersComponent implements OnInit, OnDestroy {
 
   folders: Folder[] = [];
   folderOpened: boolean = false;
-  tempId: any;
 
   windowOpened: boolean = false;
   editWindowOpened: boolean = false;
+  shareWindowOpened: boolean = false;
 
+  tempId: any;
   tempLinks: any = [];
 
   updateTempLinks(folderId: string) {
@@ -56,6 +56,11 @@ export class FoldersComponent implements OnInit, OnDestroy {
   createFolderForm = new FormGroup({
     folderName: new FormControl(),
     editFolderName: new FormControl(),
+  });
+
+  shareFolderForm = new FormGroup({
+    passwordToggle: new FormControl(false),
+    password: new FormControl(),
   });
 
   toggleWindow(): void {
@@ -101,6 +106,20 @@ export class FoldersComponent implements OnInit, OnDestroy {
           this.updateTempLinks(this.tempId);
         }
       });
+  }
+
+  tempShareUrl: any;
+
+  shareFolder() {
+    this.foldersService
+      .shareFolder(this.shareFolderForm.value.password, true, this.tempId)
+      .subscribe((res) => {
+        this.tempShareUrl = res;
+      });
+  }
+
+  toggleShareWindow(): void {
+    this.shareWindowOpened = !this.shareWindowOpened;
   }
 
   tempEditID: string = "";

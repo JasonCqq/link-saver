@@ -16,14 +16,14 @@ model User {
     folders      Folder[]
     links        Link[]
     userSettings UserSettings?
+    shares       Share[]
 }
 
 model UserSettings {
-    id                 String  @id @default(uuid())
-    user               User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId             String  @unique
-    previews           Boolean @default(true)
-    emailNotifications Boolean @default(false)
+    id       String  @id @default(uuid())
+    user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId   String  @unique
+    previews Boolean @default(true)
 }
 
 model Session {
@@ -34,11 +34,23 @@ model Session {
 }
 
 model Folder {
-    id     String  @id @default(uuid())
-    name   String
-    user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId String?
-    links  Link[]
+    id      String  @id @default(uuid())
+    name    String
+    user    User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId  String?
+    links   Link[]
+    private Boolean @default(true)
+    shares  Share[]
+}
+
+model Share {
+    id       Int     @id @default(autoincrement())
+    user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId   String?
+    public   Boolean @default(false)
+    folder   Folder  @relation(fields: [folderId], references: [id], onDelete: Cascade)
+    folderId String
+    password String?
 }
 
 model Link {

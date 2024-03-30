@@ -12,6 +12,7 @@ import { AppComponent } from "./app.component";
 import { HomeComponent } from "./Components/home/home.component";
 import { UserService } from "./Components/user/user.service";
 import { environment } from "src/environments/environment.development";
+import { PublicFolderComponent } from './Components/public-folder/public-folder.component';
 
 interface User {
   user: {
@@ -42,7 +43,7 @@ function initializeAppFactory(
 }
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, PublicFolderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

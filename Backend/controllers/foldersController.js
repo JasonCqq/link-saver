@@ -164,3 +164,64 @@ exports.search_folder_links = asyncHandler(async (req, res) => {
 
   res.status(200).json({ links: formattedLinks });
 });
+
+exports.get_shared_folder = asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
+    const sharedFolder = await prisma.Share.findUnique({
+      where: {
+        id: req.params.id,
+
+        include: { links },
+      },
+    });
+  });
+
+  res.status(200).json({
+    folder: sharedFolder,
+  });
+});
+
+exports.create_shared_folder = [
+  body("password").trim().escape(),
+  body("share").trim().escape(),
+
+  asyncHandler(async (req, res) => {
+    if (!req.params.userId || req.session.user.id !== req.params.userId) {
+      res.status(401).send("Not authenticated");
+    }
+
+    const errs = validationResult(req);
+
+    if (!errs.isEmpty()) {
+      return res
+        .status(400)
+        .json({ errors: errs.array().map((err) => err.msg) });
+    } else {
+      try {
+        const share = await prisma.Share.create({
+          data: {
+            folder: {
+              connect: {
+                id: req.params.folderId,
+              },
+            },
+
+            public: JSON.parse(req.body.share),
+
+            user: {
+              connect: {
+                id: req.params.userId,
+              },
+            },
+
+            password: req.body.password,
+          },
+        });
+
+        res.status(200).json({ url: share.id });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }),
+];

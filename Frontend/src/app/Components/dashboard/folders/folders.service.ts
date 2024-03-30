@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment.development";
 import { Observable, Subject } from "rxjs";
 import { UserService } from "../../user/user.service";
+import { map } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -84,5 +85,16 @@ export class FoldersService {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  shareFolder(password: string, share: boolean, folderId: string) {
+    return this.http.post(
+      `${this.apiUrl}/folders/share/${folderId}/${this.userService.getUser()?.user.id}`,
+      {
+        password: password,
+        share: share,
+      },
+      { withCredentials: true },
+    );
   }
 }

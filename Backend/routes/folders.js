@@ -15,4 +15,8 @@ router.get(
 
 router.delete("/delete/:folderId/:userId", foldersController.delete_folder);
 
+router.get("/public/:id", foldersController.get_shared_folder);
+
+router.post("/share/:folderId/:userId", foldersController.create_shared_folder);
+
 module.exports = router;

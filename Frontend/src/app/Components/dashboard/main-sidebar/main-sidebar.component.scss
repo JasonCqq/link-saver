@@ -89,13 +89,14 @@
 
     .sidebar-icon {
       background-color: $accent;
-      padding: 8px;
+      padding: 6px;
       transform: scale(1);
       border: 2px solid $accent;
       margin-top: 4vh;
-      margin-left: 1vw;
+      margin-left: 0.5vw;
       border-radius: 10px;
-      opacity: 0.6;
+      opacity: 0.7;
+      color: black;
 
       &:hover {
         cursor: pointer;

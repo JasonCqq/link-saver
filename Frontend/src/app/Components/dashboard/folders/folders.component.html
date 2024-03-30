@@ -6,10 +6,73 @@
 ></app-main-nav>
 
 <main class="folders-container">
-  <button class="folders-back" *ngIf="folderOpened" (click)="closeFolder()">
-    <mat-icon fontIcon="arrow_back" style="transform: scale(0.8)"></mat-icon>
-    Go Back
-  </button>
+  <!-- Sharing Folder Form -->
+  <div class="folders-share-overlay" *ngIf="shareWindowOpened">
+    <form
+      class="folders-share"
+      [formGroup]="shareFolderForm"
+      (submit)="shareFolder()"
+    >
+      <mat-icon
+        fontIcon="close"
+        (click)="toggleShareWindow()"
+        class="folders-share-close"
+      ></mat-icon>
+
+      <h3>Share</h3>
+
+      <section class="folders-share-url">
+        Your URL will be generated here:
+
+        <p *ngIf="this.tempShareUrl.url">
+          localhost:4200/public/{{ this.tempShareUrl.url }}
+        </p>
+      </section>
+
+      <mat-label for="passwordToggle">Password Locked</mat-label>
+      <mat-slide-toggle #passwordToggle formControlName="passwordToggle">
+      </mat-slide-toggle>
+
+      <mat-form-field *ngIf="shareFolderForm.value.passwordToggle === true">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" />
+      </mat-form-field>
+
+      <button type="submit" class="folders-share-button">Share</button>
+
+      <p class="folders-share-hint">
+        *Your username will be shown when sharing
+      </p>
+    </form>
+  </div>
+
+  <div class="folders-buttons">
+    <button
+      class="folders-button folders-back"
+      *ngIf="folderOpened"
+      (click)="closeFolder()"
+    >
+      <mat-icon fontIcon="arrow_back"></mat-icon>
+      Go Back
+    </button>
+
+    <button
+      class="folders-button folders-share"
+      (click)="toggleShareWindow()"
+      *ngIf="folderOpened"
+    >
+      <mat-icon fontIcon="share"></mat-icon>
+      Share Folder
+    </button>
+
+    <button class="folders-button folders-share" *ngIf="folderOpened">
+      <mat-icon fontIcon="share"></mat-icon>
+      Unshare
+    </button>
+    <!-- Are you sure? -->
+    <!-- The folder page will have "LinkStorage, sign up today!" -->
+    <!-- And Folder By: ...-->
+  </div>
 
   <section class="folders-grid" *ngIf="!folderOpened">
     <div class="folders-item" (click)="toggleWindow()">
@@ -45,7 +108,7 @@
       </form>
     </div>
 
-    <!--Edit Folder Form, same form, but need for future scaling-->
+    <!--Edit Folder Form-->
     <div class="folders-create-overlay" *ngIf="editWindowOpened">
       <form
         class="folders-create"

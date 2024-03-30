@@ -1,10 +1,12 @@
 - Add shareable link for folder
 - Forgot/Change password
+- Angular style duplication
 - Improve Lighthouse score
-- Change Postgres Information + Check/Change Session Stores
-  (Remove emailNotification from Schema)
+- Add some loaders, like for adding links
+- Add prevention for multiple shares
+- Change Postgres Info + Change Session + Remove emailNotification
 
-Future:
+  Future:
 
 - Mass select for mass options (check)
 - Pagination
