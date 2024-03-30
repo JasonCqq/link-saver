@@ -9,4 +9,5 @@ export interface Folder {
   name: string;
   userId: string;
   links: Links;
+  private: boolean;
 }

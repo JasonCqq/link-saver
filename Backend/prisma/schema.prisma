@@ -40,7 +40,7 @@ model Folder {
     userId  String?
     links   Link[]
     private Boolean @default(true)
-    shares  Share[]
+    shares  Share?
 }
 
 model Share {
@@ -49,7 +49,7 @@ model Share {
     userId   String?
     public   Boolean @default(false)
     folder   Folder  @relation(fields: [folderId], references: [id], onDelete: Cascade)
-    folderId String
+    folderId String  @unique
     password String?
 }
 

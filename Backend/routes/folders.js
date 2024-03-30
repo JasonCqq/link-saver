@@ -15,8 +15,12 @@ router.get(
 
 router.delete("/delete/:folderId/:userId", foldersController.delete_folder);
 
+router.post("/share/:folderId/:userId", foldersController.create_shared_folder);
+
+router.put("/unshare/:folderId/:userId", foldersController.unshare_folder);
+
 router.get("/public/:id", foldersController.get_shared_folder);
 
-router.post("/share/:folderId/:userId", foldersController.create_shared_folder);
+router.post("/public/:id", foldersController.get_authorized_folder);
 
 module.exports = router;

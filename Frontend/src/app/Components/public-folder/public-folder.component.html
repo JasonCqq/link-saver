@@ -1,4 +1,4 @@
-<main class="public-folder">
+<main class="public-folder" *ngIf="this.author && !this.passwordLocked">
   <header>
     <a routerLink="">LinkStorage</a>
 
@@ -34,3 +34,26 @@
 
   <footer>Sign up today to share your own links and folders!</footer>
 </main>
+
+<div class="public-hidden" *ngIf="!this.author && !this.passwordLocked">
+  <a routerLink="">LinkStorage</a>
+  <h2 text-align="center">404 PAGE NOT FOUND</h2>
+</div>
+
+<div class="public-password" *ngIf="this.passwordLocked">
+  <a routerLink="">LinkStorage</a>
+  <h4 text-align="center">This folder is password locked.</h4>
+
+  <form [formGroup]="passwordForm" (submit)="authorizeFolder()">
+    <mat-form-field appearance="outline">
+      <mat-label for="publicPassword">Password</mat-label>
+      <input
+        matInput
+        #publicPassword
+        type="password"
+        formControlName="password"
+      />
+    </mat-form-field>
+    <button type="submit">Enter</button>
+  </form>
+</div>

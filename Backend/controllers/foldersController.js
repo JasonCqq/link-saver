@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const prisma = require("../prisma/prismaClient");
 const { body, validationResult } = require("express-validator");
+const bcrypt = require("bcrypt");
 
 function formatLinks(links) {
   links.map((link) => {
@@ -179,11 +180,17 @@ exports.get_shared_folder = asyncHandler(async (req, res) => {
       },
     });
 
-    res.status(200).json({
-      folderName: sharedFolder.folder.name,
-      authorName: sharedFolder.user.username,
-      links: sharedFolder.folder.links,
-    });
+    if (sharedFolder.password) {
+      res.status(401).json({ message: "Password required" });
+    } else if (!sharedFolder.password) {
+      const formattedLinks = formatLinks(sharedFolder.folder.links);
+
+      res.status(200).json({
+        folderName: sharedFolder.folder.name,
+        authorName: sharedFolder.user.username,
+        links: formattedLinks,
+      });
+    }
   } catch (err) {
     console.log(err);
   }
@@ -205,61 +212,138 @@ exports.create_shared_folder = [
         .status(400)
         .json({ errors: errs.array().map((err) => err.msg) });
     } else {
-      try {
-        await prisma.$transaction(async (prisma) => {
-          const link = await prisma.Link.update({
-            where: {
-              id: req.params.id,
-              userId: req.params.userId,
-            },
+      // Hash Password
+      let password = req.body.password;
 
-            data: {
-              title: req.body.title,
-              bookmarked: JSON.parse(req.body.bookmarked),
-              ...(req.body.folder
-                ? { folder: { connect: { id: req.body.folder } } }
-                : {}),
-              remind: req.body.remind || null,
-            },
+      if (password) {
+        try {
+          password = await bcrypt.hash(password, 10);
+        } catch (err) {
+          return res.status(500).json({
+            error: "Error Hashing Password. (Bcrypt Error)",
           });
+        }
+      }
+
+      await prisma.$transaction(async (prisma) => {
+        const folder = await prisma.Folder.update({
+          where: {
+            id: req.params.folderId,
+          },
+
+          data: {
+            private: false,
+          },
+
+          include: {
+            shares: true,
+          },
         });
 
-        await prisma.$transaction(async (prisma) => {
-          const folder = await prisma.Folder.update({
-            where: {
-              id: req.params.folderId,
-            },
+        const share = await prisma.Share.upsert({
+          where: {
+            id: folder.shares.id,
+          },
 
-            data: {
-              private: false,
-            },
-          });
+          update: {
+            public: true,
+            password: password,
+          },
 
-          const share = await prisma.Share.create({
-            data: {
-              folder: {
-                connect: {
-                  id: req.params.folderId,
-                },
+          create: {
+            folder: {
+              connect: {
+                id: req.params.folderId,
               },
-
-              public: JSON.parse(req.body.share),
-
-              user: {
-                connect: {
-                  id: req.params.userId,
-                },
-              },
-
-              password: req.body.password,
             },
-          });
 
-          res.status(200).json({ url: share.id });
+            public: JSON.parse(req.body.share),
+
+            user: {
+              connect: {
+                id: req.params.userId,
+              },
+            },
+
+            password: password,
+          },
+        });
+
+        res.status(200).json({ url: share.id });
+      });
+    }
+  }),
+];
+
+exports.unshare_folder = [
+  body("share").trim().escape(),
+
+  asyncHandler(async (req, res) => {
+    if (!req.params.userId || req.session.user.id !== req.params.userId) {
+      res.status(401).send("Not authenticated");
+    }
+
+    const errs = validationResult(req);
+
+    if (!errs.isEmpty()) {
+      return res
+        .status(400)
+        .json({ errors: errs.array().map((err) => err.msg) });
+    } else {
+      try {
+        await prisma.Folder.update({
+          where: {
+            id: req.params.folderId,
+          },
+
+          data: {
+            private: JSON.parse(req.body.share),
+
+            shares: {
+              update: {
+                public: false,
+                password: null,
+              },
+            },
+          },
         });
       } catch (err) {
         console.log(err);
       }
+
+      res.status(200).json();
+    }
+  }),
+];
+
+exports.get_authorized_folder = [
+  body("password").trim().escape(),
+
+  asyncHandler(async (req, res) => {
+    const folder = await prisma.Share.findUnique({
+      where: {
+        id: JSON.parse(req.params.id),
+        public: true,
+      },
+
+      include: {
+        folder: { include: { links: true } },
+        user: true,
+      },
+    });
+
+    const check = await bcrypt.compare(req.body.password, folder.password);
+
+    if (check) {
+      const formattedLinks = formatLinks(folder.folder.links);
+
+      res.status(200).json({
+        folderName: folder.folder.name,
+        authorName: folder.user.username,
+        links: formattedLinks,
+      });
+    } else {
+      res.status(401).json({ message: "Incorrect Password" });
     }
   }),
 ];

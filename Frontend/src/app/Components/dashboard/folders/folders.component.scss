@@ -145,7 +145,7 @@
 
     > .folders-share {
       width: 27vw;
-      height: 50vh;
+      height: 60vh;
       background-color: $background;
       border-radius: 15px;
       border: 1px solid $accent;
@@ -164,7 +164,7 @@
 
       @media screen and (max-width: 425px) {
         width: 80vw;
-        height: 65vh;
+        height: 75vh;
       }
 
       > .folders-share-close {
@@ -179,6 +179,11 @@
 
       > .folders-share-url {
         padding-bottom: 4vh;
+
+        > p {
+          color: $accent;
+          margin-top: 10px;
+        }
       }
 
       > .folders-share-button {

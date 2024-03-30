@@ -22,14 +22,17 @@
       <h3>Share</h3>
 
       <section class="folders-share-url">
-        Your URL will be generated here:
+        This folder's URL will be located here:
 
-        <p *ngIf="this.tempShareUrl.url">
+        <p *ngIf="this.tempShareUrl">
           localhost:4200/public/{{ this.tempShareUrl.url }}
         </p>
+
+        <p *ngIf="tempShareUrl" style="color: lightgreen">Success!</p>
       </section>
 
       <mat-label for="passwordToggle">Password Locked</mat-label>
+
       <mat-slide-toggle #passwordToggle formControlName="passwordToggle">
       </mat-slide-toggle>
 
@@ -59,19 +62,20 @@
     <button
       class="folders-button folders-share"
       (click)="toggleShareWindow()"
-      *ngIf="folderOpened"
+      *ngIf="folderOpened && tempShare"
     >
       <mat-icon fontIcon="share"></mat-icon>
       Share Folder
     </button>
 
-    <button class="folders-button folders-share" *ngIf="folderOpened">
+    <button
+      class="folders-button folders-share"
+      *ngIf="folderOpened && !tempShare"
+      (click)="unshareFolder()"
+    >
       <mat-icon fontIcon="share"></mat-icon>
       Unshare
     </button>
-    <!-- Are you sure? -->
-    <!-- The folder page will have "LinkStorage, sign up today!" -->
-    <!-- And Folder By: ...-->
   </div>
 
   <section class="folders-grid" *ngIf="!folderOpened">

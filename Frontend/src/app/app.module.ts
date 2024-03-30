@@ -7,6 +7,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { Observable, map } from "rxjs";
+import { ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./Components/home/home.component";
@@ -52,6 +53,7 @@ function initializeAppFactory(
     BrowserAnimationsModule,
     MatInputModule,
     MatFormFieldModule,
+    ReactiveFormsModule,
   ],
   providers: [
     {

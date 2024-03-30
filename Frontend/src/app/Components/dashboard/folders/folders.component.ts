@@ -28,6 +28,7 @@ export class FoldersComponent implements OnInit, OnDestroy {
 
   tempId: any;
   tempLinks: any = [];
+  tempShare: any;
 
   updateTempLinks(folderId: string) {
     const folderIndex = this.folders.findIndex((folder) => {
@@ -87,6 +88,7 @@ export class FoldersComponent implements OnInit, OnDestroy {
 
     this.tempLinks = this.folders[folderIndex].links;
     this.tempId = this.folders[folderIndex].id;
+    this.tempShare = this.folders[folderIndex].private;
   }
 
   closeFolder(): void {
@@ -115,7 +117,14 @@ export class FoldersComponent implements OnInit, OnDestroy {
       .shareFolder(this.shareFolderForm.value.password, true, this.tempId)
       .subscribe((res) => {
         this.tempShareUrl = res;
+        this.tempShare = false;
       });
+  }
+
+  unshareFolder() {
+    this.foldersService
+      .unshareFolder(this.tempId, !this.tempShare)
+      .subscribe(() => (this.tempShare = !this.tempShare));
   }
 
   toggleShareWindow(): void {

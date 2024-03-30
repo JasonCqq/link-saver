@@ -60,3 +60,46 @@
     }
   }
 }
+
+.public-hidden,
+.public-password {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  gap: 2vh;
+
+  > a {
+    font-size: 2.5rem;
+    color: $accent;
+    font-weight: bold;
+  }
+
+  > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 15px;
+
+    button {
+      background: transparent;
+      border-radius: 10px;
+      border: 2px solid $accent;
+      padding: 7px 25px;
+      font-weight: bold;
+
+      transition:
+        background-color 0.1s ease-in-out,
+        color 0.1s ease-in-out;
+
+      &:hover {
+        background-color: $accent;
+        color: $text2;
+        cursor: pointer;
+      }
+    }
+  }
+}

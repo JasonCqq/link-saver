@@ -97,4 +97,12 @@ export class FoldersService {
       { withCredentials: true },
     );
   }
+
+  unshareFolder(id: string, share: boolean) {
+    return this.http.put(
+      `${this.apiUrl}/folders/unshare/${id}/${this.userService.getUser()?.user.id}`,
+      { share: share },
+      { withCredentials: true },
+    );
+  }
 }

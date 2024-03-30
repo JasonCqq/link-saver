@@ -1,12 +1,13 @@
-- Add shareable link for folder
-- Forgot/Change password
 - Angular style duplication
 - Improve Lighthouse score
 - Add some loaders, like for adding links
-- Add prevention for multiple shares
-- Change Postgres Info + Change Session + Remove emailNotification
+- Fix naming convention and shorten any code possible
+
+- Forgot/Change password
+
+- Change Postgres Info + Change Session Info
 
   Future:
 
-- Mass select for mass options (check)
+- Mass select for mass options
 - Pagination

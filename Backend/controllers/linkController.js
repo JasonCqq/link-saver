@@ -167,22 +167,20 @@ exports.edit_link = [
           res.status(401).send("Not authenticated");
         }
 
-        await prisma.$transaction(async (prisma) => {
-          const link = await prisma.Link.update({
-            where: {
-              id: req.params.id,
-              userId: req.params.userId,
-            },
+        const link = await prisma.Link.update({
+          where: {
+            id: req.params.id,
+            userId: req.params.userId,
+          },
 
-            data: {
-              title: req.body.title,
-              bookmarked: JSON.parse(req.body.bookmarked),
-              ...(req.body.folder
-                ? { folder: { connect: { id: req.body.folder } } }
-                : {}),
-              remind: req.body.remind || null,
-            },
-          });
+          data: {
+            title: req.body.title,
+            bookmarked: JSON.parse(req.body.bookmarked),
+            ...(req.body.folder
+              ? { folder: { connect: { id: req.body.folder } } }
+              : {}),
+            remind: req.body.remind || null,
+          },
         });
       } catch (err) {
         console.log(err);
