@@ -2,9 +2,11 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./Components/home/home.component";
 import { AuthGuard } from "./auth.guard";
+import { PublicFolderComponent } from "./Components/public-folder/public-folder.component";
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
+  { path: "public/:id", component: PublicFolderComponent },
 
   {
     path: "user",

@@ -1,1 +1,36 @@
-<p>public-folder works!</p>
+<main class="public-folder">
+  <header>
+    <a routerLink="">LinkStorage</a>
+
+    <p>This folder was created by {{ author }}</p>
+  </header>
+
+  <section class="content-grid">
+    <div *ngFor="let link of links">
+      <div class="link-item">
+        <section>
+          <a class="link-details" [href]="'//' + link.url" target="_blank">
+            <p class="link-url">{{ link.url | slice: 0 : 25 }}</p>
+            <p class="link-title">
+              {{ link.title | slice: 0 : 30
+              }}{{ link.title.length > 30 ? "..." : "" }}
+            </p>
+            <p class="link-date">
+              {{ link.createdAt | date: "shortDate" }}
+            </p>
+          </a>
+
+          <div class="link-preview">
+            <img
+              src="{{ 'data:image/png;base64,' + link.thumbnail }}"
+              height="100px"
+              width="170px"
+            />
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <footer>Sign up today to share your own links and folders!</footer>
+</main>

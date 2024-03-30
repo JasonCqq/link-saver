@@ -55,5 +55,7 @@ import { LinkEditFormComponent } from "./links/link-edit-form/link-edit-form.com
     MatSelectModule,
     MatSidenavModule,
   ],
+
+  exports: [LinkComponent],
 })
 export class DashboardModule {}

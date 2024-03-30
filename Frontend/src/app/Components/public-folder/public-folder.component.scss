@@ -1,0 +1,62 @@
+@import "../dashboard/links/link-item/link-item.component.scss";
+@import "../../../assets/styles.scss";
+
+.public-folder {
+  height: auto;
+  width: 100vw;
+
+  > header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+
+    > a {
+      color: $accent;
+      font-size: 2.5rem;
+      font-weight: bold;
+      padding-top: 5vh;
+    }
+  }
+
+  > .content-grid {
+    margin-left: 5vw;
+    margin-top: 5vh;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 380px));
+
+    column-gap: 2vw;
+    row-gap: 3vh;
+
+    @media screen and (max-width: 817px) {
+      justify-content: center;
+      align-items: center;
+    }
+
+    @media screen and (max-width: 340px) {
+      row-gap: 5vh;
+    }
+  }
+
+  > footer {
+    position: fixed;
+    bottom: 0;
+    height: 5vh;
+    background-color: $accent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $text2;
+    width: 100vw;
+
+    @media screen and (max-width: 400px) {
+      font-size: 0.8rem;
+    }
+
+    @media screen and (max-width: 300px) {
+      font-size: 0.7rem;
+    }
+  }
+}

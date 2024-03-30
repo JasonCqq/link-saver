@@ -166,19 +166,27 @@ exports.search_folder_links = asyncHandler(async (req, res) => {
 });
 
 exports.get_shared_folder = asyncHandler(async (req, res) => {
-  asyncHandler(async (req, res) => {
+  try {
     const sharedFolder = await prisma.Share.findUnique({
       where: {
-        id: req.params.id,
+        id: JSON.parse(req.params.id),
+        public: true,
+      },
 
-        include: { links },
+      include: {
+        folder: { include: { links: true } },
+        user: true,
       },
     });
-  });
 
-  res.status(200).json({
-    folder: sharedFolder,
-  });
+    res.status(200).json({
+      folderName: sharedFolder.folder.name,
+      authorName: sharedFolder.user.username,
+      links: sharedFolder.folder.links,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 exports.create_shared_folder = [
@@ -198,27 +206,57 @@ exports.create_shared_folder = [
         .json({ errors: errs.array().map((err) => err.msg) });
     } else {
       try {
-        const share = await prisma.Share.create({
-          data: {
-            folder: {
-              connect: {
-                id: req.params.folderId,
-              },
+        await prisma.$transaction(async (prisma) => {
+          const link = await prisma.Link.update({
+            where: {
+              id: req.params.id,
+              userId: req.params.userId,
             },
 
-            public: JSON.parse(req.body.share),
-
-            user: {
-              connect: {
-                id: req.params.userId,
-              },
+            data: {
+              title: req.body.title,
+              bookmarked: JSON.parse(req.body.bookmarked),
+              ...(req.body.folder
+                ? { folder: { connect: { id: req.body.folder } } }
+                : {}),
+              remind: req.body.remind || null,
             },
-
-            password: req.body.password,
-          },
+          });
         });
 
-        res.status(200).json({ url: share.id });
+        await prisma.$transaction(async (prisma) => {
+          const folder = await prisma.Folder.update({
+            where: {
+              id: req.params.folderId,
+            },
+
+            data: {
+              private: false,
+            },
+          });
+
+          const share = await prisma.Share.create({
+            data: {
+              folder: {
+                connect: {
+                  id: req.params.folderId,
+                },
+              },
+
+              public: JSON.parse(req.body.share),
+
+              user: {
+                connect: {
+                  id: req.params.userId,
+                },
+              },
+
+              password: req.body.password,
+            },
+          });
+
+          res.status(200).json({ url: share.id });
+        });
       } catch (err) {
         console.log(err);
       }
