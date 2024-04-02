@@ -3,8 +3,8 @@
     <a class="link-details" [href]="'//' + itemData.url" target="_blank">
       <p class="link-url">{{ itemData.url | slice: 0 : 25 }}</p>
       <p class="link-title">
-        {{ itemData.title | slice: 0 : 30
-        }}{{ itemData.title.length > 30 ? "..." : "" }}
+        {{ itemData.title | slice: 0 : 35
+        }}{{ itemData.title.length > 35 ? "..." : "" }}
       </p>
       <p class="link-date" *ngIf="specialRequest === 'none'">
         {{ itemData.createdAt | date: "shortDate" }}
@@ -26,18 +26,17 @@
   <!--Link CRUD Options-->
   <div class="link-options">
     <mat-icon
+      fontIcon="edit"
+      class="link-edit"
+      *ngIf="specialRequest !== 'delete'"
+      (click)="toggleEdit()"
+    ></mat-icon>
+
+    <mat-icon
       fontIcon="close"
       class="link-delete"
       (click)="moveToTrash()"
       *ngIf="specialRequest !== 'delete'"
-    ></mat-icon>
-
-    <mat-icon
-      fontIcon="edit"
-      class="link-edit"
-      style="transform: scale(0.8)"
-      *ngIf="specialRequest !== 'delete'"
-      (click)="toggleEdit()"
     ></mat-icon>
 
     <mat-icon
@@ -51,7 +50,6 @@
     <mat-icon
       fontIcon="restore"
       class="link-restore"
-      style="transform: scale(0.95)"
       *ngIf="specialRequest === 'delete'"
       (click)="restoreLink()"
     ></mat-icon>

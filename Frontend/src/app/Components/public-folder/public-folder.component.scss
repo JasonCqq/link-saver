@@ -1,5 +1,4 @@
 @import "../dashboard/links/link-item/link-item.component.scss";
-@import "../../../assets/styles.scss";
 
 .public-folder {
   height: auto;
@@ -17,6 +16,11 @@
       font-size: 2.5rem;
       font-weight: bold;
       padding-top: 5vh;
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
     }
   }
 

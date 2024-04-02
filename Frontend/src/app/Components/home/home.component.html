@@ -7,16 +7,18 @@
       {{ this.data.links }} links saved in {{ this.data.folders }} folders
     </p>
     <div class="landing-body">
-      <a routerLink="/user/login" *ngIf="!user">Log in</a>
-      <a routerLink="/user/register" *ngIf="!user" class="nav-button">
+      <a routerLink="/user/login" *ngIf="!user" class="login-button">Log in</a>
+      <a routerLink="/user/register" *ngIf="!user" class="register-button">
         Register
       </a>
-      <a routerLink="/dashboard" *ngIf="user" class="nav-button">Dashboard</a>
+      <a routerLink="/dashboard" *ngIf="user" class="dashboard-button"
+        >Dashboard</a
+      >
     </div>
   </header>
 
   <section #home_features class="home_features">
-    <h1>A Better Way to <u>Store Links</u></h1>
+    <h1>A Better Way to Store Links</h1>
     <div class="home-features-grid">
       <div class="home-features-item">
         <span>
@@ -79,7 +81,10 @@
   </section>
 
   <section class="home_showcase">
-    <h1>Showcase</h1>
+    <h1 (click)="toggleShowcase()">
+      Video Showcase <span class="material-icons-round"> arrow_drop_down </span>
+    </h1>
+
     <iframe
       width="560"
       height="315"
@@ -90,6 +95,7 @@
       referrerpolicy="strict-origin-when-cross-origin"
       allowfullscreen
       class="showcase_video"
+      *ngIf="videoShowcase"
     ></iframe>
   </section>
 
@@ -104,7 +110,7 @@
       >
         <div class="faq-flex">
           <p>{{ faq.question }}</p>
-          <mat-icon class="faq-icon" fontIcon="add"></mat-icon>
+          <span class="material-icons-round faq-icon">add</span>
         </div>
         <p class="faq-answer" *ngIf="activeID === faq.id">{{ faq.answer }}</p>
       </div>

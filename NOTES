@@ -1,13 +1,7 @@
-- Angular style duplication
-- Improve Lighthouse score
-- Add some loaders, like for adding links
-- Fix naming convention and shorten any code possible
-
 - Forgot/Change password
 
-- Change Postgres Info + Change Session Info
-
-  Future:
-
 - Mass select for mass options
+
 - Pagination
+
+- Change Postgres Info + Change Session Info

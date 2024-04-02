@@ -1,5 +1,4 @@
 @import "../../../../assets/sharedstyles.scss";
-@import "../../../../assets/styles.scss";
 
 span {
   > .clear-prompt-overlay {
@@ -21,8 +20,8 @@ span {
       justify-content: center;
       gap: 2vh;
       width: 20vw;
-      height: 15vh;
-      border-radius: 15px;
+      height: 20vh;
+      border-radius: 5px;
       border: 1px solid $accent;
       background: $background;
 
@@ -48,16 +47,25 @@ span {
 
         > button {
           border: none;
-          padding: 5px 15px;
+          padding: 10px 25px;
           color: $text;
           border: 2px solid $accent;
           background: transparent;
-          border-radius: 15px;
+          border-radius: 5px;
 
           &:hover {
             cursor: pointer;
             background-color: $accent;
             color: $text2;
+          }
+        }
+
+        > .clear-prompt-no {
+          background-color: $accent;
+          color: $text2;
+          &:hover {
+            background-color: transparent;
+            color: $text;
           }
         }
       }
@@ -70,9 +78,9 @@ span {
     color: $text;
     padding: 12px 21px;
     font-weight: 900;
-    background: $imp-button;
-    border: none;
-    border-radius: 15px;
+    background-color: $imp-button;
+    border: 2px solid $imp-button;
+    border-radius: 5px;
     display: flex;
     align-items: center;
     transition: box-shadow 0.15s ease-in-out;
@@ -87,9 +95,10 @@ span {
       margin-left: 10vw;
     }
 
+    transition: background-color 0.2s;
     &:hover {
       cursor: pointer;
-      box-shadow: 1px 1px 10px $imp-button;
+      background-color: transparent;
     }
   }
 }

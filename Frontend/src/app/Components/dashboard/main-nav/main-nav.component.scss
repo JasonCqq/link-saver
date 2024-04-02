@@ -45,7 +45,6 @@
 
       > .nav-preview-icon {
         transform: scale(1.2);
-        margin-left: 0.5vw;
 
         @media screen and (max-width: 440px) {
           margin-left: 4vw;
@@ -59,11 +58,11 @@
 
       > button {
         color: $text;
-        padding: 11px 20px;
+        padding: 9px 20px;
         font-weight: 700;
         background: transparent;
         border: 2px solid $accent;
-        border-radius: 15px;
+        border-radius: 5px;
         display: flex;
         align-items: center;
         transition:
@@ -95,7 +94,7 @@
         height: auto;
         padding: 0 0 10vh 0;
         width: 30vw;
-        border-radius: 15px;
+        border-radius: 5px;
         border: 1px solid $accent;
 
         @media screen and (max-width: 1275px) {

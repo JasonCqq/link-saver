@@ -5,8 +5,13 @@
   width: 100%;
   text-align: center;
   height: 103px;
-  border-radius: 15px;
+  border-radius: 5px;
   border: 2px solid $secondary;
+
+  @media screen and (max-width: 330px) {
+    width: 90%;
+    margin-left: 2vw;
+  }
 
   > section {
     display: flex;
@@ -29,11 +34,11 @@
       width: 175px;
 
       > img {
-        border-top-right-radius: 13px;
-        border-bottom-right-radius: 13px;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
 
         @media screen and (max-width: 476px) {
-          width: 100px;
+          width: 100%;
         }
       }
     }
@@ -43,13 +48,14 @@
       flex-direction: column;
       font-size: 0.8rem;
       height: 100px;
-      width: 100%;
+      width: 350px;
       align-items: center;
 
       > .link-title {
         font-size: 0.8rem;
         height: 50%;
         width: 80%;
+        flex-wrap: wrap;
       }
 
       > .link-url {
@@ -87,16 +93,18 @@
     background-color: $secondary;
     color: $text2;
     border-top-right-radius: 3px;
-    border-bottom-left-radius: 13px;
+    border-bottom-left-radius: 3px;
     display: flex;
     align-items: center;
     padding-bottom: 2px;
     height: auto;
 
+    transition: transform 0.2s;
+
     > .link-delete:hover,
     .link-edit:hover,
     .link-restore:hover {
-      scale: 1.1;
+      transform: scale(1.1);
       cursor: pointer;
     }
   }

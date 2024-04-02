@@ -13,9 +13,11 @@
     font-size: 2.5rem;
     color: $accent;
     margin-bottom: 10vh;
+    font-weight: 800;
+    transition: transform 0.2s;
 
     &:hover {
-      font-weight: 500;
+      transform: translateY(-7.5px);
     }
   }
 
@@ -36,7 +38,7 @@
       color: $text;
       text-align: center;
       padding-bottom: 2vh;
-      font-size: 1rem;
+      font-size: 1.25rem;
     }
 
     > div {
@@ -50,7 +52,7 @@
 
       > input {
         border: 1px solid $accent;
-        border-radius: 15px;
+        border-radius: 5px;
         font-size: 1.1rem;
         padding: 10px;
         background: none;
@@ -67,15 +69,17 @@
       font-size: 1rem;
       background-color: $accent;
       padding: 2.25vh 0;
-      border-radius: 15px;
+      border-radius: 5px;
       margin-top: 1vh;
+      margin-bottom: 1vh;
       color: $text2;
       transition: box-shadow 0.15s ease-in-out;
       font-weight: bold;
+      transition: transform 0.2s;
 
       &:hover {
         cursor: pointer;
-        box-shadow: 1px 1px 10px $accent;
+        transform: translateY(-7.5px);
       }
 
       &:disabled {
@@ -88,11 +92,11 @@
     }
   }
 
-  .login-ref {
-    margin-top: 2vh;
+  .login-extra {
     font-size: 1rem;
     &:hover {
       color: $accent;
+      cursor: pointer;
     }
   }
 }

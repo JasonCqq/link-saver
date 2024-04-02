@@ -18,7 +18,7 @@
     background-color: $background2;
     display: flex;
     flex-direction: column;
-    border-radius: 15px;
+    border-radius: 5px;
     border: 1px solid $accent;
     width: 20vw;
     height: auto;
@@ -70,7 +70,7 @@
       background-color: transparent;
       margin-top: 3vh;
       color: $text;
-      border-radius: 15px;
+      border-radius: 5px;
       font-weight: 600;
       transition:
         background-color 0.25s ease-in-out,

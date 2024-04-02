@@ -33,7 +33,7 @@
         background-color: $background;
         width: 25vw;
         height: 35vh;
-        border-radius: 15px;
+        border-radius: 5px;
         border: 1px solid $accent;
         display: flex;
         align-items: center;
@@ -56,7 +56,7 @@
           background-color: $imp-button;
           border: none;
           padding: 10px 20px;
-          border-radius: 15px;
+          border-radius: 5px;
           color: $text;
 
           &:hover {
@@ -76,7 +76,7 @@
           border: none;
           border: 2px solid $accent;
           background: transparent;
-          border-radius: 15px;
+          border-radius: 5px;
           padding: 1vh 1vw;
           font-size: 1rem;
 
@@ -131,21 +131,23 @@
 
       > .settings-delete {
         background-color: $imp-button;
-        border: none;
+        border: 2px solid $imp-button;
         padding: 10px 15px;
-        border-radius: 10px;
+        border-radius: 5px;
         color: $text;
+
+        transition: background-color 0.2s;
 
         &:hover {
           cursor: pointer;
-          box-shadow: 1px 1px 10px $imp-button;
+          background-color: transparent;
         }
       }
 
       > .settings-apply {
         padding: 10px 15px;
         border: none;
-        border-radius: 15px;
+        border-radius: 5px;
         border: 2px solid $accent;
         color: $text;
         background-color: transparent;
@@ -154,7 +156,7 @@
           color 0.2s ease-in-out;
 
         &:disabled {
-          opacity: 0.4;
+          opacity: 0.5;
           &:hover {
             cursor: default;
           }

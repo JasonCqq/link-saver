@@ -20,6 +20,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   user: any;
   data: any;
 
+  videoShowcase: boolean = false;
+  toggleShowcase() {
+    this.videoShowcase = !this.videoShowcase;
+  }
+
   ngOnInit() {
     this.userService.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       this.user = user?.user;
