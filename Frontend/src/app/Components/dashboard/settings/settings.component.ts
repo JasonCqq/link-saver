@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "../../user/user.service";
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { DashboardService } from "../dashboard.service";
 import { LinkService } from "../links/link-item/link-item.service";
 
@@ -28,13 +28,60 @@ export class SettingsComponent implements OnInit {
     }
   }
 
+  passwordChangeOverlay: boolean = false;
+  passwordChangeForm = new FormGroup({
+    currentPass: new FormControl("", [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(20),
+    ]),
+    newPass: new FormControl("", [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(20),
+    ]),
+    newPass2: new FormControl("", [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(20),
+    ]),
+  });
+
+  passwordChangeError: any;
+
+  submitPasswordChange(): void {
+    if (
+      this.passwordChangeForm.value.newPass !==
+      this.passwordChangeForm.value.newPass2
+    ) {
+      this.passwordChangeError = "The new passwords do not match";
+      return;
+    }
+
+    this.userService
+      .changePassword(
+        this.passwordChangeForm.value.currentPass ?? "",
+        this.passwordChangeForm.value.newPass ?? "",
+        this.passwordChangeForm.value.newPass2 ?? "",
+      )
+      .subscribe((res) => {
+        if (res) {
+          this.togglePassChangeForm();
+          alert("Your password has successfully been changed");
+        }
+      });
+  }
+
+  togglePassChangeForm(): void {
+    this.passwordChangeOverlay = !this.passwordChangeOverlay;
+  }
+
   preferenceForm = new FormGroup({
     previews: new FormControl(),
   });
 
   changesApplied = false;
-
-  submitForm(): void {
+  submitPreferenceForm(): void {
     this.dashboardService
       .submitSettings(this.preferenceForm.value.previews, this.user.user.id)
       .subscribe((res) => {

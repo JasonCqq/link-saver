@@ -25,7 +25,7 @@
       transition: border-color 0.15s ease-in-out;
 
       &:hover {
-        border-color: white;
+        border-color: $border;
         cursor: pointer;
       }
 
@@ -68,7 +68,7 @@
         height: 24vh;
         background-color: $background;
         border-radius: 5px;
-        border: 1px solid $accent;
+        border: 2px solid $accent;
         display: flex;
         flex-direction: column;
         gap: 10px;
@@ -120,7 +120,7 @@
 
           &:hover {
             background-color: $accent;
-            color: $text2;
+            color: $text;
             cursor: pointer;
           }
         }
@@ -149,7 +149,7 @@
       height: 60vh;
       background-color: $background;
       border-radius: 5px;
-      border: 1px solid $accent;
+      border: 2px solid $accent;
       display: flex;
       flex-direction: column;
       gap: 15px;
@@ -253,7 +253,7 @@
 
       &:hover {
         background-color: $accent;
-        color: $text2;
+        color: $text;
         cursor: pointer;
       }
     }

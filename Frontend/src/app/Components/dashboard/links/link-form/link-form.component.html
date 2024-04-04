@@ -7,7 +7,7 @@
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label for="folder">Folder</mat-label>
+    <mat-label for="folder">Folder (Optional)</mat-label>
     <mat-select #folder formControlName="folder">
       <mat-option *ngFor="let folder of folders" [value]="folder.id">{{
         folder.name
@@ -23,6 +23,7 @@
       formControlName="remind"
       matInput
       [matDatepicker]="picker"
+      placeholder="(Optional)"
     />
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
@@ -34,6 +35,5 @@
 
   <div class="add-link-form-buttons">
     <button type="submit">Submit</button>
-    <a style="opacity: 0.25">Add multiple</a>
   </div>
 </form>

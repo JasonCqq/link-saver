@@ -22,7 +22,7 @@
         />
         <mat-error *ngIf="deletePromptError">Input does not match</mat-error>
         <button (click)="deleteAccount()" class="settings-delete">
-          DELETE
+          Delete
         </button>
       </section>
     </div>
@@ -40,7 +40,84 @@
           user.user.creationDate | date: "shortDate"
         }}</span>
       </p>
-      <p style="color: white">Change Password</p>
+      <button
+        style="color: white"
+        class="settings-change-pass"
+        (click)="togglePassChangeForm()"
+      >
+        Change Password
+      </button>
+
+      <div class="password-change-overlay" *ngIf="this.passwordChangeOverlay">
+        <form
+          [formGroup]="passwordChangeForm"
+          (submit)="submitPasswordChange()"
+        >
+          <mat-icon
+            fontIcon="close"
+            (click)="togglePassChangeForm()"
+            class="close-form"
+          ></mat-icon>
+          <h3>Change Password</h3>
+
+          <mat-form-field appearance="outline">
+            <mat-label for="currentPass">Current Password</mat-label>
+            <input
+              matInput
+              type="password"
+              required
+              placeholder="********"
+              formControlName="currentPass"
+              #currentPass
+              minlength="8"
+              maxlength="20"
+            />
+            <mat-error *ngIf="passwordChangeForm.get('currentPass')?.invalid"
+              >Invalid password</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label for="newPass">New Password (8-20 characters)</mat-label>
+            <input
+              matInput
+              type="password"
+              required
+              placeholder="********"
+              formControlName="newPass"
+              #newPass
+              minlength="8"
+              maxlength="20"
+            />
+
+            <mat-error *ngIf="passwordChangeForm.get('newPass')?.invalid"
+              >Invalid new password</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label for="newPass2">Confirm New Password</mat-label>
+            <input
+              matInput
+              type="password"
+              required
+              placeholder="********"
+              formControlName="newPass2"
+              #newPass2
+              minlength="8"
+              maxlength="20"
+            />
+          </mat-form-field>
+
+          <button type="submit" [disabled]="!passwordChangeForm.dirty">
+            Change Password
+          </button>
+
+          <p style="color: red" *ngIf="passwordChangeError">
+            {{ passwordChangeError }}
+          </p>
+        </form>
+      </div>
     </section>
 
     <section class="settings-item">
@@ -54,7 +131,7 @@
     <form
       class="settings-item"
       [formGroup]="preferenceForm"
-      (submit)="submitForm()"
+      (submit)="submitPreferenceForm()"
     >
       <h3>Preferences</h3>
 

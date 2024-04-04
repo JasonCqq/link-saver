@@ -191,3 +191,67 @@ exports.submit_settings = [
     }
   }),
 ];
+
+exports.change_password = [
+  body("currentPass").trim().escape(),
+  body("newPass", "Password must be between 8-20 characters")
+    .trim()
+    .isLength({ min: 8, max: 20 })
+    .escape(),
+  body("newPass2", "Password must be between 8-20 characters")
+    .trim()
+    .isLength({ min: 8, max: 20 })
+    .escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errs = validationResult(req);
+
+    if (!errs.isEmpty()) {
+      res.status(400).json({ errors: errs.array().map((error) => error.msg) });
+    } else {
+      if (!req.params.userId || req.session.user.id !== req.params.userId) {
+        res.status(401).send("Not authenticated");
+      }
+
+      if (req.body.newPass !== req.body.newPass2) {
+        res.status(400).send("Passwords do not match");
+      }
+
+      try {
+        const user = await prisma.User.findUnique({
+          where: { id: req.params.userId },
+        });
+
+        bcrypt.compare(
+          req.body.currentPass,
+          user.password,
+          async (err, res) => {
+            if (res) {
+              try {
+                bcrypt.hash(req.body.newPass2, 10, async (err, hashedPass) => {
+                  const updatedUser = await prisma.User.update({
+                    where: { id: req.params.userId },
+                    data: {
+                      password: hashedPass,
+                    },
+                  });
+                });
+              } catch (err) {
+                return res.status(500).json({
+                  error: "Error Hashing Password. (Bcrypt Error)",
+                });
+              }
+            }
+            if (err) {
+              console.log(err);
+            }
+          },
+        );
+      } catch (err) {
+        console.log(err);
+      }
+
+      res.status(200).json({});
+    }
+  }),
+];

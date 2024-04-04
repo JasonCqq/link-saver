@@ -1,4 +1,5 @@
 <main class="home-page">
+  <div class="home-border"></div>
   <header class="landing-page" #home>
     <div class="landing-heading">
       <section>LinkStorage</section>
@@ -17,8 +18,26 @@
     </div>
   </header>
 
+  <section class="home_showcase">
+    <h1 (click)="toggleShowcase()">
+      Watch Demo <span class="material-icons-round"> arrow_drop_down </span>
+    </h1>
+
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/nHZwcVttlfU?si=ITYFuu1rsN41HDOp?autoplay=1&mute=1"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen
+      class="showcase_video"
+      *ngIf="videoShowcase"
+    ></iframe>
+  </section>
+
   <section #home_features class="home_features">
-    <h1>A Better Way to Store Links</h1>
     <div class="home-features-grid">
       <div class="home-features-item">
         <span>
@@ -80,25 +99,6 @@
     </div>
   </section>
 
-  <section class="home_showcase">
-    <h1 (click)="toggleShowcase()">
-      Video Showcase <span class="material-icons-round"> arrow_drop_down </span>
-    </h1>
-
-    <iframe
-      width="560"
-      height="315"
-      src="https://www.youtube.com/embed/nHZwcVttlfU?si=ITYFuu1rsN41HDOp?autoplay=1&mute=1"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen
-      class="showcase_video"
-      *ngIf="videoShowcase"
-    ></iframe>
-  </section>
-
   <section #home_faq class="home_faq">
     <h1>Frequently Asked Questions</h1>
 
@@ -150,7 +150,7 @@
   </section>
 
   <footer class="foot-note">
-    Experimental, source:
+    Source can be found on:
     <a href="https://github.com/JasonCqq/link-saver" target="_blank"
       ><u style="margin-left: 4px">GitHub</u></a
     >

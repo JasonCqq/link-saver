@@ -1,17 +1,18 @@
 @use "@angular/material" as mat;
 @include mat.core();
 
-$secondary: #ffc446;
-$accent: #ffc446;
-$background: #181a1b;
-$background2: #161616;
-$text: #d9d6d1;
-$text2: #191919;
+$secondary: #6650f0;
+$accent: #6650f0;
+$background: #0a071b;
+$background2: #141125;
+$border: #2a263f;
+$text: white;
+$text2: white;
 $textSec: #a9a9a9;
 $imp-button: #f73830;
 
-$Frontend-primary: mat.define-palette(mat.$amber-palette);
-$Frontend-accent: mat.define-palette(mat.$orange-palette, A200);
+$Frontend-primary: mat.define-palette(mat.$purple-palette);
+$Frontend-accent: mat.define-palette(mat.$deep-purple-palette, A200);
 $Frontend-warn: mat.define-palette(mat.$red-palette);
 $Frontend-theme: mat.define-dark-theme(
   (
@@ -100,8 +101,8 @@ button {
 }
 
 code {
-  font-family: "REM", "Nunito", source-code-pro, Menlo, Monaco, Consolas,
-    "Courier New", monospace;
+  font-family: "REM", source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
 // Scrollbar
@@ -109,12 +110,12 @@ code {
   width: 15px;
 }
 ::-webkit-scrollbar-track {
-  background: #191919;
+  background: $background;
 }
 ::-webkit-scrollbar-thumb {
   background: $accent;
   &:hover {
-    background: #fcc480;
+    background: #4028de;
   }
 }
 

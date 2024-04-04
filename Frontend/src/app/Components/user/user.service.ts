@@ -126,4 +126,16 @@ export class UserService {
         error: (error) => alert(JSON.stringify(error.error.errors)),
       });
   }
+
+  changePassword(currentPass: string, newPass: string, newPass2: string) {
+    return this.http.put(
+      `${this.apiUrl}/user/changePassword/${this.getUser()?.user.id}`,
+      {
+        currentPass: currentPass,
+        newPass: newPass,
+        newPass2: newPass2,
+      },
+      { withCredentials: true },
+    );
+  }
 }

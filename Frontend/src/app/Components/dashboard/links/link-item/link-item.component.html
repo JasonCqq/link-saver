@@ -40,18 +40,17 @@
     ></mat-icon>
 
     <mat-icon
-      fontIcon="close"
-      class="link-delete"
-      style="color: #f73830"
-      *ngIf="specialRequest === 'delete'"
-      (click)="permanentDelete()"
-    ></mat-icon>
-
-    <mat-icon
       fontIcon="restore"
       class="link-restore"
       *ngIf="specialRequest === 'delete'"
       (click)="restoreLink()"
+    ></mat-icon>
+
+    <mat-icon
+      fontIcon="close"
+      class="link-delete"
+      *ngIf="specialRequest === 'delete'"
+      (click)="permanentDelete()"
     ></mat-icon>
   </div>
 </div>

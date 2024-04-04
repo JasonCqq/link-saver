@@ -7,6 +7,11 @@
   height: 103px;
   border-radius: 5px;
   border: 2px solid $secondary;
+  transition: border-color 0.1s ease;
+
+  &:hover {
+    border-color: $border;
+  }
 
   @media screen and (max-width: 330px) {
     width: 90%;
@@ -17,10 +22,10 @@
     display: flex;
 
     &:hover {
-      opacity: 0.85;
+      opacity: 0.95;
       > .link-details {
         > .link-url {
-          color: $secondary;
+          color: $text;
         }
         > .link-title {
           color: $textSec;
@@ -29,13 +34,13 @@
     }
 
     > .link-preview {
-      border-left: 2px solid $accent;
       height: 100px;
       width: 175px;
 
       > img {
         border-top-right-radius: 3px;
         border-bottom-right-radius: 3px;
+        height: 99%;
 
         @media screen and (max-width: 476px) {
           width: 100%;

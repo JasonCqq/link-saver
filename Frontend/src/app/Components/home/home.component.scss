@@ -22,7 +22,6 @@
       margin-top: 7.5vh;
       width: 50%;
       font-weight: bold;
-      color: $accent;
       padding-bottom: 10px;
     }
 
@@ -61,7 +60,7 @@
       .dashboard-button {
         background-color: $accent;
         color: $text2;
-        transition: transform 0.2s;
+        transition: transform 0.1s;
 
         &:hover {
           transform: translateY(-10px);
@@ -71,16 +70,11 @@
   }
 
   .home_features {
-    margin-top: 14vh;
+    margin-top: 7vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     height: auto;
-
-    > h1 {
-      font-size: 17.5px;
-      font-weight: 800;
-    }
 
     .home-features-grid {
       display: grid;
@@ -104,12 +98,13 @@
 
       .home-features-item {
         display: flex;
-        background-color: #27292a;
+        background-color: #141125;
         align-items: center;
         justify-content: flex-start;
         border-radius: 5px;
         min-height: 125px;
         gap: 2vw;
+        border: 2px solid #2a263f;
 
         @media screen and (max-width: 390px) {
           padding: 3vh 0vw;
@@ -172,6 +167,9 @@
     }
 
     > .showcase_video {
+      border: 3px solid $border;
+      border-radius: 5px;
+
       @media screen and (max-width: 580px) {
         width: 400px;
         height: 250px;
@@ -284,7 +282,7 @@
     .contact-form {
       display: flex;
       flex-direction: column;
-      gap: 5vh;
+      gap: 3vh;
 
       > h1 {
         text-align: center;
@@ -329,7 +327,7 @@
 }
 
 mat-form-field {
-  width: 35vw;
+  width: 25vw;
   height: 5vh;
 
   @media screen and (max-width: 1000px) {
