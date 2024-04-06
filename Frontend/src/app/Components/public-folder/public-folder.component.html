@@ -1,5 +1,9 @@
 <main class="public-folder" *ngIf="this.author && !this.passwordLocked">
   <header>
+    <p class="public-sign-up">
+      Sign up today to share your own links and folders!
+    </p>
+
     <a routerLink="">LinkStorage</a>
 
     <p>This folder was created by {{ author }}</p>
@@ -31,8 +35,6 @@
       </div>
     </div>
   </section>
-
-  <footer>Sign up today to share your own links and folders!</footer>
 </main>
 
 <div class="public-hidden" *ngIf="!this.author && !this.passwordLocked">
@@ -57,3 +59,15 @@
     <button type="submit">Enter</button>
   </form>
 </div>
+
+<footer class="foot-note">
+  <a href="https://github.com/JasonCqq/link-saver" target="_blank"
+    >&#x2022; Source Code</a
+  >
+
+  <a
+    href="https://www.termsfeed.com/live/a23806e5-a8bc-4542-a4fc-230353a493dc"
+    target="_blank"
+    >&#x2022; Privacy Policy</a
+  >
+</footer>

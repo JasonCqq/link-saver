@@ -21,8 +21,8 @@ span {
       gap: 2vh;
       width: 20vw;
       height: 20vh;
-      border-radius: 5px;
-      border: 2px solid $accent;
+      border-radius: 10px;
+      box-shadow: 1px 1px 25px $boxshad;
       background: $background;
 
       @media screen and (max-width: 1000px) {
@@ -51,7 +51,7 @@ span {
           color: $text;
           border: 2px solid $accent;
           background: transparent;
-          border-radius: 5px;
+          border-radius: 10px;
 
           &:hover {
             cursor: pointer;
@@ -80,7 +80,7 @@ span {
     font-weight: 900;
     background-color: $imp-button;
     border: 2px solid $imp-button;
-    border-radius: 5px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     transition: box-shadow 0.15s ease-in-out;

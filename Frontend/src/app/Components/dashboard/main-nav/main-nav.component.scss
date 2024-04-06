@@ -62,7 +62,7 @@
         font-weight: 700;
         background: transparent;
         border: 2px solid $accent;
-        border-radius: 5px;
+        border-radius: 10px;
         display: flex;
         align-items: center;
         transition:
@@ -94,8 +94,8 @@
         height: auto;
         padding: 0 0 10vh 0;
         width: 30vw;
-        border-radius: 5px;
-        border: 1px solid $accent;
+        border-radius: 10px;
+        box-shadow: 1px 1px 25px $boxshad;
 
         @media screen and (max-width: 1275px) {
           width: 35vw;

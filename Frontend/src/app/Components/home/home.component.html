@@ -2,11 +2,8 @@
   <div class="home-border"></div>
   <header class="landing-page" #home>
     <div class="landing-heading">
-      <section>LinkStorage</section>
+      <h1>LinkStorage</h1>
     </div>
-    <p *ngIf="this.data">
-      {{ this.data.links }} links saved in {{ this.data.folders }} folders
-    </p>
     <div class="landing-body">
       <a routerLink="/user/login" *ngIf="!user" class="login-button">Log in</a>
       <a routerLink="/user/register" *ngIf="!user" class="register-button">
@@ -35,6 +32,16 @@
       class="showcase_video"
       *ngIf="videoShowcase"
     ></iframe>
+  </section>
+
+  <section *ngIf="this.data" class="landing-stats">
+    <div class="landing-stats-items">
+      <p>~{{ this.data.links }} <span>Links</span></p>
+
+      <p>~{{ this.data.folders }} <span>Folders</span></p>
+
+      <p>~{{ this.data.users }} <span>Users</span></p>
+    </div>
   </section>
 
   <section #home_features class="home_features">
@@ -150,9 +157,14 @@
   </section>
 
   <footer class="foot-note">
-    Source can be found on:
     <a href="https://github.com/JasonCqq/link-saver" target="_blank"
-      ><u style="margin-left: 4px">GitHub</u></a
+      >&#x2022; Source Code</a
+    >
+
+    <a
+      href="https://www.termsfeed.com/live/a23806e5-a8bc-4542-a4fc-230353a493dc"
+      target="_blank"
+      >&#x2022; Privacy Policy</a
     >
   </footer>
 </main>

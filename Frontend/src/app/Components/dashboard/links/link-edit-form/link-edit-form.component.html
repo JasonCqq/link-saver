@@ -50,7 +50,11 @@
       <mat-datepicker #editPicker></mat-datepicker>
     </mat-form-field>
 
-    <mat-slide-toggle #editBookmarked formControlName="editBookmarked">
+    <mat-slide-toggle
+      #editBookmarked
+      formControlName="editBookmarked"
+      [hideIcon]="true"
+    >
       <p style="color: white; margin-left: 0.5vw">Bookmark</p>
     </mat-slide-toggle>
 

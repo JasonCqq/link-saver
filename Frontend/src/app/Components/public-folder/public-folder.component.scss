@@ -11,11 +11,31 @@
     flex-direction: column;
     gap: 10px;
 
+    > .public-sign-up {
+      position: fixed;
+      top: 0;
+      height: 5vh;
+      background: rgba($accent, 0.25);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $accent;
+      width: 100vw;
+
+      @media screen and (max-width: 400px) {
+        font-size: 0.8rem;
+      }
+
+      @media screen and (max-width: 300px) {
+        font-size: 0.7rem;
+      }
+    }
+
     > a {
       color: $accent;
       font-size: 2.5rem;
       font-weight: bold;
-      padding-top: 5vh;
+      padding-top: 7vh;
       transition: transform 0.2s;
 
       &:hover {
@@ -41,26 +61,6 @@
 
     @media screen and (max-width: 340px) {
       row-gap: 5vh;
-    }
-  }
-
-  > footer {
-    position: fixed;
-    bottom: 0;
-    height: 5vh;
-    background-color: $accent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: $text2;
-    width: 100vw;
-
-    @media screen and (max-width: 400px) {
-      font-size: 0.8rem;
-    }
-
-    @media screen and (max-width: 300px) {
-      font-size: 0.7rem;
     }
   }
 }
@@ -92,8 +92,10 @@
       background: transparent;
       border-radius: 10px;
       border: 2px solid $accent;
-      padding: 7px 25px;
+      padding: 10px 25px;
       font-weight: bold;
+      color: $text;
+      font-size: 1rem;
 
       transition:
         background-color 0.1s ease-in-out,
@@ -101,9 +103,33 @@
 
       &:hover {
         background-color: $accent;
-        color: $text2;
         cursor: pointer;
       }
+    }
+  }
+}
+
+.foot-note {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5vh;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: $textSec;
+  gap: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+
+  > a {
+    color: $textSec;
+
+    &:hover {
+      color: $accent;
     }
   }
 }

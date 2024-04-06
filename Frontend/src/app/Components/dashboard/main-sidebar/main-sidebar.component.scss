@@ -10,14 +10,14 @@
 
   .d-sidebar {
     min-width: 200px;
-
     background-color: $background2;
     position: fixed;
     left: 0;
     top: 0;
-    border: 2px solid $border;
+    box-shadow: 1px 1px 10px $boxshad;
     height: 100vh;
     border-radius: 10px;
+    border: none;
 
     .sidebar-profile {
       margin-top: 5vh;
@@ -51,6 +51,7 @@
       gap: 0.5vw;
       margin-top: 3vh;
       padding-right: 1vw;
+      will-change: contents;
 
       @media screen and (max-width: 965px) {
         margin-left: 2vw;
@@ -59,7 +60,7 @@
 
       h1 {
         font-size: 1.1rem;
-        font-weight: 600;
+        font-weight: 900;
         color: $text;
       }
 
@@ -87,12 +88,11 @@
 
     .sidebar-icon {
       background-color: $accent;
-      padding: 6px;
+      padding: 10px;
       transform: scale(1);
-      border: 2px solid $accent;
       margin-top: 4vh;
       margin-left: 0.5vw;
-      border-radius: 5px;
+      border-radius: 10px;
       opacity: 0.7;
       color: black;
 

@@ -15,9 +15,10 @@
     margin-bottom: 10vh;
     font-weight: 800;
     transition: transform 0.2s;
+    will-change: contents;
 
     &:hover {
-      transform: translateY(-7.5px);
+      transform: translateY(-5px);
     }
   }
 
@@ -51,8 +52,8 @@
       }
 
       > input {
-        border: 1px solid $accent;
-        border-radius: 5px;
+        border: 2px solid $accent;
+        border-radius: 10px;
         font-size: 1.1rem;
         padding: 10px;
         background: none;
@@ -69,7 +70,7 @@
       font-size: 1rem;
       background-color: $accent;
       padding: 2.25vh 0;
-      border-radius: 5px;
+      border-radius: 10px;
       margin-top: 1vh;
       margin-bottom: 1vh;
       color: $text2;

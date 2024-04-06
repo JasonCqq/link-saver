@@ -18,17 +18,20 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      font-size: 2.75rem;
       margin-top: 7.5vh;
       width: 50%;
-      font-weight: bold;
-      padding-bottom: 10px;
+
+      > h1 {
+        font-size: 2.75rem;
+        font-weight: 500;
+        padding-bottom: 2vh;
+      }
     }
 
     .landing-body {
       display: flex;
       gap: 4vw;
-      margin-top: 12.5vh;
+      margin-top: 10vh;
 
       @media screen and (max-width: 800px) {
         gap: 10vw;
@@ -37,9 +40,11 @@
       > .login-button,
       .register-button,
       .dashboard-button {
-        border-radius: 5px;
-        padding: 17.5px 25px;
-        font-weight: 600;
+        border-radius: 10px;
+        padding: 12.5px 25px;
+        font-weight: 800;
+        font-size: 1.2rem;
+        letter-spacing: 0.5px;
       }
 
       > .login-button {
@@ -52,7 +57,7 @@
         &:hover {
           background-color: $accent;
           color: $text2;
-          transform: translateY(-7.5px);
+          transform: translateY(-5px);
         }
       }
 
@@ -60,17 +65,15 @@
       .dashboard-button {
         background-color: $accent;
         color: $text2;
-        transition: transform 0.1s;
-
+        transition: transform 0.2s;
         &:hover {
-          transform: translateY(-10px);
+          transform: translateY(-5px);
         }
       }
     }
   }
 
   .home_features {
-    margin-top: 7vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -98,13 +101,13 @@
 
       .home-features-item {
         display: flex;
-        background-color: #141125;
+        background-color: $background2;
         align-items: center;
         justify-content: flex-start;
-        border-radius: 5px;
+        border-radius: 10px;
         min-height: 125px;
         gap: 2vw;
-        border: 2px solid #2a263f;
+        box-shadow: 1px 1px 5px $boxshad;
 
         @media screen and (max-width: 390px) {
           padding: 3vh 0vw;
@@ -143,6 +146,37 @@
     }
   }
 
+  .landing-stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > .landing-stats-items {
+      display: flex;
+      gap: 2vw;
+
+      > p {
+        color: $accent;
+        border-radius: 10px;
+        background: $background2;
+        padding: 12.5px 25px;
+        font-weight: 900;
+        text-align: center;
+        box-shadow: 1px 1px 5px $boxshad;
+
+        @media screen and (max-width: 359px) {
+          font-size: 0.8rem;
+          padding: 12.5px 20px;
+        }
+
+        > span {
+          color: $textSec;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
   .home_showcase {
     display: flex;
     flex-direction: column;
@@ -150,15 +184,22 @@
     align-items: center;
     gap: 3vh;
     margin-top: 10vh;
+    padding-bottom: 5vh;
 
     > h1 {
-      font-size: 1.2rem;
+      font-size: 1rem;
       display: flex;
       align-items: center;
+      justify-content: center;
+      background: rgba($accent, 0.25);
+      color: $accent;
+      padding: 12.5px 25px;
+      border-radius: 10px;
+      font-weight: 700;
 
       &:hover {
         cursor: pointer;
-        color: $accent;
+        filter: brightness(1.25);
       }
 
       > span {
@@ -167,8 +208,8 @@
     }
 
     > .showcase_video {
-      border: 3px solid $border;
-      border-radius: 5px;
+      border-radius: 10px;
+      box-shadow: 1px 1px 50px black;
 
       @media screen and (max-width: 580px) {
         width: 400px;
@@ -294,8 +335,8 @@
         font-size: 1.15rem;
         font-weight: 600;
         background-color: transparent;
-        margin-top: 12.5vh;
-        border-radius: 5px;
+        margin-top: 75px;
+        border-radius: 10px;
         color: $text;
         transition:
           background-color 0.15s ease-in-out,
@@ -315,13 +356,17 @@
     align-items: center;
     justify-content: center;
     height: 5vh;
-    background-color: $accent;
     font-size: 0.8rem;
     font-weight: bold;
-    color: $text2;
+    color: $textSec;
+    gap: 10px;
 
     > a {
-      color: $text2;
+      color: $textSec;
+
+      &:hover {
+        color: $accent;
+      }
     }
   }
 }

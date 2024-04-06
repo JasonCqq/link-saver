@@ -18,15 +18,15 @@
       display: flex;
       align-items: center;
       border: 2px solid $accent;
-      border-radius: 5px;
+      border-radius: 10px;
       padding: 5px;
       gap: 7px;
       height: 50px;
       transition: border-color 0.15s ease-in-out;
 
       &:hover {
-        border-color: $border;
         cursor: pointer;
+        border-color: white;
       }
 
       > .folders-item-flex {
@@ -67,8 +67,8 @@
         width: 27vw;
         height: 24vh;
         background-color: $background;
-        border-radius: 5px;
-        border: 2px solid $accent;
+        border-radius: 10px;
+        box-shadow: 1px 1px 25px $boxshad;
         display: flex;
         flex-direction: column;
         gap: 10px;
@@ -99,7 +99,7 @@
 
         > .folders-create-button {
           border: none;
-          border-radius: 5px;
+          border-radius: 10px;
           border: 2px solid $accent;
           background-color: transparent;
           font-weight: bold;
@@ -148,8 +148,8 @@
       width: 27vw;
       height: 60vh;
       background-color: $background;
-      border-radius: 5px;
-      border: 2px solid $accent;
+      border-radius: 10px;
+      box-shadow: 1px 1px 25px $boxshad;
       display: flex;
       flex-direction: column;
       gap: 15px;
@@ -189,7 +189,7 @@
 
       > .folders-share-button {
         border: none;
-        border-radius: 5px;
+        border-radius: 10px;
         border: 2px solid $accent;
         background-color: transparent;
         font-weight: bold;
@@ -233,7 +233,7 @@
 
     > .folders-button {
       border: none;
-      border-radius: 5px;
+      border-radius: 10px;
       border: 2px solid $accent;
       background-color: transparent;
       font-weight: 700;

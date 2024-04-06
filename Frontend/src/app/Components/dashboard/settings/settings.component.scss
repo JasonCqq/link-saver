@@ -32,9 +32,9 @@
       > .settings-delete-prompt {
         background-color: $background;
         width: 25vw;
-        height: 35vh;
-        border-radius: 5px;
-        border: 2px solid $accent;
+        height: 32.5vh;
+        border-radius: 10px;
+        box-shadow: 1px 1px 25px $boxshad;
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -52,20 +52,6 @@
           height: 35vh;
         }
 
-        > .settings-delete {
-          background-color: $imp-button;
-          border: 2px solid $imp-button;
-          padding: 10px 20px;
-          border-radius: 5px;
-          color: $text;
-          transition: background-color 0.2s;
-
-          &:hover {
-            cursor: pointer;
-            background-color: transparent;
-          }
-        }
-
         > p {
           @media screen and (max-width: 370px) {
             font-size: 0.8rem;
@@ -77,7 +63,7 @@
           border: none;
           border: 2px solid $accent;
           background: transparent;
-          border-radius: 5px;
+          border-radius: 10px;
           padding: 1vh 1vw;
           font-size: 1rem;
 
@@ -132,7 +118,7 @@
 
       > .settings-change-pass {
         border: 2px solid $accent;
-        border-radius: 5px;
+        border-radius: 10px;
         background: transparent;
         padding: 10px 25px;
 
@@ -140,6 +126,20 @@
         &:hover {
           background-color: $accent;
           cursor: pointer;
+        }
+      }
+
+      > .settings-delete {
+        background-color: $imp-button;
+        border: 2px solid $imp-button;
+        padding: 10px 20px;
+        border-radius: 10px;
+        color: $text;
+        transition: background-color 0.2s;
+
+        &:hover {
+          cursor: pointer;
+          background-color: transparent;
         }
       }
 
@@ -160,12 +160,12 @@
           justify-content: center;
           align-items: center;
           gap: 2vh;
-          border: 2px solid $border;
+          box-shadow: 1px 1px 25px black;
           background-color: $background2;
           width: 22.5vw;
           height: 55vh;
           margin: auto;
-          border-radius: 5px;
+          border-radius: 10px;
 
           @media screen and (max-width: 1275px) {
             width: 35vw;
@@ -187,7 +187,7 @@
             border: 2px solid $accent;
             background-color: transparent;
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 10px;
             color: $text;
 
             transition: background-color 0.1s ease;
@@ -221,7 +221,7 @@
         background-color: $imp-button;
         border: 2px solid $imp-button;
         padding: 10px 15px;
-        border-radius: 5px;
+        border-radius: 10px;
         color: $text;
 
         transition: background-color 0.2s;
@@ -235,7 +235,7 @@
       > .settings-apply {
         padding: 10px 20px;
         border: none;
-        border-radius: 5px;
+        border-radius: 10px;
         border: 2px solid $accent;
         color: $text;
         background-color: transparent;

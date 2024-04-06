@@ -33,7 +33,11 @@
 
       <mat-label for="passwordToggle">Password Locked</mat-label>
 
-      <mat-slide-toggle #passwordToggle formControlName="passwordToggle">
+      <mat-slide-toggle
+        #passwordToggle
+        formControlName="passwordToggle"
+        [hideIcon]="true"
+      >
       </mat-slide-toggle>
 
       <mat-form-field *ngIf="shareFolderForm.value.passwordToggle === true">
@@ -80,7 +84,7 @@
 
   <section class="folders-grid" *ngIf="!folderOpened">
     <div class="folders-item" (click)="toggleWindow()">
-      <span class="material-icons-round faq-icon" style="color: #6650f0"
+      <span class="material-icons-round faq-icon" style="color: #237bff"
         >add</span
       >
       <p>Create a new folder</p>
@@ -154,7 +158,7 @@
       (click)="openFolder(folder.id)"
     >
       <div class="folders-item-flex">
-        <mat-icon fontIcon="folder" style="color: #6650f0"></mat-icon>
+        <mat-icon fontIcon="folder" style="color: #237bff"></mat-icon>
         <p>
           {{ folder.name | slice: 0 : 10
           }}{{ folder.name.length > 10 ? "..." : "" }}
