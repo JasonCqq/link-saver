@@ -26,6 +26,14 @@ model UserSettings {
     previews Boolean @default(true)
 }
 
+model OTP {
+    id        String   @id @default(uuid())
+    email     String   @unique
+    otp       Int
+    createdAt DateTime
+    expiresAt DateTime
+}
+
 model Session {
     id        String   @id
     sid       String   @unique

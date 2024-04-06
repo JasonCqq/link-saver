@@ -112,7 +112,7 @@ export class UserService {
   // Delete Account
   async deleteAccount() {
     await this.http
-      .delete(`${this.apiUrl}/user/deleteAccount/${this.getUser()?.user.id}`, {
+      .delete(`${this.apiUrl}/user/delete_account/${this.getUser()?.user.id}`, {
         withCredentials: true,
       })
       .subscribe({
@@ -129,11 +129,43 @@ export class UserService {
 
   changePassword(currentPass: string, newPass: string, newPass2: string) {
     return this.http.put(
-      `${this.apiUrl}/user/changePassword/${this.getUser()?.user.id}`,
+      `${this.apiUrl}/user/change_password/${this.getUser()?.user.id}`,
       {
         currentPass: currentPass,
         newPass: newPass,
         newPass2: newPass2,
+      },
+      { withCredentials: true },
+    );
+  }
+
+  forgotPassword(forgot_email: string) {
+    return this.http.post(
+      `${this.apiUrl}/user/forgot_password`,
+      { forgot_email: forgot_email },
+      { withCredentials: true },
+    );
+  }
+
+  submitOTP(forgot_email: string, forgot_otp: string) {
+    return this.http.post(
+      `${this.apiUrl}/user/check_otp`,
+      { forgot_email: forgot_email, forgot_otp: forgot_otp },
+      { withCredentials: true },
+    );
+  }
+
+  submitNewPassword(
+    forgot_email: string,
+    forgot_new_pass: string,
+    forgot_new_pass2: string,
+  ) {
+    return this.http.put(
+      `${this.apiUrl}/user/new_password_otp`,
+      {
+        forgot_email: forgot_email,
+        forgot_new_pass: forgot_new_pass,
+        forgot_new_pass2: forgot_new_pass2,
       },
       { withCredentials: true },
     );

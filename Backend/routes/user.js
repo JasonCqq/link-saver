@@ -12,8 +12,14 @@ router.get("/settings/:userId", userController.get_settings);
 
 router.put("/submit_settings/:userId", userController.submit_settings);
 
-router.delete("/deleteAccount/:userId", userController.delete_user);
+router.delete("/delete_account/:userId", userController.delete_user);
 
-router.put("/changePassword/:userId", userController.change_password);
+router.put("/change_password/:userId", userController.change_password);
+
+router.post("/forgot_password", userController.forgot_password);
+
+router.post("/check_otp", userController.check_otp);
+
+router.put("/new_password_otp", userController.change_password_otp);
 
 module.exports = router;

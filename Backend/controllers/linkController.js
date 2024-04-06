@@ -50,11 +50,13 @@ exports.create_link = [
         });
         const page = await browser.newPage();
 
+        // Block Ads
         const blocked_domains = [
           "googlesyndication.com",
           "adservice.google.com",
         ];
 
+        // Remove unused resources
         await page.setRequestInterception(true);
         page.on("request", (request) => {
           const url = request.url();

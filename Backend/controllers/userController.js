@@ -4,6 +4,17 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const prisma = require("../prisma/prismaClient");
 
+// nodemailer settings
+const nodemailer = require("nodemailer");
+const transporter = nodemailer.createTransport({
+  host: "smtp.ethereal.email",
+  port: 587,
+  auth: {
+    user: "isaiah12@ethereal.email",
+    pass: "mHZKtP6dfKUZKJw22M",
+  },
+});
+
 require("dotenv").config();
 
 exports.create_user = [
@@ -250,6 +261,112 @@ exports.change_password = [
       } catch (err) {
         console.log(err);
       }
+
+      res.status(200).json({});
+    }
+  }),
+];
+
+exports.forgot_password = [
+  body("forgot_email", "Invalid Email").trim().isEmail().escape(),
+
+  asyncHandler(async (req, res) => {
+    const errs = validationResult(req);
+
+    if (!errs.isEmpty()) {
+      res.status(400).json({ errors: errs.array().map((error) => error.msg) });
+    } else {
+      const tempCode = Math.floor(100000 + Math.random() * 900000);
+
+      const otp = await prisma.OTP.create({
+        data: {
+          email: req.body.forgot_email,
+          otp: tempCode,
+          createdAt: new Date(), // This will be a DateTime object
+          expiresAt: new Date(new Date().getTime() + 15 * 60 * 1000), // Adds 15 minutes
+        },
+      });
+
+      const info = await transporter.sendMail({
+        from: "LinkStorage <isaiah12@ethereal.email>",
+        to: "isaiah12@ethereal.email",
+        subject: "OTP Code",
+        text: `Linkstorage: Your OTP Code is: ${tempCode} , if you didn't request this, you can safely ignore it."`,
+        html:
+          "<h1 style='font-size: 1rem; color:blue;'>Linkstorage</h1>" +
+          `<p style='font-size: 1.5rem; color: black; font-weight:900;'>Your OTP Code is : ${tempCode} </p>` +
+          "<p>This code will expire in 12 hours.</p>" +
+          "<footer style='color:gray;'>If you didn't request this code, you can safely ignore it.</footer>",
+      });
+
+      console.log("Message sent: %s", info.messageId);
+    }
+
+    res.status(200).json({});
+  }),
+];
+
+exports.check_otp = [
+  body("forgot_email", "Invalid Email").trim().isEmail().escape(),
+  body("forgot_otp", "Invalid OTP").trim().escape(),
+
+  asyncHandler(async (req, res) => {
+    const errs = validationResult(req);
+
+    if (!errs.isEmpty()) {
+      res.status(400).json({ errors: errs.array().map((error) => error.msg) });
+    } else {
+      const email = await prisma.OTP.findUnique({
+        where: {
+          email: req.body.forgot_email,
+        },
+      });
+
+      if (email) {
+        if (email.otp === parseInt(req.body.forgot_otp)) {
+          res.status(200).json({});
+        } else if (email.otp !== parseInt(req.body.forgot_otp)) {
+          console.log(email.otp, parseInt(req.body.forgot_otp));
+          res.status(400).send("Invalid OTP Code");
+        }
+      }
+    }
+  }),
+];
+
+exports.change_password_otp = [
+  body("forgot_email", "Invalid Email").trim().isEmail().escape(),
+  body("forgot_new_pass", "Password must be between 8-20 characters")
+    .trim()
+    .isLength({ min: 8, max: 20 })
+    .escape(),
+  body("forgot_new_pass2", "Password must be between 8-20 characters")
+    .trim()
+    .isLength({ min: 8, max: 20 })
+    .escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errs = validationResult(req);
+
+    if (!errs.isEmpty()) {
+      res.status(400).json({ errors: errs.array().map((error) => error.msg) });
+    } else {
+      console.log("test10");
+      if (req.body.newPass !== req.body.newPass2) {
+        res.status(400).send("Passwords do not match");
+      }
+
+      console.log("test11");
+
+      bcrypt.hash(req.body.forgot_new_pass, 10, async (err, hashedPass) => {
+        const updatedUser = await prisma.User.update({
+          where: { email: req.body.forgot_email },
+          data: {
+            password: hashedPass,
+          },
+        });
+      });
+      console.log("test12");
 
       res.status(200).json({});
     }
