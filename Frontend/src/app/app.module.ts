@@ -1,4 +1,9 @@
-import { NgModule, APP_INITIALIZER, Injector } from "@angular/core";
+import {
+  NgModule,
+  APP_INITIALIZER,
+  Injector,
+  HostBinding,
+} from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
@@ -8,6 +13,15 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { Observable, map } from "rxjs";
 import { ReactiveFormsModule } from "@angular/forms";
+
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  // ...
+} from "@angular/animations";
 
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./Components/home/home.component";

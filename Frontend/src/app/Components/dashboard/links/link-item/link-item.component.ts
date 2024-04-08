@@ -9,7 +9,7 @@ import {
 import { LinkService } from "./link-item.service";
 import { Link } from "src/app/Interfaces/Link";
 import { Subject, takeUntil } from "rxjs";
-import { DomSanitizer } from "@angular/platform-browser";
+import { MainNavService } from "../../main-nav/main-nav.service";
 
 @Component({
   selector: "app-link-item",
@@ -19,17 +19,17 @@ import { DomSanitizer } from "@angular/platform-browser";
 export class LinkComponent implements OnInit, OnDestroy {
   constructor(
     private linkService: LinkService,
-    private _sanitizer: DomSanitizer,
+    private mainNavService: MainNavService,
   ) {}
 
   @Input() itemData: any;
-  @Input() specialRequest: string = "none";
   @Output() linkUpdate = new EventEmitter<Link>();
 
   private destroy$ = new Subject<void>();
 
   previews: any;
   editting: boolean = false;
+  specialRequest: string = "none";
 
   toggleEdit(): void {
     this.editting = !this.editting;
@@ -40,6 +40,12 @@ export class LinkComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((state) => {
         this.previews = state;
+      });
+
+    this.mainNavService.title$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((title) => {
+        this.specialRequest = title;
       });
   }
 

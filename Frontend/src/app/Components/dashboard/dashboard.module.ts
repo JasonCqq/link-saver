@@ -14,10 +14,7 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { DashboardComponent } from "./main-dashboard/dashboard.component";
-import { BookmarksComponent } from "./bookmarks/bookmarks.component";
 import { FoldersComponent } from "./folders/folders.component";
-import { UpcomingComponent } from "./upcoming/upcoming.component";
-import { TrashbinComponent } from "./trashbin/trashbin.component";
 import { SettingsComponent } from "./settings/settings.component";
 
 import { LinkFormComponent } from "./links/link-form/link-form.component";
@@ -29,10 +26,7 @@ import { LinkEditFormComponent } from "./links/link-edit-form/link-edit-form.com
 @NgModule({
   declarations: [
     DashboardComponent,
-    BookmarksComponent,
     FoldersComponent,
-    UpcomingComponent,
-    TrashbinComponent,
     LinkFormComponent,
     LinkComponent,
     SettingsComponent,

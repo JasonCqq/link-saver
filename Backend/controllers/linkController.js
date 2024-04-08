@@ -60,16 +60,12 @@ exports.create_link = [
         await page.setRequestInterception(true);
         page.on("request", (request) => {
           const url = request.url();
-          const isUnnecessaryResource = [
-            "image",
-            "stylesheet",
-            "font",
-          ].includes(request.resourceType());
+
           const isBlockedDomain = blocked_domains.some((domain) =>
             url.includes(domain),
           );
 
-          if (isBlockedDomain || isUnnecessaryResource) {
+          if (isBlockedDomain) {
             request.abort();
           } else {
             request.continue();
@@ -230,77 +226,7 @@ exports.get_links = asyncHandler(async (req, res) => {
 
   const links = await prisma.Link.findMany({
     where: {
-      trash: false,
       userId: req.params.userId,
-    },
-
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
-
-  const formattedLinks = formatLinks(links);
-
-  res.status(200).json({ links: formattedLinks });
-});
-
-exports.get_bookmarks = asyncHandler(async (req, res) => {
-  if (!req.params.userId || req.session.user.id !== req.params.userId) {
-    res.status(401).send("Not authenticated");
-  }
-
-  const links = await prisma.Link.findMany({
-    where: {
-      bookmarked: true,
-      trash: false,
-      userId: req.params.userId,
-    },
-
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
-
-  const formattedLinks = formatLinks(links);
-
-  res.status(200).json({ links: formattedLinks });
-});
-
-exports.get_upcoming = asyncHandler(async (req, res) => {
-  if (!req.params.userId || req.session.user.id !== req.params.userId) {
-    res.status(401).send("Not authenticated");
-  }
-
-  const links = await prisma.Link.findMany({
-    where: {
-      userId: req.params.userId,
-      trash: false,
-      remind: {
-        not: {
-          equals: null,
-        },
-      },
-    },
-
-    orderBy: {
-      remind: "desc",
-    },
-  });
-
-  const formattedLinks = formatLinks(links);
-
-  res.status(200).json({ links: formattedLinks });
-});
-
-exports.get_trash = asyncHandler(async (req, res) => {
-  if (!req.params.userId || req.session.user.id !== req.params.userId) {
-    res.status(401).send("Not authenticated");
-  }
-
-  const links = await prisma.Link.findMany({
-    where: {
-      userId: req.params.userId,
-      trash: true,
     },
 
     orderBy: {

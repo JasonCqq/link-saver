@@ -2,8 +2,42 @@
 <app-main-nav (searchResults)="displayResults($event)"></app-main-nav>
 
 <main class="dashboard-container default-dash-container">
-  <section class="content-grid" *ngIf="links">
+  <span *ngIf="tempTitle === 'Trash'">
+    <button (click)="togglePrompt()">Clear All</button>
+
+    <section *ngIf="clearPrompt" class="clear-prompt-overlay">
+      <div class="clear-prompt">
+        <h1>Are you sure?</h1>
+
+        <div class="clear-prompt-flex">
+          <button (click)="deleteAllTrash(); togglePrompt()">Yes</button>
+          <button class="clear-prompt-no" (click)="togglePrompt()">No</button>
+        </div>
+      </div>
+    </section>
+  </span>
+
+  <section
+    *ngIf="links && !tempLinks"
+    [ngClass]="previews === true ? 'content-grid' : 'content-grid-no-previews'"
+    @fadeIn
+    @fadeOut
+  >
     <div *ngFor="let link of links">
+      <app-link-item
+        [itemData]="link"
+        (linkUpdate)="deleteLink($event)"
+      ></app-link-item>
+    </div>
+  </section>
+
+  <section
+    *ngIf="tempLinks"
+    [ngClass]="previews === true ? 'content-grid' : 'content-grid-no-previews'"
+    @fadeIn
+    @fadeOut
+  >
+    <div *ngFor="let link of tempLinks">
       <app-link-item
         [itemData]="link"
         (linkUpdate)="deleteLink($event)"

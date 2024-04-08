@@ -6,12 +6,6 @@ router.post("/create/:userId", linkController.create_link);
 
 router.get("/links/:userId", linkController.get_links);
 
-router.get("/bookmarks/:userId", linkController.get_bookmarks);
-
-router.get("/upcoming/:userId", linkController.get_upcoming);
-
-router.get("/trash/:userId", linkController.get_trash);
-
 router.put("/delete/:id/:userId", linkController.delete_link);
 
 router.delete("/deleteAll/:userId", linkController.perma_delete_all);

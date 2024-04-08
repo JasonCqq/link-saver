@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "../../user/user.service";
+import { MainNavService } from "../main-nav/main-nav.service";
 
 @Component({
   selector: "app-main-sidebar",
@@ -7,7 +8,10 @@ import { UserService } from "../../user/user.service";
   styleUrls: ["./main-sidebar.component.scss"],
 })
 export class MainSidebarComponent implements OnInit {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private mainNavService: MainNavService,
+  ) {}
   user: any;
 
   opened: any;
@@ -25,5 +29,9 @@ export class MainSidebarComponent implements OnInit {
 
   logOut(): void {
     this.userService.logOutUser();
+  }
+
+  changeTitle(title: string): void {
+    this.mainNavService.changeTitle(title);
   }
 }

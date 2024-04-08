@@ -11,6 +11,7 @@ import { DashboardService } from "../dashboard.service";
 import { Link } from "src/app/Interfaces/Link";
 import { Subject, debounceTime, takeUntil } from "rxjs";
 import { LinkService } from "../links/link-item/link-item.service";
+import { MainNavService } from "./main-nav.service";
 
 @Component({
   selector: "app-main-nav",
@@ -23,6 +24,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   constructor(
     private dashboardService: DashboardService,
     private linkService: LinkService,
+    private mainNavService: MainNavService,
   ) {}
 
   private destroy$ = new Subject<void>();
@@ -37,6 +39,12 @@ export class MainNavComponent implements OnInit, OnDestroy {
       .subscribe((state) => {
         this.previews = state;
       });
+
+    this.mainNavService.title$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((title) => {
+        this.title = title;
+      });
   }
 
   ngOnDestroy(): void {
@@ -44,7 +52,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  @Input() title: string = "Dashboard";
+  title: string = "";
   @Input() folderId: any;
   @Output() searchResults: EventEmitter<Link[]> = new EventEmitter<Link[]>();
 

@@ -15,6 +15,23 @@
   }
 }
 
+.content-grid-no-previews {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 205px));
+
+  column-gap: 2vw;
+  row-gap: 3vh;
+  margin-top: 2vh;
+
+  @media screen and (max-width: 340px) {
+    row-gap: 5vh;
+    margin-top: 5vh;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 .default-dash-container {
   margin-left: 17vw;
   height: auto;

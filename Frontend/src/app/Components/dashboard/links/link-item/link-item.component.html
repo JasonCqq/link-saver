@@ -9,7 +9,7 @@
       <p class="link-date" *ngIf="specialRequest === 'none'">
         {{ itemData.createdAt | date: "shortDate" }}
       </p>
-      <p class="link-date link-date2" *ngIf="specialRequest === 'upcoming'">
+      <p class="link-date link-date2" *ngIf="specialRequest === 'Upcoming'">
         Upcoming: {{ itemData.remind | date: "shortDate" }}
       </p>
     </a>
@@ -24,7 +24,7 @@
     <mat-icon
       fontIcon="edit"
       class="link-edit"
-      *ngIf="specialRequest !== 'delete'"
+      *ngIf="specialRequest !== 'Trash'"
       (click)="toggleEdit()"
     ></mat-icon>
 
@@ -32,20 +32,20 @@
       fontIcon="close"
       class="link-delete"
       (click)="moveToTrash()"
-      *ngIf="specialRequest !== 'delete'"
+      *ngIf="specialRequest !== 'Trash'"
     ></mat-icon>
 
     <mat-icon
       fontIcon="restore"
       class="link-restore"
-      *ngIf="specialRequest === 'delete'"
+      *ngIf="specialRequest === 'Trash'"
       (click)="restoreLink()"
     ></mat-icon>
 
     <mat-icon
       fontIcon="close"
       class="link-delete"
-      *ngIf="specialRequest === 'delete'"
+      *ngIf="specialRequest === 'Trash'"
       (click)="permanentDelete()"
     ></mat-icon>
   </div>

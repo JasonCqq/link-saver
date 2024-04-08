@@ -15,14 +15,11 @@ export class DashboardService implements OnInit {
   constructor(
     private http: HttpClient,
     private userService: UserService,
-    private folderService: FoldersService,
   ) {}
   private apiUrl = environment.apiUrl;
 
   // Notifiers for updates
   private linksSubject = new Subject<void>();
-  private bookmarkSubject = new Subject<void>();
-  private upcomingSubject = new Subject<void>();
   linksUpdated(): Observable<void> {
     return this.linksSubject.asObservable();
   }
@@ -58,30 +55,6 @@ export class DashboardService implements OnInit {
       .pipe(
         map((response) => response.links),
         catchError(this.handleError<Link[]>("getLinks()", [])),
-      );
-  }
-
-  getBookmarks(): Observable<Link[]> {
-    return this.http
-      .get<Links>(
-        `${this.apiUrl}/link/bookmarks/${this.userService.getUser()?.user.id}`,
-        { withCredentials: true },
-      )
-      .pipe(
-        map((response) => response.links),
-        catchError(this.handleError<Link[]>("getBookmarks()", [])),
-      );
-  }
-
-  getUpcoming(): Observable<Link[]> {
-    return this.http
-      .get<Links>(
-        `${this.apiUrl}/link/upcoming/${this.userService.getUser()?.user.id}`,
-        { withCredentials: true },
-      )
-      .pipe(
-        map((response) => response.links),
-        catchError(this.handleError<Link[]>("getUpcoming()", [])),
       );
   }
 

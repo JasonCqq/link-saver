@@ -5,30 +5,50 @@
       <p>{{ user.username }}</p>
     </li>
 
-    <a class="sidebar-tab" routerLink="/dashboard">
+    <div
+      class="sidebar-tab"
+      (click)="changeTitle('Dashboard')"
+      routerLink="/dashboard"
+    >
       <span class="material-icons-round sidebar-icon"> dashboard </span>
       <h1 class="tab-id">Dashboard</h1>
-    </a>
+    </div>
 
-    <a class="sidebar-tab" routerLink="/dashboard/folders">
+    <a
+      class="sidebar-tab"
+      routerLink="/dashboard/folders"
+      (click)="changeTitle('Folders')"
+    >
       <mat-icon fontIcon="folder" class="sidebar-icon"></mat-icon>
       <h1 class="tab-id">Folders</h1>
     </a>
 
-    <a class="sidebar-tab" routerLink="/dashboard/bookmarks">
+    <div
+      class="sidebar-tab"
+      (click)="changeTitle('Bookmarks')"
+      routerLink="/dashboard"
+    >
       <span class="material-icons-round sidebar-icon"> bookmark </span>
       <h1 class="tab-id">Bookmarks</h1>
-    </a>
+    </div>
 
-    <a class="sidebar-tab" routerLink="/dashboard/upcoming">
+    <div
+      class="sidebar-tab"
+      (click)="changeTitle('Upcoming')"
+      routerLink="/dashboard"
+    >
       <span class="material-icons-round sidebar-icon"> upcoming </span>
       <h1 class="tab-id">Upcoming</h1>
-    </a>
+    </div>
 
-    <a class="sidebar-tab" routerLink="/dashboard/trash">
+    <div
+      class="sidebar-tab"
+      (click)="changeTitle('Trash')"
+      routerLink="/dashboard"
+    >
       <span class="material-icons-round sidebar-icon"> delete </span>
       <h1 class="tab-id">Trash</h1>
-    </a>
+    </div>
 
     <section class="sidebar-bottom">
       <a routerLink="/dashboard/settings" class="sidebar-tab">
