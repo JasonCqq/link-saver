@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "otp" DROP NOT NULL,
+ALTER COLUMN "otpExpiresAt" DROP NOT NULL;

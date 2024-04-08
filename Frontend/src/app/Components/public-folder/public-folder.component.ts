@@ -54,8 +54,6 @@ export class PublicFolderComponent implements OnInit, OnDestroy {
         this.folderName = res.folderName;
         this.links = res.links;
         this.passwordLocked = false;
-
-        console.log(this.author);
       });
   }
 }

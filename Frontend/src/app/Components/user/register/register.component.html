@@ -19,7 +19,7 @@
     <mat-form-field appearance="outline">
       <mat-label for="email">Email address</mat-label>
       <input matInput type="text" id="email" formControlName="email" />
-      <mat-hint>
+      <mat-hint style="font-size: 0.7rem">
         * Your email will be used if you forget your password
       </mat-hint>
       <mat-error *ngIf="email?.invalid && email?.touched"
@@ -44,6 +44,18 @@
       Register
     </button>
 
-    <a class="login-extra" routerLink="/user/login"> I have an account. </a>
+    <a class="register-extra" routerLink="/user/login"> I have an account </a>
   </form>
 </main>
+
+<footer class="foot-note">
+  <a href="https://github.com/JasonCqq/link-saver" target="_blank"
+    >&#x2022; Source Code</a
+  >
+
+  <a
+    href="https://www.termsfeed.com/live/a23806e5-a8bc-4542-a4fc-230353a493dc"
+    target="_blank"
+    >&#x2022; Privacy Policy</a
+  >
+</footer>

@@ -1,4 +1,4 @@
-<main class="register-container" *ngIf="!user">
+<main class="login-container" *ngIf="!user">
   <a class="home-ref" routerLink=""> LinkStorage </a>
 
   <form
@@ -46,86 +46,104 @@
     <p class="login-extra" (click)="toggleForm()">Forgot Password</p>
   </form>
 
-  <form
-    class="forgot-form login-form"
-    [formGroup]="forgotPasswordForm"
-    *ngIf="!loginForm"
-    (submit)="submitForgotApplication()"
-  >
-    <h1>Forgot Password</h1>
+  <div class="forgot-container" *ngIf="!loginForm">
+    <form
+      class="forgot-form"
+      [formGroup]="forgotPasswordForm"
+      (submit)="submitForgotApplication()"
+    >
+      <header>
+        <button (click)="toggleForm()">Go Back</button>
+        <h1>Forgot Password</h1>
+      </header>
 
-    <mat-form-field appearance="outline">
-      <mat-label for="forgot_email">Email address</mat-label>
-      <input
-        matInput
-        type="email"
-        id="forgot_email"
-        formControlName="forgot_email"
-      />
-      <mat-error *ngIf="forgot_email?.invalid && forgot_email?.touched"
-        >Invalid Email</mat-error
+      <mat-form-field appearance="outline">
+        <mat-label for="forgot_email">Email address</mat-label>
+        <input
+          matInput
+          type="email"
+          id="forgot_email"
+          formControlName="forgot_email"
+        />
+        <mat-error *ngIf="forgot_email?.invalid && forgot_email?.touched"
+          >Invalid Email</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" *ngIf="forgotSuccess">
+        <mat-label for="forgot_otp">OTP Code</mat-label>
+        <input
+          matInput
+          type="number"
+          id="forgot_otp"
+          formControlName="forgot_otp"
+        />
+      </mat-form-field>
+
+      <button
+        type="submit"
+        mat-raised-button
+        [disabled]="forgotPasswordForm.invalid"
+        *ngIf="!this.forgotSuccess"
+        class="forgot-form-button"
       >
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" *ngIf="forgotSuccess">
-      <mat-label for="forgot_otp">OTP Code</mat-label>
-      <input
-        matInput
-        type="number"
-        id="forgot_otp"
-        formControlName="forgot_otp"
-      />
-    </mat-form-field>
+        Get Code
+      </button>
+    </form>
 
     <button
-      type="submit"
       mat-raised-button
       [disabled]="forgotPasswordForm.invalid"
+      *ngIf="this.forgotSuccess && !this.forgotSuccess2"
+      (click)="submitOTPApplication()"
+      class="forgot-form-button"
     >
-      Get Code
+      Submit Code
     </button>
 
-    <p class="login-extra" (click)="toggleForm()">Nevermind, Log in</p>
-  </form>
+    <form
+      [formGroup]="newPasswordForm"
+      *ngIf="forgotSuccess2"
+      (submit)="submitNewPasswordApplication()"
+      class="new-pass-form"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label for="forgot_new_pass"
+          >New Password (8-20 characters)</mat-label
+        >
+        <input
+          matInput
+          type="password"
+          id="forgot_new_pass"
+          formControlName="forgot_new_pass"
+        />
+      </mat-form-field>
 
-  <button
-    mat-raised-button
-    [disabled]="forgotPasswordForm.invalid"
-    *ngIf="this.forgotSuccess"
-    (click)="submitOTPApplication()"
-  >
-    Submit Code
-  </button>
+      <mat-form-field appearance="outline">
+        <mat-label for="forgot_new_pass2">Confirm New Password</mat-label>
+        <input
+          matInput
+          type="password"
+          id="forgot_new_pass2"
+          formControlName="forgot_new_pass2"
+        />
+      </mat-form-field>
 
-  <form
-    [formGroup]="newPasswordForm"
-    *ngIf="forgotSuccess2"
-    (submit)="submitNewPasswordApplication()"
-  >
-    <mat-form-field appearance="outline">
-      <mat-label for="forgot_new_pass"
-        >New Password (8-20 characters)</mat-label
-      >
-      <input
-        matInput
-        type="password"
-        id="forgot_new_pass"
-        formControlName="forgot_new_pass"
-      />
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label for="forgot_new_pass2">Confirm New Password</mat-label>
-      <input
-        matInput
-        type="password"
-        id="forgot_new_pass2"
-        formControlName="forgot_new_pass2"
-      />
-    </mat-form-field>
-
-    <button type="submit">Submit New Password</button>
-  </form>
+      <button type="submit" class="submit-new-pass">Submit New Password</button>
+    </form>
+  </div>
 </main>
 
 <p *ngIf="user">You are already logged in.</p>
+
+<footer class="foot-note">
+  <a href="https://github.com/JasonCqq/link-saver" target="_blank"
+    >&#x2022; Source Code</a
+  >
+
+  <a
+    href="https://www.termsfeed.com/live/a23806e5-a8bc-4542-a4fc-230353a493dc"
+    target="_blank"
+    >&#x2022; Privacy Policy</a
+  >
+</footer>

@@ -2,11 +2,12 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { UserService } from "../user.service";
 import { Router } from "@angular/router";
+import { pipe, catchError } from "rxjs";
 
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
-  styleUrls: ["../register/register.component.scss"],
+  styleUrls: ["../login/login.component.scss"],
 })
 export class LoginComponent implements OnInit {
   // Checks for user
@@ -58,9 +59,20 @@ export class LoginComponent implements OnInit {
   submitForgotApplication(): void {
     this.userService
       .forgotPassword(this.forgotPasswordForm.value.forgot_email ?? "")
-      .subscribe(() => {
-        this.forgotPasswordForm.get("forgot_email")?.disable();
-        this.forgotSuccess = true;
+      .pipe(
+        catchError((err) => {
+          alert(JSON.stringify(err.error.errors));
+          throw err;
+        }),
+      )
+      .subscribe({
+        next: (res) => {
+          this.forgotPasswordForm.get("forgot_email")?.disable();
+          this.forgotSuccess = true;
+        },
+        error: (err) => {
+          console.error("Error after catchError:", err);
+        },
       });
   }
 
@@ -77,8 +89,20 @@ export class LoginComponent implements OnInit {
         this.forgotPasswordForm.getRawValue().forgot_email ?? "",
         this.forgotPasswordForm.value.forgot_otp ?? "",
       )
-      .subscribe(() => {
-        this.forgotSuccess2 = true;
+      .pipe(
+        catchError((err) => {
+          alert(JSON.stringify(err.error.errors));
+          throw err;
+        }),
+      )
+      .subscribe({
+        next: (res) => {
+          this.forgotSuccess2 = true;
+          this.forgotPasswordForm.get("forgot_otp")?.disable();
+        },
+        error: (err) => {
+          console.error("Error after catchError:", err);
+        },
       });
   }
 
@@ -108,11 +132,22 @@ export class LoginComponent implements OnInit {
             this.newPasswordForm.value.forgot_new_pass ?? "",
             this.newPasswordForm.value.forgot_new_pass2 ?? "",
           )
-          .subscribe(() => {
-            console.log("Updated");
+          .pipe(
+            catchError((err) => {
+              alert(JSON.stringify(err.error.errors));
+              throw err;
+            }),
+          )
+          .subscribe({
+            next: (res) => {
+              this.toggleForm();
+            },
+            error: (err) => {
+              console.error("Error after catchError:", err);
+            },
           });
       } else {
-        console.log("New passwords do not match");
+        alert("New passwords do not match");
       }
     }
   }
@@ -126,5 +161,9 @@ export class LoginComponent implements OnInit {
 
   get forgot_email() {
     return this.forgotPasswordForm.get("forgot_email");
+  }
+
+  get forgot_otp() {
+    return this.forgotPasswordForm.get("forgot_otp");
   }
 }

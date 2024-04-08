@@ -1,0 +1,183 @@
+@import "../../../../assets/styles.scss";
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $background;
+  padding-top: 10vh;
+
+  > .home-ref {
+    font-size: 2.5rem;
+    color: $accent;
+    margin-bottom: 5vh;
+    font-weight: 800;
+    transition: transform 0.2s;
+    will-change: contents;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+
+  > .login-form {
+    height: 40vh;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+
+    @media screen and (max-width: 800px) {
+      width: 75vw;
+    }
+
+    > .login-extra {
+      font-size: 1rem;
+      display: flex;
+      align-self: flex-start;
+      &:hover {
+        color: $accent;
+        cursor: pointer;
+      }
+    }
+
+    > h1 {
+      color: $text;
+      text-align: center;
+      padding-bottom: 2vh;
+      font-size: 1.25rem;
+    }
+
+    > button {
+      border: none;
+      font-size: 1rem;
+      background-color: $accent;
+      padding: 20px 0;
+      border-radius: 10px;
+      margin-top: 1vh;
+      margin-bottom: 1vh;
+      color: $text2;
+      transition: box-shadow 0.15s ease-in-out;
+      font-weight: bold;
+      transition: transform 0.2s;
+
+      &:hover {
+        cursor: pointer;
+        transform: translateY(-7.5px);
+      }
+
+      &:disabled {
+        opacity: 0.4;
+        &:hover {
+          cursor: default;
+          color: $text2;
+        }
+      }
+    }
+  }
+
+  > .forgot-container {
+    height: 40vh;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2vh;
+
+    @media screen and (max-width: 800px) {
+      width: 75vw;
+    }
+
+    > .forgot-form,
+    .new-pass-form {
+      width: 30vw;
+      display: flex;
+      flex-direction: column;
+      gap: 2vh;
+
+      @media screen and (max-width: 800px) {
+        width: 75vw;
+      }
+
+      > header {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+
+        > h1 {
+          color: $text;
+          text-align: center;
+          font-size: 1rem;
+        }
+
+        > button {
+          border: none;
+          background: rgba($accent, 0.25);
+          padding: 10px 20px;
+          border-radius: 10px;
+          color: $text2;
+          font-weight: bold;
+          font-size: 0.9rem;
+
+          &:hover {
+            opacity: 0.7;
+            cursor: pointer;
+          }
+        }
+      }
+
+      > .submit-new-pass,
+      .forgot-form-button {
+        border: none;
+        font-size: 1rem;
+        background-color: $accent;
+        padding: 17.5px 0;
+        border-radius: 10px;
+        margin-top: 1vh;
+        margin-bottom: 1vh;
+        color: $text2;
+        font-weight: bold;
+        transition: transform 0.2s;
+
+        &:hover {
+          cursor: pointer;
+          transform: translateY(-7.5px);
+        }
+
+        &:disabled {
+          opacity: 0.4;
+          &:hover {
+            cursor: default;
+            color: $text2;
+          }
+        }
+      }
+    }
+  }
+}
+
+.foot-note {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5vh;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: $textSec;
+  gap: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+
+  > a {
+    color: $textSec;
+
+    &:hover {
+      color: $accent;
+    }
+  }
+}

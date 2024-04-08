@@ -17,6 +17,9 @@ model User {
     links        Link[]
     userSettings UserSettings?
     shares       Share[]
+    otp          String?
+    otpVerified  Boolean       @default(false)
+    otpExpiresAt DateTime?
 }
 
 model UserSettings {
@@ -24,14 +27,6 @@ model UserSettings {
     user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId   String  @unique
     previews Boolean @default(true)
-}
-
-model OTP {
-    id        String   @id @default(uuid())
-    email     String   @unique
-    otp       Int
-    createdAt DateTime
-    expiresAt DateTime
 }
 
 model Session {

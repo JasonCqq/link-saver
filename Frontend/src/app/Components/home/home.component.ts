@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 1,
       question: "What is LinkStorage and how does it work?",
       answer:
-        "Our website is a link saver tool that allows you to store and organize your favorite links all in one place. You can save URLs, filter and search through your collection, and even preview the content of the links directly on our platform.",
+        "Our website is a link saver tool that allows you to store and organize your favorite links you want to revisit all in one place. You can save URLs, search through your folders, and even preview the content of the links directly on our platform.",
     },
 
     {
@@ -68,39 +68,32 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 3,
       question: "Is there a browser extension for LinkStorage?",
       answer:
-        "Not yet, but we're actively working on developing a browser extension to enhance your LinkStorage experience. Stay tuned for updates on this feature!",
+        "Not yet, but we plan on developing a browser extension to enhance your LinkStorage experience. Stay tuned for updates on this feature!",
     },
 
     {
       id: 4,
-      question: "Is there a premium version with more features?",
+      question: "What features are available on LinkStorage?",
       answer:
-        "No, every feature of LinkStorage is available for free. We believe in providing a comprehensive and valuable link-saving experience to all our users.",
+        "LinkStorage offers a range of features to streamline your link-saving process, including filtering options like searching, thumbnail screenshots for easy identification, reminders to keep you organized, and the ability to create folders for efficient categorization.",
     },
 
     {
       id: 5,
-      question: "What features are available on LinkStorage?",
-      answer:
-        "LinkStorage offers a range of features to streamline your link-saving process, including filtering options like sorting and searching, thumbnail previews for easy identification, reminders to keep you organized, and the ability to create folders for efficient categorization.",
-    },
-
-    {
-      id: 6,
       question: "Any restriction on types of links can I save?",
       answer:
         "There are no restrictions on the types of links you can save in LinkStorage. You can save links to websites, articles, videos, and more, making it a versatile tool for all your link-saving needs.",
     },
 
     {
-      id: 7,
+      id: 6,
       question: "Can I share my folders/links to others?",
       answer:
         "Absolutely! You have the ability to generate shareable links for your folders, allowing you to easily share collections of links with others.",
     },
 
     {
-      id: 8,
+      id: 7,
       question: "How can I suggest features/improvements?",
       answer:
         "We value your input! To suggest new features or improvements for LinkStorage, please visit our Contact Section below. We're always eager to hear your ideas and make our platform even better based on user feedback.",
