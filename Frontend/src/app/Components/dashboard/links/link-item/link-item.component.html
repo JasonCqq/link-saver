@@ -1,5 +1,9 @@
-<div class="link-item">
-  <section>
+<div
+  class="link-item"
+  [ngClass]="addingID && massEditting ? 'link-item-border' : ''"
+  (click)="addMassID(itemData.id)"
+>
+  <section [ngClass]="massEditting ? 'disabled' : ''">
     <a class="link-details" [href]="'//' + itemData.url" target="_blank">
       <p class="link-url">{{ itemData.url | slice: 0 : 25 }}</p>
       <p class="link-title">
@@ -20,7 +24,7 @@
   </section>
 
   <!--Link CRUD Options-->
-  <div class="link-options">
+  <div class="link-options" *ngIf="!massEditting">
     <mat-icon
       fontIcon="edit"
       class="link-edit"
@@ -53,7 +57,7 @@
 
 <!-- Edit Form -->
 <app-link-edit-form
-  *ngIf="editting"
+  *ngIf="editForm"
   [itemData]="itemData"
   (toggleEdit)="toggleEdit()"
 ></app-link-edit-form>

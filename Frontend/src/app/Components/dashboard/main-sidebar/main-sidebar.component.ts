@@ -14,6 +14,8 @@ export class MainSidebarComponent implements OnInit {
   ) {}
   user: any;
 
+  massEditting: boolean = false;
+
   opened: any;
 
   ngOnInit(): void {
@@ -25,6 +27,10 @@ export class MainSidebarComponent implements OnInit {
       );
 
     isMobile ? (this.opened = false) : (this.opened = true);
+
+    this.mainNavService.massEdit$.subscribe((bool) => {
+      this.massEditting = bool;
+    });
   }
 
   logOut(): void {
@@ -33,5 +39,14 @@ export class MainSidebarComponent implements OnInit {
 
   changeTitle(title: string): void {
     this.mainNavService.changeTitle(title);
+  }
+
+  toggleMassEdit(): void {
+    this.mainNavService.toggleMassEdit();
+  }
+
+  massEditForm: boolean = false;
+  toggleMassEditForm(): void {
+    this.massEditForm = !this.massEditForm;
   }
 }

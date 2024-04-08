@@ -7,6 +7,7 @@
   width: auto;
   background: transparent;
   height: 100vh;
+  z-index: 98;
 
   .d-sidebar {
     min-width: 200px;
@@ -85,20 +86,22 @@
 
   .sidebar-icon-contain {
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-top: 4vh;
+    gap: 20px;
 
     .sidebar-icon {
-      background-color: $accent;
+      background: rgba($accent, 0.5);
       padding: 10px;
       transform: scale(1);
-      margin-top: 4vh;
       margin-left: 0.5vw;
       border-radius: 10px;
-      opacity: 0.7;
-      color: black;
+      color: white;
 
       &:hover {
         cursor: pointer;
-        opacity: 1;
+        background: rgba($accent, 1);
       }
     }
   }

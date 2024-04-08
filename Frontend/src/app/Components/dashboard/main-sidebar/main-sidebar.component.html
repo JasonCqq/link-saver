@@ -74,15 +74,29 @@
       (click)="drawer.toggle(); opened = !opened"
       *ngIf="!opened"
       class="sidebar-icon"
-      style="color: black"
     ></mat-icon>
     <mat-icon
       fontIcon="close"
       (click)="drawer.toggle(); opened = !opened"
       *ngIf="opened"
       class="sidebar-icon"
-      style="color: black"
     >
     </mat-icon>
+
+    <span class="material-icons-round sidebar-icon" (click)="toggleMassEdit()">
+      edit
+    </span>
+    <span
+      class="material-icons-round sidebar-icon"
+      *ngIf="massEditting"
+      (click)="toggleMassEditForm()"
+    >
+      done
+    </span>
   </div>
 </mat-drawer-container>
+
+<app-mass-edit-form
+  *ngIf="massEditForm"
+  (toggleMassEditForm)="toggleMassEditForm()"
+></app-mass-edit-form>

@@ -1,0 +1,97 @@
+@import "../../../../../assets/styles.scss";
+
+.mass-edit-overlay {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100vw;
+  height: 100vh;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+
+  > form {
+    display: flex;
+    height: 60vh;
+    width: 25vw;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $background2;
+    box-shadow: 1px 1px 25px $boxshad;
+    border-radius: 10px;
+    gap: 2vh;
+    position: absolute;
+
+    @media screen and (max-width: 1275px) {
+      width: 35vw;
+    }
+
+    @media screen and (max-width: 850px) {
+      width: 50vw;
+    }
+
+    @media screen and (max-width: 580px) {
+      width: 75vw;
+      height: 65vh;
+    }
+
+    > .close-form {
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin-left: 10px;
+      margin-top: 10px;
+
+      &:hover {
+        cursor: pointer;
+        color: $accent;
+      }
+    }
+
+    > .mass-edit-flex {
+      display: flex;
+      gap: 2vw;
+      padding-bottom: 10px;
+      font-size: 0.8rem;
+    }
+
+    > button {
+      color: $text2;
+      border: none;
+      border-radius: 10px;
+      padding: 15px 25px;
+      background-color: transparent;
+      font-weight: 600;
+      border: 2px solid $accent;
+
+      &:hover {
+        background-color: $accent;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+mat-form-field {
+  width: 20vw;
+
+  @media screen and (max-width: 1275px) {
+    width: 30vw;
+  }
+
+  @media screen and (max-width: 850px) {
+    width: 45vw;
+  }
+
+  @media screen and (max-width: 425px) {
+    width: 70vw;
+  }
+}
+
+mat-select {
+  color: $text;
+}

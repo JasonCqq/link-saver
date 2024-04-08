@@ -28,11 +28,23 @@ export class LinkComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   previews: any;
-  editting: boolean = false;
+  editForm: boolean = false;
+  massEditting: boolean = false;
   specialRequest: string = "none";
 
   toggleEdit(): void {
-    this.editting = !this.editting;
+    this.editForm = !this.editForm;
+  }
+
+  addingID: boolean = false;
+  addMassID(id: string) {
+    if (this.massEditting === true) {
+      this.mainNavService.addMassID(id);
+      this.addingID = !this.addingID;
+      console.log(this.mainNavService.massEditIDs);
+    } else {
+      return;
+    }
   }
 
   ngOnInit(): void {
@@ -46,6 +58,20 @@ export class LinkComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((title) => {
         this.specialRequest = title;
+      });
+
+    this.mainNavService.massEdit$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((bool) => {
+        this.massEditting = bool;
+
+        if (bool === false) {
+          const itemBorder = document.querySelector(
+            ".link-item",
+          ) as HTMLElement;
+          itemBorder.classList.remove(".link-item-border");
+          this.addingID = false;
+        }
       });
   }
 
