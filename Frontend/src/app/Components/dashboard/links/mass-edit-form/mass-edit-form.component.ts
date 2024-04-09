@@ -8,6 +8,8 @@ import {
 import { FormControl, FormGroup } from "@angular/forms";
 import { DashboardService } from "../../dashboard.service";
 import { Subject, takeUntil } from "rxjs";
+import { MainNavService } from "../../main-nav/main-nav.service";
+import { LinkService } from "../link-item/link-item.service";
 
 @Component({
   selector: "app-mass-edit-form",
@@ -15,8 +17,12 @@ import { Subject, takeUntil } from "rxjs";
   styleUrls: ["./mass-edit-form.component.scss"],
 })
 export class MassEditFormComponent implements OnInit, OnDestroy {
-  constructor(private dashboardService: DashboardService) {}
+  constructor(
+    private dashboardService: DashboardService,
+    private mainNavService: MainNavService,
+  ) {}
 
+  title: any;
   folders: any;
   private destroy$ = new Subject<void>();
 
@@ -26,6 +32,12 @@ export class MassEditFormComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.folders = res;
+      });
+
+    this.mainNavService.title$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.title = res;
       });
   }
 
@@ -44,8 +56,38 @@ export class MassEditFormComponent implements OnInit, OnDestroy {
     massTitle: new FormControl(),
     massRemind: new FormControl(),
     massFolder: new FormControl(),
-    massRestore: new FormControl(),
-    massDelete: new FormControl(),
     massBookmark: new FormControl(),
   });
+
+  submitMassEditForm() {
+    this.mainNavService
+      .submitMassEdit(
+        this.massEditForm.value.massTitle,
+        this.massEditForm.value.massRemind,
+        this.massEditForm.value.massFolder,
+        this.massEditForm.value.massBookmark,
+      )
+      .subscribe(() => {
+        this.dashboardService.notify();
+        this.toggleForm();
+      });
+  }
+
+  submitMassResDelForm(order: string) {
+    let del: boolean = false;
+    let res: boolean = false;
+
+    if (order === "delete") {
+      del = true;
+      res = false;
+    } else if (order === "restore") {
+      del = false;
+      res = true;
+    }
+
+    this.mainNavService.submitMassResDel(del, res).subscribe(() => {
+      this.dashboardService.notify();
+      this.toggleForm();
+    });
+  }
 }

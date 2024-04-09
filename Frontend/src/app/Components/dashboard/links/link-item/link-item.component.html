@@ -10,7 +10,7 @@
         {{ itemData.title | slice: 0 : 35
         }}{{ itemData.title.length > 35 ? "..." : "" }}
       </p>
-      <p class="link-date" *ngIf="specialRequest === 'none'">
+      <p class="link-date" *ngIf="specialRequest !== 'Upcoming'">
         {{ itemData.createdAt | date: "shortDate" }}
       </p>
       <p class="link-date link-date2" *ngIf="specialRequest === 'Upcoming'">

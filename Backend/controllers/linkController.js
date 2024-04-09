@@ -298,6 +298,100 @@ exports.search_link = asyncHandler(async (req, res) => {
   res.status(200).json({ links: formattedLinks });
 });
 
+exports.mass_edit_links = [
+  body("massTitle").trim(),
+  body("massRemind").trim().escape(),
+  body("massFolder").trim().escape(),
+  body("massBookmark").trim().escape(),
+  body("massIDs").trim().escape(),
+
+  asyncHandler(async (req, res) => {
+    const errs = validationResult(req);
+
+    if (!req.params.userId || req.session.user.id !== req.params.userId) {
+      res.status(401).send("Not authenticated");
+    }
+
+    if (!errs.isEmpty()) {
+      res.status(400).json({ errors: errs.array().map((err) => err.msg) });
+    } else {
+      let tempBook;
+      req.body.massBookmark ? (tempBook = true) : (tempBook = undefined);
+
+      await prisma.$transaction(async (prisma) => {
+        for (const id of req.body.massIDs) {
+          await prisma.Link.update({
+            where: {
+              id: id,
+              userId: req.params.userId,
+            },
+
+            data: {
+              title: req.body.massTitle || undefined,
+              remind: req.body.massRemind || undefined,
+              ...(req.body.massFolder
+                ? { folder: { connect: { id: req.body.massFolder } } }
+                : {}),
+              bookmarked: tempBook,
+            },
+          });
+        }
+      });
+
+      res.status(200).json({});
+    }
+  }),
+];
+
+exports.mass_restore_delete_links = [
+  body("massDelete").trim().escape(),
+  body("massRestore").trim().escape(),
+  body("massIDs").trim().escape(),
+
+  asyncHandler(async (req, res) => {
+    const errs = validationResult(req);
+
+    if (!req.params.userId || req.session.user.id !== req.params.userId) {
+      res.status(401).send("Not authenticated");
+    }
+
+    if (!errs.isEmpty()) {
+      res.status(400).json({ errors: errs.array().map((err) => err.msg) });
+    } else {
+      let resOrDel;
+
+      if (
+        JSON.parse(req.body.massRestore) === true &&
+        JSON.parse(req.body.massDelete) === false
+      ) {
+        resOrDel = false;
+      } else if (
+        JSON.parse(req.body.massRestore) === false &&
+        JSON.parse(req.body.massDelete) === true
+      ) {
+        resOrDel = true;
+      }
+
+      await prisma.$transaction(async (prisma) => {
+        for (const id of req.body.massIDs) {
+          await prisma.Link.update({
+            where: {
+              id: id,
+              userId: req.params.userId,
+            },
+
+            data: {
+              trash: resOrDel,
+            },
+          });
+        }
+      });
+
+      res.status(200).json({});
+    }
+  }),
+];
+
 //Puppeteer Settings
 const minimal_args = [
   "--autoplay-policy=user-gesture-required",

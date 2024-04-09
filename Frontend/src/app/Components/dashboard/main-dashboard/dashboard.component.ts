@@ -60,7 +60,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   showOnly(linkType: string): void {
     if (linkType === "Dashboard") {
-      this.tempLinks = null;
+      this.tempLinks = this.links.filter((link) => link.trash === false);
     } else if (linkType === "Bookmarks") {
       this.tempLinks = this.links.filter((link) => link.bookmarked);
     } else if (linkType === "Upcoming") {

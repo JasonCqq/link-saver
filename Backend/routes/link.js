@@ -18,4 +18,11 @@ router.delete("/perma_delete/:id/:userId", linkController.perma_delete_link);
 
 router.get("/search/:userId", linkController.search_link);
 
+router.put("/mass_edit/:userId", linkController.mass_edit_links);
+
+router.put(
+  "/mass_restoreDelete/:userId",
+  linkController.mass_restore_delete_links,
+);
+
 module.exports = router;

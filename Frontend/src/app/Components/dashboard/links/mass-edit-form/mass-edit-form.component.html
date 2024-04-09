@@ -1,5 +1,5 @@
 <div class="mass-edit-overlay">
-  <form [formGroup]="massEditForm">
+  <form [formGroup]="massEditForm" (submit)="submitMassEditForm()">
     <mat-icon
       fontIcon="close"
       class="close-form"
@@ -8,20 +8,29 @@
     <h1>Edit Actions</h1>
 
     <div class="mass-edit-flex">
-      <mat-slide-toggle
-        [hideIcon]="true"
-        #massDelete
-        formControlName="massDelete"
-        >Move to Trash</mat-slide-toggle
+      <button
+        *ngIf="title !== 'Trash'"
+        (click)="submitMassResDelForm('delete')"
+        type="button"
+        class="mass-delete-button"
       >
+        Move to Trash
+      </button>
+      <button
+        *ngIf="title === 'Trash'"
+        (click)="submitMassResDelForm('restore')"
+        type="button"
+        class="mass-restore-button"
+      >
+        Restore All
+      </button>
+
       <mat-slide-toggle
         [hideIcon]="true"
         #massBookmark
         formControlName="massBookmark"
         >Bookmark All</mat-slide-toggle
       >
-
-      <button style="display: none">Restore All</button>
     </div>
 
     <mat-form-field appearance="outline">
