@@ -5,7 +5,7 @@ import {
   OnInit,
   Output,
 } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { LinkFormService } from "./link-form.service";
 import { DashboardService } from "../../dashboard.service";
 import { Subject, takeUntil } from "rxjs";
@@ -42,7 +42,7 @@ export class LinkFormComponent implements OnInit, OnDestroy {
   }
 
   linkForm = new FormGroup({
-    url: new FormControl(),
+    url: new FormControl("", [Validators.required]),
     folder: new FormControl(),
     bookmarked: new FormControl(),
     remind: new FormControl(),
@@ -50,7 +50,7 @@ export class LinkFormComponent implements OnInit, OnDestroy {
 
   submitForm(): void {
     this.linkFormService.submitLinkForm(
-      this.linkForm.value.url,
+      this.linkForm.value.url ?? "",
       this.linkForm.value.folder ?? "",
       this.linkForm.value.bookmarked ?? false,
       this.linkForm.value.remind ?? null,

@@ -29,26 +29,26 @@ exports.create_user = [
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
-      res.status(400).json({ errors: errs.array().map((error) => error.msg) });
+      const firstError = errs.array({ onlyFirstError: true })[0].msg;
+      res.status(400).json(firstError);
     } else {
-      const userCheck = await prisma.User.findUnique({
-        where: {
-          email: req.body.email,
-          username: req.body.username,
-        },
+      const emailExists = await prisma.User.findUnique({
+        where: { email: req.body.email },
       });
 
-      const currentDate = new Date();
+      const usernameExists = await prisma.User.findUnique({
+        where: { username: req.body.username },
+      });
 
-      if (userCheck) {
-        res.status(400).json({ errors: "User already exists" });
+      if (emailExists || usernameExists) {
+        return res.status(400).json("User already exists");
       }
 
       // Hash Password
       bcrypt.hash(req.body.password, 10, async (err, hashedPass) => {
         if (err) {
           res.status(500).json({
-            error: "Error Hashing Password. (Bcrypt Error)",
+            errors: "Error Hashing Password. (Bcrypt Error)",
             oldData: {
               username: req.body.username,
               email: req.body.email,
@@ -57,7 +57,7 @@ exports.create_user = [
           });
         }
 
-        const user = await prisma.User.create({
+        await prisma.User.create({
           data: {
             username: req.body.username,
             email: req.body.email,
@@ -90,45 +90,40 @@ exports.login_user = [
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
-      res.status(400).json({ errors: errs.array().map((error) => error.msg) });
+      const firstError = errs.array({ onlyFirstError: true })[0].msg;
+      res.status(400).json(firstError);
     }
 
-    try {
-      passport.authenticate("local", async (err, authenticated, info) => {
-        if (err) {
-          return next(err);
-        }
-        if (!authenticated) {
-          res.status(400).json({ message: info.message });
-        } else {
-          const user = await prisma.User.findUnique({
-            where: {
-              id: authenticated.id,
-            },
-            include: {
-              userSettings: true,
-            },
-          });
+    passport.authenticate("local", async (err, authenticated, info) => {
+      if (err) {
+        return next(err);
+      }
+      if (!authenticated) {
+        res.status(400).json(info.message);
+      } else {
+        const user = await prisma.User.findUnique({
+          where: {
+            id: authenticated.id,
+          },
+          include: {
+            userSettings: true,
+          },
+        });
 
-          const userData = {
-            id: user.id,
-            username: user.username,
-            email: user.email,
-            creationDate: user.creationDate,
-          };
+        const userData = {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          creationDate: user.creationDate,
+        };
 
-          req.session.user = userData;
-          req.session.save(function (err) {
-            if (err) return next(err);
-            res
-              .status(200)
-              .json({ user: userData, settings: user.userSettings });
-          });
-        }
-      })(req, res, next);
-    } catch (err) {
-      console.log(err);
-    }
+        req.session.user = userData;
+        req.session.save(function (err) {
+          if (err) return next(err);
+          res.status(200).json({ user: userData, settings: user.userSettings });
+        });
+      }
+    })(req, res, next);
   }),
 ];
 
@@ -146,10 +141,10 @@ exports.logout_user = asyncHandler(async (req, res) => {
 
 exports.delete_user = asyncHandler(async (req, res) => {
   if (!req.params.userId || req.session.user.id !== req.params.userId) {
-    res.status(401).send("Not authenticated");
+    res.status(401).json("Not authenticated");
   }
 
-  const user = await prisma.User.delete({
+  await prisma.User.delete({
     where: {
       id: req.params.userId,
     },
@@ -163,7 +158,7 @@ exports.delete_user = asyncHandler(async (req, res) => {
 exports.get_settings = [
   asyncHandler(async (req, res) => {
     if (!req.params.userId || req.session.user.id !== req.params.userId) {
-      res.status(401).send("Not authenticated");
+      res.status(401).json("Not authenticated");
     }
 
     const userSettings = await prisma.UserSettings.findUnique({
@@ -180,10 +175,11 @@ exports.submit_settings = [
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
-      res.status(400).json({ errors: errs.array().map((err) => err.msg) });
+      const firstError = errs.array({ onlyFirstError: true })[0].msg;
+      res.status(400).json(firstError);
     } else {
       if (!req.params.userId || req.session.user.id !== req.params.userId) {
-        res.status(401).send("Not authenticated");
+        res.status(401).json("Not authenticated");
       }
 
       const userSettings = await prisma.UserSettings.update({
@@ -214,74 +210,62 @@ exports.change_password = [
     .isLength({ min: 8, max: 20 })
     .escape(),
 
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res) => {
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
-      res.status(400).json({ errors: errs.array().map((error) => error.msg) });
+      const firstError = errs.array({ onlyFirstError: true })[0].msg;
+      res.status(400).json(firstError);
     } else {
       if (!req.params.userId || req.session.user.id !== req.params.userId) {
-        res.status(401).send("Not authenticated");
+        res.status(401).json("Not authenticated");
       }
 
       if (req.body.newPass !== req.body.newPass2) {
-        res.status(400).send("Passwords do not match");
+        res.status(400).json("Passwords do not match");
       }
 
-      try {
-        const user = await prisma.User.findUnique({
-          where: { id: req.params.userId },
+      const user = await prisma.User.findUnique({
+        where: { id: req.params.userId },
+      });
+
+      const check = await bcrypt.compare(req.body.currentPass, user.password);
+
+      if (check) {
+        bcrypt.hash(req.body.newPass2, 10, async (err, hashedPass) => {
+          if (err) {
+            res.status(500).json(err);
+          }
+
+          await prisma.User.update({
+            where: { id: req.params.userId },
+            data: {
+              password: hashedPass,
+            },
+          });
+
+          res.status(200).json({});
         });
-
-        bcrypt.compare(
-          req.body.currentPass,
-          user.password,
-          async (err, res) => {
-            if (res) {
-              try {
-                bcrypt.hash(req.body.newPass2, 10, async (err, hashedPass) => {
-                  const updatedUser = await prisma.User.update({
-                    where: { id: req.params.userId },
-                    data: {
-                      password: hashedPass,
-                    },
-                  });
-                });
-              } catch (err) {
-                return res.status(500).json({
-                  error: "Error Hashing Password. (Bcrypt Error)",
-                });
-              }
-            }
-            if (err) {
-              console.log(err);
-            }
-          },
-        );
-      } catch (err) {
-        console.log(err);
       }
-
-      res.status(200).json({});
     }
   }),
 ];
 
 // Forgot Password 3 Step Process
 exports.forgot_password = [
-  body("forgot_email").trim().isEmail().escape(),
+  body("forgot_email", "Invalid Email").trim().isEmail().escape(),
 
   asyncHandler(async (req, res) => {
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
-      res.status(400).json({ errors: errs.array().map((error) => error.msg) });
+      const firstError = errs.array({ onlyFirstError: true })[0].msg;
+      res.status(400).json(firstError);
     } else {
       const tempCode = Math.floor(100000 + Math.random() * 900000);
 
       bcrypt.hash(String(tempCode), 10, async (err, hashedCode) => {
         if (err) {
-          console.log(err);
           return;
         }
 
@@ -315,14 +299,15 @@ exports.forgot_password = [
 ];
 
 exports.check_otp = [
-  body("forgot_email").trim().isEmail().escape(),
+  body("forgot_email", "Invalid Email").trim().isEmail().escape(),
   body("forgot_otp", "Invalid OTP").trim().escape(),
 
   asyncHandler(async (req, res) => {
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
-      res.status(400).json({ errors: errs.array().map((error) => error.msg) });
+      const firstError = errs.array({ onlyFirstError: true })[0].msg;
+      res.status(400).json(firstError);
     } else {
       const user = await prisma.User.findUnique({
         where: {
@@ -332,32 +317,29 @@ exports.check_otp = [
 
       if (user) {
         let currentDate = new Date();
+        const check = await bcrypt.compare(req.body.forgot_otp, user.otp);
 
-        bcrypt.compare(req.body.forgot_otp, user.otp, async (err, response) => {
-          if (response && user.otpExpiresAt > currentDate) {
-            await prisma.User.update({
-              where: {
-                id: user.id,
-              },
-              data: {
-                otpVerified: true,
-              },
-            });
+        if (check && user.otpExpiresAt > currentDate) {
+          await prisma.User.update({
+            where: {
+              id: user.id,
+            },
+            data: {
+              otpVerified: true,
+            },
+          });
 
-            res.status(200).json({});
-          }
-
-          if (err) {
-            console.log(err);
-          }
-        });
+          res.status(200).json({});
+        } else if (!check || user.otpExpiresAt < currentDate) {
+          res.status(401).json("Invalid OTP");
+        }
       }
     }
   }),
 ];
 
 exports.change_password_otp = [
-  body("forgot_email").trim().escape(),
+  body("forgot_email", "Invalid Email").trim().isEmail().escape(),
   body("forgot_new_pass", "Password must be between 8-20 characters")
     .trim()
     .isLength({ min: 8, max: 20 })
@@ -371,10 +353,11 @@ exports.change_password_otp = [
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
-      res.status(400).json({ errors: errs.array().map((error) => error.msg) });
+      const firstError = errs.array({ onlyFirstError: true })[0].msg;
+      res.status(400).json(firstError);
     } else {
       if (req.body.forgot_new_pass !== req.body.forgot_new_pass2) {
-        res.status(400).send("Passwords do not match");
+        res.status(400).json("Passwords do not match");
       }
 
       const user = await prisma.User.findUnique({
@@ -408,7 +391,7 @@ exports.change_password_otp = [
 
         res.status(200).json({});
       } else {
-        res.status(400).send("Invalid or Expired OTP");
+        res.status(400).json("Invalid or Expired OTP");
       }
     }
   }),

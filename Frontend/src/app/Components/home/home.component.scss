@@ -37,6 +37,10 @@
         gap: 10vw;
       }
 
+      @media screen and (max-width: 300px) {
+        gap: 10px;
+      }
+
       > .login-button,
       .register-button,
       .dashboard-button {
@@ -137,7 +141,7 @@
               transform: scale(1.25);
             }
 
-            @media screen and (max-width: 350px) {
+            @media screen and (max-width: 550px) {
               display: none;
             }
           }
@@ -164,7 +168,7 @@
         text-align: center;
         box-shadow: 1px 1px 5px $boxshad;
 
-        @media screen and (max-width: 359px) {
+        @media screen and (max-width: 369px) {
           font-size: 0.8rem;
           padding: 12.5px 20px;
         }
@@ -275,12 +279,12 @@
             font-size: 1.1rem;
 
             @media screen and (max-width: 815px) {
-              font-size: 0.85rem;
+              font-size: 1rem;
               font-weight: 500;
             }
 
             @media screen and (max-width: 415px) {
-              font-size: 0.75rem;
+              font-size: 0.9rem;
               font-weight: 500;
             }
           }
@@ -305,6 +309,7 @@
           padding-top: 1vh;
           animation: 0.25s ease-in-out 0s 1 fadeIn;
           opacity: 0.9;
+          font-size: 0.9rem;
         }
       }
     }
@@ -333,7 +338,6 @@
         border: 2px solid $accent;
         padding: 15px 10px;
         font-size: 1.15rem;
-        font-weight: 600;
         background-color: transparent;
         margin-top: 75px;
         border-radius: 10px;
@@ -372,11 +376,15 @@
 }
 
 mat-form-field {
-  width: 25vw;
+  width: 30vw;
   height: 5vh;
 
+  @media screen and (max-width: 1200px) {
+    width: 45vw;
+  }
+
   @media screen and (max-width: 1000px) {
-    width: 65vw;
+    width: 60vw;
   }
 }
 

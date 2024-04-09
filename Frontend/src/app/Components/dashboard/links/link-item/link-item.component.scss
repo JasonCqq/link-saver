@@ -19,9 +19,9 @@
     border-color: $accent;
   }
 
-  @media screen and (max-width: 330px) {
+  @media screen and (max-width: 344px) {
     width: 90%;
-    margin-left: 2vw;
+    margin-left: 8vw;
   }
 
   .disabled {
@@ -43,7 +43,7 @@
         height: 100%;
 
         @media screen and (max-width: 476px) {
-          width: 100%;
+          width: 125px;
         }
       }
     }

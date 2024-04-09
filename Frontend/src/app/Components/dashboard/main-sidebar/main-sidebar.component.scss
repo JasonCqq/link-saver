@@ -24,13 +24,9 @@
       margin-top: 5vh;
       display: flex;
       flex-direction: column;
-      margin-left: 1.1vw;
+      margin-left: 30px;
       margin-bottom: 5vh;
       line-height: 25px;
-
-      @media screen and (max-width: 965px) {
-        margin-left: 2vw;
-      }
 
       p {
         font-size: 1rem;
@@ -48,14 +44,13 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      margin-left: 1vw;
       gap: 0.5vw;
       margin-top: 3vh;
       padding-right: 1vw;
+      margin-left: 30px;
       will-change: contents;
 
       @media screen and (max-width: 965px) {
-        margin-left: 2vw;
         gap: 2vw;
       }
 
@@ -95,7 +90,7 @@
       background: rgba($accent, 0.5);
       padding: 10px;
       transform: scale(1);
-      margin-left: 0.5vw;
+      margin-left: 1vw;
       border-radius: 10px;
       color: white;
 

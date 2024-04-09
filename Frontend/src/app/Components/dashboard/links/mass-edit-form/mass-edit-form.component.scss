@@ -35,8 +35,12 @@
     }
 
     @media screen and (max-width: 580px) {
-      width: 75vw;
+      width: 80vw;
       height: 65vh;
+    }
+
+    @media screen and (max-width: 350px) {
+      height: 80vh;
     }
 
     > .close-form {
@@ -63,12 +67,16 @@
         color: $text2;
         border: none;
         border-radius: 10px;
-        padding: 12.5px 20px;
+        padding: 10px 15px;
         background-color: transparent;
-        font-weight: 600;
 
         &:hover {
           cursor: pointer;
+        }
+
+        @media screen and (max-width: 306px) {
+          font-size: 0.7rem;
+          padding: 10px 10px;
         }
       }
       > .mass-delete-button {
@@ -91,7 +99,6 @@
       border-radius: 10px;
       padding: 15px 25px;
       background-color: transparent;
-      font-weight: 600;
       border: 2px solid $accent;
 
       &:hover {

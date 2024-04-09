@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment.development";
 import { Router } from "@angular/router";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, catchError, throwError } from "rxjs";
 
 interface User {
   user: {
@@ -23,7 +23,6 @@ interface User {
   providedIn: "root",
 })
 export class UserService {
-  // Assign user
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -61,13 +60,13 @@ export class UserService {
   private apiUrl = environment.apiUrl;
 
   // Registration & Login Form (Sends POST to /create or /login)
-  async submitApplication(
+  submitApplication(
     username: string,
     email: string,
     password: string,
     action: "create" | "login",
   ) {
-    await this.http
+    return this.http
       .post(
         `${this.apiUrl}/user/${action}`,
         {
@@ -77,24 +76,13 @@ export class UserService {
         },
         { withCredentials: true },
       )
-      .subscribe({
-        next: (response) => {
-          if ((response as User) && action === "login") {
-            this.updateUser(response);
-            this.router.navigate(["/dashboard"]);
-          } else if ((response as User) && action === "create") {
-            this.updateUser(response);
-            this.router.navigate(["/user/login"]);
-          }
-        },
-        error: (error) =>
-          action === "create"
-            ? alert(JSON.stringify(error.error.errors))
-            : alert(error.error.message),
-      });
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        }),
+      );
   }
 
-  // Logout user
   async logOutUser() {
     await this.http
       .get(`${this.apiUrl}/user/logout`, { withCredentials: true })
@@ -105,11 +93,10 @@ export class UserService {
             this.router.navigate(["/"]);
           }
         },
-        error: (error) => alert(JSON.stringify(error.error.errors)),
+        error: (error) => alert(JSON.stringify(error.error)),
       });
   }
 
-  // Delete Account
   async deleteAccount() {
     await this.http
       .delete(`${this.apiUrl}/user/delete_account/${this.getUser()?.user.id}`, {
@@ -123,10 +110,11 @@ export class UserService {
             alert("Your account has been deleted.");
           }
         },
-        error: (error) => alert(JSON.stringify(error.error.errors)),
+        error: (error) => alert(JSON.stringify(error.error)),
       });
   }
 
+  // Forgot Password Process
   changePassword(currentPass: string, newPass: string, newPass2: string) {
     return this.http.put(
       `${this.apiUrl}/user/change_password/${this.getUser()?.user.id}`,

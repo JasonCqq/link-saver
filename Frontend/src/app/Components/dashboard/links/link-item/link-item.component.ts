@@ -41,7 +41,6 @@ export class LinkComponent implements OnInit, OnDestroy {
     if (this.massEditting === true) {
       this.mainNavService.addMassID(id);
       this.addingID = !this.addingID;
-      console.log(this.mainNavService.massEditIDs);
     } else {
       return;
     }

@@ -36,9 +36,14 @@ export class LinkFormService {
           withCredentials: true,
         },
       )
-      .subscribe(() => {
-        this.dashboardService.notify();
-        this.folderService.notifyFolders();
+      .subscribe({
+        next: () => {
+          this.dashboardService.notify();
+          this.folderService.notifyFolders();
+        },
+        error: (error) => {
+          alert(error.error);
+        },
       });
   }
 }

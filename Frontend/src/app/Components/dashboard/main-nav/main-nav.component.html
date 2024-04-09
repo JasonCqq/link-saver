@@ -2,18 +2,16 @@
   <p class="nav-title">{{ title ? title : "Dashboard" }}</p>
 
   <div class="nav-container">
-    <p class="nav-search">
-      <mat-form-field appearance="outline" [formGroup]="query">
-        <mat-label for="linkQuery">Search</mat-label>
-        <input
-          matInput
-          type="text"
-          formControlName="linkQuery"
-          #linkQuery
-          style="display: flex; align-items: center"
-        />
-      </mat-form-field>
-    </p>
+    <mat-form-field appearance="outline" [formGroup]="query" class="nav-search">
+      <mat-label for="linkQuery">Search</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="linkQuery"
+        #linkQuery
+        style="display: flex; align-items: center"
+      />
+    </mat-form-field>
 
     <div class="nav-buttons">
       <button (click)="toggleForm()">

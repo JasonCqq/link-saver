@@ -36,6 +36,11 @@
       >
     </mat-form-field>
 
+    <div *ngIf="formErrors" class="form-errors">
+      <span class="material-icons-round"> error </span>
+      <p>{{ formErrors }}</p>
+    </div>
+
     <button type="submit" mat-raised-button [disabled]="applyLoginForm.invalid">
       Login
     </button>
@@ -56,6 +61,11 @@
         <button (click)="toggleForm()">Go Back</button>
         <h1>Forgot Password</h1>
       </header>
+
+      <div *ngIf="forgotFormErrors" class="form-errors">
+        <span class="material-icons-round"> error </span>
+        <p>{{ forgotFormErrors }}</p>
+      </div>
 
       <mat-form-field appearance="outline">
         <mat-label for="forgot_email">Email address</mat-label>
@@ -89,17 +99,18 @@
       >
         Get Code
       </button>
-    </form>
 
-    <button
-      mat-raised-button
-      [disabled]="forgotPasswordForm.invalid"
-      *ngIf="this.forgotSuccess && !this.forgotSuccess2"
-      (click)="submitOTPApplication()"
-      class="forgot-form-button"
-    >
-      Submit Code
-    </button>
+      <button
+        mat-raised-button
+        [disabled]="forgotPasswordForm.invalid"
+        *ngIf="this.forgotSuccess && !this.forgotSuccess2"
+        (click)="submitOTPApplication()"
+        class="forgot-form-button"
+        type="button"
+      >
+        Submit Code
+      </button>
+    </form>
 
     <form
       [formGroup]="newPasswordForm"
@@ -137,6 +148,8 @@
 <p *ngIf="user">You are already logged in.</p>
 
 <footer class="foot-note">
+  <p>beta v1.0.0</p>
+
   <a href="https://github.com/JasonCqq/link-saver" target="_blank"
     >&#x2022; Source Code</a
   >

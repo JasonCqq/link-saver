@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { PublicFolderService } from "./public-folder.service";
 import { Link } from "src/app/Interfaces/Link";
-import { Subject, takeUntil } from "rxjs";
 import { FormControl, FormGroup } from "@angular/forms";
 
 @Component({
@@ -16,6 +15,7 @@ export class PublicFolderComponent implements OnInit, OnDestroy {
     private service: PublicFolderService,
   ) {}
 
+  previews: boolean = true;
   author: any;
   folderName: any;
   links: Link[] = [];
@@ -43,17 +43,27 @@ export class PublicFolderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {}
 
+  formErrors: any;
   authorizeFolder(): void {
     this.service
       .authorizeFolder(
         this.route.snapshot.params["id"],
         this.passwordForm.value.password,
       )
-      .subscribe((res) => {
-        this.author = res.authorName;
-        this.folderName = res.folderName;
-        this.links = res.links;
-        this.passwordLocked = false;
+      .subscribe({
+        next: (res) => {
+          this.author = res.authorName;
+          this.folderName = res.folderName;
+          this.links = res.links;
+          this.passwordLocked = false;
+        },
+        error: (error) => {
+          this.formErrors = error.error;
+        },
       });
+  }
+
+  toggleThumbnail() {
+    this.previews = !this.previews;
   }
 }

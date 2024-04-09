@@ -5,7 +5,7 @@
   margin-top: 2vh;
 
   @media screen and (max-width: 340px) {
-    margin-left: 8vw;
+    margin-left: 10vw;
   }
 
   > .folders-grid {
@@ -74,17 +74,20 @@
         gap: 10px;
         padding: 2vh 0.5vw;
 
+        > h3 {
+          padding-bottom: 10px;
+        }
+
         @media screen and (max-width: 1275px) {
           width: 35vw;
         }
 
-        @media screen and (max-width: 850px) {
+        @media screen and (max-width: 900px) {
           width: 50vw;
         }
 
-        @media screen and (max-width: 425px) {
+        @media screen and (max-width: 544px) {
           width: 80vw;
-          height: 28vh;
         }
 
         > .folders-create-close {
@@ -103,7 +106,7 @@
           border: 2px solid $accent;
           background-color: transparent;
           font-weight: bold;
-          padding: 1vh 0vw;
+          padding: 10px 0;
           width: 75px;
           transition:
             background-color 0.15s ease-in-out,
@@ -165,7 +168,7 @@
 
       @media screen and (max-width: 425px) {
         width: 80vw;
-        height: 75vh;
+        height: 65vh;
       }
 
       > .folders-share-close {
@@ -229,7 +232,7 @@
 
   > .folders-buttons {
     display: flex;
-    gap: 3vw;
+    gap: 10px;
 
     > .folders-button {
       border: none;
@@ -248,7 +251,7 @@
       font-size: 0.75rem;
 
       @media screen and (max-width: 350px) {
-        padding: 7px 10px;
+        padding: 7px 15px;
       }
 
       &:hover {

@@ -47,14 +47,14 @@ export class SettingsComponent implements OnInit {
     ]),
   });
 
-  passwordChangeError: any;
+  formErrors: any;
 
   submitPasswordChange(): void {
     if (
       this.passwordChangeForm.value.newPass !==
       this.passwordChangeForm.value.newPass2
     ) {
-      this.passwordChangeError = "The new passwords do not match";
+      this.formErrors = "The new passwords do not match";
       return;
     }
 
@@ -67,6 +67,7 @@ export class SettingsComponent implements OnInit {
       .subscribe((res) => {
         if (res) {
           this.togglePassChangeForm();
+          this.passwordChangeForm.reset();
           alert("Your password has successfully been changed");
         }
       });

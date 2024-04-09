@@ -1,4 +1,5 @@
 @import "../dashboard/links/link-item/link-item.component.scss";
+@import "../../../assets/sharedstyles.scss";
 
 .public-folder {
   height: auto;
@@ -42,11 +43,37 @@
         transform: translateY(-5px);
       }
     }
+
+    > button {
+      padding: 15px 20px;
+      border: none;
+      border: 2px solid $accent;
+      border-radius: 10px;
+      background: transparent;
+      color: $text2;
+      margin-top: 10px;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $accent;
+      }
+    }
+  }
+
+  > .content-grid-no-previews {
+    margin-left: 5vw;
+    margin-top: 3vh;
+
+    @media screen and (max-width: 440px) {
+      justify-content: center;
+      align-items: center;
+      margin-left: 0vw;
+    }
   }
 
   > .content-grid {
     margin-left: 5vw;
-    margin-top: 5vh;
+    margin-top: 3vh;
     box-sizing: border-box;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 380px));
@@ -96,6 +123,7 @@
       font-weight: bold;
       color: $text;
       font-size: 1rem;
+      margin-bottom: 2vh;
 
       transition:
         background-color 0.1s ease-in-out,

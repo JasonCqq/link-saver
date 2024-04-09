@@ -18,7 +18,6 @@
   </span>
 
   <section
-    *ngIf="tempLinks"
     [ngClass]="previews === true ? 'content-grid' : 'content-grid-no-previews'"
     @fadeIn
     @fadeOut
@@ -26,7 +25,7 @@
     <div *ngFor="let link of tempLinks">
       <app-link-item
         [itemData]="link"
-        (linkUpdate)="deleteLink($event)"
+        (linkUpdate)="linkEvent($event)"
       ></app-link-item>
     </div>
   </section>

@@ -40,6 +40,11 @@
       >
     </mat-form-field>
 
+    <div *ngIf="formErrors" class="form-errors">
+      <span class="material-icons-round"> error </span>
+      <p>{{ formErrors }}</p>
+    </div>
+
     <button type="submit" mat-raised-button [disabled]="applyForm.invalid">
       Register
     </button>
@@ -49,6 +54,8 @@
 </main>
 
 <footer class="foot-note">
+  <p>beta v1.0.0</p>
+
   <a href="https://github.com/JasonCqq/link-saver" target="_blank"
     >&#x2022; Source Code</a
   >

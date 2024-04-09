@@ -27,7 +27,7 @@
           localhost:4200/public/{{ this.tempShareUrl.url }}
         </p>
 
-        <p *ngIf="tempShareUrl" style="color: lightgreen">Success!</p>
+        <p *ngIf="tempShareUrl" style="color: lightskyblue">Success!</p>
       </section>
 
       <mat-label for="passwordToggle">Password Locked</mat-label>
@@ -36,10 +36,11 @@
         #passwordToggle
         formControlName="passwordToggle"
         [hideIcon]="true"
+        (click)="togglePasswordInput()"
       >
       </mat-slide-toggle>
 
-      <mat-form-field *ngIf="shareFolderForm.value.passwordToggle === true">
+      <mat-form-field>
         <mat-label>Password</mat-label>
         <input matInput type="password" formControlName="password" />
       </mat-form-field>
@@ -81,6 +82,7 @@
     </button>
   </div>
 
+  <!--Folders Tab-->
   <section class="folders-grid" *ngIf="!folderOpened">
     <div class="folders-item" (click)="toggleWindow()">
       <span class="material-icons-round faq-icon" style="color: #237bff"
@@ -178,6 +180,7 @@
     </div>
   </section>
 
+  <!--Links Tab-->
   <section class="content-grid" *ngIf="folderOpened && tempLinks">
     <div *ngFor="let link of tempLinks">
       <app-link-item

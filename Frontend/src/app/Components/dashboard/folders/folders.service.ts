@@ -3,7 +3,6 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment.development";
 import { Observable, Subject } from "rxjs";
 import { UserService } from "../../user/user.service";
-import { map } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -25,66 +24,52 @@ export class FoldersService {
   }
 
   async createFolder(name: string) {
-    try {
-      await this.http
-        .post(
-          `${this.apiUrl}/folders/create/${
-            this.userService.getUser()?.user.id
-          }`,
-          {
-            name: name,
-          },
-          {
-            withCredentials: true,
-          },
-        )
-        .subscribe(() => {
-          this.notifyFolders();
-        });
-    } catch (err) {
-      console.log(err);
-    }
+    await this.http
+      .post(
+        `${this.apiUrl}/folders/create/${this.userService.getUser()?.user.id}`,
+        {
+          name: name,
+        },
+        {
+          withCredentials: true,
+        },
+      )
+      .subscribe(() => {
+        this.notifyFolders();
+      });
   }
 
   async editFolder(id: string, name: string) {
-    try {
-      await this.http
-        .put(
-          `${this.apiUrl}/folders/edit/${id}/${
-            this.userService.getUser()?.user.id
-          }`,
-          {
-            name: name,
-          },
-          {
-            withCredentials: true,
-          },
-        )
-        .subscribe(() => {
-          this.notifyFolders();
-        });
-    } catch (err) {
-      console.log(err);
-    }
+    await this.http
+      .put(
+        `${this.apiUrl}/folders/edit/${id}/${
+          this.userService.getUser()?.user.id
+        }`,
+        {
+          name: name,
+        },
+        {
+          withCredentials: true,
+        },
+      )
+      .subscribe(() => {
+        this.notifyFolders();
+      });
   }
 
   async deleteFolder(id: string) {
-    try {
-      await this.http
-        .delete(
-          `${this.apiUrl}/folders/delete/${id}/${
-            this.userService.getUser()?.user.id
-          }`,
-          {
-            withCredentials: true,
-          },
-        )
-        .subscribe(() => {
-          this.notifyFolders();
-        });
-    } catch (err) {
-      console.log(err);
-    }
+    await this.http
+      .delete(
+        `${this.apiUrl}/folders/delete/${id}/${
+          this.userService.getUser()?.user.id
+        }`,
+        {
+          withCredentials: true,
+        },
+      )
+      .subscribe(() => {
+        this.notifyFolders();
+      });
   }
 
   shareFolder(password: string, share: boolean, folderId: string) {

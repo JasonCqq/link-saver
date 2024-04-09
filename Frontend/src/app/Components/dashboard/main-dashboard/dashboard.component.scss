@@ -20,13 +20,13 @@ span {
       align-items: center;
       justify-content: center;
       gap: 2vh;
-      width: 20vw;
+      width: 25vw;
       height: 20vh;
       border-radius: 10px;
       box-shadow: 1px 1px 25px $boxshad;
       background: $background;
 
-      @media screen and (max-width: 1000px) {
+      @media screen and (max-width: 1200px) {
         width: 35vw;
       }
 

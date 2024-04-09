@@ -13,7 +13,7 @@
         ></mat-icon>
 
         <p>Confirm Account Deletion</p>
-        <p>Type "abracadabra" below to confirm</p>
+        <p>Type "abracadabra" to confirm</p>
         <input
           id="delete-confirm"
           type="text"
@@ -60,13 +60,17 @@
           ></mat-icon>
           <h3>Change Password</h3>
 
+          <div *ngIf="formErrors" class="form-errors">
+            <span class="material-icons-round"> error </span>
+            <p>{{ formErrors }}</p>
+          </div>
+
           <mat-form-field appearance="outline">
             <mat-label for="currentPass">Current Password</mat-label>
             <input
               matInput
               type="password"
               required
-              placeholder="********"
               formControlName="currentPass"
               #currentPass
               minlength="8"
@@ -83,7 +87,6 @@
               matInput
               type="password"
               required
-              placeholder="********"
               formControlName="newPass"
               #newPass
               minlength="8"
@@ -101,7 +104,6 @@
               matInput
               type="password"
               required
-              placeholder="********"
               formControlName="newPass2"
               #newPass2
               minlength="8"
@@ -112,10 +114,6 @@
           <button type="submit" [disabled]="!passwordChangeForm.dirty">
             Change Password
           </button>
-
-          <p style="color: red" *ngIf="passwordChangeError">
-            {{ passwordChangeError }}
-          </p>
         </form>
       </div>
 
@@ -150,7 +148,7 @@
         ></mat-slide-toggle
       ></span>
 
-      <p *ngIf="changesApplied" style="color: green">Changes Applied</p>
+      <p *ngIf="changesApplied" style="color: lightskyblue">Changes Applied</p>
 
       <button
         type="submit"

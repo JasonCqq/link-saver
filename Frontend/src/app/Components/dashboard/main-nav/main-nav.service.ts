@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, catchError, throwError } from "rxjs";
 import { environment } from "src/environments/environment.development";
 import { UserService } from "../../user/user.service";
 
@@ -32,29 +32,41 @@ export class MainNavService {
     massFolder: string,
     massBookmark: boolean,
   ) {
-    return this.http.put(
-      `${this.apiUrl}/link/mass_edit/${this.userService.getUser()?.user.id}`,
-      {
-        massIDs: this.massEditIDs,
-        massTitle: massTitle,
-        massRemind: massRemind,
-        massFolder: massFolder,
-        massBookmark: massBookmark,
-      },
-      { withCredentials: true },
-    );
+    return this.http
+      .put(
+        `${this.apiUrl}/link/mass_edit/${this.userService.getUser()?.user.id}`,
+        {
+          massIDs: this.massEditIDs,
+          massTitle: massTitle,
+          massRemind: massRemind,
+          massFolder: massFolder,
+          massBookmark: massBookmark,
+        },
+        { withCredentials: true },
+      )
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        }),
+      );
   }
 
   submitMassResDel(massDelete: boolean, massRestore: boolean) {
-    return this.http.put(
-      `${this.apiUrl}/link/mass_restoreDelete/${this.userService.getUser()?.user.id}`,
-      {
-        massIDs: this.massEditIDs,
-        massDelete: massDelete,
-        massRestore: massRestore,
-      },
-      { withCredentials: true },
-    );
+    return this.http
+      .put(
+        `${this.apiUrl}/link/mass_restoreDelete/${this.userService.getUser()?.user.id}`,
+        {
+          massIDs: this.massEditIDs,
+          massDelete: massDelete,
+          massRestore: massRestore,
+        },
+        { withCredentials: true },
+      )
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        }),
+      );
   }
 
   addMassID(id: string) {

@@ -3,7 +3,7 @@
 
   <mat-form-field appearance="outline">
     <mat-label for="url">URL</mat-label>
-    <input matInput type="url" #url formControlName="url" required="true" />
+    <input matInput type="url" #url formControlName="url" required />
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -34,6 +34,6 @@
   </mat-slide-toggle>
 
   <div class="add-link-form-buttons">
-    <button type="submit">Submit</button>
+    <button type="submit" [disabled]="linkForm.invalid">Submit</button>
   </div>
 </form>

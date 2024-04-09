@@ -5,6 +5,7 @@ import { FoldersService } from "./folders.service";
 import { FormGroup, FormControl } from "@angular/forms";
 import { Subject, takeUntil } from "rxjs";
 import { Link } from "src/app/Interfaces/Link";
+import { MainNavService } from "../main-nav/main-nav.service";
 
 @Component({
   selector: "app-folders",
@@ -15,6 +16,7 @@ export class FoldersComponent implements OnInit, OnDestroy {
   constructor(
     private dashboardService: DashboardService,
     private foldersService: FoldersService,
+    private mainNavService: MainNavService,
   ) {}
 
   private destroy$ = new Subject<void>();
@@ -41,6 +43,8 @@ export class FoldersComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getFolders();
 
+    this.mainNavService.changeTitle("Folders");
+
     this.foldersService
       .foldersUpdated()
       .pipe(takeUntil(this.destroy$))
@@ -61,8 +65,16 @@ export class FoldersComponent implements OnInit, OnDestroy {
 
   shareFolderForm = new FormGroup({
     passwordToggle: new FormControl(false),
-    password: new FormControl(),
+    password: new FormControl({ value: "", disabled: true }),
   });
+
+  togglePasswordInput() {
+    if (this.shareFolderForm.get("passwordToggle")?.value) {
+      this.shareFolderForm.get("password")?.enable();
+    } else {
+      this.shareFolderForm.get("password")?.disable();
+    }
+  }
 
   toggleWindow(): void {
     this.windowOpened = !this.windowOpened;
@@ -111,10 +123,9 @@ export class FoldersComponent implements OnInit, OnDestroy {
   }
 
   tempShareUrl: any;
-
   shareFolder() {
     this.foldersService
-      .shareFolder(this.shareFolderForm.value.password, true, this.tempId)
+      .shareFolder(this.shareFolderForm.value.password || "", true, this.tempId)
       .subscribe((res) => {
         this.tempShareUrl = res;
         this.tempShare = false;

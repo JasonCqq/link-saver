@@ -7,9 +7,13 @@
     <a routerLink="">LinkStorage</a>
 
     <p>This folder was created by {{ author }}</p>
+
+    <button (click)="toggleThumbnail()">Toggle Thumbnails</button>
   </header>
 
-  <section class="content-grid">
+  <section
+    [ngClass]="previews === true ? 'content-grid' : 'content-grid-no-previews'"
+  >
     <div *ngFor="let link of links">
       <div class="link-item">
         <section>
@@ -24,7 +28,7 @@
             </p>
           </a>
 
-          <div class="link-preview">
+          <div class="link-preview" *ngIf="previews">
             <img
               src="{{ 'data:image/png;base64,' + link.thumbnail }}"
               height="100px"
@@ -46,6 +50,11 @@
   <a routerLink="">LinkStorage</a>
   <h4 text-align="center">This folder is password locked.</h4>
 
+  <div *ngIf="formErrors" class="form-errors">
+    <span class="material-icons-round"> error </span>
+    <p>{{ formErrors }}</p>
+  </div>
+
   <form [formGroup]="passwordForm" (submit)="authorizeFolder()">
     <mat-form-field appearance="outline">
       <mat-label for="publicPassword">Password</mat-label>
@@ -56,6 +65,7 @@
         formControlName="password"
       />
     </mat-form-field>
+
     <button type="submit">Enter</button>
   </form>
 </div>

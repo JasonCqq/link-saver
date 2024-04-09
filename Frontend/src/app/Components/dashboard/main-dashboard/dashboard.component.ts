@@ -1,4 +1,4 @@
-import { Component, Host, HostBinding, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { DashboardService } from "../dashboard.service";
 import { Link } from "../../../Interfaces/Link";
 import { Subject, takeUntil } from "rxjs";
@@ -58,6 +58,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       });
   }
 
+  // Filter links based on title
   showOnly(linkType: string): void {
     if (linkType === "Dashboard") {
       this.tempLinks = this.links.filter((link) => link.trash === false);
@@ -66,7 +67,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     } else if (linkType === "Upcoming") {
       this.tempLinks = this.links.filter((link) => link.remind);
     } else if (linkType === "Trash") {
-      this.tempLinks = this.links.filter((link) => link.trash);
+      this.tempLinks = this.links.filter((link) => link.trash === true);
     }
   }
 
@@ -77,7 +78,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   // Displays search results
   displayResults(results: Link[]): void {
-    this.links = results;
+    this.tempLinks = results;
   }
 
   getLinks(): void {
@@ -92,8 +93,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   // Moves link
-  deleteLink(id: any): void {
+  linkEvent(id: any): void {
     const link = this.links.findIndex((link) => link.id === id);
-    this.links.splice(link, 1);
+
+    if (this.tempTitle !== "Trash") {
+      this.links[link].trash = true;
+    } else if (this.tempTitle === "Trash") {
+      this.links[link].trash = false;
+    }
+
+    this.showOnly(this.tempTitle);
   }
 }

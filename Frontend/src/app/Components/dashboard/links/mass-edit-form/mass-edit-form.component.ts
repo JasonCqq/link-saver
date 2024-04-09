@@ -9,7 +9,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { DashboardService } from "../../dashboard.service";
 import { Subject, takeUntil } from "rxjs";
 import { MainNavService } from "../../main-nav/main-nav.service";
-import { LinkService } from "../link-item/link-item.service";
+import { FoldersService } from "../../folders/folders.service";
 
 @Component({
   selector: "app-mass-edit-form",
@@ -20,6 +20,7 @@ export class MassEditFormComponent implements OnInit, OnDestroy {
   constructor(
     private dashboardService: DashboardService,
     private mainNavService: MainNavService,
+    private foldersService: FoldersService,
   ) {}
 
   title: any;
@@ -68,7 +69,9 @@ export class MassEditFormComponent implements OnInit, OnDestroy {
         this.massEditForm.value.massBookmark,
       )
       .subscribe(() => {
-        this.dashboardService.notify();
+        this.title === "Folders"
+          ? this.foldersService.notifyFolders()
+          : this.dashboardService.notify();
         this.toggleForm();
       });
   }
@@ -86,7 +89,9 @@ export class MassEditFormComponent implements OnInit, OnDestroy {
     }
 
     this.mainNavService.submitMassResDel(del, res).subscribe(() => {
-      this.dashboardService.notify();
+      this.title === "Folders"
+        ? this.foldersService.notifyFolders()
+        : this.dashboardService.notify();
       this.toggleForm();
     });
   }

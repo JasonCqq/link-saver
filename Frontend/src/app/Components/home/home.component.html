@@ -53,8 +53,7 @@
         <span>
           <h2>Share your links/folders</h2>
           <p>
-            Share your links + folders with everyone, allowing easy access to
-            material.
+            Share your links + folders with everyone.
             <a routerLink="/public/1" target="_blank"
               ><strong style="color: cyan"
                 >Check out one of our shared folder!</strong
@@ -142,23 +141,30 @@
       <h1>CONTACT</h1>
 
       <mat-form-field appearance="outline">
-        <mat-label>Name</mat-label>
-        <input matInput type="text" #name required />
+        <mat-label for="name">Name</mat-label>
+        <input matInput type="text" #name required name="name" />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input matInput type="email" #email required />
+        <mat-label for="email">Email</mat-label>
+        <input matInput type="email" #email required name="email" />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Subject</mat-label>
-        <input matInput type="text" #subject required />
+        <mat-label for="subject">Subject</mat-label>
+        <input matInput type="text" #subject required name="subject" />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Your Message</mat-label>
-        <textarea matInput #message type="text" required rows="5"></textarea>
+        <mat-label for="message">Your Message</mat-label>
+        <textarea
+          matInput
+          #message
+          type="text"
+          required
+          rows="5"
+          name="message"
+        ></textarea>
       </mat-form-field>
 
       <button type="submit">Send Message</button>
@@ -166,6 +172,8 @@
   </section>
 
   <footer class="foot-note">
+    <p>beta v1.0.0</p>
+
     <a href="https://github.com/JasonCqq/link-saver" target="_blank"
       >&#x2022; Source Code</a
     >

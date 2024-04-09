@@ -1,6 +1,7 @@
 import { animate, transition, style, trigger } from "@angular/animations";
 import { Component } from "@angular/core";
 
+// Animations
 const enterTransition = transition(":enter", [
   style({
     opacity: 0,

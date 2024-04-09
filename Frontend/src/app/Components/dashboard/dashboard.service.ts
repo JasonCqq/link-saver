@@ -6,7 +6,6 @@ import { map, catchError } from "rxjs/operators";
 import { Link, Links } from "../../Interfaces/Link";
 import { Folder, Folders } from "../../Interfaces/Folder";
 import { UserService } from "../user/user.service";
-import { FoldersService } from "./folders/folders.service";
 
 @Injectable({
   providedIn: "root",

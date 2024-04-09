@@ -11,6 +11,7 @@ $text: white;
 $text2: white;
 $textSec: #9ea7b1;
 $imp-button: #f73830;
+$warn: #0676ed;
 
 $Frontend-primary: mat.define-palette(mat.$light-blue-palette);
 $Frontend-accent: mat.define-palette(mat.$blue-palette, A200);
@@ -64,6 +65,11 @@ $Frontend-theme: mat.define-dark-theme(
 
 ::ng-deep .mat-mdc-floating-label.mdc-floating-label {
   color: gray !important;
+}
+
+// Border-Radius for inputs
+.mdc-text-field--outlined {
+  --mdc-outlined-text-field-container-shape: 10px !important;
 }
 
 // Date picker
@@ -173,4 +179,23 @@ input {
 html,
 body {
   width: 100%;
+}
+
+button {
+  font-weight: 600;
+}
+
+.form-errors {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  background: $warn;
+  color: $text;
+  text-align: center;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  width: fit-content;
 }

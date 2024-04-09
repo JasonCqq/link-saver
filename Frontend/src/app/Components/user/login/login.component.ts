@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { UserService } from "../user.service";
 import { Router } from "@angular/router";
-import { pipe, catchError } from "rxjs";
 
 @Component({
   selector: "app-login",
@@ -11,7 +10,10 @@ import { pipe, catchError } from "rxjs";
 })
 export class LoginComponent implements OnInit {
   // Checks for user
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+  ) {}
   user: any;
 
   ngOnInit(): void {
@@ -43,40 +45,48 @@ export class LoginComponent implements OnInit {
   });
 
   // Submit Login Form
+  formErrors: any;
   submitLoginApplication(): void {
-    this.userService.submitApplication(
-      this.applyLoginForm.value.username ?? "",
-      "",
-      this.applyLoginForm.value.password ?? "",
-      "login",
-    );
+    this.userService
+      .submitApplication(
+        this.applyLoginForm.value.username ?? "",
+        "",
+        this.applyLoginForm.value.password ?? "",
+        "login",
+      )
+      .subscribe({
+        next: (response) => {
+          this.userService.updateUser(response);
+          this.router.navigate(["/dashboard"]);
+        },
+        error: (error) => {
+          this.formErrors = error.error;
+        },
+      });
   }
 
   // Submit forgot password form
-
   forgotSuccess: boolean = false;
   forgotSuccess2: boolean = false;
+  forgotFormErrors: any;
+
   submitForgotApplication(): void {
+    this.forgotFormErrors = "";
     this.userService
       .forgotPassword(this.forgotPasswordForm.value.forgot_email ?? "")
-      .pipe(
-        catchError((err) => {
-          alert(JSON.stringify(err.error.errors));
-          throw err;
-        }),
-      )
       .subscribe({
-        next: (res) => {
+        next: () => {
           this.forgotPasswordForm.get("forgot_email")?.disable();
           this.forgotSuccess = true;
         },
         error: (err) => {
-          console.error("Error after catchError:", err);
+          this.forgotFormErrors = err.error;
         },
       });
   }
 
   submitOTPApplication(): void {
+    this.forgotFormErrors = "";
     if (
       this.forgotSuccess !== true &&
       !this.forgotPasswordForm.value.forgot_otp
@@ -89,19 +99,13 @@ export class LoginComponent implements OnInit {
         this.forgotPasswordForm.getRawValue().forgot_email ?? "",
         this.forgotPasswordForm.value.forgot_otp ?? "",
       )
-      .pipe(
-        catchError((err) => {
-          alert(JSON.stringify(err.error.errors));
-          throw err;
-        }),
-      )
       .subscribe({
-        next: (res) => {
+        next: () => {
           this.forgotSuccess2 = true;
           this.forgotPasswordForm.get("forgot_otp")?.disable();
         },
         error: (err) => {
-          console.error("Error after catchError:", err);
+          this.forgotFormErrors = err.error;
         },
       });
   }
@@ -121,6 +125,7 @@ export class LoginComponent implements OnInit {
   });
 
   submitNewPasswordApplication(): void {
+    this.forgotFormErrors = "";
     if (this.forgotSuccess && this.forgotSuccess2) {
       if (
         this.newPasswordForm.value.forgot_new_pass ===
@@ -132,22 +137,18 @@ export class LoginComponent implements OnInit {
             this.newPasswordForm.value.forgot_new_pass ?? "",
             this.newPasswordForm.value.forgot_new_pass2 ?? "",
           )
-          .pipe(
-            catchError((err) => {
-              alert(JSON.stringify(err.error.errors));
-              throw err;
-            }),
-          )
           .subscribe({
-            next: (res) => {
+            next: () => {
               this.toggleForm();
+              this.forgotSuccess = false;
+              this.forgotSuccess2 = false;
             },
             error: (err) => {
-              console.error("Error after catchError:", err);
+              this.forgotFormErrors = err.error;
             },
           });
       } else {
-        alert("New passwords do not match");
+        this.forgotFormErrors = "New passwords do not match.";
       }
     }
   }

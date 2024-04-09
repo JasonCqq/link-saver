@@ -16,7 +16,7 @@ function formatLinks(links) {
 }
 
 exports.create_link = [
-  body("url").trim().isLength({ min: 1 }).escape(),
+  body("url", "Invalid URL").isURL().trim().isLength({ min: 1 }).escape(),
   body("folder").trim().escape(),
   body("bookmarked").trim().escape(),
   body("remind").trim().escape(),
@@ -24,97 +24,86 @@ exports.create_link = [
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
-      res.status(400).json({ errors: errs.array().map((err) => err.msg) });
+      const firstError = errs.array({ onlyFirstError: true })[0].msg;
+      res.status(400).json(firstError);
     } else {
-      try {
-        if (!req.params.userId || req.session.user.id !== req.params.userId) {
-          res.status(401).send("Not authenticated");
-        }
-
-        let date = req.body.remind;
-        if (date === "") {
-          date = null;
-        }
-
-        let userUrl = decode(req.body.url, { level: "html5" });
-        let decodedUrl = userUrl;
-
-        if (!userUrl.startsWith("http://") && !userUrl.startsWith("https://")) {
-          decodedUrl = "https://" + userUrl;
-        }
-
-        // Scrape for title/screenshot
-        const browser = await puppeteer.launch({
-          headless: false,
-          args: minimal_args,
-        });
-        const page = await browser.newPage();
-
-        // Block Ads
-        const blocked_domains = [
-          "googlesyndication.com",
-          "adservice.google.com",
-        ];
-
-        // Remove unused resources
-        await page.setRequestInterception(true);
-        page.on("request", (request) => {
-          const url = request.url();
-
-          const isBlockedDomain = blocked_domains.some((domain) =>
-            url.includes(domain),
-          );
-
-          if (isBlockedDomain) {
-            request.abort();
-          } else {
-            request.continue();
-          }
-        });
-
-        await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
-
-        const title = await page.title();
-        const thumbnail = await page.screenshot({
-          encoding: "base64",
-          fullPage: false,
-        });
-
-        await browser.close();
-
-        const link = await prisma.Link.create({
-          data: {
-            url: decodedUrl,
-            user: {
-              connect: {
-                id: req.params.userId,
-              },
-            },
-
-            ...(req.body.folder
-              ? { folder: { connect: { id: req.body.folder } } }
-              : {}),
-
-            title: title,
-            bookmarked: JSON.parse(req.body.bookmarked),
-            remind: date,
-            thumbnail: thumbnail,
-          },
-        });
-
-        res.status(200).json({});
-      } catch (err) {
-        console.log(err);
+      if (!req.params.userId || req.session.user.id !== req.params.userId) {
+        res.status(401).json("Not authenticated");
       }
+
+      let date = req.body.remind;
+      if (date === "") {
+        date = null;
+      }
+
+      let userUrl = decode(req.body.url, { level: "html5" });
+      let decodedUrl = userUrl;
+
+      if (!userUrl.startsWith("http://") && !userUrl.startsWith("https://")) {
+        decodedUrl = "https://" + userUrl;
+      }
+
+      // Scrape for title/screenshot
+      const browser = await puppeteer.launch({
+        headless: false,
+        args: minimal_args,
+      });
+      const page = await browser.newPage();
+
+      // Block Ads
+      const blocked_domains = ["googlesyndication.com", "adservice.google.com"];
+
+      await page.setRequestInterception(true);
+
+      page.on("request", (request) => {
+        const url = request.url();
+
+        const isBlockedDomain = blocked_domains.some((domain) =>
+          url.includes(domain),
+        );
+
+        isBlockedDomain ? request.abort() : request.continue();
+      });
+
+      await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
+
+      const title = await page.title();
+      const thumbnail = await page.screenshot({
+        encoding: "base64",
+        fullPage: false,
+      });
+
+      await browser.close();
+
+      const link = await prisma.Link.create({
+        data: {
+          url: decodedUrl,
+          user: {
+            connect: {
+              id: req.params.userId,
+            },
+          },
+
+          ...(req.body.folder
+            ? { folder: { connect: { id: req.body.folder } } }
+            : {}),
+
+          title: title,
+          bookmarked: JSON.parse(req.body.bookmarked),
+          remind: date,
+          thumbnail: thumbnail,
+        },
+      });
+      res.status(200).json({});
     }
   }),
 ];
 
 exports.delete_link = asyncHandler(async (req, res) => {
   if (!req.params.userId || req.session.user.id !== req.params.userId) {
-    res.status(401).send("Not authenticated");
+    res.status(401).json("Not authenticated");
   }
-  const link = await prisma.Link.update({
+  await prisma.Link.update({
     where: {
       id: req.params.id,
       userId: req.params.userId,
@@ -130,9 +119,9 @@ exports.delete_link = asyncHandler(async (req, res) => {
 
 exports.perma_delete_link = asyncHandler(async (req, res) => {
   if (!req.params.userId || req.session.user.id !== req.params.userId) {
-    res.status(401).send("Not authenticated");
+    res.status(401).json("Not authenticated");
   }
-  const link = await prisma.Link.delete({
+  await prisma.Link.delete({
     where: {
       id: req.params.id,
       trash: true,
@@ -145,10 +134,10 @@ exports.perma_delete_link = asyncHandler(async (req, res) => {
 
 exports.perma_delete_all = asyncHandler(async (req, res) => {
   if (!req.params.userId || req.session.user.id !== req.params.userId) {
-    res.status(401).send("Not authenticated");
+    res.status(401).json("Not authenticated");
   }
 
-  const links = await prisma.Link.deleteMany({
+  await prisma.Link.deleteMany({
     where: {
       trash: true,
       userId: req.params.userId,
@@ -160,10 +149,10 @@ exports.perma_delete_all = asyncHandler(async (req, res) => {
 
 exports.restore_link = asyncHandler(async (req, res) => {
   if (!req.params.userId || req.session.user.id !== req.params.userId) {
-    res.status(401).send("Not authenticated");
+    res.status(401).json("Not authenticated");
   }
 
-  const link = await prisma.Link.update({
+  await prisma.Link.update({
     where: {
       id: req.params.id,
       userId: req.params.userId,
@@ -178,7 +167,6 @@ exports.restore_link = asyncHandler(async (req, res) => {
 });
 
 exports.edit_link = [
-  // Missing escape()
   body("title").trim(),
   body("folder").trim().escape(),
   body("bookmarked").trim().escape(),
@@ -188,31 +176,28 @@ exports.edit_link = [
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
-      res.status(400).json({ errors: errs.array().map((err) => err.msg) });
+      const firstError = errs.array({ onlyFirstError: true })[0].msg;
+      res.status(400).json(firstError);
     } else {
-      try {
-        if (!req.params.userId || req.session.user.id !== req.params.userId) {
-          res.status(401).send("Not authenticated");
-        }
-
-        const link = await prisma.Link.update({
-          where: {
-            id: req.params.id,
-            userId: req.params.userId,
-          },
-
-          data: {
-            title: req.body.title,
-            bookmarked: JSON.parse(req.body.bookmarked),
-            ...(req.body.folder
-              ? { folder: { connect: { id: req.body.folder } } }
-              : {}),
-            remind: req.body.remind || null,
-          },
-        });
-      } catch (err) {
-        console.log(err);
+      if (!req.params.userId || req.session.user.id !== req.params.userId) {
+        res.status(401).json("Not authenticated");
       }
+
+      await prisma.Link.update({
+        where: {
+          id: req.params.id,
+          userId: req.params.userId,
+        },
+
+        data: {
+          title: req.body.title,
+          bookmarked: JSON.parse(req.body.bookmarked),
+          ...(req.body.folder
+            ? { folder: { connect: { id: req.body.folder } } }
+            : {}),
+          remind: req.body.remind || null,
+        },
+      });
     }
 
     res.status(200).json({});
@@ -221,7 +206,7 @@ exports.edit_link = [
 
 exports.get_links = asyncHandler(async (req, res) => {
   if (!req.params.userId || req.session.user.id !== req.params.userId) {
-    res.status(401).send("Not authenticated");
+    res.status(401).json("Not authenticated");
   }
 
   const links = await prisma.Link.findMany({
@@ -241,7 +226,7 @@ exports.get_links = asyncHandler(async (req, res) => {
 
 exports.search_link = asyncHandler(async (req, res) => {
   if (!req.params.userId || req.session.user.id !== req.params.userId) {
-    res.status(401).send("Not authenticated");
+    res.status(401).json("Not authenticated");
   }
 
   const property = req.query.t;
@@ -309,11 +294,12 @@ exports.mass_edit_links = [
     const errs = validationResult(req);
 
     if (!req.params.userId || req.session.user.id !== req.params.userId) {
-      res.status(401).send("Not authenticated");
+      res.status(401).json("Not authenticated");
     }
 
     if (!errs.isEmpty()) {
-      res.status(400).json({ errors: errs.array().map((err) => err.msg) });
+      const firstError = errs.array({ onlyFirstError: true })[0].msg;
+      res.status(400).json(firstError);
     } else {
       let tempBook;
       req.body.massBookmark ? (tempBook = true) : (tempBook = undefined);
@@ -352,11 +338,12 @@ exports.mass_restore_delete_links = [
     const errs = validationResult(req);
 
     if (!req.params.userId || req.session.user.id !== req.params.userId) {
-      res.status(401).send("Not authenticated");
+      res.status(401).json("Not authenticated");
     }
 
     if (!errs.isEmpty()) {
-      res.status(400).json({ errors: errs.array().map((err) => err.msg) });
+      const firstError = errs.array({ onlyFirstError: true })[0].msg;
+      res.status(400).json(firstError);
     } else {
       let resOrDel;
 
