@@ -2,7 +2,10 @@
   <mat-drawer [(opened)]="opened" mode="side" #drawer class="d-sidebar">
     <li class="sidebar-profile">
       <p>Welcome</p>
-      <p>{{ user.username }}</p>
+      <p>
+        {{ user.username | slice: 0 : 11
+        }}{{ user.username.length > 11 ? "..." : "" }}
+      </p>
     </li>
 
     <div
@@ -74,22 +77,29 @@
       (click)="drawer.toggle(); opened = !opened"
       *ngIf="!opened"
       class="sidebar-icon"
+      matTooltip="Open sidebar"
     ></mat-icon>
     <mat-icon
       fontIcon="close"
       (click)="drawer.toggle(); opened = !opened"
       *ngIf="opened"
       class="sidebar-icon"
+      matTooltip="Close sidebar"
     >
     </mat-icon>
 
-    <span class="material-icons-round sidebar-icon" (click)="toggleMassEdit()">
+    <span
+      class="material-icons-round sidebar-icon"
+      (click)="toggleMassEdit()"
+      matTooltip="Edit Mode"
+    >
       edit
     </span>
     <span
       class="material-icons-round sidebar-icon"
       *ngIf="massEditting"
       (click)="toggleMassEditForm()"
+      matTooltip="Edit Items"
     >
       done
     </span>

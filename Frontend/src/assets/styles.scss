@@ -90,6 +90,18 @@ $Frontend-theme: mat.define-dark-theme(
   }
 }
 
+// Tooltip styling
+$my-custom-typography-config: mat.define-typography-config(
+  $caption:
+    mat.define-typography-level(
+      $font-size: 12px,
+      $font-weight: 600,
+      $font-family: Roboto,
+    ),
+);
+
+@include mat.tooltip-typography($my-custom-typography-config);
+
 @include mat.all-component-themes($Frontend-theme);
 
 html {

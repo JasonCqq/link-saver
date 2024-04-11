@@ -4,7 +4,7 @@ import { environment } from "src/environments/environment.development";
 import { DashboardService } from "../../dashboard.service";
 import { FoldersService } from "../../folders/folders.service";
 import { UserService } from "src/app/Components/user/user.service";
-import { BehaviorSubject, takeUntil, Subject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -32,12 +32,11 @@ export class LinkService implements OnInit, OnDestroy {
   toggleThumbnail() {
     this.thumbnailsSubject.next(!this.thumbnailsSubject.value);
   }
-
-  ngOnInit(): void {
-    this.userService.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
-      this.thumbnailsSubject.next(user?.settings.previews);
-    });
+  setThumbnail(state: boolean) {
+    this.thumbnailsSubject.next(state);
   }
+
+  ngOnInit(): void {}
 
   async editLink(
     id: string,

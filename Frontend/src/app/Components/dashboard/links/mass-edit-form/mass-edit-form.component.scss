@@ -101,6 +101,10 @@
       background-color: transparent;
       border: 2px solid $accent;
 
+      &:disabled {
+        opacity: 0.5;
+      }
+
       &:hover {
         background-color: $accent;
         cursor: pointer;

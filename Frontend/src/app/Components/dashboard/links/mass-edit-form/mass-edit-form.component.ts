@@ -73,6 +73,7 @@ export class MassEditFormComponent implements OnInit, OnDestroy {
           ? this.foldersService.notifyFolders()
           : this.dashboardService.notify();
         this.toggleForm();
+        this.mainNavService.toggleMassEdit();
       });
   }
 
@@ -93,6 +94,7 @@ export class MassEditFormComponent implements OnInit, OnDestroy {
         ? this.foldersService.notifyFolders()
         : this.dashboardService.notify();
       this.toggleForm();
+      this.mainNavService.toggleMassEdit();
     });
   }
 }

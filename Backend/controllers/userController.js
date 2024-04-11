@@ -149,9 +149,12 @@ exports.delete_user = asyncHandler(async (req, res) => {
       id: req.params.userId,
     },
   });
-  req.session.user = null;
-  req.session = null;
 
+  req.session.destroy((err) => {
+    if (err) {
+      res.status(500).json("Internal Server Error");
+    }
+  });
   res.status(200).json({});
 });
 
@@ -200,7 +203,10 @@ exports.submit_settings = [
 ];
 
 exports.change_password = [
-  body("currentPass").trim().escape(),
+  body("currentPass", "Password must be between 8-20 characters")
+    .trim()
+    .isLength({ min: 8, max: 20 })
+    .escape(),
   body("newPass", "Password must be between 8-20 characters")
     .trim()
     .isLength({ min: 8, max: 20 })
@@ -222,7 +228,7 @@ exports.change_password = [
       }
 
       if (req.body.newPass !== req.body.newPass2) {
-        res.status(400).json("Passwords do not match");
+        res.status(400).json("New passwords do not match");
       }
 
       const user = await prisma.User.findUnique({
@@ -246,6 +252,8 @@ exports.change_password = [
 
           res.status(200).json({});
         });
+      } else if (!check) {
+        res.status(401).json("Incorrect password");
       }
     }
   }),
@@ -262,38 +270,48 @@ exports.forgot_password = [
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
     } else {
-      const tempCode = Math.floor(100000 + Math.random() * 900000);
+      const user = await prisma.User.findUnique({
+        where: {
+          email: req.body.forgot_email,
+        },
+      });
 
-      bcrypt.hash(String(tempCode), 10, async (err, hashedCode) => {
-        if (err) {
-          return;
-        }
+      if (!user) {
+        res.status(404).json("User not found");
+      } else {
+        const tempCode = Math.floor(100000 + Math.random() * 900000);
 
-        await prisma.User.update({
-          where: {
-            email: req.body.forgot_email,
-          },
-          data: {
-            otp: hashedCode,
-            otpExpiresAt: new Date(new Date().getTime() + 15 * 60 * 1000), // 15 minutes
-          },
+        bcrypt.hash(String(tempCode), 10, async (err, hashedCode) => {
+          if (err) {
+            return;
+          }
+
+          await prisma.User.update({
+            where: {
+              email: req.body.forgot_email,
+            },
+            data: {
+              otp: hashedCode,
+              otpExpiresAt: new Date(new Date().getTime() + 15 * 60 * 1000), // 15 minutes
+            },
+          });
         });
-      });
 
-      const info = await transporter.sendMail({
-        from: "LinkStorage <isaiah12@ethereal.email>",
-        to: "isaiah12@ethereal.email",
-        subject: "OTP Code",
-        text: `Linkstorage: Your OTP Code is: ${tempCode} , if you didn't request this, you can safely ignore it."`,
-        html:
-          "<h1 style='font-size: 1rem; color:blue;'>Linkstorage</h1>" +
-          `<p style='font-size: 1.5rem; color: black; font-weight:900;'>Your OTP Code is : ${tempCode} </p>` +
-          "<p>This code will expire in 15 minutes.</p>" +
-          "<footer style='color:gray;'>If you didn't request this code, you can safely ignore it.</footer>",
-      });
+        const info = await transporter.sendMail({
+          from: "LinkStorage <isaiah12@ethereal.email>",
+          to: "isaiah12@ethereal.email",
+          subject: "OTP Code",
+          text: `Linkstorage: Your OTP Code is: ${tempCode} , if you didn't request this, you can safely ignore it."`,
+          html:
+            "<h1 style='font-size: 1rem; color:blue;'>Linkstorage</h1>" +
+            `<p style='font-size: 1.5rem; color: black; font-weight:900;'>Your OTP Code is : ${tempCode} </p>` +
+            "<p>This code will expire in 15 minutes.</p>" +
+            "<footer style='color:gray;'>If you didn't request this code, you can safely ignore it.</footer>",
+        });
 
-      console.log("Message sent: %s", info.messageId);
-      res.status(200).json({});
+        console.log("Message sent: %s", info.messageId);
+        res.status(200).json({});
+      }
     }
   }),
 ];

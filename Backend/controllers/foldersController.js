@@ -28,6 +28,10 @@ exports.get_folder = asyncHandler(async (req, res) => {
         where: { trash: false },
       },
     },
+
+    orderBy: {
+      name: "asc",
+    },
   });
 
   folders = folders.map((folder) => {
@@ -130,6 +134,7 @@ exports.search_folder_links = asyncHandler(async (req, res) => {
     where: {
       userId: req.params.userId,
       folderId: req.params.folderId,
+      trash: false,
       AND: [
         {
           OR: [
@@ -168,7 +173,7 @@ exports.get_shared_folder = asyncHandler(async (req, res) => {
     },
 
     include: {
-      folder: { include: { links: true } },
+      folder: { include: { links: { where: { trash: false } } } },
       user: true,
     },
   });
@@ -227,6 +232,11 @@ exports.create_shared_folder = [
           },
 
           include: {
+            links: {
+              where: {
+                trash: false,
+              },
+            },
             shares: true,
           },
         });

@@ -64,6 +64,6 @@
       </mat-select>
     </mat-form-field>
 
-    <button type="submit">Submit</button>
+    <button type="submit" [disabled]="!massEditForm.dirty">Submit</button>
   </form>
 </div>

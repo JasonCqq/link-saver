@@ -4,7 +4,7 @@
   height: auto;
   display: flex;
   flex-direction: column;
-  margin-left: 15vw;
+  margin-left: 12vw;
   background-color: $background;
 
   @media screen and (max-width: 340px) {
@@ -46,6 +46,10 @@
       > .nav-preview-icon {
         transform: scale(1.2);
 
+        @media screen and (max-width: 900px) {
+          margin-left: 2vw;
+        }
+
         @media screen and (max-width: 440px) {
           margin-left: 4vw;
         }
@@ -58,7 +62,7 @@
 
       > button {
         color: $text;
-        padding: 9px 20px;
+        padding: 8.5px 15px;
         font-weight: 700;
         background: transparent;
         border: 2px solid $accent;
@@ -72,7 +76,6 @@
         &:hover {
           background-color: $accent;
           cursor: pointer;
-          color: $text2;
         }
       }
     }

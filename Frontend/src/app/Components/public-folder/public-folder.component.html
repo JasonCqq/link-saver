@@ -4,9 +4,12 @@
       Sign up today to share your own links and folders!
     </p>
 
-    <a routerLink="">LinkStorage</a>
+    <a routerLink="" matTooltip="Home">LinkStorage</a>
 
-    <p>This folder was created by {{ author }}</p>
+    <p matTooltip="{{ author }}">
+      This folder was created by {{ author | slice: 0 : 11 }}
+      {{ author.length > 11 ? "..." : "" }}
+    </p>
 
     <button (click)="toggleThumbnail()">Toggle Thumbnails</button>
   </header>
@@ -15,7 +18,7 @@
     [ngClass]="previews === true ? 'content-grid' : 'content-grid-no-previews'"
   >
     <div *ngFor="let link of links">
-      <div class="link-item">
+      <div class="link-item" matTooltip="{{ link.url }}">
         <section>
           <a class="link-details" [href]="'//' + link.url" target="_blank">
             <p class="link-url">{{ link.url | slice: 0 : 25 }}</p>
@@ -71,6 +74,8 @@
 </div>
 
 <footer class="foot-note">
+  <p>beta v1.0.0</p>
+
   <a href="https://github.com/JasonCqq/link-saver" target="_blank"
     >&#x2022; Source Code</a
   >

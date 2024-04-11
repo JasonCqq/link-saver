@@ -3,7 +3,7 @@
 .content-grid {
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 380px));
+  grid-template-columns: repeat(auto-fit, minmax(100px, 350px));
 
   column-gap: 2vw;
   row-gap: 3vh;
@@ -27,13 +27,11 @@
   @media screen and (max-width: 340px) {
     row-gap: 5vh;
     margin-top: 5vh;
-    align-items: center;
-    justify-content: center;
   }
 }
 
 .default-dash-container {
-  margin-left: 17vw;
+  margin-left: 14vw;
   height: auto;
   background-color: $background;
 

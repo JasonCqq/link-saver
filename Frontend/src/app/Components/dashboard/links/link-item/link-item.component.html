@@ -2,19 +2,23 @@
   class="link-item"
   [ngClass]="addingID && massEditting ? 'link-item-border' : ''"
   (click)="addMassID(itemData.id)"
+  matTooltip="{{ itemData.url }}"
 >
   <section [ngClass]="massEditting ? 'disabled' : ''">
-    <a class="link-details" [href]="'//' + itemData.url" target="_blank">
+    <a
+      [href]="'//' + itemData.url"
+      target="_blank"
+      [ngClass]="previews ? 'link-details' : 'link-details-no-previews'"
+    >
       <p class="link-url">{{ itemData.url | slice: 0 : 25 }}</p>
       <p class="link-title">
-        {{ itemData.title | slice: 0 : 35
-        }}{{ itemData.title.length > 35 ? "..." : "" }}
+        {{ itemData.title }}
       </p>
       <p class="link-date" *ngIf="specialRequest !== 'Upcoming'">
         {{ itemData.createdAt | date: "shortDate" }}
       </p>
       <p class="link-date link-date2" *ngIf="specialRequest === 'Upcoming'">
-        Upcoming: {{ itemData.remind | date: "shortDate" }}
+        {{ itemData.remind | date: "shortDate" }}
       </p>
     </a>
 
@@ -30,6 +34,7 @@
       class="link-edit"
       *ngIf="specialRequest !== 'Trash'"
       (click)="toggleEdit()"
+      matTooltip="Edit Link"
     ></mat-icon>
 
     <mat-icon
@@ -37,6 +42,7 @@
       class="link-delete"
       (click)="moveToTrash()"
       *ngIf="specialRequest !== 'Trash'"
+      matTooltip="Move to trash"
     ></mat-icon>
 
     <mat-icon
@@ -44,6 +50,7 @@
       class="link-restore"
       *ngIf="specialRequest === 'Trash'"
       (click)="restoreLink()"
+      matTooltip="Restore Link"
     ></mat-icon>
 
     <mat-icon
@@ -51,6 +58,7 @@
       class="link-delete"
       *ngIf="specialRequest === 'Trash'"
       (click)="permanentDelete()"
+      matTooltip="Remove Permanently"
     ></mat-icon>
   </div>
 </div>

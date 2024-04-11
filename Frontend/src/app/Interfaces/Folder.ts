@@ -8,6 +8,6 @@ export interface Folder {
   id: string;
   name: string;
   userId: string;
-  links: Links;
+  links: Links[];
   private: boolean;
 }

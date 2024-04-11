@@ -106,8 +106,8 @@ export class UserService {
         next: (response) => {
           if (response) {
             this.userSubject.next(null);
-            this.router.navigate(["/"]);
             alert("Your account has been deleted.");
+            this.router.navigate(["/"]);
           }
         },
         error: (error) => alert(JSON.stringify(error.error)),

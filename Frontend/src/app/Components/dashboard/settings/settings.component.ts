@@ -48,13 +48,12 @@ export class SettingsComponent implements OnInit {
   });
 
   formErrors: any;
-
   submitPasswordChange(): void {
     if (
       this.passwordChangeForm.value.newPass !==
       this.passwordChangeForm.value.newPass2
     ) {
-      this.formErrors = "The new passwords do not match";
+      this.formErrors = "New passwords do not match";
       return;
     }
 
@@ -64,12 +63,15 @@ export class SettingsComponent implements OnInit {
         this.passwordChangeForm.value.newPass ?? "",
         this.passwordChangeForm.value.newPass2 ?? "",
       )
-      .subscribe((res) => {
-        if (res) {
+      .subscribe({
+        next: () => {
           this.togglePassChangeForm();
           this.passwordChangeForm.reset();
           alert("Your password has successfully been changed");
-        }
+        },
+        error: (error) => {
+          this.formErrors = error.error;
+        },
       });
   }
 
@@ -88,7 +90,7 @@ export class SettingsComponent implements OnInit {
       .subscribe((res) => {
         this.changesApplied = true;
         this.userService.updateUser(res);
-        this.linkService.toggleThumbnail();
+        this.linkService.setThumbnail(this.preferenceForm.value.previews);
       });
   }
 

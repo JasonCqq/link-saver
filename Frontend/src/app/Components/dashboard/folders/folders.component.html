@@ -146,7 +146,7 @@
         <button
           type="submit"
           class="folders-create-button"
-          [disabled]="!createFolderForm.dirty"
+          [disabled]="!createFolderForm.value.editFolderName.dirty"
         >
           Edit
         </button>
@@ -157,6 +157,7 @@
       *ngFor="let folder of folders"
       class="folders-item"
       (click)="openFolder(folder.id)"
+      matTooltip="{{ folder.name }} has {{ folder.links.length }} links"
     >
       <div class="folders-item-flex">
         <mat-icon fontIcon="folder" style="color: #237bff"></mat-icon>
@@ -170,9 +171,11 @@
         <mat-icon
           fontIcon="edit"
           (click)="$event.stopPropagation(); toggleEditWindow(folder.id)"
+          matTooltip="Edit Folder"
         ></mat-icon>
         <mat-icon
           fontIcon="close"
+          matTooltip="Delete Folder"
           style="color: #f73830"
           (click)="$event.stopPropagation(); deleteFolder(folder.id)"
         ></mat-icon>
@@ -181,7 +184,10 @@
   </section>
 
   <!--Links Tab-->
-  <section class="content-grid" *ngIf="folderOpened && tempLinks">
+  <section
+    *ngIf="folderOpened && tempLinks"
+    [ngClass]="previews === true ? 'content-grid' : 'content-grid-no-previews'"
+  >
     <div *ngFor="let link of tempLinks">
       <app-link-item
         [itemData]="link"

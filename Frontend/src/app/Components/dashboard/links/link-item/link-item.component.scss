@@ -1,7 +1,7 @@
 @import "../../../../../assets/styles.scss";
 
 .link-item-border {
-  border: 5px solid $accent !important;
+  border: 3px solid $accent !important;
 }
 
 .link-item {
@@ -19,7 +19,7 @@
     border-color: $accent;
   }
 
-  @media screen and (max-width: 344px) {
+  @media screen and (max-width: 340px) {
     width: 90%;
     margin-left: 8vw;
   }
@@ -32,35 +32,39 @@
 
   > section {
     display: flex;
+    width: 100%;
 
     > .link-preview {
       height: 94px;
+      width: 50%;
 
       > img {
         border-top-right-radius: 8px;
         border-bottom-right-radius: 8px;
-        width: 175px;
         height: 100%;
-
-        @media screen and (max-width: 476px) {
-          width: 125px;
-        }
+        width: 100%;
       }
     }
 
-    > .link-details {
+    > .link-details,
+    .link-details-no-previews {
       display: flex;
       flex-direction: column;
-      font-size: 0.8rem;
       height: 100px;
-      width: 350px;
+      width: 50%;
       align-items: center;
+      position: relative;
 
       > .link-title {
         font-size: 0.8rem;
-        height: 50%;
-        width: 80%;
-        flex-wrap: wrap;
+        max-height: 45%;
+        word-wrap: break-word;
+        max-width: 80%;
+        overflow: hidden;
+
+        @media screen and (max-width: 340px) {
+          font-size: 0.65rem;
+        }
       }
 
       > .link-url {
@@ -70,24 +74,35 @@
         padding-top: 2.5%;
 
         @media screen and (max-width: 340px) {
-          font-size: 0.5rem;
+          font-size: 0.6rem;
         }
       }
 
       > .link-date {
-        font-size: 0.6rem;
+        font-size: 0.65rem;
         color: $textSec;
         height: 15%;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin-bottom: 10px;
+        margin-right: 10px;
       }
 
       > .link-date2 {
         color: $accent;
-
-        @media screen and (max-width: 385px) {
-          margin-left: auto;
-          margin-right: 2vw;
-        }
+        font-weight: 700;
+        height: 15%;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin-bottom: 10px;
+        margin-right: 10px;
       }
+    }
+
+    > .link-details-no-previews {
+      width: 95%;
     }
   }
 

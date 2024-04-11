@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { DashboardComponent } from "./main-dashboard/dashboard.component";
@@ -50,6 +51,7 @@ import { MassEditFormComponent } from "./links/mass-edit-form/mass-edit-form.com
     MatSlideToggleModule,
     MatSelectModule,
     MatSidenavModule,
+    MatTooltipModule,
   ],
 
   exports: [LinkComponent],

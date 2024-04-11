@@ -6,6 +6,7 @@ import { FormGroup, FormControl } from "@angular/forms";
 import { Subject, takeUntil } from "rxjs";
 import { Link } from "src/app/Interfaces/Link";
 import { MainNavService } from "../main-nav/main-nav.service";
+import { LinkService } from "../links/link-item/link-item.service";
 
 @Component({
   selector: "app-folders",
@@ -17,6 +18,7 @@ export class FoldersComponent implements OnInit, OnDestroy {
     private dashboardService: DashboardService,
     private foldersService: FoldersService,
     private mainNavService: MainNavService,
+    private linkService: LinkService,
   ) {}
 
   private destroy$ = new Subject<void>();
@@ -31,6 +33,7 @@ export class FoldersComponent implements OnInit, OnDestroy {
   tempId: any;
   tempLinks: any = [];
   tempShare: any;
+  previews: any;
 
   updateTempLinks(folderId: string) {
     const folderIndex = this.folders.findIndex((folder) => {
@@ -50,6 +53,12 @@ export class FoldersComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.getFolders();
+      });
+
+    this.linkService.thumbnails$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((state) => {
+        this.previews = state;
       });
   }
 
