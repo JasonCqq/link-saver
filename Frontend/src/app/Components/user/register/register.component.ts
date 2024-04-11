@@ -25,7 +25,9 @@ export class RegisterComponent implements OnInit {
   });
 
   formErrors: any;
+  formLoading: boolean = false;
   submitApplication(): void {
+    this.formLoading = true;
     this.userService
       .submitApplication(
         this.applyForm.value.username ?? "",
@@ -36,10 +38,12 @@ export class RegisterComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.userService.updateUser(response);
-          this.router.navigate(["/user/login"]);
+          this.router.navigate(["/dashboard"]);
+          this.formLoading = false;
         },
         error: (error) => {
           this.formErrors = error.error;
+          this.formLoading = false;
         },
       });
   }

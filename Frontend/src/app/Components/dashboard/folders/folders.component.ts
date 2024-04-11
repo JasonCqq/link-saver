@@ -116,6 +116,9 @@ export class FoldersComponent implements OnInit, OnDestroy {
     this.folderOpened = !this.folderOpened;
     this.tempLinks = null;
     this.tempId = null;
+    this.tempShare = true;
+    this.shareFolderForm.reset();
+    this.tempShareUrl = null;
   }
 
   getFolders() {
@@ -133,6 +136,11 @@ export class FoldersComponent implements OnInit, OnDestroy {
 
   tempShareUrl: any;
   shareFolder() {
+    if (this.tempLinks.length === 0) {
+      alert("Folder has no links, please add some before sharing");
+      return;
+    }
+
     this.foldersService
       .shareFolder(this.shareFolderForm.value.password || "", true, this.tempId)
       .subscribe((res) => {

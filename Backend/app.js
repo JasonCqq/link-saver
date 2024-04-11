@@ -3,12 +3,12 @@ require("dotenv").config();
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
-var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
 var session = require("express-session");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const { PrismaClient } = require("@prisma/client");
+const prisma = require("./prisma/prismaClient");
 
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -22,6 +22,16 @@ const linkRouter = require("./routes/link");
 
 var app = express();
 
+// const SessionCookie = process.env.NODE_ENV == "dev" ? {
+//   secure: false,
+//   sameSite: "lax",
+//   maxAge: 1000 * 60 * 60 * 60 * 24 * 2//2 day
+// } : {
+//   secure: true,
+//   sameSite: "none",
+//   maxAge: 1000 * 60 * 60 * 60 * 24 * 2//2 day
+// }
+
 app.use(
   cors({
     origin: `${process.env.FRONT_END}`,
@@ -30,18 +40,21 @@ app.use(
   }),
 );
 
+app.set("trust proxy", 1);
 app.use(
   session({
     cookie: {
       maxAge: 7 * 24 * 60 * 60 * 1000, // ms
-      sameSite: "lax",
-      secure: false,
+      // sameSite: "lax", //dev
+      sameSite: "none", //prod
+      secure: true, // true = prod
       httpOnly: true,
     },
-    secret: "a santa at nasa",
-    resave: false,
+    secret: `${process.env.DATABASE_SECRET}`,
+    resave: true,
     saveUninitialized: false,
     store: new PrismaSessionStore(new PrismaClient(), {
+      sessionModelName: "Session",
       checkPeriod: 2 * 60 * 1000, //ms
       dbRecordIdIsSessionId: true,
       dbRecordIdFunction: undefined,
@@ -53,7 +66,7 @@ app.use(
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
-      const user = await prisma.User.findUnique({
+      const user = await prisma.User.findFirst({
         where: { username: username },
       });
       if (!user) {
@@ -94,7 +107,6 @@ app.use(passport.session());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // Routes

@@ -1,15 +1,15 @@
-import { Injectable, OnDestroy, OnInit } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { environment } from "src/environments/environment.development";
+import { environment } from "../../../../../environments/environment";
 import { DashboardService } from "../../dashboard.service";
 import { FoldersService } from "../../folders/folders.service";
 import { UserService } from "src/app/Components/user/user.service";
-import { BehaviorSubject, Subject } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
-export class LinkService implements OnInit, OnDestroy {
+export class LinkService implements OnInit {
   constructor(
     private http: HttpClient,
     private dashboardService: DashboardService,
@@ -18,15 +18,9 @@ export class LinkService implements OnInit, OnDestroy {
   ) {}
   private apiUrl = environment.apiUrl;
 
-  private destroy$ = new Subject<void>();
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
   // Thumbnail state for link-item/main-nav/settings
-  private thumbnailsSubject = new BehaviorSubject<boolean | undefined>(
-    this.userService.getUser()?.settings.previews,
+  private thumbnailsSubject = new BehaviorSubject<boolean>(
+    this.userService.getUser()?.settings.previews ?? true,
   );
   thumbnails$ = this.thumbnailsSubject.asObservable();
   toggleThumbnail() {
@@ -36,7 +30,9 @@ export class LinkService implements OnInit, OnDestroy {
     this.thumbnailsSubject.next(state);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.thumbnails$);
+  }
 
   async editLink(
     id: string,

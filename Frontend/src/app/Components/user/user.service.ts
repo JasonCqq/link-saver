@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { environment } from "src/environments/environment.development";
+import { environment } from "../../../environments/environment";
 import { Router } from "@angular/router";
-import { BehaviorSubject, catchError, throwError } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 
 interface User {
   user: {
@@ -66,21 +66,15 @@ export class UserService {
     password: string,
     action: "create" | "login",
   ) {
-    return this.http
-      .post(
-        `${this.apiUrl}/user/${action}`,
-        {
-          username: username,
-          email: email,
-          password: password,
-        },
-        { withCredentials: true },
-      )
-      .pipe(
-        catchError((error) => {
-          return throwError(() => error);
-        }),
-      );
+    return this.http.post(
+      `${this.apiUrl}/user/${action}`,
+      {
+        username: username,
+        email: email,
+        password: password,
+      },
+      { withCredentials: true },
+    );
   }
 
   async logOutUser() {

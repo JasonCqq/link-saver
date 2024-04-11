@@ -7,11 +7,11 @@ const prisma = require("../prisma/prismaClient");
 // nodemailer settings
 const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
-  host: "smtp.ethereal.email",
+  host: "smtp.sendgrid.net",
   port: 587,
   auth: {
-    user: "isaiah12@ethereal.email",
-    pass: "mHZKtP6dfKUZKJw22M",
+    user: "apikey",
+    pass: `${process.env.SENDGRID_API_KEY}`,
   },
 });
 
@@ -57,14 +57,14 @@ exports.create_user = [
           });
         }
 
-        await prisma.User.create({
+        const newUser = await prisma.User.create({
           data: {
             username: req.body.username,
             email: req.body.email,
             password: hashedPass,
             folders: {
               create: {
-                name: "default",
+                name: "Default",
               },
             },
             userSettings: {
@@ -73,7 +73,44 @@ exports.create_user = [
           },
         });
 
-        res.status(200).json({});
+        const newFolder = await prisma.Folder.findFirst({
+          where: {
+            userId: newUser.id,
+            name: "Default",
+          },
+        });
+
+        const newShare = await prisma.Share.create({
+          data: {
+            folder: {
+              connect: {
+                id: newFolder.id,
+              },
+            },
+
+            user: {
+              connect: {
+                id: newUser.id,
+              },
+            },
+          },
+        });
+
+        const newUserSettings = await prisma.UserSettings.findFirst({
+          where: {
+            userId: newUser.id,
+          },
+        });
+
+        const userData = {
+          id: newUser.id,
+          username: newUser.username,
+          email: newUser.email,
+          creationDate: newUser.creationDate,
+        };
+
+        req.session.user = userData;
+        res.status(200).json({ user: userData, settings: newUserSettings });
       });
     }
   }),
@@ -86,21 +123,21 @@ exports.login_user = [
     .isLength({ min: 8, max: 20 })
     .escape(),
 
-  asyncHandler(async (req, res, next) => {
+  async (req, res, next) => {
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
-    }
+    } else {
+      passport.authenticate("local", async (err, authenticated, info) => {
+        if (err) {
+          return next(err);
+        }
+        if (!authenticated) {
+          res.status(400).json(info.message);
+        }
 
-    passport.authenticate("local", async (err, authenticated, info) => {
-      if (err) {
-        return next(err);
-      }
-      if (!authenticated) {
-        res.status(400).json(info.message);
-      } else {
         const user = await prisma.User.findUnique({
           where: {
             id: authenticated.id,
@@ -118,13 +155,10 @@ exports.login_user = [
         };
 
         req.session.user = userData;
-        req.session.save(function (err) {
-          if (err) return next(err);
-          res.status(200).json({ user: userData, settings: user.userSettings });
-        });
-      }
-    })(req, res, next);
-  }),
+        res.status(200).json({ user: userData, settings: user.userSettings });
+      })(req, res, next);
+    }
+  },
 ];
 
 exports.logout_user = asyncHandler(async (req, res) => {
@@ -298,10 +332,10 @@ exports.forgot_password = [
         });
 
         const info = await transporter.sendMail({
-          from: "LinkStorage <isaiah12@ethereal.email>",
-          to: "isaiah12@ethereal.email",
+          to: `${req.body.forgot_email}`,
+          from: "jason.cq.huang@gmail.com",
           subject: "OTP Code",
-          text: `Linkstorage: Your OTP Code is: ${tempCode} , if you didn't request this, you can safely ignore it."`,
+          text: `Linkstorage: Your OTP Code is: ${tempCode} , if you didn't request this, you can safely ignore it.`,
           html:
             "<h1 style='font-size: 1rem; color:blue;'>Linkstorage</h1>" +
             `<p style='font-size: 1.5rem; color: black; font-weight:900;'>Your OTP Code is : ${tempCode} </p>` +
@@ -309,7 +343,6 @@ exports.forgot_password = [
             "<footer style='color:gray;'>If you didn't request this code, you can safely ignore it.</footer>",
         });
 
-        console.log("Message sent: %s", info.messageId);
         res.status(200).json({});
       }
     }

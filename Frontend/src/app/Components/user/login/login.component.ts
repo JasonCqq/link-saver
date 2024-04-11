@@ -69,15 +69,18 @@ export class LoginComponent implements OnInit {
   forgotSuccess: boolean = false;
   forgotSuccess2: boolean = false;
   forgotFormErrors: any;
+  forgotLoader: boolean = false;
 
   submitForgotApplication(): void {
-    this.forgotFormErrors = "";
+    this.forgotLoader = true;
+    this.forgotFormErrors = "Please check spam as well.";
     this.userService
       .forgotPassword(this.forgotPasswordForm.value.forgot_email ?? "")
       .subscribe({
         next: () => {
           this.forgotPasswordForm.get("forgot_email")?.disable();
           this.forgotSuccess = true;
+          this.forgotLoader = false;
         },
         error: (err) => {
           this.forgotFormErrors = err.error;

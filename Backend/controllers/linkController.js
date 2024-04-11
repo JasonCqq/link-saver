@@ -23,78 +23,100 @@ exports.create_link = [
   asyncHandler(async (req, res) => {
     const errs = validationResult(req);
 
+    console.log("test0");
     if (!errs.isEmpty()) {
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
+      console.log("test12");
       res.status(400).json(firstError);
     } else {
+      console.log("test13");
+      console.log(
+        req.session,
+        req.sessionID,
+        req.session.user,
+        req.session.user.id,
+      );
+
       if (!req.params.userId || req.session.user.id !== req.params.userId) {
         res.status(401).json("Not authenticated");
       }
 
+      console.log("test1");
       let date = req.body.remind;
       if (date === "") {
         date = null;
       }
-
+      console.log("test2");
       let userUrl = decode(req.body.url, { level: "html5" });
       let decodedUrl = userUrl;
 
       if (!userUrl.startsWith("http://") && !userUrl.startsWith("https://")) {
         decodedUrl = "https://" + userUrl;
       }
-
+      console.log("test3");
       // Scrape for title/screenshot
-      const browser = await puppeteer.launch({
-        headless: false,
-        args: minimal_args,
-      });
-      const page = await browser.newPage();
+      try {
+        const browser = await puppeteer.launch({
+          headless: true,
+          args: minimal_args,
+        });
+        const page = await browser.newPage();
 
-      // Block Ads
-      const blocked_domains = ["googlesyndication.com", "adservice.google.com"];
+        console.log("test4");
+        // Block Ads
+        const blocked_domains = [
+          "googlesyndication.com",
+          "adservice.google.com",
+        ];
 
-      await page.setRequestInterception(true);
+        await page.setRequestInterception(true);
 
-      page.on("request", (request) => {
-        const url = request.url();
+        console.log("test5");
+        page.on("request", (request) => {
+          const url = request.url();
 
-        const isBlockedDomain = blocked_domains.some((domain) =>
-          url.includes(domain),
-        );
+          const isBlockedDomain = blocked_domains.some((domain) =>
+            url.includes(domain),
+          );
 
-        isBlockedDomain ? request.abort() : request.continue();
-      });
+          isBlockedDomain ? request.abort() : request.continue();
+        });
+        console.log("test6");
+        await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
 
-      await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
+        console.log("test7");
+        const title = await page.title();
+        const thumbnail = await page.screenshot({
+          encoding: "base64",
+          fullPage: false,
+        });
+        console.log("test9");
+        await browser.close();
 
-      const title = await page.title();
-      const thumbnail = await page.screenshot({
-        encoding: "base64",
-        fullPage: false,
-      });
-
-      await browser.close();
-
-      const link = await prisma.Link.create({
-        data: {
-          url: decodedUrl,
-          user: {
-            connect: {
-              id: req.params.userId,
+        const link = await prisma.Link.create({
+          data: {
+            url: decodedUrl,
+            user: {
+              connect: {
+                id: req.params.userId,
+              },
             },
+
+            ...(req.body.folder
+              ? { folder: { connect: { id: req.body.folder } } }
+              : {}),
+
+            title: title,
+            bookmarked: JSON.parse(req.body.bookmarked),
+            remind: date,
+            thumbnail: thumbnail,
           },
-
-          ...(req.body.folder
-            ? { folder: { connect: { id: req.body.folder } } }
-            : {}),
-
-          title: title,
-          bookmarked: JSON.parse(req.body.bookmarked),
-          remind: date,
-          thumbnail: thumbnail,
-        },
-      });
-      res.status(200).json({});
+        });
+        console.log("test11");
+        res.status(200).json({});
+      } catch (err) {
+        console.log(err);
+      }
     }
   }),
 ];

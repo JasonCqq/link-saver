@@ -12,6 +12,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { DashboardComponent } from "./main-dashboard/dashboard.component";
@@ -52,6 +53,7 @@ import { MassEditFormComponent } from "./links/mass-edit-form/mass-edit-form.com
     MatSelectModule,
     MatSidenavModule,
     MatTooltipModule,
+    MatProgressSpinnerModule,
   ],
 
   exports: [LinkComponent],

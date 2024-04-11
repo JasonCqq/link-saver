@@ -22,6 +22,7 @@
     @fadeIn
     @fadeOut
   >
+    <mat-spinner diameter="50" *ngIf="this.progressSpin"></mat-spinner>
     <div *ngFor="let link of tempLinks">
       <app-link-item
         [itemData]="link"

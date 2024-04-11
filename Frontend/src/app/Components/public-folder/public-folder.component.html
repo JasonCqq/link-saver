@@ -20,11 +20,14 @@
     <div *ngFor="let link of links">
       <div class="link-item" matTooltip="{{ link.url }}">
         <section>
-          <a class="link-details" [href]="'//' + link.url" target="_blank">
+          <a
+            [ngClass]="previews ? 'link-details' : 'link-details-no-previews'"
+            [href]="'//' + link.url"
+            target="_blank"
+          >
             <p class="link-url">{{ link.url | slice: 0 : 25 }}</p>
             <p class="link-title">
-              {{ link.title | slice: 0 : 30
-              }}{{ link.title.length > 30 ? "..." : "" }}
+              {{ link.title }}
             </p>
             <p class="link-date">
               {{ link.createdAt | date: "shortDate" }}

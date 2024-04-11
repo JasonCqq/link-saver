@@ -5,6 +5,7 @@ import { Subject, takeUntil } from "rxjs";
 import { MainNavService } from "../main-nav/main-nav.service";
 import { LinkService } from "../links/link-item/link-item.service";
 import { fadeIn, fadeOut } from "src/app/app.component";
+import { LinkFormService } from "../links/link-form/link-form.service";
 
 @Component({
   selector: "app-dashboard",
@@ -17,6 +18,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private dashboardService: DashboardService,
     private mainNavService: MainNavService,
     private linkService: LinkService,
+    private linkFormService: LinkFormService,
   ) {}
 
   private destroy$ = new Subject<void>();
@@ -34,6 +36,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.dashboardService.deleteAllTrash();
   }
 
+  progressSpin: boolean = false;
   ngOnInit(): void {
     this.getLinks();
 
@@ -55,6 +58,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((state) => {
         this.previews = state;
+      });
+
+    this.linkFormService.linkLoader$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((state) => {
+        this.progressSpin = state;
       });
   }
 

@@ -7,13 +7,14 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { Observable, map } from "rxjs";
 import { ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./Components/home/home.component";
 import { UserService } from "./Components/user/user.service";
-import { environment } from "src/environments/environment.development";
+import { environment } from "../environments/environment";
 import { PublicFolderComponent } from "./Components/public-folder/public-folder.component";
 
 interface User {
@@ -56,6 +57,7 @@ function initializeAppFactory(
     MatFormFieldModule,
     ReactiveFormsModule,
     MatTooltipModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     {

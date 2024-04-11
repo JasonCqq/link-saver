@@ -80,6 +80,8 @@
         >
       </mat-form-field>
 
+      <mat-spinner diameter="50" *ngIf="this.forgotLoader"></mat-spinner>
+
       <mat-form-field appearance="outline" *ngIf="forgotSuccess">
         <mat-label for="forgot_otp">OTP Code</mat-label>
         <input
@@ -93,7 +95,7 @@
       <button
         type="submit"
         mat-raised-button
-        [disabled]="forgotPasswordForm.invalid"
+        [disabled]="forgotPasswordForm.invalid || this.forgotLoader === true"
         *ngIf="!this.forgotSuccess"
         class="forgot-form-button"
       >
