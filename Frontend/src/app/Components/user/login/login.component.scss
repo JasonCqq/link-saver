@@ -144,18 +144,19 @@
       .forgot-form-button {
         border: none;
         font-size: 1rem;
-        background-color: $accent;
+        background-color: transparent;
+        border: 2px solid $accent;
         padding: 17.5px 0;
         border-radius: 10px;
         margin-top: 1vh;
         margin-bottom: 1vh;
         color: $text2;
         font-weight: bold;
-        transition: transform 0.2s;
+        transition: background-color 0.2s;
 
         &:hover {
           cursor: pointer;
-          transform: translateY(-7.5px);
+          background-color: $accent;
         }
 
         &:disabled {

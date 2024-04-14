@@ -1,19 +1,15 @@
-import { Injectable, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../../../../environments/environment";
-import { DashboardService } from "../../dashboard.service";
-import { FoldersService } from "../../folders/folders.service";
 import { UserService } from "src/app/Components/user/user.service";
 import { BehaviorSubject } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
-export class LinkService implements OnInit {
+export class LinkService {
   constructor(
     private http: HttpClient,
-    private dashboardService: DashboardService,
-    private foldersService: FoldersService,
     private userService: UserService,
   ) {}
   private apiUrl = environment.apiUrl;
@@ -30,35 +26,26 @@ export class LinkService implements OnInit {
     this.thumbnailsSubject.next(state);
   }
 
-  ngOnInit(): void {
-    console.log(this.thumbnails$);
-  }
-
-  async editLink(
+  editLink(
     id: string,
     title: string,
     folder: string,
     bookmarked: boolean,
     remind: Date,
   ) {
-    await this.http
-      .put(
-        `${this.apiUrl}/link/edit/${id}/${this.userService.getUser()?.user.id}`,
-        {
-          title: title,
-          folder: folder,
-          bookmarked: bookmarked,
-          remind: remind,
-        },
+    return this.http.put(
+      `${this.apiUrl}/link/edit/${id}/${this.userService.getUser()?.user.id}`,
+      {
+        title: title,
+        folder: folder,
+        bookmarked: bookmarked,
+        remind: remind,
+      },
 
-        {
-          withCredentials: true,
-        },
-      )
-      .subscribe(() => {
-        this.dashboardService.notify();
-        this.foldersService.notifyFolders();
-      });
+      {
+        withCredentials: true,
+      },
+    );
   }
 
   async moveToTrash(id: string) {
@@ -89,16 +76,14 @@ export class LinkService implements OnInit {
       .subscribe();
   }
 
-  async permanentDelete(id: string) {
-    await this.http
-      .delete(
-        `${this.apiUrl}/link/perma_delete/${id}/${
-          this.userService.getUser()?.user.id
-        }`,
-        {
-          withCredentials: true,
-        },
-      )
-      .subscribe();
+  permanentDelete(id: string) {
+    return this.http.delete(
+      `${this.apiUrl}/link/perma_delete/${id}/${
+        this.userService.getUser()?.user.id
+      }`,
+      {
+        withCredentials: true,
+      },
+    );
   }
 }

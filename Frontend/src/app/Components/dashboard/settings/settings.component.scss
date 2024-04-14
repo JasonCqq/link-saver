@@ -9,6 +9,10 @@
     display: flex;
     padding-bottom: 5vh;
 
+    > h1 {
+      font-size: 1.5rem;
+    }
+
     > .settings-delete-overlay {
       display: flex;
       z-index: 99;

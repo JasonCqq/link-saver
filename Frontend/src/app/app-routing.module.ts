@@ -3,9 +3,11 @@ import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./Components/home/home.component";
 import { AuthGuard } from "./auth.guard";
 import { PublicFolderComponent } from "./Components/public-folder/public-folder.component";
+import { VersionHistoryComponent } from "./Components/home/versions/version-history/version-history.component";
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
+  { path: "versions", component: VersionHistoryComponent },
   { path: "public/:id", component: PublicFolderComponent },
 
   {

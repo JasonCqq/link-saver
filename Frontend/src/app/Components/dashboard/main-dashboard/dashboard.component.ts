@@ -1,24 +1,30 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
 import { DashboardService } from "../dashboard.service";
 import { Link } from "../../../Interfaces/Link";
 import { Subject, takeUntil } from "rxjs";
 import { MainNavService } from "../main-nav/main-nav.service";
 import { LinkService } from "../links/link-item/link-item.service";
 import { fadeIn, fadeOut } from "src/app/app.component";
-import { LinkFormService } from "../links/link-form/link-form.service";
+import { LoadingService } from "../../LoadingInterceptor.service";
 
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
   styleUrls: ["./dashboard.component.scss"],
   animations: [fadeIn, fadeOut],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
     private dashboardService: DashboardService,
     private mainNavService: MainNavService,
     private linkService: LinkService,
-    private linkFormService: LinkFormService,
+    public loadingService: LoadingService,
   ) {}
 
   private destroy$ = new Subject<void>();
@@ -32,8 +38,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   togglePrompt(): void {
     this.clearPrompt = !this.clearPrompt;
   }
+
   deleteAllTrash(): void {
-    this.dashboardService.deleteAllTrash();
+    this.dashboardService.deleteAllTrash().subscribe(() => {
+      this.getLinks();
+      this.showOnly("Trash");
+    });
   }
 
   progressSpin: boolean = false;
@@ -58,12 +68,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((state) => {
         this.previews = state;
-      });
-
-    this.linkFormService.linkLoader$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((state) => {
-        this.progressSpin = state;
       });
   }
 
@@ -111,6 +115,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.links[link].trash = false;
     }
 
+    this.showOnly(this.tempTitle);
+  }
+
+  deletePerm(id: any): void {
+    const link = this.links.findIndex((link) => link.id === id);
+    this.links.splice(link, 1);
     this.showOnly(this.tempTitle);
   }
 }

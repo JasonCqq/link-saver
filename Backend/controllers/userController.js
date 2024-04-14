@@ -36,11 +36,15 @@ exports.create_user = [
         where: { email: req.body.email },
       });
 
+      if (emailExists) {
+        return res.status(400).json("Email already exists");
+      }
+
       const usernameExists = await prisma.User.findUnique({
         where: { username: req.body.username },
       });
 
-      if (emailExists || usernameExists) {
+      if (usernameExists) {
         return res.status(400).json("User already exists");
       }
 
@@ -134,28 +138,28 @@ exports.login_user = [
         if (err) {
           return next(err);
         }
-        if (!authenticated) {
+        if (authenticated === false) {
           res.status(400).json(info.message);
+        } else {
+          const user = await prisma.User.findUnique({
+            where: {
+              id: authenticated.id,
+            },
+            include: {
+              userSettings: true,
+            },
+          });
+
+          const userData = {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            creationDate: user.creationDate,
+          };
+
+          req.session.user = userData;
+          res.status(200).json({ user: userData, settings: user.userSettings });
         }
-
-        const user = await prisma.User.findUnique({
-          where: {
-            id: authenticated.id,
-          },
-          include: {
-            userSettings: true,
-          },
-        });
-
-        const userData = {
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          creationDate: user.creationDate,
-        };
-
-        req.session.user = userData;
-        res.status(200).json({ user: userData, settings: user.userSettings });
       })(req, res, next);
     }
   },
@@ -176,20 +180,20 @@ exports.logout_user = asyncHandler(async (req, res) => {
 exports.delete_user = asyncHandler(async (req, res) => {
   if (!req.params.userId || req.session.user.id !== req.params.userId) {
     res.status(401).json("Not authenticated");
+  } else {
+    await prisma.User.delete({
+      where: {
+        id: req.params.userId,
+      },
+    });
+
+    req.session.destroy((err) => {
+      if (err) {
+        res.status(500).json("Internal Server Error");
+      }
+    });
+    res.status(200).json({});
   }
-
-  await prisma.User.delete({
-    where: {
-      id: req.params.userId,
-    },
-  });
-
-  req.session.destroy((err) => {
-    if (err) {
-      res.status(500).json("Internal Server Error");
-    }
-  });
-  res.status(200).json({});
 });
 
 exports.get_settings = [

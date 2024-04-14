@@ -41,7 +41,7 @@ export class LinkEditFormComponent implements OnInit, OnDestroy {
     this.editForm.patchValue({
       editTitle: this.itemData.title,
       editBookmarked: this.itemData.bookmarked,
-      editFolder: this.itemData.folderId,
+      editFolder: this.itemData.folderId ?? "",
       editRemind: this.itemData.remind,
     });
   }
@@ -63,16 +63,18 @@ export class LinkEditFormComponent implements OnInit, OnDestroy {
   }
 
   submitEditForm(): void {
-    this.linkService.editLink(
-      this.itemData.id,
-      this.editForm.value.editTitle,
-      this.editForm.value.editFolder,
-      this.editForm.value.editBookmarked,
-      this.editForm.value.editRemind,
-    );
-
-    this.dashboardService.notify();
-    this.foldersService.notifyFolders();
-    this.toggleEdit.emit();
+    this.linkService
+      .editLink(
+        this.itemData.id,
+        this.editForm.value.editTitle,
+        this.editForm.value.editFolder,
+        this.editForm.value.editBookmarked,
+        this.editForm.value.editRemind,
+      )
+      .subscribe(() => {
+        this.dashboardService.notify();
+        this.foldersService.notifyFolders();
+        this.toggleEdit.emit();
+      });
   }
 }

@@ -11,10 +11,35 @@
     margin-left: 8vw;
   }
 
-  > .nav-title {
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin: 5vh 0 2vh 2vw;
+  > .nav-flex {
+    display: flex;
+    align-items: flex-end;
+
+    @media screen and (max-width: 490px) {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    > .nav-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 5vh 0 2vh 2vw;
+    }
+
+    > .nav-question {
+      margin: 5vh 0 2.5vh 3vw;
+      font-size: 0.8rem;
+      cursor: help;
+
+      @media screen and (max-width: 490px) {
+        margin-top: 0;
+      }
+
+      @media screen and (max-width: 350px) {
+        font-size: 0.7rem;
+      }
+    }
   }
 
   > .nav-container {

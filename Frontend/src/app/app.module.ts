@@ -1,7 +1,11 @@
 import { NgModule, APP_INITIALIZER, Injector } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
-import { HttpClient, HttpClientModule } from "@angular/common/http";
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
+} from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTooltipModule } from "@angular/material/tooltip";
@@ -16,6 +20,8 @@ import { HomeComponent } from "./Components/home/home.component";
 import { UserService } from "./Components/user/user.service";
 import { environment } from "../environments/environment";
 import { PublicFolderComponent } from "./Components/public-folder/public-folder.component";
+import { LoadingInterceptor } from "./Components/Loading.interceptor";
+import { VersionHistoryComponent } from './Components/home/versions/version-history/version-history.component';
 
 interface User {
   user: {
@@ -46,7 +52,7 @@ function initializeAppFactory(
 }
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, PublicFolderComponent],
+  declarations: [AppComponent, HomeComponent, PublicFolderComponent, VersionHistoryComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -67,7 +73,14 @@ function initializeAppFactory(
         initializeAppFactory(httpClient, injector),
       deps: [HttpClient, Injector],
     },
+
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true,
+    },
   ],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -22,11 +22,16 @@
     @fadeIn
     @fadeOut
   >
-    <mat-spinner diameter="50" *ngIf="this.progressSpin"></mat-spinner>
+    <mat-spinner
+      diameter="25"
+      *ngIf="loadingService.isLoading$ | async"
+      style="margin: auto"
+    ></mat-spinner>
     <div *ngFor="let link of tempLinks">
       <app-link-item
         [itemData]="link"
         (linkUpdate)="linkEvent($event)"
+        (linkPermDelete)="deletePerm($event)"
       ></app-link-item>
     </div>
   </section>

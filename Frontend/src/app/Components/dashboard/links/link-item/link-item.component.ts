@@ -24,6 +24,7 @@ export class LinkComponent implements OnInit, OnDestroy {
 
   @Input() itemData: any;
   @Output() linkUpdate = new EventEmitter<Link>();
+  @Output() linkPermDelete = new EventEmitter<Link>();
 
   private destroy$ = new Subject<void>();
 
@@ -85,8 +86,9 @@ export class LinkComponent implements OnInit, OnDestroy {
   }
 
   permanentDelete(): void {
-    this.linkService.permanentDelete(this.itemData.id);
-    this.linkUpdate.emit(this.itemData.id);
+    this.linkService
+      .permanentDelete(this.itemData.id)
+      .subscribe(() => this.linkPermDelete.emit(this.itemData.id));
   }
 
   restoreLink(): void {

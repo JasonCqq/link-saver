@@ -1,5 +1,15 @@
 <nav class="main-nav">
-  <p class="nav-title">{{ title ? title : "Dashboard" }}</p>
+  <div class="nav-flex">
+    <p class="nav-title">{{ title ? title : "Dashboard" }}</p>
+    <p
+      class="nav-question"
+      #tooltip="matTooltip"
+      matTooltip="Some link titles and previews are incorrect because some websites block web scraping. There is currently no solution, but we are constantly searching for alternatives! For now, you can edit the titles."
+      (click)="tooltip.toggle()"
+    >
+      <u>Why are some link titles/previews incorrect?</u>
+    </p>
+  </div>
 
   <div class="nav-container">
     <mat-form-field appearance="outline" [formGroup]="query" class="nav-search">

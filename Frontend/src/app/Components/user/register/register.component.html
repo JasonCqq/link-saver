@@ -54,14 +54,18 @@
       Register
     </button>
 
-    <mat-spinner diameter="30" *ngIf="formLoading"></mat-spinner>
+    <mat-spinner
+      diameter="25"
+      *ngIf="loadingService.isLoading$ | async"
+      style="margin: auto"
+    ></mat-spinner>
 
     <a class="register-extra" routerLink="/user/login"> I have an account </a>
   </form>
 </main>
 
 <footer class="foot-note">
-  <p>beta v1.0.0</p>
+  <p>beta v1.1.0</p>
 
   <a href="https://github.com/JasonCqq/link-saver" target="_blank"
     >&#x2022; Source Code</a

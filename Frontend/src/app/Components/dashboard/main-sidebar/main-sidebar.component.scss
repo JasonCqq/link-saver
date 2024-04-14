@@ -6,7 +6,7 @@
   left: 0;
   width: auto;
   background: transparent;
-  height: 100vh;
+  height: 100%;
   z-index: 98;
 
   .d-sidebar {
@@ -16,7 +16,7 @@
     left: 0;
     top: 0;
     box-shadow: 1px 1px 10px $boxshad;
-    height: 100vh;
+    height: 100%;
     border-radius: 10px;
     border: none;
 

@@ -22,16 +22,6 @@ const linkRouter = require("./routes/link");
 
 var app = express();
 
-// const SessionCookie = process.env.NODE_ENV == "dev" ? {
-//   secure: false,
-//   sameSite: "lax",
-//   maxAge: 1000 * 60 * 60 * 60 * 24 * 2//2 day
-// } : {
-//   secure: true,
-//   sameSite: "none",
-//   maxAge: 1000 * 60 * 60 * 60 * 24 * 2//2 day
-// }
-
 app.use(
   cors({
     origin: `${process.env.FRONT_END}`,
@@ -45,9 +35,8 @@ app.use(
   session({
     cookie: {
       maxAge: 7 * 24 * 60 * 60 * 1000, // ms
-      // sameSite: "lax", //dev
-      sameSite: "none", //prod
-      secure: true, // true = prod
+      sameSite: process.env.NODE_ENV === "prod" ? "none" : "lax",
+      secure: process.env.NODE_ENV === "prod" ? true : false,
       httpOnly: true,
     },
     secret: `${process.env.DATABASE_SECRET}`,

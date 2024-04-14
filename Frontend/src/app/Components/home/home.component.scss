@@ -4,6 +4,18 @@
   background-color: $background;
   color: $text;
 
+  > .home-note {
+    font-size: 0.9rem;
+    margin-top: 5px;
+    margin-left: 5px;
+    color: $textSec;
+
+    @media screen and (max-width: 800px) {
+      font-size: 0.8rem;
+      width: 75%;
+    }
+  }
+
   .landing-page {
     width: 100%;
     height: auto;
@@ -95,7 +107,11 @@
         width: 70vw;
       }
 
-      @media screen and (max-width: 760px) {
+      @media screen and (max-width: 900px) {
+        width: 80vw;
+      }
+
+      @media screen and (max-width: 800px) {
         grid-template-columns: repeat(1, 1fr);
       }
 
@@ -135,7 +151,8 @@
           > .home-features-icon {
             color: $accent;
             transform: scale(1.75);
-            margin-left: 2vw;
+            margin-left: 2.5vw;
+            padding-right: 5px;
 
             @media screen and (max-width: 620px) {
               transform: scale(1.25);
@@ -173,6 +190,11 @@
           padding: 12.5px 20px;
         }
 
+        @media screen and (max-width: 300px) {
+          font-size: 0.7rem;
+          padding: 12.5px 12.5px;
+        }
+
         > span {
           color: $textSec;
           font-weight: 600;
@@ -187,7 +209,7 @@
     justify-content: center;
     align-items: center;
     gap: 3vh;
-    margin-top: 10vh;
+    margin-top: 5vh;
     padding-bottom: 5vh;
 
     > h1 {
@@ -197,7 +219,8 @@
       justify-content: center;
       background: rgba($accent, 0.25);
       color: $accent;
-      padding: 12.5px 25px;
+      padding: 12.5px 0;
+      width: 147px;
       border-radius: 10px;
       font-weight: 700;
 
@@ -269,6 +292,10 @@
         &:hover {
           cursor: pointer;
           color: $accent;
+
+          > p {
+            color: $text;
+          }
         }
 
         .faq-flex {
@@ -285,7 +312,6 @@
 
             @media screen and (max-width: 415px) {
               font-size: 0.9rem;
-              font-weight: 500;
             }
           }
 
@@ -310,6 +336,10 @@
           animation: 0.25s ease-in-out 0s 1 fadeIn;
           opacity: 0.9;
           font-size: 0.9rem;
+
+          @media screen and (max-width: 500px) {
+            width: 90%;
+          }
         }
       }
     }
@@ -365,11 +395,13 @@
     color: $textSec;
     gap: 10px;
 
-    > a {
+    > a,
+    p {
       color: $textSec;
 
       &:hover {
         color: $accent;
+        cursor: pointer;
       }
     }
   }
@@ -385,6 +417,10 @@ mat-form-field {
 
   @media screen and (max-width: 1000px) {
     width: 60vw;
+  }
+
+  @media screen and (max-width: 400px) {
+    width: 75vw;
   }
 }
 

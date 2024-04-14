@@ -89,8 +89,7 @@ export class DashboardService implements OnInit {
           withCredentials: true,
         },
       )
-      .pipe(catchError(this.handleError("deleteAllTrash()", [])))
-      .subscribe();
+      .pipe(catchError(this.handleError("deleteAllTrash()", [])));
   }
 
   searchLink(query: string, linkType: string): Observable<Link[]> {

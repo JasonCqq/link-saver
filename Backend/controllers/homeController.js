@@ -12,7 +12,6 @@ exports.user_check = asyncHandler(async (req, res) => {
 
     res.status(200).json({ user: req.session.user, settings: userPreference });
   } else {
-    console.log(req.session, req.sessionID, req.session.user);
     res.status(200).json(null);
   }
 });

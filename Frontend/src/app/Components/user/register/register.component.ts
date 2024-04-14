@@ -1,17 +1,20 @@
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { UserService } from "../user.service";
 import { Router } from "@angular/router";
+import { LoadingService } from "../../LoadingInterceptor.service";
 
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
+    public loadingService: LoadingService,
   ) {}
 
   applyForm = new FormGroup({

@@ -41,6 +41,12 @@
       <p>{{ formErrors }}</p>
     </div>
 
+    <mat-spinner
+      diameter="25"
+      *ngIf="loadingService.isLoading$ | async"
+      style="margin: auto"
+    ></mat-spinner>
+
     <button type="submit" mat-raised-button [disabled]="applyLoginForm.invalid">
       Login
     </button>
@@ -80,8 +86,6 @@
         >
       </mat-form-field>
 
-      <mat-spinner diameter="50" *ngIf="this.forgotLoader"></mat-spinner>
-
       <mat-form-field appearance="outline" *ngIf="forgotSuccess">
         <mat-label for="forgot_otp">OTP Code</mat-label>
         <input
@@ -95,12 +99,18 @@
       <button
         type="submit"
         mat-raised-button
-        [disabled]="forgotPasswordForm.invalid || this.forgotLoader === true"
+        [disabled]="forgotPasswordForm.invalid || this.forgotFormErrors"
         *ngIf="!this.forgotSuccess"
         class="forgot-form-button"
       >
         Get Code
       </button>
+
+      <mat-spinner
+        diameter="25"
+        *ngIf="loadingService.isLoading$ | async"
+        style="margin: auto"
+      ></mat-spinner>
 
       <button
         mat-raised-button
@@ -141,6 +151,11 @@
           formControlName="forgot_new_pass2"
         />
       </mat-form-field>
+      <mat-spinner
+        diameter="25"
+        *ngIf="loadingService.isLoading$ | async"
+        style="margin: auto"
+      ></mat-spinner>
 
       <button type="submit" class="submit-new-pass">Submit New Password</button>
     </form>
@@ -150,7 +165,7 @@
 <p *ngIf="user">You are already logged in.</p>
 
 <footer class="foot-note">
-  <p>beta v1.0.0</p>
+  <p>beta v1.1.0</p>
 
   <a href="https://github.com/JasonCqq/link-saver" target="_blank"
     >&#x2022; Source Code</a

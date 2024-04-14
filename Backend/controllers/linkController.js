@@ -23,74 +23,75 @@ exports.create_link = [
   asyncHandler(async (req, res) => {
     const errs = validationResult(req);
 
-    console.log("test0");
     if (!errs.isEmpty()) {
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
-      console.log("test12");
       res.status(400).json(firstError);
     } else {
-      console.log("test13");
-      console.log(
-        req.session,
-        req.sessionID,
-        req.session.user,
-        req.session.user.id,
-      );
-
       if (!req.params.userId || req.session.user.id !== req.params.userId) {
         res.status(401).json("Not authenticated");
       }
 
-      console.log("test1");
       let date = req.body.remind;
       if (date === "") {
         date = null;
       }
-      console.log("test2");
+
       let userUrl = decode(req.body.url, { level: "html5" });
       let decodedUrl = userUrl;
 
       if (!userUrl.startsWith("http://") && !userUrl.startsWith("https://")) {
         decodedUrl = "https://" + userUrl;
       }
-      console.log("test3");
+
       // Scrape for title/screenshot
       try {
         const browser = await puppeteer.launch({
           headless: true,
-          args: minimal_args,
+          args: [
+            "--proxy-server='direct://'",
+            "--proxy-bypass-list=*",
+            "--disable-dev-shm-usage",
+            "--disable-gpu",
+            "--disable-setuid-sandbox",
+            "--no-first-run",
+            "--no-sandbox",
+            "--no-zygote",
+          ],
         });
         const page = await browser.newPage();
 
-        console.log("test4");
-        // Block Ads
+        // Block Domains
         const blocked_domains = [
           "googlesyndication.com",
           "adservice.google.com",
+          "https://pagead2.googlesyndication.com",
+          "https://creativecdn.com",
+          "https://www.googletagmanager.com",
+          "https://cdn.krxd.net",
+          "https://cdn.concert.io",
+          "https://z.moatads.com",
+          "https://cdn.permutive.com",
         ];
-
         await page.setRequestInterception(true);
 
-        console.log("test5");
         page.on("request", (request) => {
           const url = request.url();
 
           const isBlockedDomain = blocked_domains.some((domain) =>
-            url.includes(domain),
+            url.startsWith(domain),
           );
 
           isBlockedDomain ? request.abort() : request.continue();
         });
-        console.log("test6");
+
         await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
 
-        console.log("test7");
         const title = await page.title();
         const thumbnail = await page.screenshot({
           encoding: "base64",
           fullPage: false,
         });
-        console.log("test9");
+
         await browser.close();
 
         const link = await prisma.Link.create({
@@ -112,7 +113,6 @@ exports.create_link = [
             thumbnail: thumbnail,
           },
         });
-        console.log("test11");
         res.status(200).json({});
       } catch (err) {
         console.log(err);
@@ -200,29 +200,30 @@ exports.edit_link = [
     if (!errs.isEmpty()) {
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
-    } else {
-      if (!req.params.userId || req.session.user.id !== req.params.userId) {
-        res.status(401).json("Not authenticated");
-      }
-
-      await prisma.Link.update({
-        where: {
-          id: req.params.id,
-          userId: req.params.userId,
-        },
-
-        data: {
-          title: req.body.title,
-          bookmarked: JSON.parse(req.body.bookmarked),
-          ...(req.body.folder
-            ? { folder: { connect: { id: req.body.folder } } }
-            : {}),
-          remind: req.body.remind || null,
-        },
-      });
     }
+    if (!req.params.userId || req.session.user.id !== req.params.userId) {
+      res.status(401).json("Not authenticated");
+    } else {
+      try {
+        await prisma.Link.update({
+          where: {
+            id: req.params.id,
+          },
 
-    res.status(200).json({});
+          data: {
+            title: req.body.title,
+            bookmarked: JSON.parse(req.body.bookmarked),
+            ...(req.body.folder
+              ? { folder: { connect: { id: req.body.folder } } }
+              : {}),
+            remind: req.body.remind || null,
+          },
+        });
+        res.status(200).json({});
+      } catch (err) {
+        console.log(err);
+      }
+    }
   }),
 ];
 
@@ -399,43 +400,4 @@ exports.mass_restore_delete_links = [
       res.status(200).json({});
     }
   }),
-];
-
-//Puppeteer Settings
-const minimal_args = [
-  "--autoplay-policy=user-gesture-required",
-  "--disable-background-networking",
-  "--disable-background-timer-throttling",
-  "--disable-backgrounding-occluded-windows",
-  "--disable-breakpad",
-  "--disable-client-side-phishing-detection",
-  "--disable-component-update",
-  "--disable-default-apps",
-  "--disable-dev-shm-usage",
-  "--disable-domain-reliability",
-  "--disable-extensions",
-  "--disable-features=AudioServiceOutOfProcess",
-  "--disable-hang-monitor",
-  "--disable-ipc-flooding-protection",
-  "--disable-notifications",
-  "--disable-offer-store-unmasked-wallet-cards",
-  "--disable-popup-blocking",
-  "--disable-print-preview",
-  "--disable-prompt-on-repost",
-  "--disable-renderer-backgrounding",
-  "--disable-setuid-sandbox",
-  "--disable-speech-api",
-  "--disable-sync",
-  "--hide-scrollbars",
-  "--ignore-gpu-blacklist",
-  "--metrics-recording-only",
-  "--mute-audio",
-  "--no-default-browser-check",
-  "--no-first-run",
-  "--no-pings",
-  "--no-sandbox",
-  "--no-zygote",
-  "--password-store=basic",
-  "--use-gl=swiftshader",
-  "--use-mock-keychain",
 ];

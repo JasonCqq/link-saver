@@ -97,12 +97,10 @@ export class UserService {
         withCredentials: true,
       })
       .subscribe({
-        next: (response) => {
-          if (response) {
-            this.userSubject.next(null);
-            alert("Your account has been deleted.");
-            this.router.navigate(["/"]);
-          }
+        next: () => {
+          this.userSubject.next(null);
+          alert("Your account has been deleted.");
+          this.router.navigate(["/"]);
         },
         error: (error) => alert(JSON.stringify(error.error)),
       });
