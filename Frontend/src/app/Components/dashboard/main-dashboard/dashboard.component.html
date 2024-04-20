@@ -22,11 +22,14 @@
     @fadeIn
     @fadeOut
   >
-    <mat-spinner
-      diameter="25"
-      *ngIf="loadingService.isLoading$ | async"
-      style="margin: auto"
-    ></mat-spinner>
+    <div *ngIf="loadingService.isLoading$ | async">
+      <mat-spinner diameter="35" style="margin: auto"></mat-spinner>
+      <p style="text-align: center; margin-top: 10px">
+        Grabbing best screenshot possible... <br />
+        (You can add more links while it loads)
+      </p>
+    </div>
+
     <div *ngFor="let link of tempLinks">
       <app-link-item
         [itemData]="link"

@@ -108,7 +108,7 @@ html {
   scroll-behavior: smooth;
   box-sizing: border-box !important;
   background-color: $background;
-  height: 100vh;
+  height: auto;
 }
 
 body {
@@ -117,7 +117,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: $text;
   background-color: $background;
-  height: 100vh;
+  height: auto;
 }
 
 body,

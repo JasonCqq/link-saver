@@ -91,6 +91,13 @@
       <p>Create a new folder</p>
     </div>
 
+    <div *ngIf="loadingService.isLoading$ | async">
+      <mat-spinner diameter="35" style="margin: auto"></mat-spinner>
+      <p style="text-align: center; margin-top: 10px">
+        Getting your folders...
+      </p>
+    </div>
+
     <!--Create Folder Form-->
     <div class="folders-create-overlay" *ngIf="windowOpened">
       <form

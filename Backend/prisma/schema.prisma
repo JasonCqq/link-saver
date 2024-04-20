@@ -68,7 +68,7 @@ model Link {
     createdAt  DateTime  @default(now())
     updatedAt  DateTime? @updatedAt
     bookmarked Boolean
-    thumbnail  String
+    thumbnail  Bytes
     remind     DateTime?
     trash      Boolean?  @default(false)
 }

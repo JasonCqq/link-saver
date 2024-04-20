@@ -13,7 +13,7 @@
     gap: 10px;
 
     > .public-sign-up {
-      position: fixed;
+      position: absolute;
       top: 0;
       height: 5vh;
       background: rgba($accent, 0.25);
@@ -72,11 +72,11 @@
   }
 
   > .content-grid {
-    margin-left: 5vw;
+    margin-left: 3vw;
     margin-top: 3vh;
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 380px));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 275px));
 
     column-gap: 2vw;
     row-gap: 3vh;
@@ -138,7 +138,7 @@
 }
 
 .foot-note {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   display: flex;
   align-items: center;
@@ -152,6 +152,7 @@
   margin-right: auto;
   left: 0;
   right: 0;
+  background-color: $background2;
 
   > a {
     color: $textSec;

@@ -4,10 +4,6 @@
   margin-left: 14vw;
   margin-top: 2vh;
 
-  @media screen and (max-width: 340px) {
-    margin-left: 10vw;
-  }
-
   > .folders-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, 200px);
@@ -23,7 +19,12 @@
       padding: 5px;
       gap: 7px;
       height: 50px;
-      transition: border-color 0.15s ease-in-out;
+      transition: border-color 0.1s ease-in-out;
+      touch-action: auto !important;
+
+      > p {
+        font-weight: 500;
+      }
 
       &:hover {
         cursor: pointer;
@@ -35,6 +36,10 @@
         width: 100%;
         gap: 5px;
         align-items: center;
+
+        > p {
+          font-weight: 500;
+        }
       }
 
       > .folders-item-options {

@@ -2,7 +2,8 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const prisma = require("../prisma/prismaClient");
 const { decode } = require("html-entities");
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-extra");
+const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 
 function formatLinks(links) {
   links.map((link) => {
@@ -45,6 +46,8 @@ exports.create_link = [
 
       // Scrape for title/screenshot
       try {
+        puppeteer.use(StealthPlugin());
+
         const browser = await puppeteer.launch({
           headless: true,
           args: [
@@ -56,11 +59,21 @@ exports.create_link = [
             "--no-first-run",
             "--no-sandbox",
             "--no-zygote",
+            "--no-sandbox",
+            "--disable-infobars",
+            "--window-position=0,0",
+            "--ignore-certifcate-errors",
+            "--ignore-certifcate-errors-spki-list",
           ],
         });
         const page = await browser.newPage();
+        await page.setViewport({
+          width: 640,
+          height: 480,
+          deviceScaleFactor: 1.25,
+        });
 
-        // Block Domains
+        // Block Ad Domains
         const blocked_domains = [
           "googlesyndication.com",
           "adservice.google.com",
@@ -84,13 +97,46 @@ exports.create_link = [
           isBlockedDomain ? request.abort() : request.continue();
         });
 
-        await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
+        // await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
+        await page.goto(decodedUrl, { waitUntil: "networkidle2" });
+        await page.waitForSelector("div");
 
-        const title = await page.title();
-        const thumbnail = await page.screenshot({
-          encoding: "base64",
-          fullPage: false,
+        const data = await page.evaluate(() => {
+          const title = document.head.querySelector(
+            'meta[property="og:title"]',
+          )?.content;
+          const thumbnail = document.querySelector(
+            'meta[property="og:image"]',
+          )?.content;
+
+          return { title, thumbnail };
         });
+
+        let thumbnail;
+
+        if (data.thumbnail) {
+          const imagePage = await browser.newPage();
+          const response = await imagePage.goto(data.thumbnail, {
+            waitUntil: "networkidle0",
+          });
+          const buffer = await response.buffer();
+          thumbnail = buffer;
+          await imagePage.close();
+        } else {
+          thumbnail = await page.screenshot({
+            fullPage: false,
+            quality: 15,
+            type: "webp",
+            omitBackground: true,
+          });
+        }
+
+        let title;
+        if (data.title) {
+          title = data.title;
+        } else {
+          title = await page.title();
+        }
 
         await browser.close();
 

@@ -6,12 +6,27 @@ import { Component } from "@angular/core";
   styleUrls: ["./version-history.component.scss"],
 })
 export class VersionHistoryComponent {
-  activeID: number = 2;
+  activeID: number = 3;
   toggleActive(id: number): void {
     this.activeID = this.activeID === id ? 0 : id;
   }
 
   versions = [
+    {
+      id: 3,
+      version: "1.2.0 (Current)",
+      updates: [
+        "Update thumbnail to be video's thumbnail if link contains video",
+        "Can now screenshot most websites",
+      ],
+      qols: [
+        "Changed size of link items",
+        "Added helpful messages to loaders",
+        "Added Small UI changes",
+        "Added a loader to folders",
+      ],
+      bugfixes: ["Fix scrolling issues on mobile", "Fix UI on public folders"],
+    },
     {
       id: 2,
       version: "1.1.0 (Current)",

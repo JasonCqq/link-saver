@@ -7,11 +7,14 @@ import { Subject, takeUntil } from "rxjs";
 import { Link } from "src/app/Interfaces/Link";
 import { MainNavService } from "../main-nav/main-nav.service";
 import { LinkService } from "../links/link-item/link-item.service";
+import { ChangeDetectionStrategy } from "@angular/core";
+import { LoadingService } from "../../LoadingInterceptor.service";
 
 @Component({
   selector: "app-folders",
   templateUrl: "./folders.component.html",
   styleUrls: ["./folders.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FoldersComponent implements OnInit, OnDestroy {
   constructor(
@@ -19,6 +22,7 @@ export class FoldersComponent implements OnInit, OnDestroy {
     private foldersService: FoldersService,
     private mainNavService: MainNavService,
     private linkService: LinkService,
+    public loadingService: LoadingService,
   ) {}
 
   private destroy$ = new Subject<void>();

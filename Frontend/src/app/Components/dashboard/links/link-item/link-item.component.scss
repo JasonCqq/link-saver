@@ -12,11 +12,12 @@
   border-radius: 10px;
   box-shadow: 1px 1px 10px $boxshad;
   border: 3px solid transparent;
-  border-top-color: $accent;
+  border-top-color: #0066ff;
   transition: border-color 0.1s ease-in-out;
+  touch-action: auto !important;
 
   &:hover {
-    border-color: $accent;
+    border-color: #0066ff;
   }
 
   @media screen and (max-width: 340px) {
@@ -24,15 +25,13 @@
     margin-left: 8vw;
   }
 
-  .disabled {
-    > a {
-      pointer-events: none;
-    }
-  }
-
   > section {
     display: flex;
     width: 100%;
+
+    > a {
+      pointer-events: auto;
+    }
 
     > .link-preview {
       height: 94px;
@@ -61,6 +60,7 @@
         word-wrap: break-word;
         max-width: 80%;
         overflow: hidden;
+        font-weight: 600;
 
         @media screen and (max-width: 340px) {
           font-size: 0.65rem;
@@ -70,8 +70,8 @@
       > .link-url {
         font-size: 0.7rem;
         color: $textSec;
-        height: 25%;
-        padding-top: 2.5%;
+        height: auto;
+        padding-top: 6px;
 
         @media screen and (max-width: 340px) {
           font-size: 0.6rem;
@@ -103,6 +103,12 @@
 
     > .link-details-no-previews {
       width: 95%;
+    }
+  }
+
+  > .disabled {
+    > a {
+      pointer-events: none;
     }
   }
 
