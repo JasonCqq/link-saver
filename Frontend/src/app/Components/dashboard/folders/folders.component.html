@@ -22,12 +22,7 @@
 
       <section class="folders-share-url">
         This folder's URL will be located here:
-
-        <p *ngIf="this.tempShareUrl">
-          linkstorage.net/public/{{ this.tempShareUrl.url }}
-        </p>
-
-        <p *ngIf="tempShareUrl" style="color: lightskyblue">Success!</p>
+        <p *ngIf="tempShareUrl">linkstorage.net/public/{{ tempShareUrl }}</p>
       </section>
 
       <mat-label for="passwordToggle">Password Locked</mat-label>

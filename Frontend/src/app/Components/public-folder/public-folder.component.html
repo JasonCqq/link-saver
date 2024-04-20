@@ -25,7 +25,7 @@
             [href]="'//' + link.url"
             target="_blank"
           >
-            <p class="link-url">{{ link.url | slice: 0 : 25 }}</p>
+            <p class="link-url">{{ link.url | slice: 0 : 20 }}</p>
             <p class="link-title">
               {{ link.title }}
             </p>
@@ -36,7 +36,7 @@
 
           <div class="link-preview" *ngIf="previews">
             <img
-              src="{{ 'data:image/png;base64,' + link.thumbnail }}"
+              src="{{ 'data:image/webp;base64,' + link.thumbnail.newUrl }}"
               height="100px"
               width="170px"
             />

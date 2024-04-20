@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from "@angular/core";
 import { DashboardService } from "../dashboard.service";
 import { Folder } from "src/app/Interfaces/Folder";
 import { FoldersService } from "./folders.service";
@@ -9,6 +9,10 @@ import { MainNavService } from "../main-nav/main-nav.service";
 import { LinkService } from "../links/link-item/link-item.service";
 import { ChangeDetectionStrategy } from "@angular/core";
 import { LoadingService } from "../../LoadingInterceptor.service";
+
+interface shareUrl {
+  url: string;
+}
 
 @Component({
   selector: "app-folders",
@@ -23,6 +27,7 @@ export class FoldersComponent implements OnInit, OnDestroy {
     private mainNavService: MainNavService,
     private linkService: LinkService,
     public loadingService: LoadingService,
+    private readonly changeDetector: ChangeDetectorRef,
   ) {}
 
   private destroy$ = new Subject<void>();
@@ -38,6 +43,7 @@ export class FoldersComponent implements OnInit, OnDestroy {
   tempLinks: any = [];
   tempShare: any;
   previews: any;
+  tempShareUrl: any;
 
   updateTempLinks(folderId: string) {
     const folderIndex = this.folders.findIndex((folder) => {
@@ -138,7 +144,6 @@ export class FoldersComponent implements OnInit, OnDestroy {
       });
   }
 
-  tempShareUrl: any;
   shareFolder() {
     if (this.tempLinks.length === 0) {
       alert("Folder has no links, please add some before sharing");
@@ -148,15 +153,20 @@ export class FoldersComponent implements OnInit, OnDestroy {
     this.foldersService
       .shareFolder(this.shareFolderForm.value.password || "", true, this.tempId)
       .subscribe((res) => {
-        this.tempShareUrl = res;
+        const response = res as shareUrl;
+        this.tempShareUrl = response.url;
         this.tempShare = false;
+        this.changeDetector.detectChanges();
       });
   }
 
   unshareFolder() {
     this.foldersService
       .unshareFolder(this.tempId, !this.tempShare)
-      .subscribe(() => (this.tempShare = !this.tempShare));
+      .subscribe(() => {
+        this.tempShare = !this.tempShare;
+        this.changeDetector.detectChanges();
+      });
   }
 
   toggleShareWindow(): void {

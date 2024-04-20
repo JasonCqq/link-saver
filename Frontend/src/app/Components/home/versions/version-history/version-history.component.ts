@@ -25,7 +25,12 @@ export class VersionHistoryComponent {
         "Added Small UI changes",
         "Added a loader to folders",
       ],
-      bugfixes: ["Fix scrolling issues on mobile", "Fix UI on public folders"],
+      bugfixes: [
+        "Fix scrolling issues on mobile",
+        "Fix UI on public folders",
+        "Fix folder share functions not updating properly",
+        "Fix images on public folders not working",
+      ],
     },
     {
       id: 2,
