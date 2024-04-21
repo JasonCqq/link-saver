@@ -187,11 +187,13 @@
   left: 0;
   right: 0;
 
-  > a {
+  > a,
+  p {
     color: $textSec;
 
     &:hover {
       color: $accent;
+      cursor: pointer;
     }
   }
 }

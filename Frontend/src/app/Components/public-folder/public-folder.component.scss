@@ -154,11 +154,13 @@
   right: 0;
   background-color: $background2;
 
-  > a {
+  > a,
+  p {
     color: $textSec;
 
     &:hover {
       color: $accent;
+      cursor: pointer;
     }
   }
 }

@@ -16,6 +16,12 @@ function formatLinks(links) {
   return links;
 }
 
+let browser;
+const launchBrowser = async () => {
+  if (browser) return;
+  browser = await puppeteer.launch({ headless: true, args: minimal_args });
+};
+
 exports.create_link = [
   body("url", "Invalid URL").isURL().trim().isLength({ min: 1 }).escape(),
   body("folder").trim().escape(),
@@ -48,31 +54,20 @@ exports.create_link = [
       try {
         puppeteer.use(StealthPlugin());
 
-        const browser = await puppeteer.launch({
-          headless: true,
-          args: [
-            "--proxy-server='direct://'",
-            "--proxy-bypass-list=*",
-            "--disable-dev-shm-usage",
-            "--disable-gpu",
-            "--disable-setuid-sandbox",
-            "--no-first-run",
-            "--no-sandbox",
-            "--no-zygote",
-            "--no-sandbox",
-            "--disable-infobars",
-            "--window-position=0,0",
-            "--ignore-certifcate-errors",
-            "--ignore-certifcate-errors-spki-list",
-          ],
-        });
+        console.time("Launch");
+        await launchBrowser();
+        console.timeEnd("Launch");
+
+        console.time("New Page");
         const page = await browser.newPage();
         await page.setViewport({
           width: 640,
           height: 480,
           deviceScaleFactor: 1.25,
         });
+        console.timeEnd("New Page");
 
+        console.time("Blocking Ads");
         // Block Ad Domains
         const blocked_domains = [
           "googlesyndication.com",
@@ -97,10 +92,14 @@ exports.create_link = [
           isBlockedDomain ? request.abort() : request.continue();
         });
 
-        // await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
-        await page.goto(decodedUrl, { waitUntil: "networkidle2" });
-        await page.waitForSelector("div");
+        console.timeEnd("Blocking Ads");
 
+        console.time("Page goto");
+        page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
+        await page.waitForSelector("div");
+        console.timeEnd("Page goto");
+
+        console.time("Page eval");
         const data = await page.evaluate(() => {
           const title = document.head.querySelector(
             'meta[property="og:title"]',
@@ -111,34 +110,36 @@ exports.create_link = [
 
           return { title, thumbnail };
         });
+        console.timeEnd("Page eval");
 
+        let title;
         let thumbnail;
 
-        if (data.thumbnail) {
+        console.time("MainFunc");
+
+        if (data.thumbnail && data.title) {
+          console.time("Main1");
           const imagePage = await browser.newPage();
           const response = await imagePage.goto(data.thumbnail, {
-            waitUntil: "networkidle0",
+            waitUntil: "domcontentloaded",
           });
-          const buffer = await response.buffer();
-          thumbnail = buffer;
-          await imagePage.close();
+          thumbnail = await response.buffer();
+          title = data.title;
+          console.timeEnd("Main1");
+          await page.close();
         } else {
+          console.time("Main2");
           thumbnail = await page.screenshot({
             fullPage: false,
             quality: 15,
             type: "webp",
             omitBackground: true,
           });
-        }
-
-        let title;
-        if (data.title) {
-          title = data.title;
-        } else {
           title = await page.title();
+          await page.close();
+          console.timeEnd("Main2");
         }
-
-        await browser.close();
+        console.timeEnd("MainFunc");
 
         const link = await prisma.Link.create({
           data: {
@@ -162,6 +163,7 @@ exports.create_link = [
         res.status(200).json({});
       } catch (err) {
         console.log(err);
+        res.status(500).json("Server Error");
       }
     }
   }),
@@ -446,4 +448,51 @@ exports.mass_restore_delete_links = [
       res.status(200).json({});
     }
   }),
+];
+
+// Puppeteer arguments
+const minimal_args = [
+  "--proxy-server='direct://'",
+  "--proxy-bypass-list=*",
+  "--disable-gpu",
+  "--disable-infobars",
+  "--window-position=0,0",
+  "--ignore-certifcate-errors",
+  "--ignore-certifcate-errors-spki-list",
+  "--autoplay-policy=user-gesture-required",
+  "--disable-background-networking",
+  "--disable-background-timer-throttling",
+  "--disable-backgrounding-occluded-windows",
+  "--disable-breakpad",
+  "--disable-client-side-phishing-detection",
+  "--disable-component-update",
+  "--disable-default-apps",
+  "--disable-dev-shm-usage",
+  "--disable-domain-reliability",
+  "--disable-extensions",
+  "--disable-features=AudioServiceOutOfProcess",
+  "--disable-features=site-per-process",
+  "--disable-hang-monitor",
+  "--disable-ipc-flooding-protection",
+  "--disable-notifications",
+  "--disable-offer-store-unmasked-wallet-cards",
+  "--disable-popup-blocking",
+  "--disable-print-preview",
+  "--disable-prompt-on-repost",
+  "--disable-renderer-backgrounding",
+  "--disable-setuid-sandbox",
+  "--disable-speech-api",
+  "--disable-sync",
+  "--hide-scrollbars",
+  "--ignore-gpu-blacklist",
+  "--metrics-recording-only",
+  "--mute-audio",
+  "--no-default-browser-check",
+  "--no-first-run",
+  "--no-pings",
+  "--no-sandbox",
+  "--no-zygote",
+  "--password-store=basic",
+  "--use-gl=swiftshader",
+  "--use-mock-keychain",
 ];

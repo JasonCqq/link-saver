@@ -16,6 +16,7 @@ export class VersionHistoryComponent {
       id: 3,
       version: "1.2.0 (Current)",
       updates: [
+        "Optimize link screenshots drastically",
         "Update thumbnail to be video's thumbnail if link contains video",
         "Can now screenshot most websites",
       ],
