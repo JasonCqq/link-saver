@@ -95,7 +95,7 @@ exports.create_link = [
         console.timeEnd("Blocking Ads");
 
         console.time("Page goto");
-        page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
+        await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
         await page.waitForSelector("div");
         console.timeEnd("Page goto");
 
@@ -126,7 +126,6 @@ exports.create_link = [
           thumbnail = await response.buffer();
           title = data.title;
           console.timeEnd("Main1");
-          await page.close();
         } else {
           console.time("Main2");
           thumbnail = await page.screenshot({
@@ -136,10 +135,10 @@ exports.create_link = [
             omitBackground: true,
           });
           title = await page.title();
-          await page.close();
           console.timeEnd("Main2");
         }
         console.timeEnd("MainFunc");
+        await page.close();
 
         const link = await prisma.Link.create({
           data: {
