@@ -37,6 +37,7 @@
     "pg": "^8.11.3",
     "puppeteer-core": "^10.1.0",
     "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-adblocker": "^2.13.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
     "sharp": "^0.33.3"
   },
