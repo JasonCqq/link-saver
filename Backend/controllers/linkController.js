@@ -4,6 +4,7 @@ const prisma = require("../prisma/prismaClient");
 const { decode } = require("html-entities");
 const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
+const sharp = require("sharp");
 
 function formatLinks(links) {
   links.map((link) => {
@@ -59,11 +60,13 @@ exports.create_link = [
         console.timeEnd("Launch");
 
         console.time("New Page");
+
         const page = await browser.newPage();
+
         await page.setViewport({
           width: 640,
           height: 480,
-          deviceScaleFactor: 1.25,
+          deviceScaleFactor: 1,
         });
         console.timeEnd("New Page");
 
@@ -96,8 +99,9 @@ exports.create_link = [
 
         console.time("Page goto");
         await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
-        await page.waitForSelector("div");
         console.timeEnd("Page goto");
+
+        await page.waitForSelector("div");
 
         console.time("Page eval");
         const data = await page.evaluate(() => {
@@ -123,17 +127,26 @@ exports.create_link = [
           const response = await imagePage.goto(data.thumbnail, {
             waitUntil: "domcontentloaded",
           });
-          thumbnail = await response.buffer();
+          const imageBuffer = await response.buffer();
+          thumbnail = await sharp(imageBuffer)
+            .resize(135, 95)
+            .webp({ quality: 15 })
+            .toBuffer();
           title = data.title;
           console.timeEnd("Main1");
         } else {
           console.time("Main2");
-          thumbnail = await page.screenshot({
+          let screenshot = await page.screenshot({
             fullPage: false,
             quality: 15,
             type: "webp",
             omitBackground: true,
           });
+          thumbnail = await sharp(screenshot)
+            .resize(135, 95)
+            .webp({ quality: 15 })
+            .toBuffer();
+
           title = await page.title();
           console.timeEnd("Main2");
         }
