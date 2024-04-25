@@ -3,8 +3,10 @@ const { body, validationResult } = require("express-validator");
 const prisma = require("../prisma/prismaClient");
 const { decode } = require("html-entities");
 const puppeteer = require("puppeteer-extra");
-const StealthPlugin = require("puppeteer-extra-plugin-stealth");
+// const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 const sharp = require("sharp");
+const axios = require("axios");
+const cheerio = require("cheerio");
 
 function formatLinks(links) {
   links.map((link) => {
@@ -53,107 +55,78 @@ exports.create_link = [
 
       // Scrape for title/screenshot
       try {
-        puppeteer.use(StealthPlugin());
-
-        console.time("Launch");
-        await launchBrowser();
-        console.timeEnd("Launch");
-
-        console.time("New Page");
-
-        const page = await browser.newPage();
-
-        await page.setViewport({
-          width: 640,
-          height: 480,
-          deviceScaleFactor: 1,
-        });
-        console.timeEnd("New Page");
-
-        console.time("Blocking Ads");
-        // Block Ad Domains
-        const blocked_domains = [
-          "googlesyndication.com",
-          "adservice.google.com",
-          "https://pagead2.googlesyndication.com",
-          "https://creativecdn.com",
-          "https://www.googletagmanager.com",
-          "https://cdn.krxd.net",
-          "https://cdn.concert.io",
-          "https://z.moatads.com",
-          "https://cdn.permutive.com",
-        ];
-        await page.setRequestInterception(true);
-
-        page.on("request", (request) => {
-          const url = request.url();
-
-          const isBlockedDomain = blocked_domains.some((domain) =>
-            url.startsWith(domain),
-          );
-
-          isBlockedDomain ? request.abort() : request.continue();
-        });
-
-        console.timeEnd("Blocking Ads");
-
-        console.time("Page goto");
-        await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
-        console.timeEnd("Page goto");
-
-        await page.waitForSelector("div");
-
-        console.time("Page eval");
-        const data = await page.evaluate(() => {
-          const title = document.head.querySelector(
-            'meta[property="og:title"]',
-          )?.content;
-          const thumbnail = document.querySelector(
-            'meta[property="og:image"]',
-          )?.content;
-
-          return { title, thumbnail };
-        });
-        console.timeEnd("Page eval");
-
+        let thumbnail = "";
         let title;
-        let thumbnail;
+        let skip = false;
 
-        console.time("MainFunc");
+        const response = await axios.get(decodedUrl).catch((error) => {
+          console.log("Server Error", error.message);
+          title = error.config.url;
+          // Skip to link creation process
+          skip = true;
+        });
 
-        if (data.thumbnail && data.title) {
-          console.time("Main1");
-          const imagePage = await browser.newPage();
-          const response = await imagePage.goto(data.thumbnail, {
-            waitUntil: "domcontentloaded",
-          });
-          const imageBuffer = await response.buffer();
-          thumbnail = await sharp(imageBuffer)
-            .resize(135, 95)
-            .webp({ quality: 15 })
-            .toBuffer();
-          title = data.title;
-          console.timeEnd("Main1");
-        } else {
-          console.time("Main2");
-          let screenshot = await page.screenshot({
-            fullPage: false,
-            quality: 15,
-            type: "webp",
-            omitBackground: true,
-          });
-          thumbnail = await sharp(screenshot)
-            .resize(135, 95)
-            .webp({ quality: 15 })
-            .toBuffer();
+        if (skip === false) {
+          const html = response.data;
+          const $ = await cheerio.load(html);
+          title = $("title").text();
 
-          title = await page.title();
-          console.timeEnd("Main2");
+          if ($('[property="og:image"]').attr("content")) {
+            const ogImageUrl = await axios.get(
+              $('[property="og:image"]').attr("content"),
+              {
+                responseType: "arraybuffer",
+              },
+            );
+            thumbnail = await sharp(ogImageUrl.data)
+              .resize(150, 100)
+              .webp({ quality: 75 })
+              .toBuffer();
+          } else {
+            // Uses Puppeteer if no thumbnail
+            // puppeteer.use(StealthPlugin());
+            await launchBrowser();
+
+            const page = await browser.newPage();
+
+            await page.setViewport({
+              width: 640,
+              height: 480,
+              deviceScaleFactor: 1,
+            });
+
+            console.time("Page goto");
+            await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
+            console.timeEnd("Page goto");
+
+            // await Promise.race([
+            //   page.waitForResponse(async (response) => {
+            //     return (await response.text()).includes("<html>");
+            //   }),
+            //   page.waitForSelector("div"),
+            // ]);
+
+            await page.waitForSelector("div");
+            // await page.waitForResponse(async (response) => {
+            //   return (await response.text()).includes("<html>");
+            // });
+
+            await new Promise((resolve) => setTimeout(resolve, 500));
+
+            let screenshot = await page.screenshot({
+              fullPage: false,
+              quality: 60,
+              type: "webp",
+              omitBackground: true,
+            });
+
+            thumbnail = await sharp(screenshot).resize(150, 100).toBuffer();
+
+            await page.close();
+          }
         }
-        console.timeEnd("MainFunc");
-        await page.close();
 
-        const link = await prisma.Link.create({
+        await prisma.Link.create({
           data: {
             url: decodedUrl,
             user: {
@@ -172,6 +145,7 @@ exports.create_link = [
             thumbnail: thumbnail,
           },
         });
+
         res.status(200).json({});
       } catch (err) {
         console.log(err);
