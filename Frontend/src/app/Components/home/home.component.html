@@ -1,15 +1,14 @@
 <main class="home-page">
-  <p class="home-note">
-    * To ensure data is genuine, incognito does not work yet
-  </p>
+  <p class="home-note">* Incognito does not work yet</p>
   <header class="landing-page" #home>
     <div class="landing-heading">
       <h1>LinkStorage</h1>
+      <a routerLink="/versions">Release Notes ></a>
     </div>
     <div class="landing-body">
       <a routerLink="/user/login" *ngIf="!user" class="login-button">Log in</a>
       <a routerLink="/user/register" *ngIf="!user" class="register-button">
-        Register
+        Sign Up
       </a>
       <a routerLink="/dashboard" *ngIf="user" class="dashboard-button"
         >Dashboard</a
@@ -142,23 +141,18 @@
     >
       <h1>CONTACT</h1>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="name">Name</mat-label>
+      <label for="name">Name:</label>
+      <mat-form-field appearance="fill">
         <input matInput type="text" #name required name="name" />
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="email">Email</mat-label>
+      <label for="email">Email:</label>
+      <mat-form-field appearance="fill">
         <input matInput type="email" #email required name="email" />
       </mat-form-field>
 
+      <label for="message" style="padding-bottom: 8px">Message:</label>
       <mat-form-field appearance="outline">
-        <mat-label for="subject">Subject</mat-label>
-        <input matInput type="text" #subject required name="subject" />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label for="message">Your Message</mat-label>
         <textarea
           matInput
           #message
@@ -174,7 +168,7 @@
   </section>
 
   <footer class="foot-note">
-    <p routerLink="/versions">beta v1.2.0</p>
+    <p routerLink="/versions">beta v1.2.1</p>
 
     <a href="https://github.com/JasonCqq/link-saver" target="_blank"
       >&#x2022; Source Code</a

@@ -1,12 +1,16 @@
 @import "../../../../assets/styles.scss";
 
+label {
+  font-weight: 600;
+}
+
 .login-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: $background;
-  padding-top: 10vh;
+  padding-top: 5vh;
 
   > .home-ref {
     font-size: 2.5rem;
@@ -40,6 +44,7 @@
       font-size: 1rem;
       display: flex;
       align-self: flex-start;
+      font-weight: 600;
       &:hover {
         color: $accent;
         cursor: pointer;
@@ -125,16 +130,16 @@
         }
 
         > button {
-          border: none;
-          background: rgba($accent, 0.25);
+          border: 2px solid $border;
+          background: transparent;
           padding: 10px 20px;
           border-radius: 10px;
-          color: $text2;
+          color: $text;
           font-weight: bold;
           font-size: 0.9rem;
 
           &:hover {
-            opacity: 0.7;
+            border-color: white;
             cursor: pointer;
           }
         }

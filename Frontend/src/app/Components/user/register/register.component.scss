@@ -1,9 +1,13 @@
 @import "../../../../assets/styles.scss";
 
+label {
+  font-weight: 600;
+}
+
 .register-container {
   display: flex;
   flex-direction: column;
-  padding-top: 10vh;
+  padding-top: 5vh;
   align-items: center;
 
   background-color: $background;
@@ -74,6 +78,7 @@
 
   .register-extra {
     font-size: 1rem;
+    font-weight: 600;
     &:hover {
       color: $accent;
       cursor: pointer;
@@ -82,7 +87,7 @@
 }
 
 .foot-note {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   display: flex;
   align-items: center;

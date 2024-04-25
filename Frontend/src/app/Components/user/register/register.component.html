@@ -8,16 +8,16 @@
   >
     <h1>Sign Up</h1>
 
-    <mat-form-field appearance="outline">
-      <mat-label for="username">Username</mat-label>
+    <label for="username">Username</label>
+    <mat-form-field appearance="fill">
       <input matInput type="text" id="username" formControlName="username" />
       <mat-error *ngIf="username?.invalid && username?.touched"
         >Username required</mat-error
       >
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label for="email">Email address</mat-label>
+    <label for="email">Email</label>
+    <mat-form-field appearance="fill">
       <input matInput type="text" id="email" formControlName="email" />
       <mat-hint style="font-size: 0.7rem">
         * Your email will be used if you forget your password
@@ -27,8 +27,8 @@
       >
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label for="password">Password (8-20 characters)</mat-label>
+    <label for="password">Password (8-20 characters)</label>
+    <mat-form-field appearance="fill">
       <input
         matInput
         id="password"
@@ -66,7 +66,7 @@
 </main>
 
 <footer class="foot-note">
-  <p routerLink="/versions">beta v1.2.0</p>
+  <p routerLink="/versions">beta v1.2.1</p>
 
   <a href="https://github.com/JasonCqq/link-saver" target="_blank"
     >&#x2022; Source Code</a

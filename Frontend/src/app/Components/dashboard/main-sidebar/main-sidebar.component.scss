@@ -10,14 +10,13 @@
   z-index: 98;
 
   .d-sidebar {
-    min-width: 185px;
+    min-width: 200px;
     background-color: $background2;
     position: fixed;
     left: 0;
     top: 0;
     box-shadow: 1px 1px 10px $boxshad;
     height: 100%;
-    border-radius: 10px;
     border: none;
 
     .sidebar-profile {
@@ -45,7 +44,7 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      gap: 0.5vw;
+      gap: 0.75vw;
       margin-top: 3vh;
       padding-right: 1vw;
       margin-left: 30px;
@@ -71,14 +70,8 @@
       }
 
       .sidebar-icon {
-        color: $accent;
+        color: rgba($accent, 0.7);
         font-size: 1.5rem;
-
-        font-variation-settings:
-          "FILL" 0,
-          "wght" 400,
-          "GRAD" 0,
-          "opsz" 24;
       }
 
       &:hover {

@@ -1,23 +1,18 @@
 @import "../../../../../assets/styles.scss";
 
-.link-item-border {
-  border: 3px solid $accent !important;
-}
-
 .link-item {
   position: relative;
   width: 100%;
   text-align: center;
   height: 100px;
   border-radius: 10px;
-  box-shadow: 1px 1px 10px $boxshad;
-  border: 3px solid transparent;
-  border-top-color: #0066ff;
   transition: border-color 0.1s ease-in-out;
   touch-action: auto !important;
+  background-color: $background2;
+  border: 2px solid transparent;
 
   &:hover {
-    border-color: #0066ff;
+    border: 2px solid white;
   }
 
   @media screen and (max-width: 340px) {

@@ -99,18 +99,7 @@ exports.create_link = [
             await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
             console.timeEnd("Page goto");
 
-            // await Promise.race([
-            //   page.waitForResponse(async (response) => {
-            //     return (await response.text()).includes("<html>");
-            //   }),
-            //   page.waitForSelector("div"),
-            // ]);
-
             await page.waitForSelector("div");
-            // await page.waitForResponse(async (response) => {
-            //   return (await response.text()).includes("<html>");
-            // });
-
             await new Promise((resolve) => setTimeout(resolve, 500));
 
             let screenshot = await page.screenshot({

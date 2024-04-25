@@ -15,12 +15,12 @@
     > .public-sign-up {
       position: absolute;
       top: 0;
-      height: 5vh;
-      background: rgba($accent, 0.25);
+      height: 4vh;
+      background: rgba($accent, 0.7);
       display: flex;
       justify-content: center;
       align-items: center;
-      color: $accent;
+      color: $text;
       width: 100vw;
 
       @media screen and (max-width: 400px) {
@@ -35,7 +35,7 @@
     > a {
       color: $accent;
       font-size: 2.5rem;
-      font-weight: bold;
+      font-weight: 900;
       padding-top: 7vh;
       transition: transform 0.2s;
 

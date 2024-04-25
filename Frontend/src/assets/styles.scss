@@ -1,15 +1,15 @@
 @use "@angular/material" as mat;
 @include mat.core();
 
-$secondary: #237bff;
-$accent: #237bff;
-$background: #15171c;
-$background2: #1b1d24;
+$secondary: #3239fc;
+$accent: #3239fc;
+$background: #0d1117;
+$background2: #161b22;
 $boxshad: #111214;
-$border: #2a263f;
+$border: #494b52;
 $text: white;
 $text2: white;
-$textSec: #9ea7b1;
+$textSec: #808d97;
 $imp-button: #f73830;
 $warn: #0676ed;
 
@@ -90,13 +90,17 @@ $Frontend-theme: mat.define-dark-theme(
   }
 }
 
+.mat-progress-spinner circle {
+  stroke-linecap: round !important;
+}
+
 // Tooltip styling
 $my-custom-typography-config: mat.define-typography-config(
   $caption:
     mat.define-typography-level(
       $font-size: 12px,
       $font-weight: 600,
-      $font-family: Roboto,
+      $font-family: Kumbh Sans,
     ),
 );
 
@@ -125,7 +129,7 @@ input,
 textarea,
 button {
   font-family:
-    "Roboto",
+    "Kumbh Sans",
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
@@ -140,13 +144,13 @@ button {
 }
 
 code {
-  font-family: "Roboto", source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: "Kumbh Sans", source-code-pro, Menlo, Monaco, Consolas,
+    "Courier New", monospace;
 }
 
 // Scrollbar
 ::-webkit-scrollbar {
-  width: 15px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
   background: $background;

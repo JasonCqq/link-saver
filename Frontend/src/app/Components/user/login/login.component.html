@@ -9,8 +9,8 @@
   >
     <h1>Log in</h1>
 
-    <mat-form-field appearance="outline">
-      <mat-label for="username">Username</mat-label>
+    <label for="username">Username</label>
+    <mat-form-field appearance="fill">
       <input
         matInput
         type="text"
@@ -22,9 +22,8 @@
       >
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label for="login_password">Password (8-20 characters)</mat-label>
-
+    <label for="login_password">Password (8-20 characters)</label>
+    <mat-form-field appearance="fill">
       <input
         matInput
         id="login_password"
@@ -72,8 +71,8 @@
         <p>{{ forgotFormErrors }}</p>
       </div>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="forgot_email">Email address</mat-label>
+      <label for="forgot_email">Email</label>
+      <mat-form-field appearance="fill">
         <input
           matInput
           type="email"
@@ -85,8 +84,8 @@
         >
       </mat-form-field>
 
-      <mat-form-field appearance="outline" *ngIf="forgotSuccess">
-        <mat-label for="forgot_otp">OTP Code</mat-label>
+      <label for="forgot_otp">OTP Code</label>
+      <mat-form-field appearance="fill" *ngIf="forgotSuccess">
         <input
           matInput
           type="number"
@@ -128,10 +127,8 @@
       (submit)="submitNewPasswordApplication()"
       class="new-pass-form"
     >
-      <mat-form-field appearance="outline">
-        <mat-label for="forgot_new_pass"
-          >New Password (8-20 characters)</mat-label
-        >
+      <label for="forgot_new_pass">New Password (8-20 characters)</label>
+      <mat-form-field appearance="fill">
         <input
           matInput
           type="password"
@@ -140,8 +137,8 @@
         />
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="forgot_new_pass2">Confirm New Password</mat-label>
+      <label for="forgot_new_pass2">Confirm New Password</label>
+      <mat-form-field appearance="fill">
         <input
           matInput
           type="password"
@@ -161,8 +158,8 @@
 
 <p *ngIf="user">You are already logged in.</p>
 
-<footer class="foot-note">
-  <p routerLink="/versions">beta v1.2.0</p>
+<footer class="foot-note" *ngIf="loginForm">
+  <p routerLink="/versions">beta v1.2.1</p>
 
   <a href="https://github.com/JasonCqq/link-saver" target="_blank"
     >&#x2022; Source Code</a

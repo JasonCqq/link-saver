@@ -35,8 +35,15 @@
 
       > h1 {
         font-size: 2.75rem;
-        font-weight: 500;
-        padding-bottom: 2vh;
+        font-weight: 900;
+      }
+
+      > a {
+        color: $textSec;
+        font-weight: 400;
+        &:hover {
+          color: $accent;
+        }
       }
     }
 
@@ -57,7 +64,8 @@
       .register-button,
       .dashboard-button {
         border-radius: 10px;
-        padding: 12.5px 25px;
+        padding: 12.5px 30px;
+        text-align: center;
         font-weight: 800;
         font-size: 1.2rem;
         letter-spacing: 0.5px;
@@ -102,6 +110,9 @@
       column-gap: 2vw;
       row-gap: 3vh;
       grid-template-columns: repeat(2, 1fr);
+      background-color: $background2;
+      border-radius: 10px;
+      padding: 20px;
 
       @media screen and (max-width: 1150px) {
         width: 70vw;
@@ -121,13 +132,11 @@
 
       .home-features-item {
         display: flex;
-        background-color: $background2;
         align-items: center;
         justify-content: flex-start;
         border-radius: 10px;
         min-height: 125px;
         gap: 2vw;
-        box-shadow: 1px 1px 5px $boxshad;
 
         @media screen and (max-width: 390px) {
           padding: 3vh 0vw;
@@ -178,12 +187,11 @@
 
       > p {
         color: $accent;
-        border-radius: 10px;
-        background: $background2;
+        background: transparent;
         padding: 12.5px 25px;
         font-weight: 900;
         text-align: center;
-        box-shadow: 1px 1px 5px $boxshad;
+        border-bottom: 3px solid $accent;
 
         @media screen and (max-width: 369px) {
           font-size: 0.8rem;
@@ -217,16 +225,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba($accent, 0.25);
-      color: $accent;
-      padding: 12.5px 0;
-      width: 147px;
+      background: transparent;
+      color: $text;
+      padding: 12.5px 0px;
+      width: 175px;
       border-radius: 10px;
+      border: 2px solid $border;
       font-weight: 700;
 
       &:hover {
         cursor: pointer;
-        filter: brightness(1.25);
+        border: 2px solid white;
       }
 
       > span {
@@ -288,6 +297,8 @@
 
       .faq-item {
         transition: color 0.15s ease-in-out;
+        padding-bottom: 10px;
+        border-bottom: 1px solid gray;
 
         &:hover {
           cursor: pointer;
@@ -336,6 +347,7 @@
           animation: 0.25s ease-in-out 0s 1 fadeIn;
           opacity: 0.9;
           font-size: 0.9rem;
+          font-weight: 500;
 
           @media screen and (max-width: 500px) {
             width: 90%;
@@ -358,10 +370,11 @@
     .contact-form {
       display: flex;
       flex-direction: column;
-      gap: 3vh;
+      gap: 1vh;
 
       > h1 {
         text-align: center;
+        padding-bottom: 10px;
       }
 
       > button {
@@ -409,7 +422,7 @@
 
 mat-form-field {
   width: 30vw;
-  height: 5vh;
+  height: 70px;
 
   @media screen and (max-width: 1200px) {
     width: 45vw;

@@ -13,8 +13,15 @@ export class VersionHistoryComponent {
 
   versions = [
     {
+      id: 4,
+      version: "1.2.1 (Current)",
+      updates: ["Optimize link screenshot speed", "Update UI and color scheme"],
+      qols: ["N/A"],
+      bugfixes: ["N/A"],
+    },
+    {
       id: 3,
-      version: "1.2.0 (Current)",
+      version: "1.2.0",
       updates: [
         "Optimize link screenshots drastically",
         "Update thumbnail to be video's thumbnail if link contains video",
@@ -35,7 +42,7 @@ export class VersionHistoryComponent {
     },
     {
       id: 2,
-      version: "1.1.0 (Current)",
+      version: "1.1.0",
       updates: ["Add a version history page", "Optimize puppeteer slightly"],
       qols: [
         "Add loaders",
