@@ -94,7 +94,7 @@ exports.create_user = asyncHandler(async (req, res) => {
               },
             });
 
-            res.redirect("http://localhost:4200/");
+            res.redirect(`${process.env.FRONT_END}/dashboard`);
           });
         } catch (err) {
           console.log(err);

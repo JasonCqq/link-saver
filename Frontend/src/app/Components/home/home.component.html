@@ -17,10 +17,10 @@
 
   <section class="home_showcase">
     <div class="showcase_header">
-      <p>Still unsure? Watch the showcase below</p>
       <h1 (click)="toggleShowcase()">
         Watch Demo <span class="material-icons-round"> arrow_drop_down </span>
       </h1>
+      <p>Still unsure? Watch the showcase above!</p>
     </div>
 
     <div class="showcase_border" *ngIf="videoShowcase">
@@ -59,7 +59,7 @@
           <p>
             Share your links + folders with everyone.
             <a routerLink="/public/1" target="_blank"
-              ><strong style="color: white"
+              ><strong style="color: #585efb"
                 ><u>Check out one of our shared folder!</u></strong
               ></a
             >

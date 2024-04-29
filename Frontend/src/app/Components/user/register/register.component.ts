@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { UserService } from "../user.service";
-// import { Router } from "@angular/router";
 import { LoadingService } from "../../LoadingInterceptor.service";
 
 @Component({
@@ -13,7 +12,6 @@ import { LoadingService } from "../../LoadingInterceptor.service";
 export class RegisterComponent implements OnInit {
   constructor(
     private userService: UserService,
-    // private router: Router,
     public loadingService: LoadingService,
   ) {}
 
@@ -29,6 +27,7 @@ export class RegisterComponent implements OnInit {
 
   formErrors: any;
   formLoading: boolean = false;
+  otpSent: boolean = false;
 
   submitApplication(): void {
     this.formLoading = true;
@@ -39,8 +38,8 @@ export class RegisterComponent implements OnInit {
         this.applyForm.value.password ?? "",
       )
       .subscribe({
-        next: (response) => {
-          this.userService.updateUser(response);
+        next: () => {
+          this.otpSent = true;
           this.formLoading = false;
         },
         error: (error) => {

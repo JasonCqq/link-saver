@@ -6,15 +6,31 @@ import { Component } from "@angular/core";
   styleUrls: ["./version-history.component.scss"],
 })
 export class VersionHistoryComponent {
-  activeID: number = 3;
+  activeID: number = 5;
   toggleActive(id: number): void {
     this.activeID = this.activeID === id ? 0 : id;
   }
 
   versions = [
     {
+      id: 5,
+      version: "1.2.2 (Current)",
+      updates: ["Add Email Confirmation function when registering"],
+      qols: [
+        "Add email confirmation link sent page",
+        "Update font to Work Sans",
+        "Update landing page slightly",
+        "Add slight improvement to coloring",
+      ],
+      bugfixes: [
+        "Fix thumbnail sizing",
+        "Fix mass edit not displaying selected items",
+        "Fix forgot password form button not working after entering invalid email",
+      ],
+    },
+    {
       id: 4,
-      version: "1.2.1 (Current)",
+      version: "1.2.1",
       updates: ["Optimize link screenshot speed", "Update UI and color scheme"],
       qols: ["N/A"],
       bugfixes: ["N/A"],

@@ -5,6 +5,7 @@
     class="register-form"
     [formGroup]="applyForm"
     (submit)="submitApplication()"
+    *ngIf="!otpSent"
   >
     <h1>Sign Up</h1>
 
@@ -53,13 +54,21 @@
 
     <div *ngIf="loadingService.isLoading$ | async">
       <mat-spinner diameter="35" style="margin: auto"></mat-spinner>
-      <p style="text-align: center; margin-top: 10px">
-        Creating your account...
-      </p>
+      <p style="text-align: center; margin-top: 10px">One Second...</p>
     </div>
 
     <a class="register-extra" routerLink="/user/login"> I have an account </a>
   </form>
+
+  <div *ngIf="otpSent" class="register-otp">
+    <span class="material-icons-outlined"> done </span>
+    <h1>Email Confirmation Link Sent</h1>
+    <p>
+      Your confirmation link has been sent to your email.
+      <br />Please check your inbox and spam folder. <br />This is a one time
+      process. <br />(Your account will not be active until confirmation)
+    </p>
+  </div>
 </main>
 
 <footer class="foot-note">
