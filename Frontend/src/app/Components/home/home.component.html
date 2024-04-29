@@ -1,5 +1,4 @@
 <main class="home-page">
-  <p class="home-note">* Incognito does not work yet</p>
   <header class="landing-page" #home>
     <div class="landing-heading">
       <h1>LinkStorage</h1>
@@ -17,22 +16,26 @@
   </header>
 
   <section class="home_showcase">
-    <h1 (click)="toggleShowcase()">
-      Watch Demo <span class="material-icons-round"> arrow_drop_down </span>
-    </h1>
+    <div class="showcase_header">
+      <p>Still unsure? Watch the showcase below</p>
+      <h1 (click)="toggleShowcase()">
+        Watch Demo <span class="material-icons-round"> arrow_drop_down </span>
+      </h1>
+    </div>
 
-    <iframe
-      width="560"
-      height="315"
-      src="https://www.youtube.com/embed/HkUMs601Ak0?si=_Koo3FpW2EMHfBsR?autoplay=1&mute=1"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen
-      class="showcase_video"
-      *ngIf="videoShowcase"
-    ></iframe>
+    <div class="showcase_border" *ngIf="videoShowcase">
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/_yMeCrbKgrk?si=fXengUcWe0RG1LVn?autoplay=1&mute=1"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+        class="showcase_video"
+      ></iframe>
+    </div>
   </section>
 
   <section *ngIf="this.data" class="landing-stats">
@@ -56,8 +59,8 @@
           <p>
             Share your links + folders with everyone.
             <a routerLink="/public/1" target="_blank"
-              ><strong style="color: cyan"
-                >Check out one of our shared folder!</strong
+              ><strong style="color: white"
+                ><u>Check out one of our shared folder!</u></strong
               ></a
             >
           </p>
@@ -116,7 +119,7 @@
   </section>
 
   <section #home_faq class="home_faq">
-    <h1>Frequently Asked Questions</h1>
+    <h1>Frequently <br />asked questions</h1>
 
     <div class="home-faq-container">
       <div
@@ -139,7 +142,7 @@
       action="https://formsubmit.co/jason.cq.huang@gmail.com"
       method="POST"
     >
-      <h1>CONTACT</h1>
+      <h1>Contact</h1>
 
       <label for="name">Name:</label>
       <mat-form-field appearance="fill">

@@ -1,5 +1,9 @@
 @import "../../../../../assets/styles.scss";
 
+.link-item-border {
+  border: 2px solid $accent !important;
+}
+
 .link-item {
   position: relative;
   width: 100%;

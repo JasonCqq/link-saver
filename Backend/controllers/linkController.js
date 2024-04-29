@@ -59,14 +59,17 @@ exports.create_link = [
         let title;
         let skip = false;
 
+        console.time("axios");
         const response = await axios.get(decodedUrl).catch((error) => {
           console.log("Server Error", error.message);
           title = error.config.url;
           // Skip to link creation process
           skip = true;
         });
+        console.timeEnd("axios");
 
         if (skip === false) {
+          console.time("cheerio");
           const html = response.data;
           const $ = await cheerio.load(html);
           title = $("title").text();
@@ -79,12 +82,14 @@ exports.create_link = [
               },
             );
             thumbnail = await sharp(ogImageUrl.data)
-              .resize(150, 100)
               .webp({ quality: 75 })
               .toBuffer();
+            console.timeEnd("cheerio");
           } else {
+            console.timeEnd("cheerio");
             // Uses Puppeteer if no thumbnail
             // puppeteer.use(StealthPlugin());
+            console.time("puppeteer launch");
             await launchBrowser();
 
             const page = await browser.newPage();
@@ -94,14 +99,16 @@ exports.create_link = [
               height: 480,
               deviceScaleFactor: 1,
             });
+            console.timeEnd("puppeteer launch");
 
-            console.time("Page goto");
+            console.time("page goto");
             await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
-            console.timeEnd("Page goto");
+            console.timeEnd("page goto");
 
             await page.waitForSelector("div");
             await new Promise((resolve) => setTimeout(resolve, 500));
 
+            console.time("page screenshot");
             let screenshot = await page.screenshot({
               fullPage: false,
               quality: 60,
@@ -109,12 +116,14 @@ exports.create_link = [
               omitBackground: true,
             });
 
-            thumbnail = await sharp(screenshot).resize(150, 100).toBuffer();
+            thumbnail = await sharp(screenshot).resize(200, 150).toBuffer();
 
             await page.close();
+            console.timeEnd("page screenshot");
           }
         }
 
+        console.time("database operation");
         await prisma.Link.create({
           data: {
             url: decodedUrl,
@@ -134,7 +143,7 @@ exports.create_link = [
             thumbnail: thumbnail,
           },
         });
-
+        console.timeEnd("database operation");
         res.status(200).json({});
       } catch (err) {
         console.log(err);

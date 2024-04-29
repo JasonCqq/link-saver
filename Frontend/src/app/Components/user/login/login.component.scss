@@ -86,94 +86,6 @@ label {
       }
     }
   }
-
-  > .forgot-container {
-    height: 40vh;
-    width: 30vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2vh;
-
-    @media screen and (max-width: 1100px) {
-      width: 45vw;
-    }
-
-    @media screen and (max-width: 800px) {
-      width: 75vw;
-    }
-
-    > .forgot-form,
-    .new-pass-form {
-      width: 30vw;
-      display: flex;
-      flex-direction: column;
-      gap: 2vh;
-
-      @media screen and (max-width: 1100px) {
-        width: 45vw;
-      }
-
-      @media screen and (max-width: 800px) {
-        width: 75vw;
-      }
-
-      > header {
-        display: flex;
-        gap: 20px;
-        align-items: center;
-
-        > h1 {
-          color: $text;
-          text-align: center;
-          font-size: 1rem;
-        }
-
-        > button {
-          border: 2px solid $border;
-          background: transparent;
-          padding: 10px 20px;
-          border-radius: 10px;
-          color: $text;
-          font-weight: bold;
-          font-size: 0.9rem;
-
-          &:hover {
-            border-color: white;
-            cursor: pointer;
-          }
-        }
-      }
-
-      > .submit-new-pass,
-      .forgot-form-button {
-        border: none;
-        font-size: 1rem;
-        background-color: transparent;
-        border: 2px solid $accent;
-        padding: 17.5px 0;
-        border-radius: 10px;
-        margin-top: 1vh;
-        margin-bottom: 1vh;
-        color: $text2;
-        font-weight: bold;
-        transition: background-color 0.2s;
-
-        &:hover {
-          cursor: pointer;
-          background-color: $accent;
-        }
-
-        &:disabled {
-          opacity: 0.4;
-          &:hover {
-            cursor: default;
-            color: $text2;
-          }
-        }
-      }
-    }
-  }
 }
 
 .foot-note {
@@ -191,6 +103,7 @@ label {
   margin-right: auto;
   left: 0;
   right: 0;
+  background-color: $background2;
 
   > a,
   p {

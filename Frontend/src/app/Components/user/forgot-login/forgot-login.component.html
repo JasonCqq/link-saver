@@ -1,0 +1,99 @@
+<div class="forgot-container">
+  <form
+    class="forgot-form"
+    [formGroup]="forgotPasswordForm"
+    (submit)="submitForgotApplication()"
+  >
+    <header>
+      <p (click)="toggleForm()">Go Back</p>
+      <h1>Forgot Password</h1>
+    </header>
+
+    <div *ngIf="forgotFormErrors" class="form-errors">
+      <span class="material-icons-round"> error </span>
+      <p>{{ forgotFormErrors }}</p>
+    </div>
+
+    <label for="forgot_email">Email</label>
+    <mat-form-field appearance="fill">
+      <input
+        matInput
+        type="email"
+        id="forgot_email"
+        formControlName="forgot_email"
+      />
+      <mat-error *ngIf="forgot_email?.invalid && forgot_email?.touched"
+        >Invalid Email</mat-error
+      >
+    </mat-form-field>
+
+    <label for="forgot_otp">OTP Code</label>
+    <mat-form-field appearance="fill" *ngIf="forgotSuccess">
+      <input
+        matInput
+        type="number"
+        id="forgot_otp"
+        formControlName="forgot_otp"
+      />
+    </mat-form-field>
+
+    <button
+      type="submit"
+      mat-raised-button
+      [disabled]="forgotPasswordForm.invalid"
+      *ngIf="!this.forgotSuccess"
+      class="get-code"
+    >
+      Get Code
+    </button>
+
+    <div *ngIf="loadingService.isLoading$ | async">
+      <mat-spinner diameter="35" style="margin: auto"></mat-spinner>
+      <p style="text-align: center; margin-top: 10px">Sending OTP Code...</p>
+    </div>
+  </form>
+
+  <button
+    mat-raised-button
+    [disabled]="forgotPasswordForm.invalid"
+    *ngIf="this.forgotSuccess && !this.forgotSuccess2"
+    (click)="submitOTPApplication()"
+    class="submit-code"
+    type="button"
+  >
+    Submit Code
+  </button>
+
+  <form
+    [formGroup]="newPasswordForm"
+    *ngIf="forgotSuccess2"
+    (submit)="submitNewPasswordApplication()"
+    class="new-pass-form"
+  >
+    <label for="forgot_new_pass">New Password (8-20 characters)</label>
+    <mat-form-field appearance="fill">
+      <input
+        matInput
+        type="password"
+        id="forgot_new_pass"
+        formControlName="forgot_new_pass"
+      />
+    </mat-form-field>
+
+    <label for="forgot_new_pass2">Confirm New Password</label>
+    <mat-form-field appearance="fill">
+      <input
+        matInput
+        type="password"
+        id="forgot_new_pass2"
+        formControlName="forgot_new_pass2"
+      />
+    </mat-form-field>
+    <div *ngIf="loadingService.isLoading$ | async">
+      <mat-spinner diameter="35" style="margin: auto"></mat-spinner>
+      <p style="text-align: center; margin-top: 10px">Changing...</p>
+    </div>
+
+    <button type="submit" class="submit-new-pass">Submit New Password</button>
+  </form>
+</div>

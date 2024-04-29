@@ -19,9 +19,6 @@
     <label for="email">Email</label>
     <mat-form-field appearance="fill">
       <input matInput type="text" id="email" formControlName="email" />
-      <mat-hint style="font-size: 0.7rem">
-        * Your email will be used if you forget your password
-      </mat-hint>
       <mat-error *ngIf="email?.invalid && email?.touched"
         >Invalid Email</mat-error
       >

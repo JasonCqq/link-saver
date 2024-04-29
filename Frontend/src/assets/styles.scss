@@ -1,8 +1,8 @@
 @use "@angular/material" as mat;
 @include mat.core();
 
-$secondary: #3239fc;
-$accent: #3239fc;
+$secondary: #585efb;
+$accent: #585efb;
 $background: #0d1117;
 $background2: #161b22;
 $boxshad: #111214;
@@ -11,7 +11,7 @@ $text: white;
 $text2: white;
 $textSec: #808d97;
 $imp-button: #f73830;
-$warn: #0676ed;
+$warn: #4045da;
 
 $Frontend-primary: mat.define-palette(mat.$light-blue-palette);
 $Frontend-accent: mat.define-palette(mat.$blue-palette, A200);
@@ -100,7 +100,7 @@ $my-custom-typography-config: mat.define-typography-config(
     mat.define-typography-level(
       $font-size: 12px,
       $font-weight: 600,
-      $font-family: Kumbh Sans,
+      $font-family: Work Sans,
     ),
 );
 
@@ -129,7 +129,7 @@ input,
 textarea,
 button {
   font-family:
-    "Kumbh Sans",
+    "Work Sans",
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
@@ -144,7 +144,7 @@ button {
 }
 
 code {
-  font-family: "Kumbh Sans", source-code-pro, Menlo, Monaco, Consolas,
+  font-family: "Work Sans", source-code-pro, Menlo, Monaco, Consolas,
     "Courier New", monospace;
 }
 

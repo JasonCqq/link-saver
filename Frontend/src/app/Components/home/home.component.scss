@@ -4,18 +4,6 @@
   background-color: $background;
   color: $text;
 
-  > .home-note {
-    font-size: 0.9rem;
-    margin-top: 5px;
-    margin-left: 5px;
-    color: $textSec;
-
-    @media screen and (max-width: 800px) {
-      font-size: 0.8rem;
-      width: 75%;
-    }
-  }
-
   .landing-page {
     width: 100%;
     height: auto;
@@ -35,7 +23,7 @@
 
       > h1 {
         font-size: 2.75rem;
-        font-weight: 900;
+        font-weight: 800;
       }
 
       > a {
@@ -110,7 +98,7 @@
       column-gap: 2vw;
       row-gap: 3vh;
       grid-template-columns: repeat(2, 1fr);
-      background-color: $background2;
+      background-color: rgba($background2, 0.2);
       border-radius: 10px;
       padding: 20px;
 
@@ -220,41 +208,61 @@
     margin-top: 5vh;
     padding-bottom: 5vh;
 
-    > h1 {
-      font-size: 1rem;
+    .showcase_header {
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
-      background: transparent;
-      color: $text;
-      padding: 12.5px 0px;
-      width: 175px;
-      border-radius: 10px;
-      border: 2px solid $border;
-      font-weight: 700;
+      align-items: center;
+      gap: 10px;
 
-      &:hover {
-        cursor: pointer;
-        border: 2px solid white;
+      > h1 {
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        color: $text;
+        padding: 12.5px 0px;
+        width: 175px;
+        border-radius: 10px;
+        border: 2px solid $border;
+        font-weight: 700;
+
+        &:hover {
+          cursor: pointer;
+          border: 2px solid white;
+        }
+
+        > span {
+          transform: scale(1.5);
+        }
       }
 
-      > span {
-        transform: scale(1.5);
+      > p {
+        font-size: 0.8rem;
+        color: $textSec;
+        font-weight: 500;
       }
     }
 
-    > .showcase_video {
+    > .showcase_border {
+      border: 1px solid $accent;
       border-radius: 10px;
-      box-shadow: 1px 1px 50px black;
+      padding: 2px;
 
-      @media screen and (max-width: 580px) {
-        width: 400px;
-        height: 250px;
-      }
+      > .showcase_video {
+        border-radius: 10px;
+        box-shadow: 1px 1px 50px black;
 
-      @media screen and (max-width: 415px) {
-        width: 250px;
-        height: 150px;
+        @media screen and (max-width: 580px) {
+          width: 400px;
+          height: 250px;
+        }
+
+        @media screen and (max-width: 415px) {
+          width: 250px;
+          height: 150px;
+        }
       }
     }
   }
@@ -284,9 +292,10 @@
     margin-top: 10vh;
 
     > h1 {
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       text-align: center;
       padding-bottom: 6vh;
+      font-weight: 800;
     }
 
     .home-faq-container {
@@ -297,8 +306,8 @@
 
       .faq-item {
         transition: color 0.15s ease-in-out;
-        padding-bottom: 10px;
-        border-bottom: 1px solid gray;
+        padding-bottom: 25px;
+        border-bottom: 2px solid gray;
 
         &:hover {
           cursor: pointer;
@@ -385,14 +394,11 @@
         margin-top: 75px;
         border-radius: 10px;
         color: $text;
-        transition:
-          background-color 0.15s ease-in-out,
-          color 0.15s ease-in-out;
+        transition: border 0.15s ease-in-out;
 
         &:hover {
-          background-color: $accent;
           cursor: pointer;
-          color: $text2;
+          border: 2px solid white;
         }
       }
     }
@@ -407,6 +413,7 @@
     font-weight: bold;
     color: $textSec;
     gap: 10px;
+    background-color: $background2;
 
     > a,
     p {

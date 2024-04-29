@@ -10,9 +10,10 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { UserRoutingModule } from "./user-routing.module";
 import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
+import { ForgotLoginComponent } from "./forgot-login/forgot-login.component";
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent],
+  declarations: [RegisterComponent, LoginComponent, ForgotLoginComponent],
   imports: [
     CommonModule,
     UserRoutingModule,

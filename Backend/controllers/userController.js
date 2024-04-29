@@ -338,13 +338,16 @@ exports.forgot_password = [
         const info = await transporter.sendMail({
           to: `${req.body.forgot_email}`,
           from: "jason.cq.huang@gmail.com",
-          subject: "OTP Code",
+          subject: `${tempCode} is your Linkstorage OTP Code`,
           text: `Linkstorage: Your OTP Code is: ${tempCode} , if you didn't request this, you can safely ignore it.`,
           html:
-            "<h1 style='font-size: 1rem; color:blue;'>Linkstorage</h1>" +
-            `<p style='font-size: 1.5rem; color: black; font-weight:900;'>Your OTP Code is : ${tempCode} </p>` +
-            "<p>This code will expire in 15 minutes.</p>" +
-            "<footer style='color:gray;'>If you didn't request this code, you can safely ignore it.</footer>",
+            "<h1 style='font-size: 1.25rem; color:black;'>Linkstorage</h1>" +
+            "<p style='font-size: 1rem; color: black;'>Hi there!</p>" +
+            "<p style='font-size: 1.1rem; color: black;'>We received a request for an OTP code for your Linkstorage account. Please use this One-Time Password (OTP) below to complete your process:</p>" +
+            `<p style='font-size: 1.5rem; color: black; font-weight:900;'>Your OTP Code is: ${tempCode}</p>` +
+            "<p style='font-size: 1rem; color: black;'>This OTP code is valid for only 15 minutes. For your security, do not share this code with anyone.</p>" +
+            "<p style='font-size: 1rem; color: black;'>If you did not request this code, please ignore this email or contact us if you have any concerns.</p>" +
+            "<footer style='color:gray; font-size: 0.8rem;'>Thank you for using Linkstorage. Stay secure!</footer>",
         });
 
         res.status(200).json({});
