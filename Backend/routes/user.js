@@ -1,8 +1,11 @@
 var express = require("express");
 var router = express.Router();
 const userController = require("../controllers/userController");
+const otpController = require("../controllers/otpController");
 
-router.post("/create", userController.create_user);
+router.get("/create/:email/:otp", userController.create_user);
+
+router.post("/createOTPLink", otpController.generateOTPLink);
 
 router.post("/login", userController.login_user);
 
@@ -16,10 +19,11 @@ router.delete("/delete_account/:userId", userController.delete_user);
 
 router.put("/change_password/:userId", userController.change_password);
 
-router.post("/forgot_password", userController.forgot_password);
+// Forgot Password Process
+router.post("/forgot_password", otpController.generateOTP);
 
-router.post("/check_otp", userController.check_otp);
+router.post("/verify_otp", otpController.verifyOTP);
 
-router.put("/new_password_otp", userController.change_password_otp);
+router.post("/change_password_otp", userController.change_password_otp);
 
 module.exports = router;

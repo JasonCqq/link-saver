@@ -4,121 +4,107 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const prisma = require("../prisma/prismaClient");
 
-// nodemailer settings
-const nodemailer = require("nodemailer");
-const transporter = nodemailer.createTransport({
-  host: "smtp.sendgrid.net",
-  port: 587,
-  auth: {
-    user: "apikey",
-    pass: `${process.env.SENDGRID_API_KEY}`,
-  },
-});
-
 require("dotenv").config();
 
-exports.create_user = [
-  body("username").trim().escape(),
-  body("email", "Invalid Email").trim().isEmail().escape(),
-  body("password", "Password must be between 8-20 characters")
-    .trim()
-    .isLength({ min: 8, max: 20 })
-    .escape(),
+exports.create_user = asyncHandler(async (req, res) => {
+  const errs = validationResult(req);
 
-  asyncHandler(async (req, res) => {
-    const errs = validationResult(req);
+  if (!errs.isEmpty()) {
+    const firstError = errs.array({ onlyFirstError: true })[0].msg;
+    res.status(400).json(firstError);
+  } else {
+    const user = await prisma.tempUser.findUnique({
+      where: {
+        email: req.params.email,
+      },
+    });
 
-    if (!errs.isEmpty()) {
-      const firstError = errs.array({ onlyFirstError: true })[0].msg;
-      res.status(400).json(firstError);
-    } else {
-      const emailExists = await prisma.User.findUnique({
-        where: { email: req.body.email },
-      });
+    if (user) {
+      let currentDate = new Date();
+      const check = await bcrypt.compare(req.params.otp, user.otp);
 
-      if (emailExists) {
-        return res.status(400).json("Email already exists");
-      }
+      if (check && user.otpExpiresAt > currentDate) {
+        // Hash Password
+        try {
+          bcrypt.hash(user.password, 10, async (err, hashedPass) => {
+            if (err) {
+              res.status(500).json({
+                errors: "Error Hashing Password. (Bcrypt Error)",
+              });
+            }
 
-      const usernameExists = await prisma.User.findUnique({
-        where: { username: req.body.username },
-      });
+            // Copy tempUser data
+            const newUser = await prisma.User.create({
+              data: {
+                username: user.username,
+                email: user.email,
+                password: hashedPass,
+                folders: {
+                  create: {
+                    name: "Default",
+                  },
+                },
+                userSettings: {
+                  create: {},
+                },
+              },
+            });
 
-      if (usernameExists) {
-        return res.status(400).json("User already exists");
-      }
-
-      // Hash Password
-      bcrypt.hash(req.body.password, 10, async (err, hashedPass) => {
-        if (err) {
-          res.status(500).json({
-            errors: "Error Hashing Password. (Bcrypt Error)",
-            oldData: {
-              username: req.body.username,
-              email: req.body.email,
-              password: req.body.password,
-            },
-          });
-        }
-
-        const newUser = await prisma.User.create({
-          data: {
-            username: req.body.username,
-            email: req.body.email,
-            password: hashedPass,
-            folders: {
-              create: {
+            // Default User stuff
+            const newFolder = await prisma.Folder.findFirst({
+              where: {
+                userId: newUser.id,
                 name: "Default",
               },
-            },
-            userSettings: {
-              create: {},
-            },
-          },
-        });
+            });
+            const newShare = await prisma.Share.create({
+              data: {
+                folder: {
+                  connect: {
+                    id: newFolder.id,
+                  },
+                },
 
-        const newFolder = await prisma.Folder.findFirst({
-          where: {
-            userId: newUser.id,
-            name: "Default",
-          },
-        });
-
-        const newShare = await prisma.Share.create({
-          data: {
-            folder: {
-              connect: {
-                id: newFolder.id,
+                user: {
+                  connect: {
+                    id: newUser.id,
+                  },
+                },
               },
-            },
-
-            user: {
-              connect: {
-                id: newUser.id,
+            });
+            const newUserSettings = await prisma.UserSettings.findFirst({
+              where: {
+                userId: newUser.id,
               },
-            },
-          },
-        });
+            });
 
-        const newUserSettings = await prisma.UserSettings.findFirst({
-          where: {
-            userId: newUser.id,
-          },
-        });
+            // Attach data to session
+            const userData = {
+              id: newUser.id,
+              username: newUser.username,
+              email: newUser.email,
+              creationDate: newUser.creationDate,
+            };
+            req.session.user = userData;
 
-        const userData = {
-          id: newUser.id,
-          username: newUser.username,
-          email: newUser.email,
-          creationDate: newUser.creationDate,
-        };
+            // Delete the tempUser
+            await prisma.tempUser.delete({
+              where: {
+                id: user.id,
+              },
+            });
 
-        req.session.user = userData;
-        res.status(200).json({ user: userData, settings: newUserSettings });
-      });
+            res.redirect("http://localhost:4200/");
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      } else if (!check || user.otpExpiresAt < currentDate) {
+        res.status(401).json("Invalid Link");
+      }
     }
-  }),
-];
+  }
+});
 
 exports.login_user = [
   body("username").trim().escape(),
@@ -297,112 +283,13 @@ exports.change_password = [
   }),
 ];
 
-// Forgot Password 3 Step Process
-exports.forgot_password = [
-  body("forgot_email", "Invalid Email").trim().isEmail().escape(),
-
-  asyncHandler(async (req, res) => {
-    const errs = validationResult(req);
-
-    if (!errs.isEmpty()) {
-      const firstError = errs.array({ onlyFirstError: true })[0].msg;
-      res.status(400).json(firstError);
-    } else {
-      const user = await prisma.User.findUnique({
-        where: {
-          email: req.body.forgot_email,
-        },
-      });
-
-      if (!user) {
-        res.status(404).json("User not found");
-      } else {
-        const tempCode = Math.floor(100000 + Math.random() * 900000);
-
-        bcrypt.hash(String(tempCode), 10, async (err, hashedCode) => {
-          if (err) {
-            return;
-          }
-
-          await prisma.User.update({
-            where: {
-              email: req.body.forgot_email,
-            },
-            data: {
-              otp: hashedCode,
-              otpExpiresAt: new Date(new Date().getTime() + 15 * 60 * 1000), // 15 minutes
-            },
-          });
-        });
-
-        const info = await transporter.sendMail({
-          to: `${req.body.forgot_email}`,
-          from: "jason.cq.huang@gmail.com",
-          subject: `${tempCode} is your Linkstorage OTP Code`,
-          text: `Linkstorage: Your OTP Code is: ${tempCode} , if you didn't request this, you can safely ignore it.`,
-          html:
-            "<h1 style='font-size: 1.25rem; color:black;'>Linkstorage</h1>" +
-            "<p style='font-size: 1rem; color: black;'>Hi there!</p>" +
-            "<p style='font-size: 1.1rem; color: black;'>We received a request for an OTP code for your Linkstorage account. Please use this One-Time Password (OTP) below to complete your process:</p>" +
-            `<p style='font-size: 1.5rem; color: black; font-weight:900;'>Your OTP Code is: ${tempCode}</p>` +
-            "<p style='font-size: 1rem; color: black;'>This OTP code is valid for only 15 minutes. For your security, do not share this code with anyone.</p>" +
-            "<p style='font-size: 1rem; color: black;'>If you did not request this code, please ignore this email or contact us if you have any concerns.</p>" +
-            "<footer style='color:gray; font-size: 0.8rem;'>Thank you for using Linkstorage. Stay secure!</footer>",
-        });
-
-        res.status(200).json({});
-      }
-    }
-  }),
-];
-
-exports.check_otp = [
-  body("forgot_email", "Invalid Email").trim().isEmail().escape(),
-  body("forgot_otp", "Invalid OTP").trim().escape(),
-
-  asyncHandler(async (req, res) => {
-    const errs = validationResult(req);
-
-    if (!errs.isEmpty()) {
-      const firstError = errs.array({ onlyFirstError: true })[0].msg;
-      res.status(400).json(firstError);
-    } else {
-      const user = await prisma.User.findUnique({
-        where: {
-          email: req.body.forgot_email,
-        },
-      });
-
-      if (user) {
-        let currentDate = new Date();
-        const check = await bcrypt.compare(req.body.forgot_otp, user.otp);
-
-        if (check && user.otpExpiresAt > currentDate) {
-          await prisma.User.update({
-            where: {
-              id: user.id,
-            },
-            data: {
-              otpVerified: true,
-            },
-          });
-
-          res.status(200).json({});
-        } else if (!check || user.otpExpiresAt < currentDate) {
-          res.status(401).json("Invalid OTP");
-        }
-      }
-    }
-  }),
-];
-
 exports.change_password_otp = [
-  body("forgot_email", "Invalid Email").trim().isEmail().escape(),
-  body("forgot_new_pass", "Password must be between 8-20 characters")
+  body("email", "Invalid Email").trim().isEmail().escape(),
+  body("new_pass", "Password must be between 8-20 characters")
     .trim()
     .isLength({ min: 8, max: 20 })
     .escape(),
-  body("forgot_new_pass2", "Password must be between 8-20 characters")
+  body("new_pass2", "Password must be between 8-20 characters")
     .trim()
     .isLength({ min: 8, max: 20 })
     .escape(),
@@ -414,12 +301,12 @@ exports.change_password_otp = [
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
     } else {
-      if (req.body.forgot_new_pass !== req.body.forgot_new_pass2) {
+      if (req.body.new_pass !== req.body.new_pass2) {
         res.status(400).json("Passwords do not match");
       }
 
       const user = await prisma.User.findUnique({
-        where: { email: req.body.forgot_email },
+        where: { email: req.body.email },
       });
 
       let currentDate = new Date();
@@ -429,9 +316,9 @@ exports.change_password_otp = [
         user.otp &&
         user.otpExpiresAt > currentDate
       ) {
-        bcrypt.hash(req.body.forgot_new_pass, 10, async (err, hashedPass) => {
+        bcrypt.hash(req.body.new_pass, 10, async (err, hashedPass) => {
           await prisma.User.update({
-            where: { email: req.body.forgot_email },
+            where: { email: req.body.email },
             data: {
               password: hashedPass,
             },
@@ -439,7 +326,7 @@ exports.change_password_otp = [
         });
 
         await prisma.User.update({
-          where: { email: req.body.forgot_email },
+          where: { email: req.body.email },
           data: {
             otpVerified: false,
             otpExpiresAt: null,

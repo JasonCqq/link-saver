@@ -43,7 +43,6 @@ export class PublicFolderComponent implements OnInit, OnDestroy {
         this.folderName = res.folderName;
         this.links = res.links;
 
-        console.log(this.links);
         this.links.forEach((link) => {
           if (link.thumbnail.data) {
             link.thumbnail.newUrl = _arrayBufferToBase64(link.thumbnail.data);

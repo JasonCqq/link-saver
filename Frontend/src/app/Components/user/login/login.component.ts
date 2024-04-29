@@ -42,11 +42,10 @@ export class LoginComponent implements OnInit {
   formErrors: any;
   submitLoginApplication(): void {
     this.userService
-      .submitApplication(
+      .submitLogin(
         this.applyLoginForm.value.username ?? "",
         "",
         this.applyLoginForm.value.password ?? "",
-        "login",
       )
       .subscribe({
         next: (response) => {

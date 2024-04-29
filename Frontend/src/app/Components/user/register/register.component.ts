@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { UserService } from "../user.service";
-import { Router } from "@angular/router";
+// import { Router } from "@angular/router";
 import { LoadingService } from "../../LoadingInterceptor.service";
 
 @Component({
@@ -13,7 +13,7 @@ import { LoadingService } from "../../LoadingInterceptor.service";
 export class RegisterComponent implements OnInit {
   constructor(
     private userService: UserService,
-    private router: Router,
+    // private router: Router,
     public loadingService: LoadingService,
   ) {}
 
@@ -29,19 +29,18 @@ export class RegisterComponent implements OnInit {
 
   formErrors: any;
   formLoading: boolean = false;
+
   submitApplication(): void {
     this.formLoading = true;
     this.userService
-      .submitApplication(
+      .getOTPLink(
         this.applyForm.value.username ?? "",
         this.applyForm.value.email ?? "",
         this.applyForm.value.password ?? "",
-        "create",
       )
       .subscribe({
         next: (response) => {
           this.userService.updateUser(response);
-          this.router.navigate(["/dashboard"]);
           this.formLoading = false;
         },
         error: (error) => {

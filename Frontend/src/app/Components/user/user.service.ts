@@ -60,14 +60,21 @@ export class UserService {
   private apiUrl = environment.apiUrl;
 
   // Registration & Login Form (Sends POST to /create or /login)
-  submitApplication(
-    username: string,
-    email: string,
-    password: string,
-    action: "create" | "login",
-  ) {
+  submitLogin(username: string, email: string, password: string) {
     return this.http.post(
-      `${this.apiUrl}/user/${action}`,
+      `${this.apiUrl}/user/login`,
+      {
+        username: username,
+        email: email,
+        password: password,
+      },
+      { withCredentials: true },
+    );
+  }
+
+  getOTPLink(username: string, email: string, password: string) {
+    return this.http.post(
+      `${this.apiUrl}/user/createOTPLink`,
       {
         username: username,
         email: email,
@@ -122,15 +129,15 @@ export class UserService {
   forgotPassword(forgot_email: string) {
     return this.http.post(
       `${this.apiUrl}/user/forgot_password`,
-      { forgot_email: forgot_email },
+      { email: forgot_email },
       { withCredentials: true },
     );
   }
 
   submitOTP(forgot_email: string, forgot_otp: string) {
     return this.http.post(
-      `${this.apiUrl}/user/check_otp`,
-      { forgot_email: forgot_email, forgot_otp: forgot_otp },
+      `${this.apiUrl}/user/verify_otp`,
+      { email: forgot_email, otp: forgot_otp },
       { withCredentials: true },
     );
   }
@@ -140,12 +147,12 @@ export class UserService {
     forgot_new_pass: string,
     forgot_new_pass2: string,
   ) {
-    return this.http.put(
-      `${this.apiUrl}/user/new_password_otp`,
+    return this.http.post(
+      `${this.apiUrl}/user/change_password_otp`,
       {
-        forgot_email: forgot_email,
-        forgot_new_pass: forgot_new_pass,
-        forgot_new_pass2: forgot_new_pass2,
+        email: forgot_email,
+        new_pass: forgot_new_pass,
+        new_pass2: forgot_new_pass2,
       },
       { withCredentials: true },
     );

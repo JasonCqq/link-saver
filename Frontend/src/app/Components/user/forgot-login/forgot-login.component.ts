@@ -29,8 +29,8 @@ export class ForgotLoginComponent {
   });
 
   // Submit forgot password form
-  forgotSuccess: boolean = false;
-  forgotSuccess2: boolean = false;
+  step1: boolean = false;
+  step2: boolean = false;
   forgotFormErrors: any;
 
   submitForgotApplication(): void {
@@ -40,21 +40,18 @@ export class ForgotLoginComponent {
       .subscribe({
         next: () => {
           this.forgotPasswordForm.get("forgot_email")?.disable();
-          this.forgotSuccess = true;
+          this.step1 = true;
         },
         error: (err) => {
           this.forgotFormErrors = err.error;
-          this.forgotSuccess = false;
+          this.step1 = false;
         },
       });
   }
 
   submitOTPApplication(): void {
     this.forgotFormErrors = "";
-    if (
-      this.forgotSuccess !== true &&
-      !this.forgotPasswordForm.value.forgot_otp
-    ) {
+    if (this.step1 !== true && !this.forgotPasswordForm.value.forgot_otp) {
       return;
     }
 
@@ -65,7 +62,7 @@ export class ForgotLoginComponent {
       )
       .subscribe({
         next: () => {
-          this.forgotSuccess2 = true;
+          this.step2 = true;
           this.forgotPasswordForm.get("forgot_otp")?.disable();
         },
         error: (err) => {
@@ -90,7 +87,7 @@ export class ForgotLoginComponent {
 
   submitNewPasswordApplication(): void {
     this.forgotFormErrors = "";
-    if (this.forgotSuccess && this.forgotSuccess2) {
+    if (this.step1 && this.step2) {
       if (
         this.newPasswordForm.value.forgot_new_pass ===
         this.newPasswordForm.value.forgot_new_pass2
@@ -104,8 +101,8 @@ export class ForgotLoginComponent {
           .subscribe({
             next: () => {
               this.toggleForm();
-              this.forgotSuccess = false;
-              this.forgotSuccess2 = false;
+              this.step1 = false;
+              this.step2 = false;
             },
             error: (err) => {
               this.forgotFormErrors = err.error;
