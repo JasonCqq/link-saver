@@ -2,14 +2,14 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const prisma = require("../prisma/prismaClient");
 const { decode } = require("html-entities");
-const puppeteer = require("puppeteer-extra");
-// const StealthPlugin = require("puppeteer-extra-plugin-stealth");
+// const puppeteer = require("puppeteer-extra");
 const sharp = require("sharp");
 const axios = require("axios");
 const http = require("http");
 const https = require("https");
-
 const ogs = require("open-graph-scraper");
+
+const { chromium, devices } = require("playwright");
 
 function formatLinks(links) {
   links.map((link) => {
@@ -32,7 +32,7 @@ const axiosInstance = axios.create({
 let browser;
 const launchBrowser = async () => {
   if (browser) return;
-  browser = await puppeteer.launch({ headless: true, args: minimal_args });
+  browser = await chromium.launch({ headless: true, args: minimal_args });
 };
 
 exports.create_link = [
@@ -70,7 +70,9 @@ exports.create_link = [
           let title = "";
           let skip = false;
 
-          const options = { url: decodedUrl };
+          const options = {
+            url: decodedUrl,
+          };
           console.time("ogs");
           const data = await ogs(options).catch(() => {
             title = decodedUrl;
@@ -80,7 +82,7 @@ exports.create_link = [
 
           if (!skip) {
             const { ogTitle, ogImage } = data.result;
-            title = ogTitle;
+            title = ogTitle || decodedUrl;
             tempImage = ogImage;
 
             if (tempImage) {
@@ -98,17 +100,15 @@ exports.create_link = [
               console.timeEnd("sharp");
             } else if (!tempImage) {
               // Puppeteer screenshot if no image
-              console.time("puppeteer launch");
+              console.time("playwright launch");
               await launchBrowser();
 
-              const page = await browser.newPage();
+              const context = await browser.newContext(
+                devices["Desktop Chrome"],
+              );
+              const page = await context.newPage();
 
-              await page.setViewport({
-                width: 640,
-                height: 480,
-                deviceScaleFactor: 1,
-              });
-              console.timeEnd("puppeteer launch");
+              console.timeEnd("playwright launch");
 
               console.time("page goto");
               await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
@@ -120,7 +120,7 @@ exports.create_link = [
               let screenshot = await page.screenshot({
                 fullPage: false,
                 quality: 40,
-                type: "webp",
+                type: "jpeg",
                 omitBackground: true,
               });
 
