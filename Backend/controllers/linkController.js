@@ -8,7 +8,8 @@ const sharp = require("sharp");
 const axios = require("axios");
 const http = require("http");
 const https = require("https");
-const cheerio = require("cheerio");
+
+const ogs = require("open-graph-scraper");
 
 function formatLinks(links) {
   links.map((link) => {
@@ -48,55 +49,55 @@ exports.create_link = [
     } else {
       if (!req.params.userId || req.session.user.id !== req.params.userId) {
         res.status(401).json("Not authenticated");
-      }
+      } else {
+        let date = req.body.remind;
+        if (date === "") {
+          date = null;
+        }
 
-      let date = req.body.remind;
-      if (date === "") {
-        date = null;
-      }
+        let decodedUrl = decode(req.body.url, { level: "html5" });
 
-      let userUrl = decode(req.body.url, { level: "html5" });
-      let decodedUrl = userUrl;
+        if (
+          !decodedUrl.startsWith("http://") &&
+          !decodedUrl.startsWith("https://")
+        ) {
+          decodedUrl = "https://" + decodedUrl;
+        }
 
-      if (!userUrl.startsWith("http://") && !userUrl.startsWith("https://")) {
-        decodedUrl = "https://" + userUrl;
-      }
+        // Scrape for title/screenshot
+        try {
+          let thumbnail = "";
+          let title = "";
+          let skip = false;
 
-      // Scrape for title/screenshot
-      try {
-        let thumbnail = "";
-        let title;
+          const options = { url: decodedUrl };
+          console.time("ogs");
+          const data = await ogs(options).catch(() => {
+            title = decodedUrl;
+            skip = true;
+          });
+          console.timeEnd("ogs");
 
-        console.time("axios");
-        await axiosInstance
-          .get(decodedUrl, {
-            responseType: "text",
-          })
-          .then(async (res) => {
-            console.time("cheerio");
-            const html = res.data;
-            const $ = await cheerio.load(html, {
-              scriptingEnabled: false,
-            });
-            title = $("title").text().trim();
+          if (!skip) {
+            const { ogTitle, ogImage } = data.result;
+            title = ogTitle;
+            tempImage = ogImage;
 
-            if ($('[property="og:image"]').attr("content")) {
-              console.time("axios2");
-              const ogImageUrl = await axiosInstance.get(
-                $('[property="og:image"]').attr("content"),
-                {
-                  responseType: "arraybuffer",
-                },
-              );
-              console.timeEnd("axios2");
-              thumbnail = await sharp(ogImageUrl.data)
+            if (tempImage) {
+              console.time("axios");
+              const thumbnailBuffer = await axiosInstance.get(ogImage[0].url, {
+                responseType: "arraybuffer",
+              });
+              console.timeEnd("axios");
+
+              console.time("sharp");
+              thumbnail = await sharp(thumbnailBuffer.data)
+                .resize(200, 200)
                 .webp({ quality: 40 })
                 .toBuffer();
-              console.timeEnd("cheerio");
-            } else {
-              console.timeEnd("cheerio");
-              // Uses Puppeteer if no thumbnail
-              // puppeteer.use(StealthPlugin());
+              console.timeEnd("sharp");
+            } else if (!tempImage) {
+              // Puppeteer screenshot if no image
               console.time("puppeteer launch");
               await launchBrowser();
 
@@ -114,7 +115,6 @@ exports.create_link = [
               console.timeEnd("page goto");
 
               await page.waitForSelector("div");
-              await new Promise((resolve) => setTimeout(resolve, 500));
 
               console.time("page screenshot");
               let screenshot = await page.screenshot({
@@ -129,38 +129,33 @@ exports.create_link = [
               await page.close();
               console.timeEnd("page screenshot");
             }
-          })
-          .catch((error) => {
-            console.log("Server Error", error.message);
-            title = error.config.url;
-          });
-        console.timeEnd("axios");
+          }
 
-        console.time("database operation");
-        await prisma.Link.create({
-          data: {
-            url: decodedUrl,
-            user: {
-              connect: {
-                id: req.params.userId,
+          console.time("database operation");
+          await prisma.Link.create({
+            data: {
+              url: decodedUrl,
+              user: {
+                connect: {
+                  id: req.params.userId,
+                },
               },
+              ...(req.body.folder
+                ? { folder: { connect: { id: req.body.folder } } }
+                : {}),
+              title: title,
+              bookmarked: JSON.parse(req.body.bookmarked),
+              remind: date,
+              thumbnail: thumbnail,
             },
+          });
 
-            ...(req.body.folder
-              ? { folder: { connect: { id: req.body.folder } } }
-              : {}),
-
-            title: title,
-            bookmarked: JSON.parse(req.body.bookmarked),
-            remind: date,
-            thumbnail: thumbnail,
-          },
-        });
-        console.timeEnd("database operation");
-        res.status(200).json({});
-      } catch (err) {
-        console.log(err);
-        res.status(500).json("Server Error");
+          console.timeEnd("database operation");
+          res.status(200).send({});
+        } catch (error) {
+          console.error("Error:", error);
+          res.status(500).json("Server Error");
+        }
       }
     }
   }),
