@@ -6,6 +6,8 @@ const puppeteer = require("puppeteer-extra");
 // const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 const sharp = require("sharp");
 const axios = require("axios");
+const http = require("http");
+const https = require("https");
 const cheerio = require("cheerio");
 
 function formatLinks(links) {
@@ -19,6 +21,13 @@ function formatLinks(links) {
   return links;
 }
 
+// Reuse same axios instance
+const axiosInstance = axios.create({
+  httpAgent: new http.Agent({ keepAlive: true }),
+  httpsAgent: new https.Agent({ keepAlive: true }),
+});
+
+// Let puppeteer reuse same browser
 let browser;
 const launchBrowser = async () => {
   if (browser) return;
@@ -57,71 +66,75 @@ exports.create_link = [
       try {
         let thumbnail = "";
         let title;
-        let skip = false;
 
         console.time("axios");
-        const response = await axios.get(decodedUrl).catch((error) => {
-          console.log("Server Error", error.message);
-          title = error.config.url;
-          // Skip to link creation process
-          skip = true;
-        });
+        await axiosInstance
+          .get(decodedUrl, {
+            responseType: "text",
+          })
+          .then(async (res) => {
+            console.time("cheerio");
+            const html = res.data;
+            const $ = await cheerio.load(html, {
+              scriptingEnabled: false,
+            });
+            title = $("title").text().trim();
+
+            if ($('[property="og:image"]').attr("content")) {
+              console.time("axios2");
+              const ogImageUrl = await axiosInstance.get(
+                $('[property="og:image"]').attr("content"),
+                {
+                  responseType: "arraybuffer",
+                },
+              );
+              console.timeEnd("axios2");
+              thumbnail = await sharp(ogImageUrl.data)
+                .webp({ quality: 40 })
+                .toBuffer();
+              console.timeEnd("cheerio");
+            } else {
+              console.timeEnd("cheerio");
+              // Uses Puppeteer if no thumbnail
+              // puppeteer.use(StealthPlugin());
+              console.time("puppeteer launch");
+              await launchBrowser();
+
+              const page = await browser.newPage();
+
+              await page.setViewport({
+                width: 640,
+                height: 480,
+                deviceScaleFactor: 1,
+              });
+              console.timeEnd("puppeteer launch");
+
+              console.time("page goto");
+              await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
+              console.timeEnd("page goto");
+
+              await page.waitForSelector("div");
+              await new Promise((resolve) => setTimeout(resolve, 500));
+
+              console.time("page screenshot");
+              let screenshot = await page.screenshot({
+                fullPage: false,
+                quality: 40,
+                type: "webp",
+                omitBackground: true,
+              });
+
+              thumbnail = await sharp(screenshot).resize(200, 150).toBuffer();
+
+              await page.close();
+              console.timeEnd("page screenshot");
+            }
+          })
+          .catch((error) => {
+            console.log("Server Error", error.message);
+            title = error.config.url;
+          });
         console.timeEnd("axios");
-
-        if (skip === false) {
-          console.time("cheerio");
-          const html = response.data;
-          const $ = await cheerio.load(html);
-          title = $("title").text();
-
-          if ($('[property="og:image"]').attr("content")) {
-            const ogImageUrl = await axios.get(
-              $('[property="og:image"]').attr("content"),
-              {
-                responseType: "arraybuffer",
-              },
-            );
-            thumbnail = await sharp(ogImageUrl.data)
-              .webp({ quality: 75 })
-              .toBuffer();
-            console.timeEnd("cheerio");
-          } else {
-            console.timeEnd("cheerio");
-            // Uses Puppeteer if no thumbnail
-            // puppeteer.use(StealthPlugin());
-            console.time("puppeteer launch");
-            await launchBrowser();
-
-            const page = await browser.newPage();
-
-            await page.setViewport({
-              width: 640,
-              height: 480,
-              deviceScaleFactor: 1,
-            });
-            console.timeEnd("puppeteer launch");
-
-            console.time("page goto");
-            await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
-            console.timeEnd("page goto");
-
-            await page.waitForSelector("div");
-            await new Promise((resolve) => setTimeout(resolve, 500));
-
-            console.time("page screenshot");
-            let screenshot = await page.screenshot({
-              fullPage: false,
-              quality: 60,
-              type: "webp",
-              omitBackground: true,
-            });
-
-            thumbnail = await sharp(screenshot).resize(200, 150).toBuffer();
-
-            await page.close();
-            console.timeEnd("page screenshot");
-          }
-        }
 
         console.time("database operation");
         await prisma.Link.create({
