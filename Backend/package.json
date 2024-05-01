@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
     "serverstart": "npm run devstart",
-    "build": "npm i && ./render-build.sh",
+    "build": "npm i",
     "prisma": "nodemon db.ts",
     "postinstall": "npx prisma generate"
   },
