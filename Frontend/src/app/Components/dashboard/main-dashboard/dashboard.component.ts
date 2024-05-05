@@ -11,6 +11,7 @@ import { MainNavService } from "../main-nav/main-nav.service";
 import { LinkService } from "../links/link-item/link-item.service";
 import { fadeIn, fadeOut } from "src/app/app.component";
 import { LoadingService } from "../../LoadingInterceptor.service";
+import { TempRenderService } from "./tempRender.service";
 
 @Component({
   selector: "app-dashboard",
@@ -25,6 +26,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private mainNavService: MainNavService,
     private linkService: LinkService,
     public loadingService: LoadingService,
+    private tempRenderService: TempRenderService,
   ) {}
 
   private destroy$ = new Subject<void>();
@@ -49,25 +51,61 @@ export class DashboardComponent implements OnInit, OnDestroy {
   progressSpin: boolean = false;
   ngOnInit(): void {
     this.getLinks();
+    this.setupLinksUpdatedSubscription();
+    this.setupTitleSubscription();
+    this.setupThumbnailSubscription();
+    this.setupAddLinkSubscription();
+    this.setupEditLinkSubscription();
+  }
 
+  private setupLinksUpdatedSubscription(): void {
     this.dashboardService
       .linksUpdated()
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.getLinks();
       });
+  }
 
+  private setupTitleSubscription(): void {
     this.mainNavService.title$
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.showOnly(res);
         this.tempTitle = res;
       });
+  }
 
+  private setupThumbnailSubscription(): void {
     this.linkService.thumbnails$
       .pipe(takeUntil(this.destroy$))
       .subscribe((state) => {
         this.previews = state;
+      });
+  }
+
+  private setupAddLinkSubscription(): void {
+    this.tempRenderService.addLink$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.links.unshift(res);
+        this.tempLinks?.unshift(res);
+      });
+  }
+
+  private setupEditLinkSubscription(): void {
+    this.tempRenderService.editLink$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        const index = this.links.findIndex((link) => link.id === res.id);
+        this.links[index] = res;
+
+        const tempIndex = this.tempLinks?.findIndex(
+          (link) => link.id === res.id,
+        );
+        if (tempIndex && this.tempLinks) {
+          this.tempLinks[tempIndex] = res;
+        }
       });
   }
 

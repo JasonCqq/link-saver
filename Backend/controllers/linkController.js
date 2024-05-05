@@ -237,7 +237,7 @@ exports.edit_link = [
       res.status(401).json("Not authenticated");
     } else {
       try {
-        await prisma.Link.update({
+        const link = await prisma.Link.update({
           where: {
             id: req.params.id,
           },
@@ -251,7 +251,7 @@ exports.edit_link = [
             remind: req.body.remind || null,
           },
         });
-        res.status(200).json({});
+        res.status(200).send({ link });
       } catch (err) {
         console.log(err);
       }

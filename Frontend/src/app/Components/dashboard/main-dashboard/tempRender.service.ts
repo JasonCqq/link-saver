@@ -1,18 +1,24 @@
-// import { Injectable, } from "@angular/core";
-// import { BehaviorSubject, Observable } from "rxjs";
-// import { Link } from "src/app/Interfaces/Link";
+import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
+import { Link } from "src/app/Interfaces/Link";
 
-// @Injectable({
-//   providedIn: "root",
-// })
-// export class TempRenderService {
-//     constructor(){}
+@Injectable({
+  providedIn: "root",
+})
+export class TempRenderService {
+  constructor() {}
 
-//     private tempLink: BehaviorSubject<Link> | null = null;
-//     tempLink$ = this.tempLink?.asObservable();
+  private addLink = new Subject<Link>();
+  addLink$ = this.addLink?.asObservable();
 
-//     tempLinkAdded(): Observable<void>{
-//         return this.tempLink$.next();
-//     }
+  pushLink(res: Link) {
+    this.addLink.next(res);
+  }
 
-// }
+  private editLink = new Subject<Link>();
+  editLink$ = this.editLink?.asObservable();
+
+  updateLink(res: Link) {
+    this.editLink.next(res);
+  }
+}

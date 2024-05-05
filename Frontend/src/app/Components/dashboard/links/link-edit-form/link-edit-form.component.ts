@@ -11,6 +11,7 @@ import { LinkService } from "../link-item/link-item.service";
 import { DashboardService } from "../../dashboard.service";
 import { Subject, takeUntil } from "rxjs";
 import { FoldersService } from "../../folders/folders.service";
+import { TempRenderService } from "../../main-dashboard/tempRender.service";
 
 @Component({
   selector: "app-link-edit-form",
@@ -22,6 +23,7 @@ export class LinkEditFormComponent implements OnInit, OnDestroy {
     private linkService: LinkService,
     private dashboardService: DashboardService,
     private foldersService: FoldersService,
+    private tempRenderService: TempRenderService,
   ) {}
 
   private destroy$ = new Subject<void>();
@@ -71,8 +73,8 @@ export class LinkEditFormComponent implements OnInit, OnDestroy {
         this.editForm.value.editBookmarked,
         this.editForm.value.editRemind,
       )
-      .subscribe(() => {
-        this.dashboardService.notify();
+      .subscribe((res: any) => {
+        this.tempRenderService.updateLink(res.link);
         this.foldersService.notifyFolders();
         this.toggleEdit.emit();
       });
