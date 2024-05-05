@@ -17,7 +17,7 @@ label {
     color: $accent;
     margin-bottom: 5vh;
     font-weight: 800;
-    transition: transform 0.2s;
+    transition: transform 0.1s;
     will-change: contents;
 
     &:hover {
@@ -53,13 +53,13 @@ label {
       font-size: 1rem;
       background-color: transparent;
       padding: 20px 0;
-      border-radius: 10px;
+      border-radius: 12.5px;
       margin-top: 1vh;
       margin-bottom: 1vh;
-      color: $text2;
+      color: $text;
 
       font-weight: bold;
-      transition: background-color 0.2s ease-in-out;
+      transition: background-color 0.1s ease-in-out;
 
       &:hover {
         cursor: pointer;
@@ -94,7 +94,7 @@ label {
     gap: 2vh;
     text-align: center;
     background-color: $background2;
-    border-radius: 10px;
+    border-radius: 12.5px;
     padding: 50px 35px;
 
     > h1 {

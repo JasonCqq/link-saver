@@ -4,6 +4,7 @@
       <h1>LinkStorage</h1>
       <a routerLink="/versions">Release Notes ></a>
     </div>
+
     <div class="landing-body">
       <a routerLink="/user/login" *ngIf="!user" class="login-button">Log in</a>
       <a routerLink="/user/register" *ngIf="!user" class="register-button">
@@ -20,7 +21,6 @@
       <h1 (click)="toggleShowcase()">
         Watch Demo <span class="material-icons-round"> arrow_drop_down </span>
       </h1>
-      <p>Still unsure? Watch the showcase above!</p>
     </div>
 
     <div class="showcase_border" *ngIf="videoShowcase">
@@ -40,15 +40,16 @@
 
   <section *ngIf="this.data" class="landing-stats">
     <div class="landing-stats-items">
-      <p>~{{ this.data.links }} <span>Links</span></p>
-
-      <p>~{{ this.data.folders }} <span>Folders</span></p>
-
-      <p>~{{ this.data.users }} <span>Users</span></p>
+      <p>~{{ this.data.links }} <span>links stored so far</span></p>
     </div>
   </section>
 
+  <section class="home_picture">
+    <img src="../../../assets/Screenshot_36.jpg" />
+  </section>
+
   <section #home_features class="home_features">
+    <h1>What we offer</h1>
     <div class="home-features-grid">
       <div class="home-features-item">
         <span>
@@ -59,8 +60,8 @@
           <p>
             Share your links + folders with everyone.
             <a routerLink="/public/1" target="_blank"
-              ><strong style="color: #585efb"
-                ><u>Check out one of our shared folder!</u></strong
+              ><strong style="color: #8d85fd"
+                >Check out one of our shared folder!</strong
               ></a
             >
           </p>

@@ -37,7 +37,7 @@
       font-size: 2.5rem;
       font-weight: 900;
       padding-top: 7vh;
-      transition: transform 0.2s;
+      transition: transform 0.1s;
 
       &:hover {
         transform: translateY(-5px);
@@ -48,7 +48,7 @@
       padding: 15px 20px;
       border: none;
       border: 2px solid $accent;
-      border-radius: 10px;
+      border-radius: 12.5px;
       background: transparent;
       color: $text2;
       margin-top: 10px;
@@ -117,7 +117,7 @@
 
     button {
       background: transparent;
-      border-radius: 10px;
+      border-radius: 12.5px;
       border: 2px solid $accent;
       padding: 10px 25px;
       font-weight: bold;

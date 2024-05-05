@@ -34,7 +34,7 @@
       width: 50vw;
     }
 
-    @media screen and (max-width: 580px) {
+    @media screen and (max-width: 680px) {
       width: 80vw;
       height: 65vh;
     }
@@ -81,12 +81,14 @@
       }
       > .mass-delete-button {
         border: 2px solid $imp-button;
+        color: $text;
         &:hover {
           background-color: $imp-button;
         }
       }
       > .mass-restore-button {
         border: 2px solid $accent;
+        color: $text;
         &:hover {
           background-color: $accent;
         }
@@ -94,7 +96,7 @@
     }
 
     > button {
-      color: $text2;
+      color: $text;
       border: none;
       border-radius: 10px;
       padding: 15px 25px;

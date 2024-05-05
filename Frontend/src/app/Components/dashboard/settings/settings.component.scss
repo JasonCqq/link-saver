@@ -4,6 +4,7 @@
   margin-left: 20vw;
   color: $text;
   padding: 15vh 7.5%;
+  font-weight: 500;
 
   > .settings-flex {
     display: flex;
@@ -29,7 +30,7 @@
         background-color: $background;
         width: 25vw;
         height: 32.5vh;
-        border-radius: 10px;
+        border-radius: 12.5px;
         box-shadow: 1px 1px 25px $boxshad;
         display: flex;
         align-items: center;
@@ -40,10 +41,10 @@
           background-color: $imp-button;
           border: 2px solid $imp-button;
           padding: 10px 25px;
-          border-radius: 10px;
+          border-radius: 12.5px;
           color: $text;
 
-          transition: background-color 0.2s;
+          transition: background-color 0.1s;
 
           &:hover {
             cursor: pointer;
@@ -74,7 +75,7 @@
           border: none;
           border: 2px solid $accent;
           background: transparent;
-          border-radius: 10px;
+          border-radius: 12.5px;
           padding: 1vh 1vw;
           font-size: 1rem;
 
@@ -123,6 +124,12 @@
         color: $textSec;
       }
 
+      > a {
+        &:hover {
+          color: $accent;
+        }
+      }
+
       > span {
         display: flex;
         gap: 2vw;
@@ -130,11 +137,11 @@
 
       > .settings-change-pass {
         border: 2px solid $accent;
-        border-radius: 10px;
+        border-radius: 12.5px;
         background: transparent;
         padding: 10px 0px;
         width: 170px;
-        transition: background-color 0.15s;
+        transition: background-color 0.1s;
         &:hover {
           background-color: $accent;
           cursor: pointer;
@@ -145,9 +152,9 @@
         background-color: $imp-button;
         border: 2px solid $imp-button;
         padding: 10px 20px;
-        border-radius: 10px;
+        border-radius: 12.5px;
         color: $text;
-        transition: background-color 0.2s;
+        transition: background-color 0.1s;
 
         &:hover {
           cursor: pointer;
@@ -177,7 +184,7 @@
           width: 22.5vw;
           height: 55vh;
           margin: auto;
-          border-radius: 10px;
+          border-radius: 12.5px;
 
           @media screen and (max-width: 1275px) {
             width: 35vw;
@@ -199,7 +206,7 @@
             border: 2px solid $accent;
             background-color: transparent;
             padding: 10px 20px;
-            border-radius: 10px;
+            border-radius: 12.5px;
             color: $text;
 
             transition: background-color 0.1s ease;
@@ -232,13 +239,13 @@
       > .settings-apply {
         padding: 10px 20px;
         border: none;
-        border-radius: 10px;
+        border-radius: 12.5px;
         border: 2px solid $accent;
         color: $text;
         background-color: transparent;
         transition:
-          background-color 0.2s ease-in-out,
-          color 0.2s ease-in-out;
+          background-color 0.1s ease-in-out,
+          color 0.1s ease-in-out;
 
         &:disabled {
           opacity: 0.5;

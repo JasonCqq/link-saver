@@ -8,14 +8,14 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, 200px);
     row-gap: 3vh;
-    column-gap: 2vw;
+    column-gap: 1vw;
     width: 95%;
 
     > .folders-item {
       display: flex;
       align-items: center;
-      border: 3px solid $accent;
-      border-radius: 10px;
+      border: 2px solid $accent;
+      border-radius: 12.5px;
       padding: 5px;
       gap: 7px;
       height: 50px;
@@ -48,7 +48,7 @@
         margin-left: auto;
 
         > * {
-          transition: transform 0.2s;
+          transition: transform 0.1s;
 
           &:hover {
             transform: scale(1.1);
@@ -73,7 +73,7 @@
         width: 27vw;
         height: 24vh;
         background-color: $background;
-        border-radius: 10px;
+        border-radius: 12.5px;
         box-shadow: 1px 1px 25px $boxshad;
         display: flex;
         flex-direction: column;
@@ -108,7 +108,7 @@
 
         > .folders-create-button {
           border: none;
-          border-radius: 10px;
+          border-radius: 12.5px;
           border: 2px solid $accent;
           background-color: transparent;
           font-weight: bold;
@@ -157,7 +157,7 @@
       width: 27vw;
       height: 60vh;
       background-color: $background;
-      border-radius: 10px;
+      border-radius: 12.5px;
       box-shadow: 1px 1px 25px $boxshad;
       display: flex;
       flex-direction: column;
@@ -199,7 +199,7 @@
 
       > .folders-share-button {
         border: none;
-        border-radius: 10px;
+        border-radius: 15px;
         border: 2px solid $accent;
         background-color: transparent;
         font-weight: bold;
@@ -243,7 +243,7 @@
 
     > .folders-button {
       border: none;
-      border-radius: 10px;
+      border-radius: 12.5px;
       border: 2px solid $accent;
       background-color: transparent;
       font-weight: 700;

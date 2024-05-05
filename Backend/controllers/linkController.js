@@ -2,13 +2,8 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const prisma = require("../prisma/prismaClient");
 const { decode } = require("html-entities");
-// const puppeteer = require("puppeteer-extra");
 const sharp = require("sharp");
-const axios = require("axios");
-const http = require("http");
-const https = require("https");
-const ogs = require("open-graph-scraper");
-
+const { parse } = require("node-html-parser");
 const { chromium, devices } = require("playwright");
 
 function formatLinks(links) {
@@ -22,13 +17,7 @@ function formatLinks(links) {
   return links;
 }
 
-// Reuse same axios instance
-const axiosInstance = axios.create({
-  httpAgent: new http.Agent({ keepAlive: true }),
-  httpsAgent: new https.Agent({ keepAlive: true }),
-});
-
-// Let puppeteer reuse same browser
+// Let playwright reuse same browser
 let browser;
 const launchBrowser = async () => {
   if (browser) return;
@@ -65,74 +54,78 @@ exports.create_link = [
         }
 
         // Scrape for title/screenshot
+        let thumbnail = "";
+        let title = "";
         try {
-          let thumbnail = "";
-          let title = "";
-          let skip = false;
+          console.time("fetch");
+          const resp = await fetch(decodedUrl);
+          const html = await resp.text();
+          console.timeEnd("fetch");
 
-          const options = {
-            url: decodedUrl,
-          };
-          console.time("ogs");
-          const data = await ogs(options).catch(() => {
+          const root = parse(html);
+
+          const ogTitle = root
+            .querySelector('meta[property="og:title"]')
+            ?.getAttribute("content");
+
+          ogTitle
+            ? (title = ogTitle)
+            : (title = root.querySelector("title").rawText);
+          if (!title) {
             title = decodedUrl;
-            skip = true;
-          });
-          console.timeEnd("ogs");
+          }
 
-          if (!skip) {
-            const { ogTitle, ogImage } = data.result;
-            title = ogTitle || decodedUrl;
-            tempImage = ogImage;
+          let ogImage = root
+            .querySelector('meta[property="og:image"]')
+            ?.getAttribute("content");
 
-            if (tempImage) {
-              console.time("axios");
-              const thumbnailBuffer = await axiosInstance.get(ogImage[0].url, {
-                responseType: "arraybuffer",
-              });
-              console.timeEnd("axios");
+          if (ogImage) {
+            console.time("image fetch");
+            const imageResponse = await fetch(ogImage);
+            const imageBuffer = await imageResponse.arrayBuffer();
+            console.timeEnd("image fetch");
 
-              console.time("sharp");
-              thumbnail = await sharp(thumbnailBuffer.data)
+            console.time("sharp");
+            try {
+              thumbnail = await sharp(Buffer.from(imageBuffer))
                 .resize(200, 200)
                 .webp({ quality: 40 })
                 .toBuffer();
-              console.timeEnd("sharp");
-            } else if (!tempImage) {
-              // Puppeteer screenshot if no image
-              console.time("playwright launch");
-              await launchBrowser();
-
-              const context = await browser.newContext(
-                devices["Desktop Chrome"],
-              );
-              const page = await context.newPage();
-
-              console.timeEnd("playwright launch");
-
-              console.time("page goto");
-              await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
-              console.timeEnd("page goto");
-
-              await page.waitForSelector("div");
-
-              console.time("page screenshot");
-              let screenshot = await page.screenshot({
-                fullPage: false,
-                quality: 40,
-                type: "jpeg",
-                omitBackground: true,
-              });
-
-              thumbnail = await sharp(screenshot).resize(200, 150).toBuffer();
-
-              await page.close();
-              console.timeEnd("page screenshot");
+            } catch (err) {
+              thumbnail = "";
             }
+            console.timeEnd("sharp");
+
+            // Playwright screenshot if no og:image
+          } else if (!ogImage) {
+            console.time("playwright launch");
+            await launchBrowser();
+
+            const context = await browser.newContext(devices["Desktop Chrome"]);
+            const page = await context.newPage();
+
+            console.timeEnd("playwright launch");
+
+            console.time("page goto");
+            await page.goto(decodedUrl, { waitUntil: "load" });
+            console.timeEnd("page goto");
+
+            await page.waitForSelector("body");
+
+            console.time("page screenshot");
+            let screenshot = await page.screenshot({
+              fullPage: false,
+              quality: 40,
+              type: "jpeg",
+              omitBackground: true,
+            });
+            thumbnail = await sharp(screenshot).resize(200, 150).toBuffer();
+            await page.close();
+            console.timeEnd("page screenshot");
           }
 
           console.time("database operation");
-          await prisma.Link.create({
+          const link = await prisma.Link.create({
             data: {
               url: decodedUrl,
               user: {
@@ -149,11 +142,10 @@ exports.create_link = [
               thumbnail: thumbnail,
             },
           });
-
           console.timeEnd("database operation");
-          res.status(200).send({});
+          res.status(200).send({ link });
         } catch (error) {
-          console.error("Error:", error);
+          console.error("Error fetching or processing:", error);
           res.status(500).json("Server Error");
         }
       }

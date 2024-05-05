@@ -8,7 +8,7 @@ main {
     text-align: center;
     padding-top: 25px;
     color: $accent;
-    transition: transform 0.15s ease-in-out;
+    transition: transform 0.1s ease-in-out;
     font-weight: bold;
     margin: auto;
 
@@ -41,7 +41,7 @@ main {
           box-shadow: 1px 1px 10px $boxshad;
           width: 85%;
           padding: 25px;
-          border-radius: 10px;
+          border-radius: 12.5px;
           margin-top: 20px;
 
           &:hover {

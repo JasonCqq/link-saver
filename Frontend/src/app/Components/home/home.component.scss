@@ -1,8 +1,9 @@
 @import "../../../assets/styles.scss";
 
 .home-page {
-  background-color: $background;
   color: $text;
+
+  background: linear-gradient(#181818, #121212);
 
   .landing-page {
     width: 100%;
@@ -12,7 +13,7 @@
     justify-content: center;
     align-items: center;
 
-    .landing-heading {
+    > .landing-heading {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -38,7 +39,7 @@
     .landing-body {
       display: flex;
       gap: 4vw;
-      margin-top: 10vh;
+      margin-top: 5vh;
 
       @media screen and (max-width: 800px) {
         gap: 10vw;
@@ -51,7 +52,7 @@
       > .login-button,
       .register-button,
       .dashboard-button {
-        border-radius: 10px;
+        border-radius: 12.5px;
         padding: 12.5px 30px;
         text-align: center;
         font-weight: 800;
@@ -62,9 +63,9 @@
       > .login-button {
         border: 2px solid $accent;
         transition:
-          background-color 0.2s ease-in-out,
+          background-color 0.1s ease-in-out,
           color 0.2s ease-in-out,
-          transform 0.2s;
+          transform 0.1s;
 
         &:hover {
           background-color: $accent;
@@ -73,13 +74,23 @@
         }
       }
 
-      > .register-button,
-      .dashboard-button {
+      > .register-button {
         background-color: $accent;
-        color: $text2;
-        transition: transform 0.2s;
+        color: $text;
+        transition: transform 0.1s;
         &:hover {
           transform: translateY(-5px);
+        }
+      }
+
+      > .dashboard-button {
+        background: transparent;
+        border: 2px solid $accent;
+        border-radius: 12.5px;
+        transition: background-color 0.1s ease-in-out;
+
+        &:hover {
+          background-color: $accent;
         }
       }
     }
@@ -90,18 +101,20 @@
     flex-direction: column;
     align-items: center;
     height: auto;
+    margin-top: 20vh;
+    > h1 {
+      font-size: 2rem;
+      text-align: center;
+    }
 
     .home-features-grid {
       display: grid;
       width: 60vw;
-      margin-top: 5vh;
-      column-gap: 2vw;
-      row-gap: 3vh;
+      column-gap: 4vw;
+      row-gap: 4vh;
       grid-template-columns: repeat(2, 1fr);
-      background-color: rgba($background2, 0.75);
-      border-radius: 10px;
+      border-radius: 12.5px;
       padding: 20px;
-      border: 1px solid black;
 
       @media screen and (max-width: 1150px) {
         width: 70vw;
@@ -123,13 +136,14 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        border-radius: 10px;
+        border-radius: 12.5px;
         min-height: 125px;
         gap: 2vw;
 
         @media screen and (max-width: 390px) {
           padding: 3vh 0vw;
           text-align: center;
+          flex-direction: column;
         }
 
         > span {
@@ -138,6 +152,7 @@
             font-size: 0.85rem;
             width: 95%;
             line-height: 22.5px;
+            font-weight: 500;
           }
 
           > h2 {
@@ -153,11 +168,13 @@
             padding-right: 5px;
 
             @media screen and (max-width: 620px) {
-              transform: scale(1.25);
+              padding-right: 15px;
             }
 
-            @media screen and (max-width: 550px) {
-              display: none;
+            @media screen and (max-width: 390px) {
+              margin-left: 0;
+              padding-right: 0;
+              padding-bottom: 10px;
             }
           }
         }
@@ -181,14 +198,15 @@
         font-weight: 900;
         text-align: center;
         border-bottom: 3px solid $accent;
+        border-radius: 3px;
 
         @media screen and (max-width: 369px) {
-          font-size: 0.8rem;
+          font-size: 0.9rem;
           padding: 12.5px 20px;
         }
 
         @media screen and (max-width: 300px) {
-          font-size: 0.7rem;
+          font-size: 0.8rem;
           padding: 12.5px 12.5px;
         }
 
@@ -224,8 +242,8 @@
         background: transparent;
         color: $text;
         padding: 12.5px 0px;
-        width: 175px;
-        border-radius: 10px;
+        width: 170px;
+        border-radius: 12.5px;
         border: 2px solid $border;
         font-weight: 700;
 
@@ -238,21 +256,15 @@
           transform: scale(1.5);
         }
       }
-
-      > p {
-        font-size: 0.8rem;
-        color: $textSec;
-        font-weight: 500;
-      }
     }
 
     > .showcase_border {
       border: 2px solid $accent;
-      border-radius: 10px;
+      border-radius: 12.5px;
       padding: 2px;
 
       > .showcase_video {
-        border-radius: 10px;
+        border-radius: 12.5px;
         box-shadow: 1px 1px 50px black;
 
         @media screen and (max-width: 580px) {
@@ -264,6 +276,26 @@
           width: 250px;
           height: 150px;
         }
+      }
+    }
+  }
+
+  .home_picture {
+    margin-top: 15vh;
+    text-align: center;
+
+    @media screen and (max-width: 800px) {
+      margin-top: 5vh;
+    }
+
+    > img {
+      border-radius: 12.5px;
+      width: 65vw;
+      height: auto;
+      border: 2px solid $accent;
+
+      @media screen and (max-width: 800px) {
+        width: 90vw;
       }
     }
   }
@@ -290,13 +322,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 10vh;
+    margin-top: 15vh;
 
     > h1 {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       text-align: center;
       padding-bottom: 6vh;
-      font-weight: 800;
+      font-weight: 700;
     }
 
     .home-faq-container {
@@ -305,8 +337,12 @@
       gap: 3vh;
       width: 65%;
 
+      @media screen and (max-width: 500px) {
+        width: 85%;
+      }
+
       .faq-item {
-        transition: color 0.15s ease-in-out;
+        transition: color 0.1s ease-in-out;
         padding-bottom: 25px;
         border-bottom: 2px solid gray;
 
@@ -332,7 +368,7 @@
             }
 
             @media screen and (max-width: 415px) {
-              font-size: 0.9rem;
+              font-size: 0.95rem;
             }
           }
 
@@ -374,7 +410,7 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    margin-bottom: 15vh;
+    margin-bottom: 20vh;
     margin-top: 15vh;
 
     .contact-form {
@@ -393,9 +429,9 @@
         font-size: 1.15rem;
         background-color: transparent;
         margin-top: 75px;
-        border-radius: 10px;
+        border-radius: 12.5px;
         color: $text;
-        transition: border 0.15s ease-in-out;
+        transition: border 0.1s ease-in-out;
 
         &:hover {
           cursor: pointer;
@@ -441,7 +477,7 @@ mat-form-field {
   }
 
   @media screen and (max-width: 400px) {
-    width: 75vw;
+    width: 85vw;
   }
 }
 

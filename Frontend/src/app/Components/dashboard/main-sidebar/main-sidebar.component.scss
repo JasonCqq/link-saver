@@ -10,7 +10,7 @@
   z-index: 98;
 
   .d-sidebar {
-    min-width: 200px;
+    min-width: 185px;
     background-color: $background2;
     position: fixed;
     left: 0;
@@ -54,7 +54,7 @@
         cursor: pointer;
 
         > h1 {
-          transition: color 0.15s ease-in-out;
+          transition: color 0.1s ease-in-out;
           color: $accent;
         }
       }
@@ -70,7 +70,7 @@
       }
 
       .sidebar-icon {
-        color: rgba($accent, 0.7);
+        color: $accent;
         font-size: 1.5rem;
       }
 
@@ -89,11 +89,11 @@
     position: fixed;
 
     .sidebar-icon {
-      background: rgba($accent, 0.5);
+      background: rgba($accent, 0.75);
       padding: 10px;
       transform: scale(0.9);
-      margin-left: 1vw;
-      border-radius: 10px;
+      margin-left: 10px;
+      border-radius: 12.5px;
       color: white;
 
       &:hover {

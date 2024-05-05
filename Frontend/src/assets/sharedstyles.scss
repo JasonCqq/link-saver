@@ -5,8 +5,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 275px));
 
-  column-gap: 2vw;
-  row-gap: 3vh;
+  column-gap: 1vw;
+  row-gap: 2vh;
   margin-top: 2vh;
 
   @media screen and (max-width: 340px) {
@@ -20,8 +20,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 205px));
 
-  column-gap: 2vw;
-  row-gap: 3vh;
+  column-gap: 1vw;
+  row-gap: 2vh;
   margin-top: 2vh;
 
   @media screen and (max-width: 340px) {

@@ -152,6 +152,12 @@ exports.generateOTPLink = [
         return res.status(400).json("User already exists");
       }
 
+      const tempUserCheck = await prisma.tempUser.delete({
+        where: {
+          email: req.body.email,
+        },
+      });
+
       const tempCode = Math.floor(100000 + Math.random() * 900000);
 
       bcrypt.hash(String(tempCode), 10, async (err, hashedCode) => {

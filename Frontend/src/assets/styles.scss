@@ -1,20 +1,20 @@
 @use "@angular/material" as mat;
 @include mat.core();
 
-$secondary: #585efb;
-$accent: #585efb;
-$background: #0d1117;
-$background2: #161b22;
+$secondary: #696ef8;
+$accent: #696ef8;
+$background: #121212;
+$background2: #191919;
 $boxshad: #111214;
 $border: #494b52;
 $text: white;
-$text2: white;
+$text2: #0e0c0c;
 $textSec: #808d97;
 $imp-button: #f73830;
-$warn: #4045da;
+$warn: #7067f2;
 
-$Frontend-primary: mat.define-palette(mat.$light-blue-palette);
-$Frontend-accent: mat.define-palette(mat.$blue-palette, A200);
+$Frontend-primary: mat.define-palette(mat.$deep-purple-palette);
+$Frontend-accent: mat.define-palette(mat.$deep-purple-palette, A100);
 $Frontend-warn: mat.define-palette(mat.$red-palette);
 $Frontend-theme: mat.define-dark-theme(
   (

@@ -51,7 +51,7 @@ label {
         border: 2px solid $border;
         background: transparent;
         padding: 10px 20px;
-        border-radius: 10px;
+        border-radius: 12.5px;
         color: $text;
         font-weight: bold;
         font-size: 0.9rem;
@@ -70,12 +70,12 @@ label {
       background-color: transparent;
       border: 2px solid $accent;
       padding: 17.5px 0;
-      border-radius: 10px;
+      border-radius: 12.5px;
       margin-top: 1vh;
       margin-bottom: 1vh;
-      color: $text2;
+      color: $text;
       font-weight: bold;
-      transition: background-color 0.2s;
+      transition: background-color 0.1s;
 
       &:hover {
         cursor: pointer;
@@ -98,12 +98,12 @@ label {
     background-color: transparent;
     border: 2px solid $accent;
     padding: 17.5px 25px;
-    border-radius: 10px;
+    border-radius: 12.5px;
     margin-top: 1vh;
     margin-bottom: 1vh;
-    color: $text2;
+    color: $text;
     font-weight: bold;
-    transition: background-color 0.2s;
+    transition: background-color 0.1s;
 
     &:hover {
       cursor: pointer;

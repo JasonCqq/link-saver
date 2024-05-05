@@ -18,12 +18,8 @@ exports.user_check = asyncHandler(async (req, res) => {
 
 exports.stat_check = asyncHandler(async (req, res) => {
   const links = await prisma.Link.count();
-  const folders = await prisma.Folder.count();
-  const users = await prisma.User.count();
 
   res.status(200).json({
     links: links,
-    folders: folders,
-    users: users,
   });
 });

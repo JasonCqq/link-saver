@@ -22,7 +22,7 @@ span {
       gap: 2vh;
       width: 25vw;
       height: 20vh;
-      border-radius: 10px;
+      border-radius: 12.5px;
       box-shadow: 1px 1px 25px $boxshad;
       background: $background;
 
@@ -52,7 +52,7 @@ span {
           color: $text;
           border: 2px solid $accent;
           background: transparent;
-          border-radius: 10px;
+          border-radius: 12.5px;
 
           &:hover {
             cursor: pointer;
@@ -79,10 +79,10 @@ span {
     font-weight: 900;
     background-color: $imp-button;
     border: 2px solid $imp-button;
-    border-radius: 10px;
+    border-radius: 12.5px;
     display: flex;
     align-items: center;
-    transition: box-shadow 0.15s ease-in-out;
+    transition: box-shadow 0.1s ease-in-out;
     margin-top: 3vh;
 
     @media screen and (max-width: 440px) {
@@ -94,7 +94,7 @@ span {
       margin-left: 10vw;
     }
 
-    transition: background-color 0.2s;
+    transition: background-color 0.1s;
     &:hover {
       cursor: pointer;
       background-color: transparent;
