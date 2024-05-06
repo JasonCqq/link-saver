@@ -4,16 +4,6 @@ import { PublicFolderService } from "./public-folder.service";
 import { Link } from "src/app/Interfaces/Link";
 import { FormControl, FormGroup } from "@angular/forms";
 
-function _arrayBufferToBase64(buffer: any) {
-  var binary = "";
-  var bytes = new Uint8Array(buffer);
-  var len = bytes.byteLength;
-  for (var i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-  return window.btoa(binary);
-}
-
 @Component({
   selector: "app-public-folder",
   templateUrl: "./public-folder.component.html",
@@ -42,12 +32,6 @@ export class PublicFolderComponent implements OnInit, OnDestroy {
         this.author = res.authorName;
         this.folderName = res.folderName;
         this.links = res.links;
-
-        this.links.forEach((link) => {
-          if (link.thumbnail.data) {
-            link.thumbnail.newUrl = _arrayBufferToBase64(link.thumbnail.data);
-          }
-        });
       },
       error: (err) => {
         if (err.status === 401) {

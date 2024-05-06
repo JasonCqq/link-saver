@@ -11,16 +11,6 @@ import { Link } from "src/app/Interfaces/Link";
 import { Subject, takeUntil } from "rxjs";
 import { MainNavService } from "../../main-nav/main-nav.service";
 
-function _arrayBufferToBase64(buffer: any) {
-  var binary = "";
-  var bytes = new Uint8Array(buffer);
-  var len = bytes.byteLength;
-  for (var i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-  return window.btoa(binary);
-}
-
 @Component({
   selector: "app-link-item",
   templateUrl: "./link-item.component.html",
@@ -83,14 +73,6 @@ export class LinkComponent implements OnInit, OnDestroy {
           this.addingID = false;
         }
       });
-
-    if (this.itemData.thumbnail.data) {
-      this.itemData.thumbnail = _arrayBufferToBase64(
-        this.itemData.thumbnail.data,
-      );
-    } else {
-      return;
-    }
   }
 
   ngOnDestroy(): void {

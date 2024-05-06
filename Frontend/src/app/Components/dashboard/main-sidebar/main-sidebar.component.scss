@@ -10,7 +10,9 @@
   z-index: 98;
 
   .d-sidebar {
-    min-width: 185px;
+    min-width: 200px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
     background-color: $background2;
     position: fixed;
     left: 0;

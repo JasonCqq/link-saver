@@ -11,11 +11,8 @@ export interface Link {
   createdAt: Date;
   updatedAt: Date;
   bookmarked: boolean;
-  thumbnail: {
-    type: string;
-    data: Number[];
-    newUrl: string;
-  };
+  thumbnail: string;
+  pURL: string;
   remind: Date | null;
   trash: boolean | null;
 }

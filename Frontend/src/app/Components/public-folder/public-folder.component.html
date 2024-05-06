@@ -35,11 +35,7 @@
           </a>
 
           <div class="link-preview" *ngIf="previews">
-            <img
-              src="{{ 'data:image/webp;base64,' + link.thumbnail.newUrl }}"
-              height="100px"
-              width="170px"
-            />
+            <img src="{{ link.pURL }}" height="100px" width="170px" />
           </div>
         </section>
       </div>
@@ -77,7 +73,7 @@
 </div>
 
 <footer class="foot-note">
-  <p routerLink="/versions">beta v1.2.1</p>
+  <p routerLink="/versions">beta v1.3.0</p>
 
   <a href="https://github.com/JasonCqq/link-saver" target="_blank"
     >&#x2022; Source Code</a

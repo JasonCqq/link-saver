@@ -136,63 +136,67 @@ exports.generateOTPLink = [
     else if (!req.body.email) {
       res.status(400).json("Email is required");
     } else {
-      const emailExists = await prisma.User.findUnique({
-        where: { email: req.body.email },
-      });
+      try {
+        const emailExists = await prisma.User.findUnique({
+          where: { email: req.body.email },
+        });
 
-      if (emailExists) {
-        return res.status(400).json("Email already exists");
-      }
-
-      const usernameExists = await prisma.User.findUnique({
-        where: { username: req.body.username },
-      });
-
-      if (usernameExists) {
-        return res.status(400).json("User already exists");
-      }
-
-      const tempUserCheck = await prisma.tempUser.delete({
-        where: {
-          email: req.body.email,
-        },
-      });
-
-      const tempCode = Math.floor(100000 + Math.random() * 900000);
-
-      bcrypt.hash(String(tempCode), 10, async (err, hashedCode) => {
-        if (err) {
-          return;
+        if (emailExists) {
+          return res.status(400).json("Email already exists");
         }
-        const confirmationLink = `${req.protocol}://${req.get("host")}/user/create/${req.body.email}/${tempCode}`;
 
-        await prisma.tempUser.create({
-          data: {
-            username: req.body.username,
+        const usernameExists = await prisma.User.findUnique({
+          where: { username: req.body.username },
+        });
+
+        if (usernameExists) {
+          return res.status(400).json("User already exists");
+        }
+
+        const tempUserCheck = await prisma.tempUser.deleteMany({
+          where: {
             email: req.body.email,
-            otp: hashedCode,
-            password: req.body.password,
-            otpExpiresAt: new Date(new Date().getTime() + 15 * 60 * 1000), // 15 minutes
           },
         });
 
-        const info = await transporter.sendMail({
-          to: `${req.body.email}`,
-          from: "jason.cq.huang@gmail.com",
-          subject: `Your Linkstorage Registration Confirmation Link`,
-          text: `Linkstorage: Your OTP Link is: ${confirmationLink} , if you didn't request this, you can safely ignore it.`,
-          html:
-            "<h1 style='font-size: 1.25rem; color:black;'>Linkstorage</h1>" +
-            "<p style='font-size: 1rem; color: black;'>Hi there!</p>" +
-            "<p style='font-size: 1.1rem; color: black;'>We received a request for an OTP link for your Linkstorage account. Please use this One-Time Link below to complete your process:</p>" +
-            `<a href=${confirmationLink} style='font-size: 1.5rem; font-weight:900;'>Click Here to Confirm your email</a>` +
-            "<p style='font-size: 1rem; color: black;'>This One time link is valid for only 15 minutes. For your security, do not share this with anyone.</p>" +
-            "<p style='font-size: 1rem; color: black;'>If you did not request this, please ignore this email or contact us if you have any concerns.</p>" +
-            "<footer style='color:gray; font-size: 0.8rem;'>Thank you for using Linkstorage. Stay secure!</footer>",
-        });
+        const tempCode = Math.floor(100000 + Math.random() * 900000);
 
-        res.status(200).json({});
-      });
+        bcrypt.hash(String(tempCode), 10, async (err, hashedCode) => {
+          if (err) {
+            return;
+          }
+          const confirmationLink = `${req.protocol}://${req.get("host")}/user/create/${req.body.email}/${tempCode}`;
+
+          await prisma.tempUser.create({
+            data: {
+              username: req.body.username,
+              email: req.body.email,
+              otp: hashedCode,
+              password: req.body.password,
+              otpExpiresAt: new Date(new Date().getTime() + 15 * 60 * 1000), // 15 minutes
+            },
+          });
+
+          const info = await transporter.sendMail({
+            to: `${req.body.email}`,
+            from: "jason.cq.huang@gmail.com",
+            subject: `Your Linkstorage Registration Confirmation Link`,
+            text: `Linkstorage: Your OTP Link is: ${confirmationLink} , if you didn't request this, you can safely ignore it.`,
+            html:
+              "<h1 style='font-size: 1.25rem; color:black;'>Linkstorage</h1>" +
+              "<p style='font-size: 1rem; color: black;'>Hi there!</p>" +
+              "<p style='font-size: 1.1rem; color: black;'>We received a request for an OTP link for your Linkstorage account. Please use this One-Time Link below to complete your process:</p>" +
+              `<a href=${confirmationLink} style='font-size: 1.5rem; font-weight:900;'>Click Here to Confirm your email</a>` +
+              "<p style='font-size: 1rem; color: black;'>This One time link is valid for only 15 minutes. For your security, do not share this with anyone.</p>" +
+              "<p style='font-size: 1rem; color: black;'>If you did not request this, please ignore this email or contact us if you have any concerns.</p>" +
+              "<footer style='color:gray; font-size: 0.8rem;'>Thank you for using Linkstorage. Stay secure!</footer>",
+          });
+
+          res.status(200).send({});
+        });
+      } catch (err) {
+        console.log(err);
+      }
     }
   }),
 ];

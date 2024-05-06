@@ -12,6 +12,7 @@
   "dependencies": {
     "@prisma/client": "^5.12.1",
     "@quixo3/prisma-session-store": "^3.1.13",
+    "@supabase/supabase-js": "^2.43.1",
     "bcrypt": "^5.1.1",
     "chromedriver": "^124.0.1",
     "cookie-parser": "~1.4.4",
@@ -22,6 +23,7 @@
     "express-async-handler": "^1.2.0",
     "express-session": "^1.18.0",
     "express-validator": "^7.0.1",
+    "fs": "^0.0.1-security",
     "html-entities": "^2.4.0",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",

@@ -3,7 +3,7 @@
 .home-page {
   color: $text;
 
-  background: linear-gradient(#181818, #121212);
+  background: linear-gradient(to bottom, #121212 0%, #181818 100%);
 
   .landing-page {
     width: 100%;
@@ -281,22 +281,21 @@
   }
 
   .home_picture {
-    margin-top: 15vh;
-    text-align: center;
+    width: 65vw;
+    height: auto;
+    margin: auto;
+    margin-top: 10vh;
 
     @media screen and (max-width: 800px) {
       margin-top: 5vh;
+      width: 90vw;
     }
 
     > img {
-      border-radius: 12.5px;
-      width: 65vw;
-      height: auto;
-      border: 2px solid $accent;
-
-      @media screen and (max-width: 800px) {
-        width: 90vw;
-      }
+      width: 100%;
+      object-fit: contain;
+      height: 100%;
+      border-radius: 15px;
     }
   }
 

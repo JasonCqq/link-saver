@@ -6,6 +6,20 @@ const sharp = require("sharp");
 const { parse } = require("node-html-parser");
 const { chromium, devices } = require("playwright");
 
+// Supabase
+const { createClient } = require("@supabase/supabase-js");
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY,
+);
+
+// Let playwright reuse same browser
+let browser;
+const launchBrowser = async () => {
+  if (browser) return;
+  browser = await chromium.launch({ headless: true, args: minimal_args });
+};
+
 function formatLinks(links) {
   links.map((link) => {
     link.url = link.url.replace("www.", "");
@@ -16,13 +30,6 @@ function formatLinks(links) {
 
   return links;
 }
-
-// Let playwright reuse same browser
-let browser;
-const launchBrowser = async () => {
-  if (browser) return;
-  browser = await chromium.launch({ headless: true, args: minimal_args });
-};
 
 exports.create_link = [
   body("url", "Invalid URL").isURL().trim().isLength({ min: 1 }).escape(),
@@ -35,119 +42,147 @@ exports.create_link = [
     if (!errs.isEmpty()) {
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
+    } else if (
+      !req.params.userId ||
+      req.session.user.id !== req.params.userId
+    ) {
+      res.status(401).json("Not authenticated");
     } else {
-      if (!req.params.userId || req.session.user.id !== req.params.userId) {
-        res.status(401).json("Not authenticated");
-      } else {
-        let date = req.body.remind;
-        if (date === "") {
-          date = null;
+      let date = req.body.remind;
+      if (date === "") {
+        date = null;
+      }
+
+      let decodedUrl = decode(req.body.url, { level: "html5" });
+
+      if (
+        !decodedUrl.startsWith("http://") &&
+        !decodedUrl.startsWith("https://")
+      ) {
+        decodedUrl = "https://" + decodedUrl;
+      }
+
+      // Scrape for title/screenshot
+      let thumbnail = "";
+      let title = "";
+      try {
+        console.time("fetch");
+        const resp = await fetch(decodedUrl);
+        const html = await resp.text();
+        console.timeEnd("fetch");
+
+        const root = parse(html);
+
+        const ogTitle = root
+          .querySelector('meta[property="og:title"]')
+          ?.getAttribute("content");
+
+        ogTitle
+          ? (title = ogTitle)
+          : (title = root.querySelector("title").rawText);
+        if (!title) {
+          title = decodedUrl;
         }
 
-        let decodedUrl = decode(req.body.url, { level: "html5" });
+        let ogImage = root
+          .querySelector('meta[property="og:image"]')
+          ?.getAttribute("content");
 
-        if (
-          !decodedUrl.startsWith("http://") &&
-          !decodedUrl.startsWith("https://")
-        ) {
-          decodedUrl = "https://" + decodedUrl;
+        if (ogImage) {
+          console.time("image fetch");
+          const imageResponse = await fetch(ogImage);
+          const imageBuffer = await imageResponse.arrayBuffer();
+          console.timeEnd("image fetch");
+
+          console.time("sharp");
+          try {
+            thumbnail = await sharp(Buffer.from(imageBuffer))
+              .resize(200, 200)
+              .webp({ quality: 40 })
+              .toBuffer();
+          } catch (err) {
+            thumbnail = "";
+          }
+          console.timeEnd("sharp");
+
+          // Playwright screenshot if no og:image
+        } else if (!ogImage) {
+          console.time("playwright launch");
+          await launchBrowser();
+
+          const context = await browser.newContext(devices["Desktop Chrome"]);
+          const page = await context.newPage();
+
+          console.timeEnd("playwright launch");
+
+          console.time("page goto");
+          await page.goto(decodedUrl, { waitUntil: "load" });
+          console.timeEnd("page goto");
+
+          await page.waitForSelector("body");
+
+          console.time("page screenshot");
+          let screenshot = await page.screenshot({
+            fullPage: false,
+            quality: 40,
+            type: "jpeg",
+            omitBackground: true,
+          });
+          thumbnail = await sharp(screenshot).resize(200, 150).toBuffer();
+          await page.close();
+          console.timeEnd("page screenshot");
         }
 
-        // Scrape for title/screenshot
-        let thumbnail = "";
-        let title = "";
-        try {
-          console.time("fetch");
-          const resp = await fetch(decodedUrl);
-          const html = await resp.text();
-          console.timeEnd("fetch");
-
-          const root = parse(html);
-
-          const ogTitle = root
-            .querySelector('meta[property="og:title"]')
-            ?.getAttribute("content");
-
-          ogTitle
-            ? (title = ogTitle)
-            : (title = root.querySelector("title").rawText);
-          if (!title) {
-            title = decodedUrl;
-          }
-
-          let ogImage = root
-            .querySelector('meta[property="og:image"]')
-            ?.getAttribute("content");
-
-          if (ogImage) {
-            console.time("image fetch");
-            const imageResponse = await fetch(ogImage);
-            const imageBuffer = await imageResponse.arrayBuffer();
-            console.timeEnd("image fetch");
-
-            console.time("sharp");
-            try {
-              thumbnail = await sharp(Buffer.from(imageBuffer))
-                .resize(200, 200)
-                .webp({ quality: 40 })
-                .toBuffer();
-            } catch (err) {
-              thumbnail = "";
-            }
-            console.timeEnd("sharp");
-
-            // Playwright screenshot if no og:image
-          } else if (!ogImage) {
-            console.time("playwright launch");
-            await launchBrowser();
-
-            const context = await browser.newContext(devices["Desktop Chrome"]);
-            const page = await context.newPage();
-
-            console.timeEnd("playwright launch");
-
-            console.time("page goto");
-            await page.goto(decodedUrl, { waitUntil: "load" });
-            console.timeEnd("page goto");
-
-            await page.waitForSelector("body");
-
-            console.time("page screenshot");
-            let screenshot = await page.screenshot({
-              fullPage: false,
-              quality: 40,
-              type: "jpeg",
-              omitBackground: true,
-            });
-            thumbnail = await sharp(screenshot).resize(200, 150).toBuffer();
-            await page.close();
-            console.timeEnd("page screenshot");
-          }
-
-          console.time("database operation");
-          const link = await prisma.Link.create({
-            data: {
-              url: decodedUrl,
-              user: {
-                connect: {
-                  id: req.params.userId,
-                },
+        console.time("database operation");
+        const link = await prisma.Link.create({
+          data: {
+            url: decodedUrl,
+            user: {
+              connect: {
+                id: req.params.userId,
               },
-              ...(req.body.folder
-                ? { folder: { connect: { id: req.body.folder } } }
-                : {}),
-              title: title,
-              bookmarked: JSON.parse(req.body.bookmarked),
-              remind: date,
-              thumbnail: thumbnail,
+            },
+            ...(req.body.folder
+              ? { folder: { connect: { id: req.body.folder } } }
+              : {}),
+            title: title,
+            bookmarked: JSON.parse(req.body.bookmarked),
+            remind: date,
+          },
+        });
+        console.timeEnd("database operation");
+
+        console.time("supabase");
+        const linkID = link.id;
+
+        let imagePath = `thumbnails/${req.params.userId}/${linkID}`;
+        let publicUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/thumbnails/${imagePath}`;
+
+        const { error } = await supabase.storage
+          .from("thumbnails")
+          .upload(imagePath, thumbnail, {
+            contentType: "image/webp",
+          });
+
+        console.timeEnd("supabase");
+        if (error) {
+          console.error("Supabase Error: ", error);
+        } else {
+          const updatedLink = await prisma.Link.update({
+            where: {
+              id: linkID,
+            },
+            data: {
+              thumbnail: imagePath,
+              pURL: publicUrl,
             },
           });
-          console.timeEnd("database operation");
-          res.status(200).send({ link });
-        } catch (error) {
-          console.error("Error fetching or processing:", error);
-          res.status(500).json("Server Error");
+
+          res.status(200).json({ link: updatedLink });
         }
+      } catch (error) {
+        console.error("Error fetching or processing:", error);
+        res.status(500).json("Server Error");
       }
     }
   }),
@@ -264,19 +299,38 @@ exports.get_links = asyncHandler(async (req, res) => {
     res.status(401).json("Not authenticated");
   }
 
-  const links = await prisma.Link.findMany({
-    where: {
-      userId: req.params.userId,
-    },
+  try {
+    const links = await prisma.Link.findMany({
+      where: {
+        userId: req.params.userId,
+      },
 
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
 
-  const formattedLinks = formatLinks(links);
+    const updatedLinks = await Promise.all(
+      links.map(async (link) => {
+        const bucketName = "thumbnails";
+        const { data: publicURL, error } = await supabase.storage
+          .from(bucketName)
+          .getPublicUrl(link.thumbnail);
 
-  res.status(200).json({ links: formattedLinks });
+        if (error) {
+          console.error("Error retrieving public URL:", error.message);
+          return { ...link, thumbnail: null };
+        }
+
+        return { ...link, thumbnail: publicURL.publicUrl };
+      }),
+    );
+
+    const formattedLinks = formatLinks(updatedLinks);
+    res.status(200).json({ links: formattedLinks });
+  } catch (err) {
+    console.error("Error: ", err);
+  }
 });
 
 exports.search_link = asyncHandler(async (req, res) => {

@@ -1,83 +1,84 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider  = "postgresql"
-    url       = env("DATABASE_URL")
-    directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
 model tempUser {
-    id           String    @id @default(uuid())
-    username     String    @unique
-    email        String    @unique
-    password     String
-    otp          String?
-    otpExpiresAt DateTime?
+  id           String    @id @default(uuid())
+  username     String    @unique
+  email        String    @unique
+  password     String
+  otp          String?
+  otpExpiresAt DateTime?
 }
 
 model User {
-    id           String        @id @default(uuid())
-    username     String        @unique
-    email        String        @unique
-    password     String
-    creationDate DateTime      @default(now())
-    folders      Folder[]
-    links        Link[]
-    userSettings UserSettings?
-    shares       Share[]
-    otp          String?
-    otpVerified  Boolean       @default(false)
-    otpExpiresAt DateTime?
+  id           String        @id @default(uuid())
+  username     String        @unique
+  email        String        @unique
+  password     String
+  creationDate DateTime      @default(now())
+  otp          String?
+  otpVerified  Boolean       @default(false)
+  otpExpiresAt DateTime?
+  folders      Folder[]
+  links        Link[]
+  shares       Share[]
+  userSettings UserSettings?
 }
 
 model UserSettings {
-    id       String  @id @default(uuid())
-    user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId   String  @unique
-    previews Boolean @default(true)
+  id       String  @id @default(uuid())
+  userId   String  @unique
+  previews Boolean @default(true)
+  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Session {
-    id        String   @id
-    sid       String   @unique
-    data      String
-    expiresAt DateTime
+  id        String   @id
+  sid       String   @unique
+  data      String
+  expiresAt DateTime
 }
 
 model Folder {
-    id      String  @id @default(uuid())
-    name    String
-    user    User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId  String?
-    links   Link[]
-    private Boolean @default(true)
-    shares  Share?
+  id      String  @id @default(uuid())
+  name    String
+  userId  String?
+  private Boolean @default(true)
+  user    User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  links   Link[]
+  shares  Share?
 }
 
 model Share {
-    id       Int     @id @default(autoincrement())
-    user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId   String?
-    public   Boolean @default(false)
-    folder   Folder  @relation(fields: [folderId], references: [id], onDelete: Cascade)
-    folderId String  @unique
-    password String?
+  id       Int     @id @default(autoincrement())
+  userId   String?
+  public   Boolean @default(false)
+  folderId String  @unique
+  password String?
+  folder   Folder  @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Link {
-    id         String    @id @default(uuid())
-    user       User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId     String?
-    url        String
-    folder     Folder?   @relation(fields: [folderId], references: [id])
-    folderId   String?
-    title      String
-    createdAt  DateTime  @default(now())
-    updatedAt  DateTime? @updatedAt
-    bookmarked Boolean
-    thumbnail  Bytes
-    remind     DateTime?
-    trash      Boolean?  @default(false)
+  id         String    @id @default(uuid())
+  userId     String?
+  url        String
+  folderId   String?
+  title      String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime? @updatedAt
+  bookmarked Boolean
+  thumbnail  String?
+  remind     DateTime?
+  trash      Boolean?  @default(false)
+  folder     Folder?   @relation(fields: [folderId], references: [id])
+  user       User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  pURL       String?
 }
