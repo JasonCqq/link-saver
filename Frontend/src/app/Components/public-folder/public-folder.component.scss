@@ -16,12 +16,13 @@
       position: absolute;
       top: 0;
       height: 4vh;
-      background: rgba($accent, 0.7);
+      background: $accent;
       display: flex;
       justify-content: center;
       align-items: center;
       color: $text;
       width: 100vw;
+      font-weight: 500;
 
       @media screen and (max-width: 400px) {
         font-size: 0.8rem;
@@ -44,14 +45,20 @@
       }
     }
 
+    > p {
+      font-weight: 500;
+    }
+
     > button {
-      padding: 15px 20px;
+      padding: 12px 20px;
       border: none;
-      border: 2px solid $accent;
-      border-radius: 12.5px;
+      border: 3px solid $accent;
+      border-radius: 15px;
       background: transparent;
       color: $text;
       margin-top: 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
 
       &:hover {
         cursor: pointer;
@@ -117,8 +124,8 @@
 
     button {
       background: transparent;
-      border-radius: 12.5px;
-      border: 2px solid $accent;
+      border-radius: 15px;
+      border: 3px solid $accent;
       padding: 10px 25px;
       font-weight: bold;
       color: $text;
@@ -143,11 +150,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 5vh;
-  font-size: 0.8rem;
+  height: 7vh;
+  font-size: 0.9rem;
   font-weight: bold;
   color: $textSec;
-  gap: 10px;
+  gap: 15px;
   margin-left: auto;
   margin-right: auto;
   left: 0;

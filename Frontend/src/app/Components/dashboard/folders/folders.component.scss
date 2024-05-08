@@ -1,8 +1,12 @@
 @import "../../../../assets/sharedstyles.scss";
 
 .folders-container {
-  margin-left: 14vw;
   margin-top: 2vh;
+  margin-left: 14vw;
+
+  @media screen and (max-width: 340px) {
+    margin-left: 10vw;
+  }
 
   > .folders-grid {
     display: grid;
@@ -14,16 +18,17 @@
     > .folders-item {
       display: flex;
       align-items: center;
-      border: 2px solid $accent;
-      border-radius: 12.5px;
-      padding: 5px;
-      gap: 7px;
+      border: 3px solid $accent;
+      border-radius: 15px;
+      padding: 10px;
+      gap: 5px;
       height: 50px;
       transition: border-color 0.1s ease-in-out;
       touch-action: auto !important;
 
       > p {
-        font-weight: 500;
+        font-weight: 600;
+        padding-bottom: 3px;
       }
 
       &:hover {
@@ -38,7 +43,8 @@
         align-items: center;
 
         > p {
-          font-weight: 500;
+          font-weight: 600;
+          padding-bottom: 3px;
         }
       }
 
@@ -73,7 +79,7 @@
         width: 27vw;
         height: 24vh;
         background-color: $background;
-        border-radius: 12.5px;
+        border-radius: 15px;
         box-shadow: 1px 1px 25px $boxshad;
         display: flex;
         flex-direction: column;
@@ -88,11 +94,11 @@
           width: 35vw;
         }
 
-        @media screen and (max-width: 900px) {
+        @media screen and (max-width: 850px) {
           width: 50vw;
         }
 
-        @media screen and (max-width: 544px) {
+        @media screen and (max-width: 625px) {
           width: 80vw;
         }
 
@@ -108,15 +114,15 @@
 
         > .folders-create-button {
           border: none;
-          border-radius: 12.5px;
-          border: 2px solid $accent;
+          border-radius: 15px;
+          border: 3px solid $accent;
           background-color: transparent;
           font-weight: bold;
           padding: 10px 0;
           width: 75px;
           transition:
-            background-color 0.15s ease-in-out,
-            color 0.15s ease-in-out;
+            background-color 0.1s ease-in-out,
+            color 0.1s ease-in-out;
           color: $text;
           gap: 5px;
 
@@ -154,16 +160,17 @@
     z-index: 99;
 
     > .folders-share {
-      width: 27vw;
+      width: 30vw;
       height: 60vh;
       background-color: $background;
-      border-radius: 12.5px;
+      border-radius: 15px;
       box-shadow: 1px 1px 25px $boxshad;
       display: flex;
       flex-direction: column;
       gap: 15px;
       padding: 2vh 0.5vw;
       z-index: 99;
+      font-weight: 600;
 
       @media screen and (max-width: 1275px) {
         width: 35vw;
@@ -173,7 +180,7 @@
         width: 60vw;
       }
 
-      @media screen and (max-width: 425px) {
+      @media screen and (max-width: 625px) {
         width: 80vw;
         height: 65vh;
       }
@@ -200,14 +207,14 @@
       > .folders-share-button {
         border: none;
         border-radius: 15px;
-        border: 2px solid $accent;
+        border: 3px solid $accent;
         background-color: transparent;
         font-weight: bold;
         padding: 1vh 0vw;
         width: 75px;
         transition:
-          background-color 0.15s ease-in-out,
-          color 0.15s ease-in-out;
+          background-color 0.1s ease-in-out,
+          color 0.1s ease-in-out;
         color: $text;
         gap: 5px;
         margin-top: 2vh;
@@ -243,14 +250,14 @@
 
     > .folders-button {
       border: none;
-      border-radius: 12.5px;
-      border: 2px solid $accent;
+      border-radius: 15px;
+      border: 3px solid $accent;
       background-color: transparent;
       font-weight: 700;
       padding: 10px 25px;
       transition:
-        background-color 0.15s ease-in-out,
-        color 0.15s ease-in-out;
+        background-color 0.1s ease-in-out,
+        color 0.1s ease-in-out;
       color: $text;
       display: flex;
       align-items: center;
@@ -281,7 +288,7 @@ mat-form-field {
     width: 45vw;
   }
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 625px) {
     width: 70vw;
   }
 }

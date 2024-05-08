@@ -25,7 +25,7 @@
 
         <p *ngIf="tempShareUrl">linkstorage.net/public/{{ tempShareUrl }}</p>
 
-        <p *ngIf="tempShareUrl" style="color: lightskyblue">Success!</p>
+        <p *ngIf="tempShareUrl" style="color: #5b66ff">Success!</p>
       </section>
 
       <mat-label for="passwordToggle">Password Locked</mat-label>
@@ -83,7 +83,9 @@
   <!--Folders Tab-->
   <section class="folders-grid" *ngIf="!folderOpened">
     <div class="folders-item" (click)="toggleWindow()">
-      <span class="material-icons-round faq-icon" style="color: #8d85fd"
+      <span
+        class="material-icons-round faq-icon"
+        style="color: #5b66ff; transform: scale(1.2)"
         >add</span
       >
       <p>Create folder</p>
@@ -159,7 +161,7 @@
       matTooltip="{{ folder.name }} has {{ folder.links.length }} links"
     >
       <div class="folders-item-flex">
-        <mat-icon fontIcon="folder" style="color: #8d85fd"></mat-icon>
+        <mat-icon fontIcon="folder" style="color: #5b66ff"></mat-icon>
         <p>
           {{ folder.name | slice: 0 : 10
           }}{{ folder.name.length > 10 ? "..." : "" }}

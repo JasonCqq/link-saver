@@ -41,7 +41,7 @@ main {
           box-shadow: 1px 1px 10px $boxshad;
           width: 85%;
           padding: 25px;
-          border-radius: 12.5px;
+          border-radius: 15px;
           margin-top: 20px;
 
           &:hover {
@@ -79,6 +79,7 @@ main {
               > li {
                 line-height: 25px;
                 white-space: break-spaces;
+                font-weight: 500;
 
                 @media screen and (max-width: 370px) {
                   font-size: 0.8rem;

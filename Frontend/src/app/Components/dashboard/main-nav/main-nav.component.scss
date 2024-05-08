@@ -31,6 +31,7 @@
       margin: 5vh 0 2.5vh 3vw;
       font-size: 0.8rem;
       cursor: help;
+      font-weight: 500;
 
       @media screen and (max-width: 490px) {
         margin-top: 0;
@@ -90,8 +91,8 @@
         padding: 8.5px 15px;
         font-weight: 700;
         background: transparent;
-        border: 2px solid $accent;
-        border-radius: 12.5px;
+        border: 3px solid $accent;
+        border-radius: 15px;
         display: flex;
         align-items: center;
         transition:
@@ -122,7 +123,7 @@
         height: auto;
         padding: 0 0 10vh 0;
         width: 30vw;
-        border-radius: 12.5px;
+        border-radius: 15px;
         box-shadow: 1px 1px 25px $boxshad;
 
         @media screen and (max-width: 1275px) {
@@ -135,6 +136,10 @@
 
         @media screen and (max-width: 525px) {
           width: 65vw;
+        }
+
+        @media screen and (max-width: 425px) {
+          width: 73vw;
         }
 
         > .create-form-close {

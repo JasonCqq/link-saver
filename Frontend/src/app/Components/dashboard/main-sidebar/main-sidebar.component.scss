@@ -8,16 +8,20 @@
   background: transparent;
   height: 100%;
   z-index: 98;
+  border: 1px solid $border;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 
   .d-sidebar {
-    min-width: 200px;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    background-color: $background2;
+    min-width: 180px;
+    background-color: $background;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+
     position: fixed;
     left: 0;
     top: 0;
-    box-shadow: 1px 1px 10px $boxshad;
+
     height: 100%;
     border: none;
 
@@ -25,7 +29,6 @@
       margin-top: 5vh;
       display: flex;
       flex-direction: column;
-      margin-left: 30px;
       margin-bottom: 5vh;
       line-height: 25px;
       max-width: 185px;
@@ -33,6 +36,12 @@
       p {
         font-size: 1rem;
         font-weight: bold;
+        margin-left: 15px;
+      }
+
+      > .sidebar-email {
+        font-size: 0.6rem;
+        color: $textSec;
       }
     }
 
@@ -48,9 +57,8 @@
       align-items: center;
       gap: 0.75vw;
       margin-top: 3vh;
-      padding-right: 1vw;
-      margin-left: 30px;
-      will-change: contents;
+      padding-right: 0.5vw;
+      margin-left: 15px;
 
       &:hover {
         cursor: pointer;
@@ -69,6 +77,7 @@
         font-size: 1rem;
         font-weight: 700;
         color: $text;
+        letter-spacing: 0.5px;
       }
 
       .sidebar-icon {
@@ -86,7 +95,7 @@
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    margin-top: 4vh;
+    margin-top: 8vh;
     gap: 20px;
     position: fixed;
 
@@ -94,8 +103,8 @@
       background: rgba($accent, 0.75);
       padding: 10px;
       transform: scale(0.9);
-      margin-left: 10px;
-      border-radius: 12.5px;
+      margin-left: 5px;
+      border-radius: 15px;
       color: white;
 
       &:hover {

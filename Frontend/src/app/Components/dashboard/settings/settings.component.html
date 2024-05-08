@@ -18,7 +18,7 @@
           id="delete-confirm"
           type="text"
           required
-          placeholder="...abracadabra"
+          placeholder="abracadabra"
         />
         <mat-error *ngIf="deletePromptError">Input does not match</mat-error>
         <button (click)="deleteAccount()" class="settings-delete">
@@ -152,7 +152,7 @@
         ></mat-slide-toggle
       ></span>
 
-      <p *ngIf="changesApplied" style="color: lightskyblue">Changes Applied</p>
+      <p *ngIf="changesApplied" style="color: #5b66ff">Changes Applied</p>
 
       <button
         type="submit"

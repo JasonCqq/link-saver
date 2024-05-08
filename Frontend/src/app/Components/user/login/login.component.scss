@@ -60,11 +60,11 @@ label {
 
     > button {
       border: none;
-      border: 2px solid $accent;
+      border: 3px solid $accent;
       font-size: 1rem;
       background-color: transparent;
       padding: 20px 0;
-      border-radius: 12.5px;
+      border-radius: 15px;
       margin-top: 1vh;
       margin-bottom: 1vh;
       color: $text;
@@ -94,11 +94,11 @@ label {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 5vh;
-  font-size: 0.8rem;
+  height: 7vh;
+  font-size: 0.9rem;
   font-weight: bold;
   color: $textSec;
-  gap: 10px;
+  gap: 15px;
   margin-left: auto;
   margin-right: auto;
   left: 0;

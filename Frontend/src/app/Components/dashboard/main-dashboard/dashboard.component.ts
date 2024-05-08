@@ -103,7 +103,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
         const tempIndex = this.tempLinks?.findIndex(
           (link) => link.id === res.id,
         );
-        if (tempIndex && this.tempLinks) {
+
+        if (tempIndex !== undefined && tempIndex !== 1 && this.tempLinks) {
           this.tempLinks[tempIndex] = res;
         }
       });

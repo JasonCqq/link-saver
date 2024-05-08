@@ -1,20 +1,34 @@
 @use "@angular/material" as mat;
 @include mat.core();
 
-$secondary: #696ef8;
-$accent: #696ef8;
-$background: #121212;
+@font-face {
+  font-family: "Quicksand";
+  src: url("../assets/Quicksand-VariableFont_wght.ttf");
+}
+
+$secondary: #5b66ff;
+$accent: #5b66ff;
+$background: #141416;
 $background2: #191919;
 $boxshad: #111214;
 $border: #494b52;
 $text: white;
 $text2: #0e0c0c;
-$textSec: #808d97;
+$textSec: #c1c9df;
 $imp-button: #f73830;
 $warn: #7067f2;
 
-$Frontend-primary: mat.define-palette(mat.$deep-purple-palette);
-$Frontend-accent: mat.define-palette(mat.$deep-purple-palette, A100);
+$my-custom-typography-config: mat.define-typography-config(
+  $caption:
+    mat.define-typography-level(
+      $font-size: 12px,
+      $font-weight: 700,
+      $font-family: Quicksand,
+    ),
+);
+
+$Frontend-primary: mat.define-palette(mat.$indigo-palette);
+$Frontend-accent: mat.define-palette(mat.$indigo-palette, A200);
 $Frontend-warn: mat.define-palette(mat.$red-palette);
 $Frontend-theme: mat.define-dark-theme(
   (
@@ -23,6 +37,8 @@ $Frontend-theme: mat.define-dark-theme(
       accent: $Frontend-accent,
       warn: $Frontend-warn,
     ),
+
+    typography: $my-custom-typography-config,
 
     density: -3,
   )
@@ -37,25 +53,25 @@ $Frontend-theme: mat.define-dark-theme(
 
 //Top bottom border, if label is inside
 ::ng-deep.mdc-notched-outline__notch {
-  border-top: 2px solid $accent !important;
-  border-bottom: 2px solid $accent !important;
+  border-top: 3px solid $accent !important;
+  border-bottom: 3px solid $accent !important;
 }
 
 //Top bottom border, if label is notched
 ::ng-deep.mdc-notched-outline--notched {
   ::ng-deep.mdc-notched-outline__notch {
     border-top: none !important;
-    border-bottom: 2px solid $accent !important;
+    border-bottom: 3px solid $accent !important;
   }
 }
 //Left border with edges
 ::ng-deep.mdc-notched-outline__leading {
-  border: 2px solid $accent !important;
+  border: 3px solid $accent !important;
   border-right: none !important;
 }
 //Right border with edges
 ::ng-deep.mdc-notched-outline__trailing {
-  border: 2px solid $accent !important;
+  border: 3px solid $accent !important;
   border-left: none !important;
 }
 
@@ -78,7 +94,7 @@ $Frontend-theme: mat.define-dark-theme(
     background-color: transparent !important;
   }
   .mdc-line-ripple::before {
-    border-bottom: 2px solid $accent !important;
+    border-bottom: 3px solid $accent !important;
     color: white !important;
   }
   .mat-mdc-icon-button {
@@ -93,16 +109,6 @@ $Frontend-theme: mat.define-dark-theme(
 .mat-progress-spinner circle {
   stroke-linecap: round !important;
 }
-
-// Tooltip styling
-$my-custom-typography-config: mat.define-typography-config(
-  $caption:
-    mat.define-typography-level(
-      $font-size: 12px,
-      $font-weight: 600,
-      $font-family: Work Sans,
-    ),
-);
 
 @include mat.tooltip-typography($my-custom-typography-config);
 
@@ -129,7 +135,7 @@ input,
 textarea,
 button {
   font-family:
-    "Work Sans",
+    "Quicksand",
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
@@ -144,7 +150,7 @@ button {
 }
 
 code {
-  font-family: "Work Sans", source-code-pro, Menlo, Monaco, Consolas,
+  font-family: "Quicksand", source-code-pro, Menlo, Monaco, Consolas,
     "Courier New", monospace;
 }
 
@@ -194,7 +200,7 @@ input {
 
 html,
 body {
-  width: 100%;
+  width: 100% !important;
 }
 
 button {

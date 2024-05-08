@@ -2,8 +2,7 @@
 
 .home-page {
   color: $text;
-
-  background: linear-gradient(to bottom, #121212 0%, #181818 100%);
+  background: $background;
 
   .landing-page {
     width: 100%;
@@ -19,58 +18,42 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      margin-top: 7.5vh;
       width: 50%;
 
       > h1 {
         font-size: 2.75rem;
         font-weight: 800;
+        letter-spacing: 1px;
       }
 
       > a {
         color: $textSec;
-        font-weight: 500;
+        font-weight: 600;
         &:hover {
           color: $accent;
         }
       }
     }
 
-    .landing-body {
+    > .landing-body {
       display: flex;
-      gap: 4vw;
+      gap: 1.5vw;
       margin-top: 5vh;
+      align-items: center;
 
-      @media screen and (max-width: 800px) {
-        gap: 10vw;
-      }
-
-      @media screen and (max-width: 300px) {
-        gap: 10px;
-      }
-
-      > .login-button,
-      .register-button,
+      > .register-button,
       .dashboard-button {
-        border-radius: 12.5px;
-        padding: 12.5px 30px;
+        border-radius: 15px;
         text-align: center;
         font-weight: 800;
         font-size: 1.2rem;
         letter-spacing: 0.5px;
-      }
+        padding: 12.5px 0px;
+        width: 170px;
 
-      > .login-button {
-        border: 2px solid $accent;
-        transition:
-          background-color 0.1s ease-in-out,
-          color 0.2s ease-in-out,
-          transform 0.1s;
-
-        &:hover {
-          background-color: $accent;
-          color: $text2;
-          transform: translateY(-5px);
+        @media screen and (max-width: 390px) {
+          width: 125px;
+          font-size: 1rem;
         }
       }
 
@@ -85,13 +68,44 @@
 
       > .dashboard-button {
         background: transparent;
-        border: 2px solid $accent;
-        border-radius: 12.5px;
+        border: 3px solid $accent;
         transition: background-color 0.1s ease-in-out;
 
         &:hover {
           background-color: $accent;
         }
+      }
+    }
+
+    > .home-login {
+      border-radius: 15px;
+      padding: 12.5px 30px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: 0.5px;
+      background: transparent;
+      border: 3px solid $accent;
+      color: $text;
+      position: relative;
+      margin-top: 4vh;
+      margin-right: auto;
+      margin-left: 5vw;
+
+      @media screen and (max-width: 620px) {
+        padding: 8px 20px;
+        font-size: 1rem;
+      }
+
+      @media screen and (max-width: 420px) {
+        padding: 8px 15px;
+        margin-bottom: 10px;
+      }
+
+      transition: background-color 0.1s ease-in-out;
+      &:hover {
+        background-color: $accent;
+        cursor: pointer;
       }
     }
   }
@@ -101,20 +115,30 @@
     flex-direction: column;
     align-items: center;
     height: auto;
-    margin-top: 20vh;
+    margin-top: 15vh;
+
+    @media screen and (max-width: 1050px) {
+      margin-top: 9vh;
+    }
+
+    @media screen and (max-width: 600px) {
+      margin-top: 1vh;
+    }
+
     > h1 {
       font-size: 2rem;
       text-align: center;
+      letter-spacing: 2px;
+      padding-bottom: 50px;
     }
 
     .home-features-grid {
       display: grid;
       width: 60vw;
       column-gap: 4vw;
-      row-gap: 4vh;
+      row-gap: 6vh;
       grid-template-columns: repeat(2, 1fr);
-      border-radius: 12.5px;
-      padding: 20px;
+      border-radius: 15px;
 
       @media screen and (max-width: 1150px) {
         width: 70vw;
@@ -133,12 +157,14 @@
       }
 
       .home-features-item {
+        padding: 15px;
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        border-radius: 12.5px;
+        border-radius: 15px;
         min-height: 125px;
         gap: 2vw;
+        border: 3px solid $border;
 
         @media screen and (max-width: 390px) {
           padding: 3vh 0vw;
@@ -152,13 +178,14 @@
             font-size: 0.85rem;
             width: 95%;
             line-height: 22.5px;
-            font-weight: 500;
+            font-weight: 600;
           }
 
           > h2 {
             font-size: 1rem;
             padding-bottom: 10px;
-            font-weight: 800;
+            font-weight: 700;
+            letter-spacing: 0.5px;
           }
 
           > .home-features-icon {
@@ -186,6 +213,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 2vh;
 
     > .landing-stats-items {
       display: flex;
@@ -194,25 +222,26 @@
       > p {
         color: $accent;
         background: transparent;
-        padding: 12.5px 25px;
+        padding: 15px 25px;
         font-weight: 900;
         text-align: center;
-        border-bottom: 3px solid $accent;
+        border-bottom: 4px solid $accent;
         border-radius: 3px;
+        font-size: 1.2rem;
 
         @media screen and (max-width: 369px) {
-          font-size: 0.9rem;
-          padding: 12.5px 20px;
+          font-size: 1.1rem;
+          padding: 12.5px 25px;
         }
 
         @media screen and (max-width: 300px) {
-          font-size: 0.8rem;
-          padding: 12.5px 12.5px;
+          font-size: 1rem;
+          padding: 12.5px 15px;
         }
 
         > span {
           color: $textSec;
-          font-weight: 600;
+          font-weight: 900;
         }
       }
     }
@@ -229,73 +258,83 @@
 
     .showcase_header {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
-      gap: 10px;
+      gap: 3px;
+      font-size: 0.8rem;
+      font-weight: 500;
 
-      > h1 {
-        font-size: 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: transparent;
-        color: $text;
-        padding: 12.5px 0px;
-        width: 170px;
-        border-radius: 12.5px;
-        border: 2px solid $border;
-        font-weight: 700;
+      @media screen and (max-width: 390px) {
+        font-size: 0.6rem;
+      }
 
-        &:hover {
-          cursor: pointer;
-          border: 2px solid white;
-        }
-
-        > span {
-          transform: scale(1.5);
+      &:hover {
+        cursor: pointer;
+        > h1 {
+          color: $text;
         }
       }
+
+      > h1 {
+        color: $textSec;
+      }
+
+      > .material-icons-round {
+        color: $accent;
+        font-size: 2rem;
+      }
     }
+  }
 
-    > .showcase_border {
-      border: 2px solid $accent;
-      border-radius: 12.5px;
-      padding: 2px;
+  .showcase_border {
+    border-radius: 15px;
+    padding: 2px;
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 50px;
 
-      > .showcase_video {
-        border-radius: 12.5px;
-        box-shadow: 1px 1px 50px black;
+    > .showcase_video {
+      border-radius: 15px;
+      box-shadow: 1px 1px 50px black;
 
-        @media screen and (max-width: 580px) {
-          width: 400px;
-          height: 250px;
-        }
+      @media screen and (max-width: 580px) {
+        width: 400px;
+        height: 250px;
+      }
 
-        @media screen and (max-width: 415px) {
-          width: 250px;
-          height: 150px;
-        }
+      @media screen and (max-width: 415px) {
+        width: 250px;
+        height: 150px;
       }
     }
   }
 
   .home_picture {
-    width: 65vw;
-    height: auto;
+    width: 50vw;
+    height: 500px;
     margin: auto;
     margin-top: 10vh;
+    background-image: linear-gradient(transparent, $background 90%),
+      url("../../../assets/Screenshot_36.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 15px;
+
+    @media screen and (max-width: 1400px) {
+      width: 75vw;
+    }
 
     @media screen and (max-width: 800px) {
       margin-top: 5vh;
       width: 90vw;
     }
 
-    > img {
-      width: 100%;
-      object-fit: contain;
-      height: 100%;
-      border-radius: 15px;
+    @media screen and (max-width: 650px) {
+      height: 400px;
+      width: 100vw;
+    }
+
+    @media screen and (max-width: 350px) {
+      height: 300px;
     }
   }
 
@@ -321,13 +360,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 15vh;
+    margin-top: 25vh;
 
     > h1 {
       font-size: 1.8rem;
       text-align: center;
       padding-bottom: 6vh;
       font-weight: 700;
+      letter-spacing: 1px;
     }
 
     .home-faq-container {
@@ -344,6 +384,7 @@
         transition: color 0.1s ease-in-out;
         padding-bottom: 25px;
         border-bottom: 2px solid gray;
+        border-radius: 2px;
 
         &:hover {
           cursor: pointer;
@@ -363,7 +404,6 @@
 
             @media screen and (max-width: 815px) {
               font-size: 1rem;
-              font-weight: 500;
             }
 
             @media screen and (max-width: 415px) {
@@ -386,13 +426,14 @@
           }
         }
         .faq-answer {
-          width: 75%;
+          width: 50%;
           height: auto;
           padding-top: 1vh;
-          animation: 0.25s ease-in-out 0s 1 fadeIn;
+          animation: 0.15s ease-in-out 0s 1 fadeIn;
           opacity: 0.9;
           font-size: 0.9rem;
-          font-weight: 500;
+          font-weight: 600;
+          line-height: 25px;
 
           @media screen and (max-width: 500px) {
             width: 90%;
@@ -409,13 +450,14 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    margin-bottom: 20vh;
-    margin-top: 15vh;
+    margin-bottom: 12.5vh;
+    margin-top: 20vh;
 
     .contact-form {
       display: flex;
       flex-direction: column;
       gap: 1vh;
+      border-radius: 15px;
 
       > h1 {
         text-align: center;
@@ -423,18 +465,19 @@
       }
 
       > button {
-        border: 2px solid $accent;
+        border: 3px solid $accent;
         padding: 15px 10px;
         font-size: 1.15rem;
         background-color: transparent;
         margin-top: 75px;
-        border-radius: 12.5px;
+        border-radius: 15px;
         color: $text;
-        transition: border 0.1s ease-in-out;
+        transition: background-color 0.1s ease-in-out;
+        font-weight: 700;
 
         &:hover {
           cursor: pointer;
-          border: 2px solid white;
+          background-color: $accent;
         }
       }
     }
@@ -444,11 +487,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 5vh;
-    font-size: 0.8rem;
+    height: 7vh;
+    font-size: 0.9rem;
     font-weight: bold;
     color: $textSec;
-    gap: 10px;
+    gap: 15px;
     background-color: $background2;
 
     > a,

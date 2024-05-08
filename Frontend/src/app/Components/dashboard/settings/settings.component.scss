@@ -3,8 +3,8 @@
 .settings-page {
   margin-left: 20vw;
   color: $text;
-  padding: 15vh 7.5%;
-  font-weight: 500;
+  padding: 12.5vh 7.5%;
+  font-weight: 600;
 
   > .settings-flex {
     display: flex;
@@ -30,7 +30,7 @@
         background-color: $background;
         width: 25vw;
         height: 32.5vh;
-        border-radius: 12.5px;
+        border-radius: 15px;
         box-shadow: 1px 1px 25px $boxshad;
         display: flex;
         align-items: center;
@@ -39,9 +39,9 @@
 
         > .settings-delete {
           background-color: $imp-button;
-          border: 2px solid $imp-button;
+          border: 3px solid $imp-button;
           padding: 10px 25px;
-          border-radius: 12.5px;
+          border-radius: 15px;
           color: $text;
 
           transition: background-color 0.1s;
@@ -73,11 +73,12 @@
 
         > input {
           border: none;
-          border: 2px solid $accent;
+          border: 3px solid $accent;
           background: transparent;
-          border-radius: 12.5px;
+          border-radius: 15px;
           padding: 1vh 1vw;
           font-size: 1rem;
+          font-weight: 600;
 
           @media screen and (max-width: 370px) {
             width: 75%;
@@ -136,8 +137,8 @@
       }
 
       > .settings-change-pass {
-        border: 2px solid $accent;
-        border-radius: 12.5px;
+        border: 3px solid $accent;
+        border-radius: 15px;
         background: transparent;
         padding: 10px 0px;
         width: 170px;
@@ -150,9 +151,9 @@
 
       > .settings-delete {
         background-color: $imp-button;
-        border: 2px solid $imp-button;
+        border: 3px solid $imp-button;
         padding: 10px 20px;
-        border-radius: 12.5px;
+        border-radius: 15px;
         color: $text;
         transition: background-color 0.1s;
 
@@ -181,16 +182,16 @@
           gap: 2vh;
           box-shadow: 1px 1px 25px black;
           background-color: $background2;
-          width: 22.5vw;
+          width: 30vw;
           height: 55vh;
           margin: auto;
-          border-radius: 12.5px;
+          border-radius: 15px;
 
           @media screen and (max-width: 1275px) {
             width: 35vw;
           }
 
-          @media screen and (max-width: 850px) {
+          @media screen and (max-width: 950px) {
             width: 45vw;
           }
 
@@ -199,14 +200,14 @@
           }
 
           @media screen and (max-width: 400px) {
-            height: 75vh;
+            height: 55vh;
           }
 
           > button {
-            border: 2px solid $accent;
+            border: 3px solid $accent;
             background-color: transparent;
             padding: 10px 20px;
-            border-radius: 12.5px;
+            border-radius: 15px;
             color: $text;
 
             transition: background-color 0.1s ease;
@@ -226,7 +227,7 @@
             top: 0;
             left: 0;
             margin-top: 5vh;
-            margin-left: 2vw;
+            margin-left: 3vw;
 
             &:hover {
               cursor: pointer;
@@ -239,8 +240,8 @@
       > .settings-apply {
         padding: 10px 20px;
         border: none;
-        border-radius: 12.5px;
-        border: 2px solid $accent;
+        border-radius: 15px;
+        border: 3px solid $accent;
         color: $text;
         background-color: transparent;
         transition:

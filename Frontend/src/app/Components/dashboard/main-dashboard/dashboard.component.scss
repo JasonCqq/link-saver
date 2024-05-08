@@ -22,7 +22,7 @@ span {
       gap: 2vh;
       width: 25vw;
       height: 20vh;
-      border-radius: 12.5px;
+      border-radius: 15px;
       box-shadow: 1px 1px 25px $boxshad;
       background: $background;
 
@@ -50,23 +50,21 @@ span {
           border: none;
           padding: 10px 25px;
           color: $text;
-          border: 2px solid $accent;
-          background: transparent;
-          border-radius: 12.5px;
+          border: 3px solid $accent;
+          background: $accent;
+          border-radius: 15px;
 
           &:hover {
             cursor: pointer;
-            background-color: $accent;
-            color: $text2;
+            background: transparent;
           }
         }
 
         > .clear-prompt-no {
-          background-color: $accent;
-          color: $text2;
+          border: 3px solid $accent;
+          background: transparent;
           &:hover {
-            background-color: transparent;
-            color: $text;
+            background: $accent;
           }
         }
       }
@@ -78,8 +76,8 @@ span {
     padding: 12px 21px;
     font-weight: 900;
     background-color: $imp-button;
-    border: 2px solid $imp-button;
-    border-radius: 12.5px;
+    border: 3px solid $imp-button;
+    border-radius: 15px;
     display: flex;
     align-items: center;
     transition: box-shadow 0.1s ease-in-out;

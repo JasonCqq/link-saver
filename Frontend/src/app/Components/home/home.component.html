@@ -1,52 +1,50 @@
 <main class="home-page">
   <header class="landing-page" #home>
+    <a routerLink="/user/login" *ngIf="!user" class="home-login">Login</a>
+
     <div class="landing-heading">
       <h1>LinkStorage</h1>
       <a routerLink="/versions">Release Notes ></a>
     </div>
 
     <div class="landing-body">
-      <a routerLink="/user/login" *ngIf="!user" class="login-button">Log in</a>
       <a routerLink="/user/register" *ngIf="!user" class="register-button">
         Sign Up
       </a>
       <a routerLink="/dashboard" *ngIf="user" class="dashboard-button"
         >Dashboard</a
       >
+
+      <section class="home_showcase">
+        <div class="showcase_header" (click)="toggleShowcase()">
+          <span class="material-icons-round"> play_circle </span>
+          <h1>Watch Demo</h1>
+        </div>
+      </section>
     </div>
   </header>
 
-  <section class="home_showcase">
-    <div class="showcase_header">
-      <h1 (click)="toggleShowcase()">
-        Watch Demo <span class="material-icons-round"> arrow_drop_down </span>
-      </h1>
-    </div>
-
-    <div class="showcase_border" *ngIf="videoShowcase">
-      <iframe
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/_yMeCrbKgrk?si=fXengUcWe0RG1LVn?autoplay=1&mute=1"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-        class="showcase_video"
-      ></iframe>
-    </div>
-  </section>
+  <div class="showcase_border" *ngIf="videoShowcase">
+    <iframe
+      width="800"
+      height="500"
+      src="https://www.youtube.com/embed/_yMeCrbKgrk?si=fXengUcWe0RG1LVn?autoplay=1&mute=1"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen
+      class="showcase_video"
+    ></iframe>
+  </div>
 
   <section *ngIf="this.data" class="landing-stats">
     <div class="landing-stats-items">
-      <p>~{{ this.data.links }} <span>links stored so far</span></p>
+      <p>~{{ this.data.links }}+ <span>links stored so far</span></p>
     </div>
   </section>
 
-  <section class="home_picture">
-    <img src="../../../assets/Screenshot_36.jpg" />
-  </section>
+  <section class="home_picture"></section>
 
   <section #home_features class="home_features">
     <h1>What we offer</h1>
@@ -56,11 +54,11 @@
           <mat-icon fontIcon="share" class="home-features-icon"></mat-icon>
         </span>
         <span>
-          <h2>Share your links/folders</h2>
+          <h2>Sharing links and folders</h2>
           <p>
-            Share your links + folders with everyone.
+            Share publicly or privately with a password.
             <a routerLink="/public/1" target="_blank"
-              ><strong style="color: #8d85fd"
+              ><strong style="color: #5b66ff"
                 >Check out one of our shared folder!</strong
               ></a
             >
@@ -74,11 +72,8 @@
         </span>
 
         <span>
-          <h2>Rich Previews</h2>
-          <p>
-            Visually enriched browsing with screenshots that offer a glimpse
-            into websites.
-          </p>
+          <h2>Thumbnails for links</h2>
+          <p>No website thumbnails? We have you with a screenshot!</p>
         </span>
       </div>
 
@@ -91,10 +86,10 @@
         </span>
 
         <span>
-          <h2>Search</h2>
+          <h2>Search and Filter</h2>
           <p>
-            Effortlessly locate your specific links with search and filter
-            (coming soon) functionality.
+            Locate your links with search and filter/sort (work in progress)
+            functions.
           </p>
         </span>
       </div>
@@ -111,9 +106,7 @@
 
         <span>
           <h2>Mass Edit</h2>
-          <p>
-            Quickly modify multiple links at once with our mass edit feature.
-          </p>
+          <p>Quickly edit/move/delete multiple links at once.</p>
         </span>
       </div>
     </div>
@@ -175,13 +168,13 @@
     <p routerLink="/versions">beta v1.3.0</p>
 
     <a href="https://github.com/JasonCqq/link-saver" target="_blank"
-      >&#x2022; Source Code</a
+      >Source Code</a
     >
 
     <a
       href="https://www.termsfeed.com/live/a23806e5-a8bc-4542-a4fc-230353a493dc"
       target="_blank"
-      >&#x2022; Privacy Policy</a
+      >Privacy Policy</a
     >
   </footer>
 </main>

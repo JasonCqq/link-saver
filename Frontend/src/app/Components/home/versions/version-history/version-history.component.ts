@@ -20,22 +20,20 @@ export class VersionHistoryComponent {
         "Change buffer to file storage, should improve load speed",
         "Change color scheme",
         "Updated home page",
+        "Updated UI",
         "Add preview to home page, and adjust mobile responsiveness",
       ],
-      qols: [
-        "Update dashboard spacing",
-        "Improve UI slightly",
-        "Add version page to extra in settings",
-      ],
+      qols: ["Add version page to extra in settings"],
       bugfixes: [
         "Fix most errors on link adding",
+        "Fix editing not updating realtime",
         "Fix coloring on toggle thumbnail",
         "Fix thumbnails for folders",
       ],
     },
     {
       id: 5,
-      version: "1.2.2 (Current)",
+      version: "1.2.2",
       updates: ["Add Email Confirmation function when registering"],
       qols: [
         "Add email confirmation link sent page",

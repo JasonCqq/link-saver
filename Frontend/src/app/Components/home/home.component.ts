@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 1,
       question: "What is LinkStorage and how does it work?",
       answer:
-        "Our website is a link saver tool that allows you to store and organize your favorite links you want to revisit all in one place. You can save URLs, search through your folders, and even preview the content of the links directly on our platform.",
+        "Our website is a link saver tool that allows you to store your links you want to revisit. Save any URLs with previews and other features!",
     },
 
     {
@@ -68,28 +68,28 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 3,
       question: "Is there a browser extension for LinkStorage?",
       answer:
-        "Not yet, but we plan on developing a browser extension to enhance your LinkStorage experience. Stay tuned for updates on this feature!",
+        "Not yet, but we plan on developing a browser extension that saves all the current tabs. Stay tuned for updates on this feature!",
     },
 
     {
       id: 4,
       question: "What features are available on LinkStorage?",
       answer:
-        "LinkStorage offers a range of features to streamline your link-saving process, including filtering options like searching, thumbnail screenshots for easy identification, reminders to keep you organized, and the ability to create folders for efficient categorization.",
+        "LinkStorage offers a range of features including filtering such as searching, thumbnail screenshots, reminders, and folders for efficient organization.",
     },
 
     {
       id: 5,
       question: "Any restriction on types of links can I save?",
       answer:
-        "There are no restrictions on the types of links you can save in LinkStorage. You can save links to websites, articles, videos, and more, making it a versatile tool for all your link-saving needs.",
+        "There are no restrictions on the types of links you can save. You can save links to websites, articles, videos, and more.",
     },
 
     {
       id: 6,
       question: "Can I share my folders/links to others?",
       answer:
-        "Absolutely! You have the ability to generate shareable links for your folders, allowing you to easily share collections of links with others.",
+        "Yes! You can generate shareable links for your folders publicly or privately behind a password for others.",
     },
 
     {

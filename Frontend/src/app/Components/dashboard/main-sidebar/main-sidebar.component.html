@@ -1,11 +1,11 @@
 <mat-drawer-container class="d-sidebar-container">
   <mat-drawer [(opened)]="opened" mode="side" #drawer class="d-sidebar">
     <li class="sidebar-profile">
-      <p>Welcome</p>
       <p>
         {{ user.username | slice: 0 : 11
         }}{{ user.username.length > 11 ? "..." : "" }}
       </p>
+      <p class="sidebar-email">{{ user.email }}</p>
     </li>
 
     <div
