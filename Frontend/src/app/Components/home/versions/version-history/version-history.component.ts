@@ -13,8 +13,15 @@ export class VersionHistoryComponent {
 
   versions = [
     {
+      id: 7,
+      version: "1.3.1 - 05/12/24",
+      updates: ["Change font to Reddit Sans"],
+      qols: ["Add dates to versions", "Adjust home page slightly"],
+      bugfixes: ["Fix bookmarks not updating properly"],
+    },
+    {
       id: 6,
-      version: "1.3.0 (Current)",
+      version: "1.3.0 - 05/04/24",
       updates: [
         "Updated fetching method, optimizing link adding speed",
         "Change buffer to file storage, should improve load speed",
@@ -33,7 +40,7 @@ export class VersionHistoryComponent {
     },
     {
       id: 5,
-      version: "1.2.2",
+      version: "1.2.2 - 04/29/24",
       updates: ["Add Email Confirmation function when registering"],
       qols: [
         "Add email confirmation link sent page",
@@ -49,14 +56,14 @@ export class VersionHistoryComponent {
     },
     {
       id: 4,
-      version: "1.2.1",
+      version: "1.2.1 - 04/25/24",
       updates: ["Optimize link screenshot speed", "Update UI and color scheme"],
       qols: ["N/A"],
       bugfixes: ["N/A"],
     },
     {
       id: 3,
-      version: "1.2.0",
+      version: "1.2.0 - 04/19/24",
       updates: [
         "Optimize link screenshots drastically",
         "Update thumbnail to be video's thumbnail if link contains video",
@@ -77,7 +84,7 @@ export class VersionHistoryComponent {
     },
     {
       id: 2,
-      version: "1.1.0",
+      version: "1.1.0 - 04/14/24",
       updates: ["Add a version history page", "Optimize puppeteer slightly"],
       qols: [
         "Add loaders",
@@ -93,10 +100,9 @@ export class VersionHistoryComponent {
         "Fix login form crashing server",
       ],
     },
-
     {
       id: 1,
-      version: "1.0.0",
+      version: "1.0.0 - 04/13/24",
       updates: ["First deployment"],
       qols: ["N/A"],
       bugfixes: ["N/A"],

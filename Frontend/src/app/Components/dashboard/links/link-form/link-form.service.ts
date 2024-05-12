@@ -38,7 +38,6 @@ export class LinkFormService {
       )
       .subscribe({
         next: (res: any) => {
-          console.log(res);
           this.tempRenderService.pushLink(res.link);
           this.folderService.notifyFolders();
         },

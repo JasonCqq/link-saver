@@ -24,6 +24,7 @@
         font-size: 2.75rem;
         font-weight: 800;
         letter-spacing: 1px;
+        margin-top: 25px;
       }
 
       > a {
@@ -318,6 +319,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     border-radius: 15px;
+    border-top: 1px solid $accent;
 
     @media screen and (max-width: 1400px) {
       width: 75vw;

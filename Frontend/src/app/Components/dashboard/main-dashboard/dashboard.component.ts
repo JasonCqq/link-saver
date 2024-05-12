@@ -106,6 +106,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
         if (tempIndex !== undefined && tempIndex !== 1 && this.tempLinks) {
           this.tempLinks[tempIndex] = res;
+          this.showOnly(this.tempTitle);
         }
       });
   }
@@ -115,7 +116,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (linkType === "Dashboard") {
       this.tempLinks = this.links.filter((link) => link.trash === false);
     } else if (linkType === "Bookmarks") {
-      this.tempLinks = this.links.filter((link) => link.bookmarked);
+      this.tempLinks = this.links.filter((link) => link.bookmarked === true);
     } else if (linkType === "Upcoming") {
       this.tempLinks = this.links.filter((link) => link.remind);
     } else if (linkType === "Trash") {

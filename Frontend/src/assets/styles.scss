@@ -2,13 +2,13 @@
 @include mat.core();
 
 @font-face {
-  font-family: "Quicksand";
-  src: url("../assets/Quicksand-VariableFont_wght.ttf");
+  font-family: "Reddit Sans";
+  src: url("../assets/RedditSans-VariableFont_wght.ttf");
 }
 
 $secondary: #5b66ff;
 $accent: #5b66ff;
-$background: #141416;
+$background: #141414;
 $background2: #191919;
 $boxshad: #111214;
 $border: #494b52;
@@ -23,7 +23,7 @@ $my-custom-typography-config: mat.define-typography-config(
     mat.define-typography-level(
       $font-size: 12px,
       $font-weight: 700,
-      $font-family: Quicksand,
+      $font-family: Reddit Sans,
     ),
 );
 
@@ -135,7 +135,7 @@ input,
 textarea,
 button {
   font-family:
-    "Quicksand",
+    "Reddit Sans",
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
@@ -150,7 +150,7 @@ button {
 }
 
 code {
-  font-family: "Quicksand", source-code-pro, Menlo, Monaco, Consolas,
+  font-family: "Reddit Sans", source-code-pro, Menlo, Monaco, Consolas,
     "Courier New", monospace;
 }
 
