@@ -45,6 +45,7 @@ https://github.com/JasonCqq/link-saver/assets/121495300/3ca9d0ec-9ad0-411e-9841-
 ## Features
 - [ ] Screenshots of websites as Previews
 - [ ] Share folders publicly (Check one out here! https://linkstorage.net/public/1)
+- [ ] or Share folders privately with password locks
 - [ ] Search links
 - [ ] Create folders to store links
 - [ ] Bookmark or add reminders to links
