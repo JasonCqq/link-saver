@@ -40,6 +40,8 @@
       align-items: center;
       justify-content: center;
       background-color: $background;
+      border-top-right-radius: 7px;
+      border-bottom-right-radius: 7px;
 
       > img {
         border-top-right-radius: 7px;

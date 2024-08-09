@@ -13,6 +13,25 @@ export class VersionHistoryComponent {
 
   versions = [
     {
+      id: 8,
+      version: "2.0.0 - 08/09/24",
+      updates: [
+        "Discontinued screenshot feature, load time from server took too long",
+        "Refactored scraping method to speed up adding links",
+        "Improved security overall",
+        "Added tests to stabilize app, and leave beta phase (in progress, coming next hotfix)",
+      ],
+      qols: [
+        'Replaced blank/broken images with text: "No Image Found"',
+        "Updated homepage picture",
+        "Adjusted colors and UI",
+        "Relocated sidebar functions",
+        "Fixed some fonts not matching the rest",
+        "Adjusted loader message",
+      ],
+      bugfixes: [],
+    },
+    {
       id: 7,
       version: "1.3.1 - 05/12/24",
       updates: ["Change font to Reddit Sans"],
