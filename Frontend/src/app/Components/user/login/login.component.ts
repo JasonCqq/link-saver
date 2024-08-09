@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
     this.userService
       .submitLogin(
         this.applyLoginForm.value.username ?? "",
-        "",
         this.applyLoginForm.value.password ?? "",
       )
       .subscribe({

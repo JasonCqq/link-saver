@@ -8,12 +8,12 @@
   background: transparent;
   height: 100%;
   z-index: 98;
-  border: 1px solid $border;
+
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 
   .d-sidebar {
-    min-width: 180px;
+    min-width: 200px;
     background-color: $background;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -95,16 +95,16 @@
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    margin-top: 8vh;
-    gap: 20px;
-    position: fixed;
+    position: absolute;
+    right: 0;
+    margin-top: 5vh;
+    gap: 8px;
 
     .sidebar-icon {
       background: rgba($accent, 0.75);
       padding: 10px;
       transform: scale(0.9);
-      margin-left: 5px;
-      border-radius: 15px;
+      border-radius: 10px;
       color: white;
 
       &:hover {
@@ -112,5 +112,35 @@
         background: rgba($accent, 1);
       }
     }
+
+    .icon-toggle {
+      background: transparent;
+      border: 3px solid $accent;
+      padding: 7px;
+      transform: scale(0.9);
+      border-radius: 10px;
+      color: white;
+
+      &:hover {
+        cursor: pointer;
+        background: rgba($accent, 1);
+      }
+    }
+  }
+}
+
+.open-menu {
+  margin-left: 5vw;
+  background: rgba($accent, 0.75);
+  padding: 10px;
+  transform: scale(0.9);
+  margin-top: 5vh;
+  border-radius: 10px;
+  color: white;
+  position: fixed;
+
+  &:hover {
+    cursor: pointer;
+    background: rgba($accent, 1);
   }
 }

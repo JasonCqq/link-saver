@@ -44,7 +44,7 @@
 
       > .register-button,
       .dashboard-button {
-        border-radius: 15px;
+        border-radius: 10px;
         text-align: center;
         font-weight: 800;
         font-size: 1.2rem;
@@ -58,16 +58,8 @@
         }
       }
 
-      > .register-button {
-        background-color: $accent;
-        color: $text;
-        transition: transform 0.1s;
-        &:hover {
-          transform: translateY(-5px);
-        }
-      }
-
-      > .dashboard-button {
+      > .dashboard-button,
+      .register-button {
         background: transparent;
         border: 3px solid $accent;
         transition: background-color 0.1s ease-in-out;
@@ -79,7 +71,7 @@
     }
 
     > .home-login {
-      border-radius: 15px;
+      border-radius: 10px;
       padding: 12.5px 30px;
       text-align: center;
       font-weight: 800;
@@ -139,7 +131,7 @@
       column-gap: 4vw;
       row-gap: 6vh;
       grid-template-columns: repeat(2, 1fr);
-      border-radius: 15px;
+      border-radius: 10px;
 
       @media screen and (max-width: 1150px) {
         width: 70vw;
@@ -162,7 +154,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        border-radius: 15px;
+        border-radius: 10px;
         min-height: 125px;
         gap: 2vw;
         border: 3px solid $border;
@@ -223,21 +215,16 @@
       > p {
         color: $accent;
         background: transparent;
-        padding: 15px 25px;
         font-weight: 900;
         text-align: center;
-        border-bottom: 4px solid $accent;
-        border-radius: 3px;
         font-size: 1.2rem;
 
         @media screen and (max-width: 369px) {
           font-size: 1.1rem;
-          padding: 12.5px 25px;
         }
 
         @media screen and (max-width: 300px) {
           font-size: 1rem;
-          padding: 12.5px 15px;
         }
 
         > span {
@@ -280,21 +267,21 @@
       }
 
       > .material-icons-round {
-        color: $accent;
+        color: $textSec;
         font-size: 2rem;
       }
     }
   }
 
   .showcase_border {
-    border-radius: 15px;
+    border-radius: 10px;
     padding: 2px;
     width: fit-content;
     margin: auto;
     margin-bottom: 50px;
 
     > .showcase_video {
-      border-radius: 15px;
+      border-radius: 10px;
       box-shadow: 1px 1px 50px black;
 
       @media screen and (max-width: 580px) {
@@ -318,8 +305,7 @@
       url("../../../assets/Screenshot_36.jpg");
     background-size: contain;
     background-repeat: no-repeat;
-    border-radius: 15px;
-    border-top: 1px solid $accent;
+    border-radius: 5px;
 
     @media screen and (max-width: 1400px) {
       width: 75vw;
@@ -459,7 +445,7 @@
       display: flex;
       flex-direction: column;
       gap: 1vh;
-      border-radius: 15px;
+      border-radius: 10px;
 
       > h1 {
         text-align: center;
@@ -471,8 +457,8 @@
         padding: 15px 10px;
         font-size: 1.15rem;
         background-color: transparent;
-        margin-top: 75px;
-        border-radius: 15px;
+        margin-top: 80px;
+        border-radius: 10px;
         color: $text;
         transition: background-color 0.1s ease-in-out;
         font-weight: 700;
@@ -509,6 +495,7 @@
 }
 
 mat-form-field {
+  font-weight: 600;
   width: 30vw;
   height: 70px;
 

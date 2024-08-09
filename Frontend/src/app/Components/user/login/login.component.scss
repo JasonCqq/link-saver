@@ -1,7 +1,7 @@
 @import "../../../../assets/styles.scss";
 
 label {
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .login-container {
@@ -44,7 +44,7 @@ label {
       font-size: 1rem;
       display: flex;
       align-self: flex-start;
-      font-weight: 600;
+      font-weight: 500;
       &:hover {
         color: $accent;
         cursor: pointer;
@@ -64,7 +64,7 @@ label {
       font-size: 1rem;
       background-color: transparent;
       padding: 20px 0;
-      border-radius: 15px;
+      border-radius: 10px;
       margin-top: 1vh;
       margin-bottom: 1vh;
       color: $text;

@@ -19,7 +19,7 @@
       display: flex;
       align-items: center;
       border: 3px solid $accent;
-      border-radius: 15px;
+      border-radius: 10px;
       padding: 10px;
       gap: 5px;
       height: 50px;
@@ -27,7 +27,7 @@
       touch-action: auto !important;
 
       > p {
-        font-weight: 600;
+        font-weight: 500;
         padding-bottom: 3px;
       }
 
@@ -43,7 +43,7 @@
         align-items: center;
 
         > p {
-          font-weight: 600;
+          font-weight: 500;
           padding-bottom: 3px;
         }
       }
@@ -79,7 +79,7 @@
         width: 27vw;
         height: 24vh;
         background-color: $background;
-        border-radius: 15px;
+        border-radius: 10px;
         box-shadow: 1px 1px 25px $boxshad;
         display: flex;
         flex-direction: column;
@@ -114,7 +114,7 @@
 
         > .folders-create-button {
           border: none;
-          border-radius: 15px;
+          border-radius: 10px;
           border: 3px solid $accent;
           background-color: transparent;
           font-weight: bold;
@@ -163,14 +163,14 @@
       width: 30vw;
       height: 60vh;
       background-color: $background;
-      border-radius: 15px;
+      border-radius: 10px;
       box-shadow: 1px 1px 25px $boxshad;
       display: flex;
       flex-direction: column;
       gap: 15px;
       padding: 2vh 0.5vw;
       z-index: 99;
-      font-weight: 600;
+      font-weight: 500;
 
       @media screen and (max-width: 1275px) {
         width: 35vw;
@@ -206,7 +206,7 @@
 
       > .folders-share-button {
         border: none;
-        border-radius: 15px;
+        border-radius: 10px;
         border: 3px solid $accent;
         background-color: transparent;
         font-weight: bold;
@@ -250,7 +250,7 @@
 
     > .folders-button {
       border: none;
-      border-radius: 15px;
+      border-radius: 10px;
       border: 3px solid $accent;
       background-color: transparent;
       font-weight: 700;

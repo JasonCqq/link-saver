@@ -23,7 +23,8 @@
     </a>
 
     <div class="link-preview" *ngIf="this.previews">
-      <img src="{{ itemData.pURL }}" />
+      <img *ngIf="itemData.pURL" src="{{ itemData.pURL }}" />
+      <p *ngIf="!itemData.pURL">No image found</p>
     </div>
   </section>
 

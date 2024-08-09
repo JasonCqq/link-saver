@@ -34,8 +34,9 @@ export class MainNavService {
   ) {
     return this.http
       .put(
-        `${this.apiUrl}/link/mass_edit/${this.userService.getUser()?.user.id}`,
+        `${this.apiUrl}/link/mass_edit`,
         {
+          userID: this.userService.getUser()?.user.id,
           massIDs: this.massEditIDs,
           massTitle: massTitle,
           massRemind: massRemind,
@@ -54,8 +55,9 @@ export class MainNavService {
   submitMassResDel(massDelete: boolean, massRestore: boolean) {
     return this.http
       .put(
-        `${this.apiUrl}/link/mass_restoreDelete/${this.userService.getUser()?.user.id}`,
+        `${this.apiUrl}/link/mass_restoreDelete`,
         {
+          userID: this.userService.getUser()?.user.id,
           massIDs: this.massEditIDs,
           massDelete: massDelete,
           massRestore: massRestore,

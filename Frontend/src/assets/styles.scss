@@ -6,13 +6,13 @@
   src: url("../assets/RedditSans-VariableFont_wght.ttf");
 }
 
-$secondary: #5b66ff;
-$accent: #5b66ff;
-$background: #141414;
+$secondary: #717aef;
+$accent: #717aef;
+$background: #0f0f0f;
 $background2: #191919;
 $boxshad: #111214;
 $border: #494b52;
-$text: white;
+$text: #fbfcfc;
 $text2: #0e0c0c;
 $textSec: #c1c9df;
 $imp-button: #f73830;
@@ -23,7 +23,7 @@ $my-custom-typography-config: mat.define-typography-config(
     mat.define-typography-level(
       $font-size: 12px,
       $font-weight: 700,
-      $font-family: Reddit Sans,
+      $font-family: "Reddit Sans",
     ),
 );
 
@@ -146,7 +146,7 @@ button {
     "Fira Sans",
     "Droid Sans",
     "Helvetica Neue",
-    sans-serif;
+    sans-serif !important;
 }
 
 code {
@@ -218,6 +218,10 @@ button {
   text-align: center;
   padding: 10px 20px;
   border-radius: 10px;
-  font-weight: 600;
+  font-weight: 500;
   width: fit-content;
+}
+
+mat-form-field {
+  font-weight: 500;
 }

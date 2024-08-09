@@ -1,7 +1,7 @@
 @import "../../../../assets/styles.scss";
 
 label {
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .register-container {
@@ -53,7 +53,7 @@ label {
       font-size: 1rem;
       background-color: transparent;
       padding: 20px 0;
-      border-radius: 15px;
+      border-radius: 10px;
       margin-top: 1vh;
       margin-bottom: 1vh;
       color: $text;
@@ -77,7 +77,7 @@ label {
 
     > .register-extra {
       font-size: 1rem;
-      font-weight: 600;
+      font-weight: 500;
       &:hover {
         color: $accent;
         cursor: pointer;
@@ -94,7 +94,7 @@ label {
     gap: 2vh;
     text-align: center;
     background-color: $background2;
-    border-radius: 15px;
+    border-radius: 10px;
     padding: 50px 35px;
 
     > h1 {

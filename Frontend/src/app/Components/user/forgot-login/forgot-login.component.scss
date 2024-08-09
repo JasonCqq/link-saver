@@ -1,7 +1,7 @@
 @import "../../../../assets/styles.scss";
 
 label {
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .forgot-container {
@@ -51,7 +51,7 @@ label {
         border: 3px solid $border;
         background: transparent;
         padding: 10px 20px;
-        border-radius: 15px;
+        border-radius: 10px;
         color: $text;
         font-weight: bold;
         font-size: 0.9rem;
@@ -70,7 +70,7 @@ label {
       background-color: transparent;
       border: 3px solid $accent;
       padding: 17.5px 0;
-      border-radius: 15px;
+      border-radius: 10px;
       margin-top: 1vh;
       margin-bottom: 1vh;
       color: $text;
@@ -98,7 +98,7 @@ label {
     background-color: transparent;
     border: 3px solid $accent;
     padding: 17.5px 25px;
-    border-radius: 15px;
+    border-radius: 10px;
     margin-top: 1vh;
     margin-bottom: 1vh;
     color: $text;

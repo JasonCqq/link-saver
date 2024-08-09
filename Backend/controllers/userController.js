@@ -163,13 +163,13 @@ exports.logout_user = asyncHandler(async (req, res) => {
   });
 });
 
-exports.delete_user = asyncHandler(async (req, res) => {
-  if (!req.params.userId || req.session.user.id !== req.params.userId) {
-    res.status(401).json("Not authenticated");
-  } else {
+exports.delete_user = [
+  body("userID").trim().escape(),
+
+  asyncHandler(async (req, res) => {
     await prisma.User.delete({
       where: {
-        id: req.params.userId,
+        id: req.body.userID,
       },
     });
 
@@ -179,8 +179,8 @@ exports.delete_user = asyncHandler(async (req, res) => {
       }
     });
     res.status(200).json({});
-  }
-});
+  }),
+];
 
 exports.get_settings = [
   asyncHandler(async (req, res) => {
@@ -198,6 +198,9 @@ exports.get_settings = [
 ];
 
 exports.submit_settings = [
+  body("userID").trim().escape(),
+  body("previews").trim().escape(),
+
   asyncHandler(async (req, res) => {
     const errs = validationResult(req);
 
@@ -205,13 +208,9 @@ exports.submit_settings = [
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
     } else {
-      if (!req.params.userId || req.session.user.id !== req.params.userId) {
-        res.status(401).json("Not authenticated");
-      }
-
       const userSettings = await prisma.UserSettings.update({
         where: {
-          userId: req.params.userId,
+          userId: req.body.userID,
         },
 
         data: {
@@ -227,6 +226,7 @@ exports.submit_settings = [
 ];
 
 exports.change_password = [
+  body("userID").trim().escape(),
   body("currentPass", "Password must be between 8-20 characters")
     .trim()
     .isLength({ min: 8, max: 20 })
@@ -247,16 +247,12 @@ exports.change_password = [
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
     } else {
-      if (!req.params.userId || req.session.user.id !== req.params.userId) {
-        res.status(401).json("Not authenticated");
-      }
-
       if (req.body.newPass !== req.body.newPass2) {
         res.status(400).json("New passwords do not match");
       }
 
       const user = await prisma.User.findUnique({
-        where: { id: req.params.userId },
+        where: { id: req.body.userID },
       });
 
       const check = await bcrypt.compare(req.body.currentPass, user.password);
@@ -268,7 +264,7 @@ exports.change_password = [
           }
 
           await prisma.User.update({
-            where: { id: req.params.userId },
+            where: { id: req.body.userID },
             data: {
               password: hashedPass,
             },

@@ -34,8 +34,10 @@ export class LinkService {
     remind: Date,
   ) {
     return this.http.put(
-      `${this.apiUrl}/link/edit/${id}/${this.userService.getUser()?.user.id}`,
+      `${this.apiUrl}/link/edit`,
       {
+        id: id,
+        userID: this.userService.getUser()?.user.id,
         title: title,
         folder: folder,
         bookmarked: bookmarked,
@@ -51,10 +53,11 @@ export class LinkService {
   async moveToTrash(id: string) {
     await this.http
       .put(
-        `${this.apiUrl}/link/delete/${id}/${
-          this.userService.getUser()?.user.id
-        }`,
-        {},
+        `${this.apiUrl}/link/delete`,
+        {
+          id: id,
+          userID: this.userService.getUser()?.user.id,
+        },
         {
           withCredentials: true,
         },
@@ -65,10 +68,11 @@ export class LinkService {
   async restoreLink(id: string) {
     await this.http
       .put(
-        `${this.apiUrl}/link/restore/${id}/${
-          this.userService.getUser()?.user.id
-        }`,
-        {},
+        `${this.apiUrl}/link/restore`,
+        {
+          id: id,
+          userID: this.userService.getUser()?.user.id,
+        },
         {
           withCredentials: true,
         },
@@ -82,6 +86,11 @@ export class LinkService {
         this.userService.getUser()?.user.id
       }`,
       {
+        body: {
+          id: id,
+          userID: this.userService.getUser()?.user.id,
+        },
+
         withCredentials: true,
       },
     );

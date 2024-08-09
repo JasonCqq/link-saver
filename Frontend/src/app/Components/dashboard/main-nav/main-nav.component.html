@@ -4,7 +4,7 @@
     <p
       class="nav-question"
       #tooltip="matTooltip"
-      matTooltip="This site is still in beta, please use the contact form in the homepage or create an issue on Github. I will fix it or add it as soon as possible. Thank you."
+      matTooltip="This site is still in early stages, please use the contact form in the homepage or create an issue on Github. I will fix it or add it as soon as possible. Thank you."
       (click)="tooltip.toggle()"
       [matTooltipPosition]="'right'"
     >
@@ -13,7 +13,12 @@
   </div>
 
   <div class="nav-container">
-    <mat-form-field appearance="outline" [formGroup]="query" class="nav-search">
+    <mat-form-field
+      appearance="outline"
+      floatLabel="always"
+      [formGroup]="query"
+      class="nav-search"
+    >
       <mat-label for="linkQuery">Search</mat-label>
       <input
         matInput

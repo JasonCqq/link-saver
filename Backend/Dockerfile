@@ -6,8 +6,6 @@ COPY package*.json ./
 
 RUN npm install
 
-RUN npx playwright@1.43.1 install --with-deps chromium
-
 COPY prisma ./prisma/ 
 
 RUN npx prisma generate

@@ -83,12 +83,12 @@ export class DashboardService implements OnInit {
 
   deleteAllTrash() {
     return this.http
-      .delete<Links>(
-        `${this.apiUrl}/link/deleteAll/${this.userService.getUser()?.user.id}`,
-        {
-          withCredentials: true,
+      .delete<Links>(`${this.apiUrl}/link/deleteAll`, {
+        body: {
+          userID: this.userService.getUser()?.user.id,
         },
-      )
+        withCredentials: true,
+      })
       .pipe(catchError(this.handleError("deleteAllTrash()", [])));
   }
 
@@ -132,8 +132,9 @@ export class DashboardService implements OnInit {
 
   submitSettings(previews: boolean, userId: string) {
     return this.http.put(
-      `${this.apiUrl}/user/submit_settings/${userId}`,
+      `${this.apiUrl}/user/submit_settings`,
       {
+        userID: userId,
         previews: previews,
       },
       {

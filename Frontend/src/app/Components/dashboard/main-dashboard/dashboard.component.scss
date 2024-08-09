@@ -22,7 +22,7 @@ span {
       gap: 2vh;
       width: 25vw;
       height: 20vh;
-      border-radius: 15px;
+      border-radius: 10px;
       box-shadow: 1px 1px 25px $boxshad;
       background: $background;
 
@@ -52,7 +52,7 @@ span {
           color: $text;
           border: 3px solid $accent;
           background: $accent;
-          border-radius: 15px;
+          border-radius: 10px;
 
           &:hover {
             cursor: pointer;
@@ -77,7 +77,7 @@ span {
     font-weight: 900;
     background-color: $imp-button;
     border: 3px solid $imp-button;
-    border-radius: 15px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     transition: box-shadow 0.1s ease-in-out;

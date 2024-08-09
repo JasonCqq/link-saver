@@ -4,23 +4,26 @@ const foldersController = require("../controllers/foldersController");
 
 router.get("/:userId", foldersController.get_folder);
 
-router.post("/create/:userId", foldersController.create_folder);
-
-router.put("/edit/:folderId/:userId", foldersController.edit_folder);
-
 router.get(
   "/search_link/:folderId/:userId",
   foldersController.search_folder_links,
 );
 
-router.delete("/delete/:folderId/:userId", foldersController.delete_folder);
-
-router.post("/share/:folderId/:userId", foldersController.create_shared_folder);
-
-router.put("/unshare/:folderId/:userId", foldersController.unshare_folder);
-
 router.get("/public/:id", foldersController.get_shared_folder);
 
-router.post("/public/:id", foldersController.get_authorized_folder);
+router.post("/public", foldersController.get_authorized_folder);
+
+const securityCheck = require("../routes/routeAuthenticate");
+router.use(securityCheck.authenticateReq);
+
+router.post("/create", foldersController.create_folder);
+
+router.put("/edit", foldersController.edit_folder);
+
+router.delete("/delete", foldersController.delete_folder);
+
+router.post("/share", foldersController.create_shared_folder);
+
+router.put("/unshare", foldersController.unshare_folder);
 
 module.exports = router;

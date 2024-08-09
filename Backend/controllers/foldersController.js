@@ -43,6 +43,7 @@ exports.get_folder = asyncHandler(async (req, res) => {
 });
 
 exports.create_folder = [
+  body("userID").trim().escape(),
   body("name").trim().escape(),
 
   asyncHandler(async (req, res) => {
@@ -52,22 +53,18 @@ exports.create_folder = [
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
     } else {
-      if (!req.params.userId || req.session.user.id !== req.params.userId) {
-        res.status(401).json("Not authenticated");
-      }
-
       await prisma.Folder.create({
         data: {
           name: req.body.name,
 
           user: {
-            connect: { id: req.params.userId },
+            connect: { id: req.body.userID },
           },
 
           shares: {
             create: {
               user: {
-                connect: { id: req.params.userId },
+                connect: { id: req.body.userID },
               },
             },
           },
@@ -80,6 +77,8 @@ exports.create_folder = [
 ];
 
 exports.edit_folder = [
+  body("id").trim().escape(),
+  body("userID").trim().escape(),
   body("name").trim().escape(),
 
   asyncHandler(async (req, res) => {
@@ -89,14 +88,10 @@ exports.edit_folder = [
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
     } else {
-      if (!req.params.userId || req.session.user.id !== req.params.userId) {
-        res.status(401).json("Not authenticated");
-      }
-
       await prisma.Folder.update({
         where: {
-          id: req.params.folderId,
-          userId: req.params.userId,
+          id: req.body.id,
+          userId: req.body.userID,
         },
 
         data: {
@@ -109,19 +104,20 @@ exports.edit_folder = [
   }),
 ];
 
-exports.delete_folder = asyncHandler(async (req, res) => {
-  if (!req.params.userId || req.session.user.id !== req.params.userId) {
-    res.status(401).json("Not authenticated");
-  }
+exports.delete_folder = [
+  body("id").trim().escape(),
+  body("userID").trim().escape(),
 
-  await prisma.Folder.delete({
-    where: {
-      id: req.params.folderId,
-      userId: req.params.userId,
-    },
-  });
-  res.status(200).json({});
-});
+  asyncHandler(async (req, res) => {
+    await prisma.Folder.delete({
+      where: {
+        id: req.body.id,
+        userId: req.body.userID,
+      },
+    });
+    res.status(200).json({});
+  }),
+];
 
 exports.search_folder_links = asyncHandler(async (req, res) => {
   if (!req.params.userId || req.session.user.id !== req.params.userId) {
@@ -192,14 +188,12 @@ exports.get_shared_folder = asyncHandler(async (req, res) => {
 });
 
 exports.create_shared_folder = [
+  body("id").trim().escape(),
+  body("userID").trim().escape(),
   body("password").trim().escape(),
   body("share").trim().escape(),
 
   asyncHandler(async (req, res) => {
-    if (!req.params.userId || req.session.user.id !== req.params.userId) {
-      res.status(401).json("Not authenticated");
-    }
-
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
@@ -224,7 +218,7 @@ exports.create_shared_folder = [
       await prisma.$transaction(async (prisma) => {
         const folder = await prisma.Folder.update({
           where: {
-            id: req.params.folderId,
+            id: req.body.id,
           },
 
           data: {
@@ -254,7 +248,7 @@ exports.create_shared_folder = [
           create: {
             folder: {
               connect: {
-                id: req.params.folderId,
+                id: req.body.id,
               },
             },
 
@@ -262,7 +256,7 @@ exports.create_shared_folder = [
 
             user: {
               connect: {
-                id: req.params.userId,
+                id: req.body.userID,
               },
             },
 
@@ -276,13 +270,11 @@ exports.create_shared_folder = [
 ];
 
 exports.unshare_folder = [
+  body("id").trim().escape(),
+  body("userID").trim().escape(),
   body("share").trim().escape(),
 
   asyncHandler(async (req, res) => {
-    if (!req.params.userId || req.session.user.id !== req.params.userId) {
-      res.status(401).json("Not authenticated");
-    }
-
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
@@ -291,7 +283,7 @@ exports.unshare_folder = [
     } else {
       await prisma.Folder.update({
         where: {
-          id: req.params.folderId,
+          id: req.body.id,
         },
 
         data: {

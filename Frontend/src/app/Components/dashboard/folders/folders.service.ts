@@ -26,9 +26,10 @@ export class FoldersService {
   async createFolder(name: string) {
     await this.http
       .post(
-        `${this.apiUrl}/folders/create/${this.userService.getUser()?.user.id}`,
+        `${this.apiUrl}/folders/create`,
         {
           name: name,
+          userID: this.userService.getUser()?.user.id,
         },
         {
           withCredentials: true,
@@ -42,11 +43,11 @@ export class FoldersService {
   async editFolder(id: string, name: string) {
     await this.http
       .put(
-        `${this.apiUrl}/folders/edit/${id}/${
-          this.userService.getUser()?.user.id
-        }`,
+        `${this.apiUrl}/folders/edit`,
         {
+          id: id,
           name: name,
+          userID: this.userService.getUser()?.user.id,
         },
         {
           withCredentials: true,
@@ -59,14 +60,13 @@ export class FoldersService {
 
   async deleteFolder(id: string) {
     await this.http
-      .delete(
-        `${this.apiUrl}/folders/delete/${id}/${
-          this.userService.getUser()?.user.id
-        }`,
-        {
-          withCredentials: true,
+      .delete(`${this.apiUrl}/folders/delete`, {
+        body: {
+          id: id,
+          userID: this.userService.getUser()?.user.id,
         },
-      )
+        withCredentials: true,
+      })
       .subscribe(() => {
         this.notifyFolders();
       });
@@ -74,8 +74,10 @@ export class FoldersService {
 
   shareFolder(password: string, share: boolean, folderId: string) {
     return this.http.post(
-      `${this.apiUrl}/folders/share/${folderId}/${this.userService.getUser()?.user.id}`,
+      `${this.apiUrl}/folders/share/`,
       {
+        id: folderId,
+        userID: this.userService.getUser()?.user.id,
         password: password,
         share: share,
       },
@@ -85,8 +87,8 @@ export class FoldersService {
 
   unshareFolder(id: string, share: boolean) {
     return this.http.put(
-      `${this.apiUrl}/folders/unshare/${id}/${this.userService.getUser()?.user.id}`,
-      { share: share },
+      `${this.apiUrl}/folders/unshare`,
+      { id: id, userID: this.userService.getUser()?.user.id, share: share },
       { withCredentials: true },
     );
   }

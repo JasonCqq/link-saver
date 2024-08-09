@@ -4,7 +4,7 @@
 
     <div class="landing-heading">
       <h1>LinkStorage</h1>
-      <a routerLink="/versions">Release Notes ></a>
+      <a routerLink="/versions"><u>Release Notes</u></a>
     </div>
 
     <div class="landing-body">
@@ -40,7 +40,7 @@
 
   <section *ngIf="this.data" class="landing-stats">
     <div class="landing-stats-items">
-      <p>~{{ this.data.links }}+ <span>links stored so far</span></p>
+      <p>{{ this.data.links }}+ <span>links archived</span></p>
     </div>
   </section>
 
@@ -58,8 +58,8 @@
           <p>
             Share publicly or privately with a password.
             <a routerLink="/public/1" target="_blank"
-              ><strong style="color: #5b66ff"
-                >Check out one of our shared folder!</strong
+              ><strong style="color: white"
+                >Check out one of our shared folders!</strong
               ></a
             >
           </p>

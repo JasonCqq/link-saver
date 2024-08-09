@@ -1,12 +1,12 @@
 <form class="add-link-form" [formGroup]="linkForm" (submit)="submitForm()">
   <h1>Add a link</h1>
 
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" floatLabel="always">
     <mat-label for="url">URL</mat-label>
     <input matInput type="url" #url formControlName="url" required />
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" floatLabel="always">
     <mat-label for="folder">Folder (Optional)</mat-label>
     <mat-select #folder formControlName="folder">
       <mat-option *ngFor="let folder of folders" [value]="folder.id">{{
@@ -30,7 +30,7 @@
   </mat-form-field>
 
   <mat-slide-toggle [hideIcon]="true" #bookmarked formControlName="bookmarked">
-    <p style="color: white; margin-left: 0.5vw">Bookmark</p>
+    <p style="color: white; margin-left: 0.5vw"><strong>Bookmark</strong></p>
   </mat-slide-toggle>
 
   <button type="submit" [disabled]="linkForm.invalid">Submit</button>

@@ -60,12 +60,11 @@ export class UserService {
   private apiUrl = environment.apiUrl;
 
   // Registration & Login Form (Sends POST to /create or /login)
-  submitLogin(username: string, email: string, password: string) {
+  submitLogin(username: string, password: string) {
     return this.http.post(
       `${this.apiUrl}/user/login`,
       {
         username: username,
-        email: email,
         password: password,
       },
       { withCredentials: true },
@@ -100,7 +99,10 @@ export class UserService {
 
   async deleteAccount() {
     await this.http
-      .delete(`${this.apiUrl}/user/delete_account/${this.getUser()?.user.id}`, {
+      .delete(`${this.apiUrl}/user/delete_account`, {
+        body: {
+          userID: this.getUser()?.user.id,
+        },
         withCredentials: true,
       })
       .subscribe({
@@ -116,8 +118,9 @@ export class UserService {
   // Forgot Password Process
   changePassword(currentPass: string, newPass: string, newPass2: string) {
     return this.http.put(
-      `${this.apiUrl}/user/change_password/${this.getUser()?.user.id}`,
+      `${this.apiUrl}/user/change_password`,
       {
+        userID: this.getUser()?.user.id,
         currentPass: currentPass,
         newPass: newPass,
         newPass2: newPass2,

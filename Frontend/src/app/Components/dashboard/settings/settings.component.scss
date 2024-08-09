@@ -4,7 +4,7 @@
   margin-left: 20vw;
   color: $text;
   padding: 12.5vh 7.5%;
-  font-weight: 600;
+  font-weight: 500;
 
   > .settings-flex {
     display: flex;
@@ -30,7 +30,7 @@
         background-color: $background;
         width: 25vw;
         height: 32.5vh;
-        border-radius: 15px;
+        border-radius: 10px;
         box-shadow: 1px 1px 25px $boxshad;
         display: flex;
         align-items: center;
@@ -41,7 +41,7 @@
           background-color: $imp-button;
           border: 3px solid $imp-button;
           padding: 10px 25px;
-          border-radius: 15px;
+          border-radius: 10px;
           color: $text;
 
           transition: background-color 0.1s;
@@ -75,10 +75,10 @@
           border: none;
           border: 3px solid $accent;
           background: transparent;
-          border-radius: 15px;
+          border-radius: 10px;
           padding: 1vh 1vw;
           font-size: 1rem;
-          font-weight: 600;
+          font-weight: 500;
 
           @media screen and (max-width: 370px) {
             width: 75%;
@@ -138,7 +138,7 @@
 
       > .settings-change-pass {
         border: 3px solid $accent;
-        border-radius: 15px;
+        border-radius: 10px;
         background: transparent;
         padding: 10px 0px;
         width: 170px;
@@ -153,7 +153,7 @@
         background-color: $imp-button;
         border: 3px solid $imp-button;
         padding: 10px 20px;
-        border-radius: 15px;
+        border-radius: 10px;
         color: $text;
         transition: background-color 0.1s;
 
@@ -182,10 +182,10 @@
           gap: 2vh;
           box-shadow: 1px 1px 25px black;
           background-color: $background2;
-          width: 30vw;
+          width: 25vw;
           height: 55vh;
           margin: auto;
-          border-radius: 15px;
+          border-radius: 10px;
 
           @media screen and (max-width: 1275px) {
             width: 35vw;
@@ -207,7 +207,7 @@
             border: 3px solid $accent;
             background-color: transparent;
             padding: 10px 20px;
-            border-radius: 15px;
+            border-radius: 10px;
             color: $text;
 
             transition: background-color 0.1s ease;
@@ -240,7 +240,7 @@
       > .settings-apply {
         padding: 10px 20px;
         border: none;
-        border-radius: 15px;
+        border-radius: 10px;
         border: 3px solid $accent;
         color: $text;
         background-color: transparent;
