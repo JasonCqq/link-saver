@@ -2,19 +2,17 @@
 <a name="readme-top"></a>
 
 <!-- PROJECT SHIELDS -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-
 <a href="https://linkstorage.net" target="_blank">Direct to website</a>
-<h2>Linkstorage.net</h2>
+    
+## App Showcase 
+https://github.com/JasonCqq/link-saver/assets/121495300/3ca9d0ec-9ad0-411e-9841-baac7796ea3f
 
-<h3 align="center">LinkStorage</h3>
+<h3 align="center">Linkstorage.net</h3>
     Need a place to store links you want to revisit?
         <br />
     This is the perfect website to store and organize all your favorite links and websites for easy access later. 
@@ -47,12 +45,14 @@
 ## Features
 - [ ] Screenshots of websites as Previews
 - [ ] Share folders publicly (Check one out here! https://linkstorage.net/public/1)
-- [ ] Search Links
+- [ ] or Share folders privately with password locks
+- [ ] Search links
 - [ ] Create folders to store links
 - [ ] Bookmark or add reminders to links
 - [ ] Mass edit links with ease
-- [ ] User Authentication w/ bcrypt/passport/express-session
-- [ ] Responsive Design
+- [ ] User authentication w/ bcrypt/passport/express-session
+- [ ] User security with email confirmations and OTP system
+- [ ] Responsive design
 - [ ] Useful tooltips
 
 ## Learning Experience
@@ -65,9 +65,6 @@ more than React due to the structure that Angular provides, although React is mu
 I also preferred PostgreSQL over MongoDB as a database. PostgreSQL felt more fluid especially with the relational data.
 <br />
 Overall, I'm happy with the outcome of the app. I will continue to update, optimize, and push out new features for the site.
-
-## Showcase
-https://github.com/JasonCqq/link-saver/assets/121495300/e8848eac-54e1-40ac-aed8-5221d30df8f5
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
