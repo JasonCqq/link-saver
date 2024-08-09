@@ -6,7 +6,7 @@ import { Component } from "@angular/core";
   styleUrls: ["./version-history.component.scss"],
 })
 export class VersionHistoryComponent {
-  activeID: number = 6;
+  activeID: number = 8;
   toggleActive(id: number): void {
     this.activeID = this.activeID === id ? 0 : id;
   }
