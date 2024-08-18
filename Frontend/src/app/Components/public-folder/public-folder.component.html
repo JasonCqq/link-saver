@@ -19,25 +19,25 @@
   >
     <div *ngFor="let link of links">
       <div class="link-item" matTooltip="{{ link.url }}">
-        <section>
+        <a [href]="'//' + link.url" target="_blank">
+          <div class="link-preview" *ngIf="previews">
+            <img src="{{ link.pURL }}" height="100px" width="170px" />
+          </div>
+
           <a
             [ngClass]="previews ? 'link-details' : 'link-details-no-previews'"
             [href]="'//' + link.url"
             target="_blank"
           >
-            <p class="link-url">{{ link.url | slice: 0 : 20 }}</p>
             <p class="link-title">
               {{ link.title }}
             </p>
+            <p class="link-url">{{ link.url | slice: 0 : 20 }}</p>
             <p class="link-date">
               {{ link.createdAt | date: "shortDate" }}
             </p>
           </a>
-
-          <div class="link-preview" *ngIf="previews">
-            <img src="{{ link.pURL }}" height="100px" width="170px" />
-          </div>
-        </section>
+        </a>
       </div>
     </div>
   </section>

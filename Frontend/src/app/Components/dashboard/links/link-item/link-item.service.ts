@@ -81,18 +81,13 @@ export class LinkService {
   }
 
   permanentDelete(id: string) {
-    return this.http.delete(
-      `${this.apiUrl}/link/perma_delete/${id}/${
-        this.userService.getUser()?.user.id
-      }`,
-      {
-        body: {
-          id: id,
-          userID: this.userService.getUser()?.user.id,
-        },
-
-        withCredentials: true,
+    return this.http.delete(`${this.apiUrl}/link/perma_delete`, {
+      body: {
+        id: id,
+        userID: this.userService.getUser()?.user.id,
       },
-    );
+
+      withCredentials: true,
+    });
   }
 }

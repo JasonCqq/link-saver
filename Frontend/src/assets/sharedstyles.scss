@@ -3,9 +3,9 @@
 .content-grid {
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 275px));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 130px));
 
-  column-gap: 1vw;
+  column-gap: 0.25vw;
   row-gap: 2vh;
   margin-top: 2vh;
 
@@ -18,9 +18,9 @@
 .content-grid-no-previews {
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 205px));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 150px));
 
-  column-gap: 1vw;
+  column-gap: 0.25vw;
   row-gap: 2vh;
   margin-top: 2vh;
 

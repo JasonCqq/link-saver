@@ -208,19 +208,27 @@ exports.submit_settings = [
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
     } else {
-      const userSettings = await prisma.UserSettings.update({
-        where: {
-          userId: req.body.userID,
-        },
+      console.log(req.body.previews, req.body.userID);
 
-        data: {
-          previews: req.body.previews,
-        },
+      try {
+        const userSettings = await prisma.UserSettings.update({
+          where: {
+            userId: req.body.userID,
+          },
 
-        include: { user: true },
-      });
+          data: {
+            previews: JSON.parse(req.body.previews),
+          },
 
-      res.status(200).json({ user: userSettings.user, settings: userSettings });
+          include: { user: true },
+        });
+
+        res
+          .status(200)
+          .json({ user: userSettings.user, settings: userSettings });
+      } catch (err) {
+        console.log(err);
+      }
     }
   }),
 ];

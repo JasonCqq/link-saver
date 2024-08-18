@@ -2,18 +2,25 @@
   class="link-item"
   [ngClass]="addingID && massEditting ? 'link-item-border' : ''"
   (click)="addMassID(itemData.id)"
-  matTooltip="{{ itemData.url }}"
+  matTooltip="{{ itemData.title }}"
 >
-  <section [ngClass]="massEditting ? 'disabled' : ''">
+  <a
+    [ngClass]="massEditting ? 'disabled' : 'link-item-wrapper'"
+    [href]="'//' + itemData.url"
+    target="_blank"
+  >
+    <div class="link-preview" *ngIf="this.previews">
+      <img *ngIf="itemData.pURL" src="{{ itemData.pURL }}" />
+      <p *ngIf="!itemData.pURL" style="text-align: center">No image found</p>
+    </div>
+
     <a
       [href]="'//' + itemData.url"
       target="_blank"
       [ngClass]="previews ? 'link-details' : 'link-details-no-previews'"
     >
+      <p class="link-title">{{ itemData.title }}</p>
       <p class="link-url">{{ itemData.url | slice: 0 : 20 }}</p>
-      <p class="link-title">
-        {{ itemData.title }}
-      </p>
       <p class="link-date" *ngIf="specialRequest !== 'Upcoming'">
         {{ itemData.createdAt | date: "shortDate" }}
       </p>
@@ -21,29 +28,24 @@
         {{ itemData.remind | date: "shortDate" }}
       </p>
     </a>
-
-    <div class="link-preview" *ngIf="this.previews">
-      <img *ngIf="itemData.pURL" src="{{ itemData.pURL }}" />
-      <p *ngIf="!itemData.pURL">No image found</p>
-    </div>
-  </section>
+  </a>
 
   <!--Link CRUD Options-->
   <div class="link-options" *ngIf="!massEditting">
-    <mat-icon
-      fontIcon="edit"
-      class="link-edit"
-      *ngIf="specialRequest !== 'Trash'"
-      (click)="toggleEdit()"
-      matTooltip="Edit Link"
-    ></mat-icon>
-
     <mat-icon
       fontIcon="close"
       class="link-delete"
       (click)="moveToTrash()"
       *ngIf="specialRequest !== 'Trash'"
       matTooltip="Move to trash"
+    ></mat-icon>
+
+    <mat-icon
+      fontIcon="edit"
+      class="link-edit"
+      *ngIf="specialRequest !== 'Trash'"
+      (click)="toggleEdit()"
+      matTooltip="Edit Link"
     ></mat-icon>
 
     <mat-icon

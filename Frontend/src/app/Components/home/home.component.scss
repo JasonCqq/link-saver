@@ -5,6 +5,7 @@
   background: $background;
 
   .landing-page {
+    margin-top: 4vh;
     width: 100%;
     height: auto;
     display: flex;
@@ -81,7 +82,7 @@
       border: 3px solid $accent;
       color: $text;
       position: relative;
-      margin-top: 4vh;
+      margin-top: 0vh;
       margin-right: auto;
       margin-left: 5vw;
 
@@ -157,7 +158,7 @@
         border-radius: 10px;
         min-height: 125px;
         gap: 2vw;
-        border: 3px solid $border;
+        border: 2px solid $border;
 
         @media screen and (max-width: 390px) {
           padding: 3vh 0vw;

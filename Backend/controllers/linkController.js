@@ -44,6 +44,8 @@ exports.create_link = [
       }
 
       let decodedUrl = decode(req.body.url, { level: "html5" });
+      console.log(req.body.url, decodedUrl);
+
       if (
         !decodedUrl.startsWith("http://") &&
         !decodedUrl.startsWith("https://")
