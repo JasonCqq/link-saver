@@ -44,7 +44,6 @@ exports.create_link = [
       }
 
       let decodedUrl = decode(req.body.url, { level: "html5" });
-      console.log(req.body.url, decodedUrl);
 
       if (
         !decodedUrl.startsWith("http://") &&
@@ -74,8 +73,6 @@ exports.create_link = [
             } else {
               title = result.ogSiteName || result.ogTitle;
             }
-
-            console.log(result);
 
             if (result.ogImage && result.ogImage[0]) {
               console.time("image fetch");

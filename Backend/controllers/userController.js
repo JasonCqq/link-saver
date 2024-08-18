@@ -208,8 +208,6 @@ exports.submit_settings = [
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
     } else {
-      console.log(req.body.previews, req.body.userID);
-
       try {
         const userSettings = await prisma.UserSettings.update({
           where: {

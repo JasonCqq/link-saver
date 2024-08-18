@@ -16,10 +16,10 @@ export class VersionHistoryComponent {
       id: 8,
       version: "2.0.0 - 08/09/24",
       updates: [
-        "Discontinued screenshot feature, load time from server took too long",
+        "Discontinued screenshot feature for now, load time from budget server took too long",
         "Refactored scraping method to speed up adding links",
+        "Changed links from rectangular container to square",
         "Improved security overall",
-        "Added tests to stabilize app, and leave beta phase (in progress, coming next hotfix)",
       ],
       qols: [
         'Replaced blank/broken images with text: "No Image Found"',
