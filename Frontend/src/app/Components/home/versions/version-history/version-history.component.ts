@@ -18,7 +18,7 @@ export class VersionHistoryComponent {
       updates: [
         "Discontinued screenshot feature for now, load time from budget server took too long",
         "Refactored scraping method to speed up adding links",
-        "Changed links from rectangular container to square",
+        "Changed link items' visual format",
         "Improved security overall",
       ],
       qols: [
@@ -29,7 +29,10 @@ export class VersionHistoryComponent {
         "Fixed some fonts not matching the rest",
         "Adjusted loader message",
       ],
-      bugfixes: [],
+      bugfixes: [
+        "Fixed bookmarks and upcoming links showing up when deleted",
+        "Fixed UI issue in public folders",
+      ],
     },
     {
       id: 7,

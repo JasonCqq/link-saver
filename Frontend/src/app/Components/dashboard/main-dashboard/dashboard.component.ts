@@ -116,9 +116,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (linkType === "Dashboard") {
       this.tempLinks = this.links.filter((link) => link.trash === false);
     } else if (linkType === "Bookmarks") {
-      this.tempLinks = this.links.filter((link) => link.bookmarked === true);
+      this.tempLinks = this.links.filter(
+        (link) => link.bookmarked === true && link.trash === false,
+      );
     } else if (linkType === "Upcoming") {
-      this.tempLinks = this.links.filter((link) => link.remind);
+      this.tempLinks = this.links.filter(
+        (link) => link.remind && link.trash === false,
+      );
     } else if (linkType === "Trash") {
       this.tempLinks = this.links.filter((link) => link.trash === true);
     }
