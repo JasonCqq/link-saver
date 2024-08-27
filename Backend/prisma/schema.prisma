@@ -24,8 +24,8 @@ model User {
   password     String
   creationDate DateTime      @default(now())
   otp          String?
-  otpVerified  Boolean       @default(false)
   otpExpiresAt DateTime?
+  otpVerified  Boolean       @default(false)
   folders      Folder[]
   links        Link[]
   shares       Share[]
@@ -69,16 +69,17 @@ model Share {
 model Link {
   id         String    @id @default(uuid())
   userId     String?
-  url        String
   folderId   String?
-  title      String
   createdAt  DateTime  @default(now())
   updatedAt  DateTime? @updatedAt
   bookmarked Boolean
-  thumbnail  String?
   remind     DateTime?
+  title      String
+  url        String
   trash      Boolean?  @default(false)
+  thumbnail  String?
+  pURL       String?
+  visits     Int       @default(0)
   folder     Folder?   @relation(fields: [folderId], references: [id])
   user       User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  pURL       String?
 }

@@ -46,10 +46,18 @@ export class MainNavComponent implements OnInit, OnDestroy {
         this.title = title;
       });
 
-    // Change to session value later on.
-    this.sortingForm.patchValue({
-      sortBy: "Visits",
-    });
+    this.mainNavService.getSortByValue();
+    this.mainNavService.sortBy$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        this.sortBy = result;
+
+        this.sortingForm.patchValue({
+          sortBy: result,
+        });
+
+        this.sortByResults.emit(this.sortingForm.value.sortBy);
+      });
   }
 
   ngOnDestroy(): void {
@@ -57,9 +65,11 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  sortBy: string = "";
   title: string = "";
   @Input() folderId: any;
   @Output() searchResults: EventEmitter<Link[]> = new EventEmitter<Link[]>();
+  @Output() sortByResults: EventEmitter<string> = new EventEmitter<string>();
 
   createForm: boolean = false;
   toggleForm(): void {
@@ -75,7 +85,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   });
 
   submitSortingForm() {
-    console.log(this.sortingForm.value.sortBy);
+    this.sortByResults.emit(this.sortingForm.value.sortBy);
+    this.mainNavService.submitSortBy(this.sortingForm.value.sortBy);
   }
 
   searchLinks(): void {

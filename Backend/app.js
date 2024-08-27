@@ -19,6 +19,7 @@ const homeRouter = require("./routes/home");
 const userRouter = require("./routes/user");
 const folderRouter = require("./routes/folders");
 const linkRouter = require("./routes/link");
+const preferencesRouter = require("./routes/preferences");
 
 var app = express();
 
@@ -103,6 +104,7 @@ app.use("/", homeRouter);
 app.use("/user", userRouter);
 app.use("/folders", folderRouter);
 app.use("/link", linkRouter);
+app.use("/preferences", preferencesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

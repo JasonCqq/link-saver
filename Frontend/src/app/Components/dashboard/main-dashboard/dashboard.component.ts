@@ -138,6 +138,40 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.tempLinks = results;
   }
 
+  // Currently, the sortResults does not sync with search results.
+  sortResults(sort: string): void {
+    switch (sort) {
+      case "Visits":
+        console.log("Testing Visits");
+        // this.tempLinks?.sort();
+        break;
+
+      case "Latest":
+        this.tempLinks?.sort((a, b) => {
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
+        });
+        break;
+
+      case "Oldest":
+        this.tempLinks?.sort((a, b) => {
+          return (
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          );
+        });
+        break;
+
+      case "Nameup":
+        this.tempLinks?.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+
+      case "Namedown":
+        this.tempLinks?.sort((a, b) => b.title.localeCompare(a.title));
+        break;
+    }
+  }
+
   getLinks(): void {
     this.dashboardService
       .getLinks()

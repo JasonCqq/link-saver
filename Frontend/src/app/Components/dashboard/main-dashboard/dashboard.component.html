@@ -1,5 +1,8 @@
 <app-main-sidebar></app-main-sidebar>
-<app-main-nav (searchResults)="displayResults($event)"></app-main-nav>
+<app-main-nav
+  (searchResults)="displayResults($event)"
+  (sortByResults)="sortResults($event)"
+></app-main-nav>
 
 <main class="dashboard-container default-dash-container">
   <span *ngIf="tempTitle === 'Trash'">

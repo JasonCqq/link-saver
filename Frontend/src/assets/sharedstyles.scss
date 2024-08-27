@@ -9,8 +9,8 @@
   row-gap: 2vh;
   margin-top: 2vh;
 
-  @media screen and (max-width: 340px) {
-    row-gap: 5vh;
+  @media screen and (max-width: 390px) {
+    row-gap: 4vh;
     margin-top: 5vh;
   }
 }
@@ -24,18 +24,18 @@
   row-gap: 2vh;
   margin-top: 2vh;
 
-  @media screen and (max-width: 340px) {
-    row-gap: 5vh;
+  @media screen and (max-width: 390px) {
+    row-gap: 4vh;
     margin-top: 5vh;
   }
 }
 
 .default-dash-container {
-  margin-left: 14vw;
+  padding-left: 14vw;
   height: auto;
   background-color: $background;
 
   @media screen and (max-width: 340px) {
-    margin-left: 1vw;
+    padding: 0;
   }
 }

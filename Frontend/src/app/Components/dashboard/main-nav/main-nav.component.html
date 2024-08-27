@@ -19,27 +19,9 @@
           class="material-icons-round faq-icon"
           style="transform: scale(0.75)"
           >add</span
-        >Add link
-      </button>
-
-      <mat-form-field
-        appearance="outline"
-        floatLabel="always"
-        [formGroup]="sortingForm"
-      >
-        <mat-label for="navSort">Sort By</mat-label>
-        <mat-select
-          #navSort
-          formControlName="sortBy"
-          (selectionChange)="submitSortingForm()"
         >
-          <mat-option value="Visits">Visits</mat-option>
-          <mat-option value="Latest">Latest</mat-option>
-          <mat-option value="Oldest">Oldest</mat-option>
-          <mat-option value="Nameup">Name A-Z</mat-option>
-          <mat-option value="Namedown">Name Z-A</mat-option>
-        </mat-select>
-      </mat-form-field>
+        <p>Add link</p>
+      </button>
 
       <mat-form-field
         appearance="outline"
@@ -57,13 +39,34 @@
         />
       </mat-form-field>
 
-      <mat-icon
-        fontIcon="visibility"
-        class="nav-preview-icon"
-        [ngClass]="{ 'selected-icon': this.previews === true }"
-        (click)="toggleThumbnail()"
-        matTooltip="Toggle Previews Temporarily"
-      ></mat-icon>
+      <div class="nav-buttons-flex">
+        <mat-form-field
+          appearance="outline"
+          floatLabel="always"
+          [formGroup]="sortingForm"
+        >
+          <mat-label for="navSort">Sort By</mat-label>
+          <mat-select
+            #navSort
+            formControlName="sortBy"
+            (selectionChange)="submitSortingForm()"
+          >
+            <mat-option value="Visits">Visits</mat-option>
+            <mat-option value="Latest">Latest</mat-option>
+            <mat-option value="Oldest">Oldest</mat-option>
+            <mat-option value="Nameup">Name A-Z</mat-option>
+            <mat-option value="Namedown">Name Z-A</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-icon
+          fontIcon="visibility"
+          class="nav-preview-icon"
+          [ngClass]="{ 'selected-icon': this.previews === true }"
+          (click)="toggleThumbnail()"
+          matTooltip="Toggle Previews Temporarily"
+        ></mat-icon>
+      </div>
     </div>
 
     <div *ngIf="createForm === true" class="create-form-overlay">
