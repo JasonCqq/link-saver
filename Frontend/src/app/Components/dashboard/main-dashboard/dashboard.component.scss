@@ -23,7 +23,6 @@ span {
       width: 25vw;
       height: 20vh;
       border-radius: 10px;
-      box-shadow: 1px 1px 25px $boxshad;
       background: $background;
 
       @media screen and (max-width: 1200px) {
@@ -60,7 +59,7 @@ span {
           }
         }
 
-        > .clear-prompt-no {
+        > .clear-prompt-yes {
           border: 3px solid $accent;
           background: transparent;
           &:hover {

@@ -28,7 +28,6 @@
 
       > p {
         font-weight: 500;
-        padding-bottom: 3px;
       }
 
       &:hover {
@@ -43,8 +42,8 @@
         align-items: center;
 
         > p {
+          padding-top: 2px;
           font-weight: 500;
-          padding-bottom: 3px;
         }
       }
 
@@ -80,7 +79,6 @@
         height: 24vh;
         background-color: $background;
         border-radius: 10px;
-        box-shadow: 1px 1px 25px $boxshad;
         display: flex;
         flex-direction: column;
         gap: 10px;
@@ -164,7 +162,6 @@
       height: 60vh;
       background-color: $background;
       border-radius: 10px;
-      box-shadow: 1px 1px 25px $boxshad;
       display: flex;
       flex-direction: column;
       gap: 15px;

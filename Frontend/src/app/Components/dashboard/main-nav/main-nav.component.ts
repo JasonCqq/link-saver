@@ -45,6 +45,11 @@ export class MainNavComponent implements OnInit, OnDestroy {
       .subscribe((title) => {
         this.title = title;
       });
+
+    // Change to session value later on.
+    this.sortingForm.patchValue({
+      sortBy: "Visits",
+    });
   }
 
   ngOnDestroy(): void {
@@ -64,6 +69,14 @@ export class MainNavComponent implements OnInit, OnDestroy {
   query = new FormGroup({
     linkQuery: new FormControl(),
   });
+
+  sortingForm = new FormGroup({
+    sortBy: new FormControl(),
+  });
+
+  submitSortingForm() {
+    console.log(this.sortingForm.value.sortBy);
+  }
 
   searchLinks(): void {
     if (this.title === "Folders" && this.folderId) {

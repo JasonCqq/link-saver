@@ -31,7 +31,6 @@
         width: 25vw;
         height: 32.5vh;
         border-radius: 10px;
-        box-shadow: 1px 1px 25px $boxshad;
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -180,7 +179,6 @@
           justify-content: center;
           align-items: center;
           gap: 2vh;
-          box-shadow: 1px 1px 25px black;
           background-color: $background2;
           width: 25vw;
           height: 55vh;
@@ -257,7 +255,7 @@
 
         &:hover {
           background-color: $accent;
-          color: $text2;
+          color: $text;
           cursor: pointer;
         }
       }

@@ -8,10 +8,17 @@
     <section *ngIf="clearPrompt" class="clear-prompt-overlay">
       <div class="clear-prompt">
         <h1>Clear all links?</h1>
+        <p>! This action is permanent.</p>
 
         <div class="clear-prompt-flex">
-          <button (click)="deleteAllTrash(); togglePrompt()">Yes</button>
-          <button class="clear-prompt-no" (click)="togglePrompt()">No</button>
+          <button (click)="togglePrompt()">No</button>
+
+          <button
+            class="clear-prompt-yes"
+            (click)="deleteAllTrash(); togglePrompt()"
+          >
+            Yes
+          </button>
         </div>
       </div>
     </section>

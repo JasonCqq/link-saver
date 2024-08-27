@@ -66,6 +66,12 @@
         margin-top: 1vh;
       }
 
+      > .nav-search {
+        font-weight: 600;
+        height: 45px;
+        width: clamp(100px, 175px, 300px);
+      }
+
       > .selected-icon {
         color: $accent;
       }
@@ -89,19 +95,20 @@
 
       > button {
         color: $text;
-        padding: 7.5px 15px;
+        padding: 7.5px 16px;
         font-weight: 700;
-        background: transparent;
         border: 3px solid $accent;
         border-radius: 10px;
         display: flex;
         align-items: center;
+        background-color: $accent;
+
         transition:
           background-color 0.1s ease-in-out,
           color 0.1s ease-in-out;
 
         &:hover {
-          background-color: $accent;
+          background-color: transparent;
           cursor: pointer;
         }
       }
@@ -125,7 +132,6 @@
         padding: 0 0 10vh 0;
         width: 30vw;
         border-radius: 10px;
-        box-shadow: 1px 1px 25px $boxshad;
 
         @media screen and (max-width: 1275px) {
           width: 35vw;
@@ -157,6 +163,7 @@
 }
 
 mat-form-field {
+  font-weight: 600;
   height: 45px;
-  width: clamp(100px, 200px, 400px);
+  width: 120px;
 }

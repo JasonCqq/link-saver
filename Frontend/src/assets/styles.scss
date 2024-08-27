@@ -10,7 +10,6 @@ $secondary: #517ee1;
 $accent: #517ee1;
 $background: #0f0f0f;
 $background2: #191919;
-$boxshad: #111214;
 $border: #494b52;
 $text: #fbfcfc;
 $text2: #0e0c0c;
@@ -22,7 +21,7 @@ $my-custom-typography-config: mat.define-typography-config(
   $caption:
     mat.define-typography-level(
       $font-size: 12px,
-      $font-weight: 700,
+      $font-weight: 500,
       $font-family: "Reddit Sans",
     ),
 );
@@ -30,6 +29,7 @@ $my-custom-typography-config: mat.define-typography-config(
 $Frontend-primary: mat.define-palette(mat.$indigo-palette);
 $Frontend-accent: mat.define-palette(mat.$indigo-palette, A200);
 $Frontend-warn: mat.define-palette(mat.$red-palette);
+
 $Frontend-theme: mat.define-dark-theme(
   (
     color: (
@@ -81,11 +81,25 @@ $Frontend-theme: mat.define-dark-theme(
 
 ::ng-deep .mat-mdc-floating-label.mdc-floating-label {
   color: gray !important;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: "Reddit Sans";
+}
+
+::ng-deep .mat-mdc-select-min-line {
+  font-weight: 600;
 }
 
 // Border-Radius for inputs
 .mdc-text-field--outlined {
   --mdc-outlined-text-field-container-shape: 10px !important;
+}
+
+::ng-deep .mat-mdc-select-panel {
+  margin-top: 15px;
+  border-radius: 10px !important;
+  background: $background !important;
+  border: 3px solid $accent;
 }
 
 // Date picker
@@ -111,7 +125,7 @@ $Frontend-theme: mat.define-dark-theme(
 }
 
 @include mat.tooltip-typography($my-custom-typography-config);
-
+@include mat.all-component-typographies($my-custom-typography-config);
 @include mat.all-component-themes($Frontend-theme);
 
 html {
