@@ -118,6 +118,8 @@ export class FoldersComponent implements OnInit, OnDestroy {
     });
 
     this.tempLinks = this.folders[folderIndex].links;
+    this.sortResults(this.mainNavService.getSortBy());
+
     this.tempId = this.folders[folderIndex].id;
     this.tempShare = this.folders[folderIndex].private;
   }
@@ -215,8 +217,50 @@ export class FoldersComponent implements OnInit, OnDestroy {
     this.tempLinks.splice(link, 1);
   }
 
+  // displayResults & sortResults are temporary
+  // Please MOVE to SERVICE functions ASAP.
+
   // Displays search results
   displayResults(results: Link[]): void {
     this.tempLinks = results;
+    this.sortResults(this.mainNavService.getSortBy());
+  }
+
+  sortResults(sort: string): void {
+    switch (sort) {
+      case "Visits":
+        this.tempLinks?.sort((a: any, b: any) => {
+          return b.visits - a.visits;
+        });
+        break;
+
+      case "Latest":
+        this.tempLinks?.sort((a: any, b: any) => {
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
+        });
+        break;
+
+      case "Oldest":
+        this.tempLinks?.sort((a: any, b: any) => {
+          return (
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          );
+        });
+        break;
+
+      case "Nameup":
+        this.tempLinks?.sort((a: any, b: any) =>
+          a.title.localeCompare(b.title),
+        );
+        break;
+
+      case "Namedown":
+        this.tempLinks?.sort((a: any, b: any) =>
+          b.title.localeCompare(a.title),
+        );
+        break;
+    }
   }
 }

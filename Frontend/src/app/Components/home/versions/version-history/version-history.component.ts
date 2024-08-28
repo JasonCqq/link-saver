@@ -6,12 +6,31 @@ import { Component } from "@angular/core";
   styleUrls: ["./version-history.component.scss"],
 })
 export class VersionHistoryComponent {
-  activeID: number = 8;
+  activeID: number = 9;
   toggleActive(id: number): void {
     this.activeID = this.activeID === id ? 0 : id;
   }
 
   versions = [
+    {
+      id: 9,
+      version: "2.0.1 - 08/27/24",
+      updates: [
+        "Implemented sorting functionality and options",
+        "(Sort by visits, name, dates)",
+        "Added visit counter on links",
+        '(Visit counter also now counts, "Open link in new tab")',
+      ],
+      qols: [
+        "Improved home features section",
+        "Added a new panel to display the available source code",
+        "Redesigned contact form slightly",
+        "Updated homepage demo video",
+        "Updated visuals slightly",
+        "Updated home picture",
+      ],
+      bugfixes: ["N/A"],
+    },
     {
       id: 8,
       version: "2.0.0 - 08/09/24",

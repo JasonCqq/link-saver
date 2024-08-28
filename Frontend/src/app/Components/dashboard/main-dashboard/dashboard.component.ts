@@ -136,14 +136,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   // Displays search results
   displayResults(results: Link[]): void {
     this.tempLinks = results;
+    this.sortResults(this.mainNavService.getSortBy());
   }
 
-  // Currently, the sortResults does not sync with search results.
   sortResults(sort: string): void {
     switch (sort) {
       case "Visits":
-        console.log("Testing Visits");
-        // this.tempLinks?.sort();
+        this.tempLinks?.sort((a, b) => {
+          return b.visits - a.visits;
+        });
         break;
 
       case "Latest":

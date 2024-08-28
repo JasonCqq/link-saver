@@ -36,7 +36,7 @@
       p {
         font-size: 1rem;
         font-weight: bold;
-        margin-left: 15px;
+        margin-left: 20px;
       }
 
       > .sidebar-email {
@@ -55,10 +55,10 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      gap: 0.75vw;
-      margin-top: 3vh;
+      gap: 0.7vw;
+      margin-top: 2vh;
       padding-right: 0.5vw;
-      margin-left: 15px;
+      margin-left: 20px;
 
       &:hover {
         cursor: pointer;
@@ -74,15 +74,15 @@
       }
 
       h1 {
-        font-size: 1rem;
+        font-size: 0.9rem;
         font-weight: 700;
         color: $text;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.85px;
       }
 
       .sidebar-icon {
         color: $accent;
-        font-size: 1.5rem;
+        transform: scale(0.9);
       }
 
       &:hover {
@@ -103,7 +103,7 @@
     .sidebar-icon {
       background: $accent;
       padding: 10px;
-      transform: scale(0.9);
+      transform: scale(0.8);
       border-radius: 10px;
       color: white;
 

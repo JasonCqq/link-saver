@@ -8,6 +8,7 @@
     [ngClass]="massEditting ? 'disabled' : 'link-item-wrapper'"
     [href]="'//' + itemData.url"
     target="_blank"
+    (click)="visitedLink()"
   >
     <div class="link-preview" *ngIf="this.previews">
       <img *ngIf="itemData.pURL" src="{{ itemData.pURL }}" />
@@ -27,6 +28,8 @@
       <p class="link-date link-date2" *ngIf="specialRequest === 'Upcoming'">
         {{ itemData.remind | date: "shortDate" }}
       </p>
+
+      <p class="link-visits">{{ itemData.visits }} visits</p>
     </a>
   </a>
 

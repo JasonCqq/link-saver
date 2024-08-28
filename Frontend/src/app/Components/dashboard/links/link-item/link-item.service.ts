@@ -26,6 +26,19 @@ export class LinkService {
     this.thumbnailsSubject.next(state);
   }
 
+  async visitedLink(id: string) {
+    await this.http
+      .put(
+        `${this.apiUrl}/link/visit`,
+        {
+          id: id,
+          userID: this.userService.getUser()?.user.id,
+        },
+        { withCredentials: true },
+      )
+      .subscribe();
+  }
+
   editLink(
     id: string,
     title: string,

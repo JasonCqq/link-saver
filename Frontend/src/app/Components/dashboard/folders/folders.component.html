@@ -2,6 +2,7 @@
 <app-main-nav
   [folderId]="this.tempId"
   (searchResults)="displayResults($event)"
+  (sortByResults)="sortResults($event)"
 ></app-main-nav>
 
 <main class="folders-container">

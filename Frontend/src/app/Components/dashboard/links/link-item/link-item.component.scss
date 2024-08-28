@@ -110,6 +110,12 @@
         margin-bottom: 10px;
         margin-right: 5px;
       }
+
+      > .link-visits {
+        font-size: 0.65rem;
+        padding-left: 3px;
+        color: $textSec;
+      }
     }
 
     > .link-details-no-previews {

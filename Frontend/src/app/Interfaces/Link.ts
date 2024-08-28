@@ -15,4 +15,5 @@ export interface Link {
   pURL: string;
   remind: Date | null;
   trash: boolean | null;
+  visits: number;
 }

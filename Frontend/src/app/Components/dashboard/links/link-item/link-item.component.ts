@@ -75,6 +75,12 @@ export class LinkComponent implements OnInit, OnDestroy {
       });
   }
 
+  visitedLink() {
+    this.linkService.visitedLink(this.itemData.id);
+    // Temporary render
+    this.itemData.visits++;
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

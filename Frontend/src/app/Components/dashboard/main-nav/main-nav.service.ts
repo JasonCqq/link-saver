@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, catchError, throwError, Subject } from "rxjs";
+import { BehaviorSubject, catchError, throwError } from "rxjs";
 import { environment } from "../../../../environments/environment";
 import { UserService } from "../../user/user.service";
 
@@ -25,11 +25,15 @@ export class MainNavService {
   massEdit$ = this.massEditSubject.asObservable();
   massEditIDs: string[] = [];
 
-  private sortBySubject = new Subject<string>();
+  private sortBySubject = new BehaviorSubject("");
   sortBy$ = this.sortBySubject.asObservable();
 
   setSortBy(res: string) {
     this.sortBySubject.next(res);
+  }
+
+  getSortBy() {
+    return this.sortBySubject.value;
   }
 
   toggleMassEdit() {

@@ -4,7 +4,7 @@
   color: $text;
   background: $background;
 
-  .landing-page {
+  > .landing-page {
     margin-top: 4vh;
     width: 100%;
     height: auto;
@@ -104,12 +104,59 @@
     }
   }
 
-  .home_features {
+  > .home_transparency {
+    margin-top: 17.5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    > h1 {
+      font-size: 2rem;
+      text-align: center;
+      line-height: 6vh;
+      letter-spacing: 3px;
+      font-weight: 900;
+      padding-bottom: 5vh;
+
+      @media screen and (max-width: 656px) {
+        font-size: 1.5rem;
+      }
+
+      @media screen and (max-width: 350px) {
+        font-size: 1.15rem;
+      }
+
+      > span {
+        border-bottom: 4px solid $accent;
+        padding-bottom: 5px;
+      }
+    }
+
+    > a {
+      border-radius: 10px;
+      border: 3px solid transparent;
+
+      > img {
+        border-radius: 10px;
+
+        @media screen and (max-width: 1080px) {
+          width: 100%;
+        }
+      }
+
+      &:hover {
+        border: 3px solid $accent;
+      }
+    }
+  }
+
+  > .home_features {
     display: flex;
     flex-direction: column;
     align-items: center;
     height: auto;
-    margin-top: 15vh;
+    margin-top: 20vh;
 
     @media screen and (max-width: 1050px) {
       margin-top: 9vh;
@@ -128,7 +175,7 @@
 
     .home-features-grid {
       display: grid;
-      width: 60vw;
+      width: 55vw;
       column-gap: 4vw;
       row-gap: 6vh;
       grid-template-columns: repeat(2, 1fr);
@@ -296,31 +343,18 @@
   }
 
   .home_picture {
-    width: 50vw;
     height: 500px;
-    margin: auto;
-    margin-top: 10vh;
-    background-image: url("../../../assets/Screenshot_70.jpg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15vh;
 
-    @media screen and (max-width: 1400px) {
-      width: 75vw;
-    }
+    > img {
+      border-radius: 10px;
 
-    @media screen and (max-width: 800px) {
-      margin-top: 5vh;
-      width: 90vw;
-    }
-
-    @media screen and (max-width: 650px) {
-      height: 400px;
-      width: 100vw;
-    }
-
-    @media screen and (max-width: 350px) {
-      height: 300px;
+      @media screen and (max-width: 1080px) {
+        width: 100%;
+      }
     }
   }
 
@@ -437,7 +471,7 @@
     align-items: center;
     justify-content: space-evenly;
     margin-bottom: 12.5vh;
-    margin-top: 20vh;
+    margin-top: 25vh;
 
     .contact-form {
       display: flex;
@@ -452,10 +486,11 @@
 
       > button {
         border: 3px solid $accent;
-        padding: 15px 10px;
+        padding: 10px 15px;
         font-size: 1.15rem;
-        background-color: transparent;
-        margin-top: 80px;
+        width: 125px;
+        background-color: $accent;
+        margin-top: 3vh;
         border-radius: 10px;
         color: $text;
         transition: background-color 0.1s ease-in-out;
@@ -463,8 +498,12 @@
 
         &:hover {
           cursor: pointer;
-          background-color: $accent;
+          background-color: transparent;
         }
+      }
+
+      > .home-message {
+        height: auto;
       }
     }
   }
@@ -508,8 +547,4 @@ mat-form-field {
   @media screen and (max-width: 400px) {
     width: 85vw;
   }
-}
-
-textarea {
-  resize: none;
 }

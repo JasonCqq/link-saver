@@ -44,7 +44,20 @@
     </div>
   </section>
 
-  <section class="home_picture"></section>
+  <section class="home_picture">
+    <img src="../../../assets/Screenshot70.png" />
+  </section>
+
+  <section class="home_transparency">
+    <h1>
+      Building Trust Through <span>Transparency</span> <br />
+      Code in Its Fullest Form
+    </h1>
+
+    <a href="https://github.com/JasonCqq/link-saver" target="_blank">
+      <img src="../../../assets/transparency.png" />
+    </a>
+  </section>
 
   <section #home_features class="home_features">
     <h1>What we offer</h1>
@@ -149,23 +162,24 @@
       </mat-form-field>
 
       <label for="message" style="padding-bottom: 8px">Message:</label>
-      <mat-form-field appearance="outline">
+      <mat-form-field class="home-message">
         <textarea
           matInput
           #message
           type="text"
           required
-          rows="5"
+          rows="1"
           name="message"
+          cdkTextareaAutosize
         ></textarea>
       </mat-form-field>
 
-      <button type="submit">Send Message</button>
+      <button type="submit">Submit</button>
     </form>
   </section>
 
   <footer class="foot-note">
-    <p routerLink="/versions">v2.0.0</p>
+    <p routerLink="/versions">v2.0.1</p>
 
     <a href="https://github.com/JasonCqq/link-saver" target="_blank"
       >Source Code</a

@@ -108,6 +108,7 @@ exports.create_link = [
                 bookmarked: JSON.parse(req.body.bookmarked),
                 remind: date,
                 thumbnail: "",
+                visits: 0,
               },
             });
             console.timeEnd("database operation");
@@ -164,6 +165,7 @@ exports.create_link = [
                 bookmarked: JSON.parse(req.body.bookmarked),
                 remind: date,
                 thumbnail: "",
+                visits: 0,
               },
             });
             console.timeEnd("database operation2");
@@ -325,6 +327,33 @@ exports.get_links = asyncHandler(async (req, res) => {
     console.error("Error: ", err);
   }
 });
+
+exports.visited_link = [
+  body("userID").trim().escape(),
+  body("id").trim().escape(),
+
+  asyncHandler(async (req, res) => {
+    const errs = validationResult(req);
+
+    if (!errs.isEmpty()) {
+      const firstError = errs.array({ onlyFirstError: true })[0].msg;
+      res.status(400).json(firstError);
+    } else {
+      await prisma.Link.update({
+        where: {
+          id: req.body.id,
+          userId: req.body.userID,
+        },
+
+        data: {
+          visits: { increment: 1 },
+        },
+      });
+
+      res.status(200).json({});
+    }
+  }),
+];
 
 exports.search_link = asyncHandler(async (req, res) => {
   if (!req.params.userId || req.session.user.id !== req.params.userId) {
