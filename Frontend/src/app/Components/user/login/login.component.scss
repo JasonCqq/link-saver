@@ -17,12 +17,6 @@ label {
     color: $accent;
     margin-bottom: 5vh;
     font-weight: 800;
-    transition: transform 0.1s;
-    will-change: contents;
-
-    &:hover {
-      transform: translateY(-5px);
-    }
   }
 
   > .login-form {

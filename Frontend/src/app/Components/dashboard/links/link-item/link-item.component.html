@@ -9,14 +9,14 @@
     [href]="'//' + itemData.url"
     target="_blank"
     (click)="visitedLink()"
+    (auxclick)="visitedLink()"
   >
     <div class="link-preview" *ngIf="this.previews">
       <img *ngIf="itemData.pURL" src="{{ itemData.pURL }}" />
       <p *ngIf="!itemData.pURL" style="text-align: center">No image found</p>
     </div>
 
-    <a
-      [href]="'//' + itemData.url"
+    <div
       target="_blank"
       [ngClass]="previews ? 'link-details' : 'link-details-no-previews'"
     >
@@ -30,7 +30,7 @@
       </p>
 
       <p class="link-visits">{{ itemData.visits }} visits</p>
-    </a>
+    </div>
   </a>
 
   <!--Link CRUD Options-->

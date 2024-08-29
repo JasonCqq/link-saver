@@ -107,6 +107,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         if (tempIndex !== undefined && tempIndex !== 1 && this.tempLinks) {
           this.tempLinks[tempIndex] = res;
           this.showOnly(this.tempTitle);
+          this.sortResults(this.mainNavService.getSortBy());
         }
       });
   }
@@ -195,11 +196,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     this.showOnly(this.tempTitle);
+    this.sortResults(this.mainNavService.getSortBy());
   }
 
   deletePerm(id: any): void {
     const link = this.links.findIndex((link) => link.id === id);
     this.links.splice(link, 1);
     this.showOnly(this.tempTitle);
+    this.sortResults(this.mainNavService.getSortBy());
   }
 }

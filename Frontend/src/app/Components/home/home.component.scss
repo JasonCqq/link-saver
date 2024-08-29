@@ -115,9 +115,9 @@
       font-size: 2rem;
       text-align: center;
       line-height: 6vh;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
       font-weight: 900;
-      padding-bottom: 5vh;
+      padding-bottom: 10vh;
 
       @media screen and (max-width: 656px) {
         font-size: 1.5rem;
@@ -125,11 +125,16 @@
 
       @media screen and (max-width: 350px) {
         font-size: 1.15rem;
+        line-height: 4vh;
       }
 
       > span {
         border-bottom: 4px solid $accent;
         padding-bottom: 5px;
+
+        @media screen and (max-width: 483px) {
+          border-top: 4px solid $accent;
+        }
       }
     }
 
@@ -159,11 +164,7 @@
     margin-top: 20vh;
 
     @media screen and (max-width: 1050px) {
-      margin-top: 9vh;
-    }
-
-    @media screen and (max-width: 600px) {
-      margin-top: 1vh;
+      margin-top: 15vh;
     }
 
     > h1 {
@@ -343,7 +344,6 @@
   }
 
   .home_picture {
-    height: 500px;
     display: flex;
     align-items: center;
     justify-content: center;
