@@ -23,7 +23,7 @@ span {
       width: 25vw;
       height: 20vh;
       border-radius: 10px;
-      background: $background;
+      background: var(--background);
 
       @media screen and (max-width: 1200px) {
         width: 35vw;
@@ -48,9 +48,9 @@ span {
         > button {
           border: none;
           padding: 10px 25px;
-          color: $text;
-          border: 3px solid $accent;
-          background: $accent;
+          color: var(--text);
+          border: 3px solid var(--accent);
+          background: var(--accent);
           border-radius: 10px;
 
           &:hover {
@@ -60,10 +60,10 @@ span {
         }
 
         > .clear-prompt-yes {
-          border: 3px solid $accent;
+          border: 3px solid var(--accent);
           background: transparent;
           &:hover {
-            background: $accent;
+            background: var(--accent);
           }
         }
       }
@@ -71,11 +71,11 @@ span {
   }
 
   > button {
-    color: $text;
+    color: var(--text);
     padding: 12px 21px;
     font-weight: 900;
-    background-color: $imp-button;
-    border: 3px solid $imp-button;
+    background-color: var(--imp-button);
+    border: 3px solid var(--imp-button);
     border-radius: 10px;
     display: flex;
     align-items: center;

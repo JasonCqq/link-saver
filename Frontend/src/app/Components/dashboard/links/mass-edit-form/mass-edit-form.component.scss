@@ -20,7 +20,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: $background2;
+    background-color: var(--background) 2;
     border-radius: 10px;
     gap: 2vh;
     position: absolute;
@@ -51,7 +51,7 @@
 
       &:hover {
         cursor: pointer;
-        color: $accent;
+        color: var(--accent);
       }
     }
 
@@ -63,7 +63,7 @@
       align-items: center;
 
       > button {
-        color: $text2;
+        color: var(--text2);
         border: none;
         border-radius: 10px;
         padding: 10px 15px;
@@ -79,35 +79,35 @@
         }
       }
       > .mass-delete-button {
-        border: 3px solid $imp-button;
-        color: $text;
+        border: 3px solid var(--imp-button);
+        color: var(--text);
         &:hover {
-          background-color: $imp-button;
+          background-color: var(--imp-button);
         }
       }
       > .mass-restore-button {
-        border: 3px solid $accent;
-        color: $text;
+        border: 3px solid var(--accent);
+        color: var(--text);
         &:hover {
-          background-color: $accent;
+          background-color: var(--accent);
         }
       }
     }
 
     > button {
-      color: $text;
+      color: var(--text);
       border: none;
       border-radius: 10px;
       padding: 15px 25px;
       background-color: transparent;
-      border: 3px solid $accent;
+      border: 3px solid var(--accent);
 
       &:disabled {
         opacity: 0.5;
       }
 
       &:hover {
-        background-color: $accent;
+        background-color: var(--accent);
         cursor: pointer;
       }
     }
@@ -131,5 +131,5 @@ mat-form-field {
 }
 
 mat-select {
-  color: $text;
+  color: var(--text);
 }

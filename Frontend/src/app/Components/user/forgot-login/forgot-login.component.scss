@@ -42,17 +42,17 @@ label {
       align-items: center;
 
       > h1 {
-        color: $text;
+        color: var(--text);
         text-align: center;
         font-size: 1rem;
       }
 
       > p {
-        border: 3px solid $border;
+        border: 3px solid #494b52;
         background: transparent;
         padding: 10px 20px;
         border-radius: 10px;
-        color: $text;
+        color: var(--text);
         font-weight: bold;
         font-size: 0.9rem;
 
@@ -68,25 +68,25 @@ label {
       border: none;
       font-size: 1rem;
       background-color: transparent;
-      border: 3px solid $accent;
+      border: 3px solid var(--accent);
       padding: 17.5px 0;
       border-radius: 10px;
       margin-top: 1vh;
       margin-bottom: 1vh;
-      color: $text;
+      color: var(--text);
       font-weight: bold;
       transition: background-color 0.1s;
 
       &:hover {
         cursor: pointer;
-        background-color: $accent;
+        background-color: var(--accent);
       }
 
       &:disabled {
         opacity: 0.4;
         &:hover {
           cursor: default;
-          color: $text2;
+          color: var(--text2);
         }
       }
     }
@@ -96,25 +96,25 @@ label {
     border: none;
     font-size: 1rem;
     background-color: transparent;
-    border: 3px solid $accent;
+    border: 3px solid var(--accent);
     padding: 17.5px 25px;
     border-radius: 10px;
     margin-top: 1vh;
     margin-bottom: 1vh;
-    color: $text;
+    color: var(--text);
     font-weight: bold;
     transition: background-color 0.1s;
 
     &:hover {
       cursor: pointer;
-      background-color: $accent;
+      background-color: var(--accent);
     }
 
     &:disabled {
       opacity: 0.4;
       &:hover {
         cursor: default;
-        color: $text2;
+        color: var(--text2);
       }
     }
   }

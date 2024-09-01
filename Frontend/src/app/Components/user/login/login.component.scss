@@ -9,12 +9,12 @@ label {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: $background;
+  background-color: var(--background);
   padding-top: 5vh;
 
   > .home-ref {
     font-size: 2.5rem;
-    color: $accent;
+    color: var(--accent);
     margin-bottom: 5vh;
     font-weight: 800;
   }
@@ -40,13 +40,13 @@ label {
       align-self: flex-start;
       font-weight: 500;
       &:hover {
-        color: $accent;
+        color: var(--accent);
         cursor: pointer;
       }
     }
 
     > h1 {
-      color: $text;
+      color: var(--text);
       text-align: center;
       padding-bottom: 2vh;
       font-size: 1.25rem;
@@ -54,28 +54,28 @@ label {
 
     > button {
       border: none;
-      border: 3px solid $accent;
+      border: 3px solid var(--accent);
       font-size: 1rem;
       background-color: transparent;
       padding: 20px 0;
       border-radius: 10px;
       margin-top: 1vh;
       margin-bottom: 1vh;
-      color: $text;
+      color: var(--text);
 
       font-weight: bold;
       transition: background-color 0.1s ease-in-out;
 
       &:hover {
         cursor: pointer;
-        background-color: $accent;
+        background-color: var(--accent);
       }
 
       &:disabled {
         opacity: 0.4;
         &:hover {
           cursor: default;
-          color: $text2;
+          color: var(--text2);
         }
       }
     }
@@ -91,20 +91,20 @@ label {
   height: 7vh;
   font-size: 0.9rem;
   font-weight: bold;
-  color: $textSec;
+  color: var(--textSec);
   gap: 15px;
   margin-left: auto;
   margin-right: auto;
   left: 0;
   right: 0;
-  background-color: $background2;
+  background-color: var(--background) 2;
 
   > a,
   p {
-    color: $textSec;
+    color: var(--textSec);
 
     &:hover {
-      color: $accent;
+      color: var(--accent);
       cursor: pointer;
     }
   }

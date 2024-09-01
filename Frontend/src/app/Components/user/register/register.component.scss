@@ -10,11 +10,11 @@ label {
   padding-top: 5vh;
   align-items: center;
 
-  background-color: $background;
+  background-color: var(--background);
 
   > .home-ref {
     font-size: 2.5rem;
-    color: $accent;
+    color: var(--accent);
     margin-bottom: 5vh;
     font-weight: 800;
   }
@@ -35,7 +35,7 @@ label {
     }
 
     > h1 {
-      color: $text;
+      color: var(--text);
       text-align: center;
       padding-bottom: 2vh;
       font-size: 1.25rem;
@@ -43,28 +43,28 @@ label {
 
     > button {
       border: none;
-      border: 3px solid $accent;
+      border: 3px solid var(--accent);
       font-size: 1rem;
       background-color: transparent;
       padding: 20px 0;
       border-radius: 10px;
       margin-top: 1vh;
       margin-bottom: 1vh;
-      color: $text;
+      color: var(--text);
 
       font-weight: bold;
       transition: background-color 0.1s ease-in-out;
 
       &:hover {
         cursor: pointer;
-        background-color: $accent;
+        background-color: var(--accent);
       }
 
       &:disabled {
         opacity: 0.4;
         &:hover {
           cursor: default;
-          color: $text2;
+          color: var(--text2);
         }
       }
     }
@@ -73,7 +73,7 @@ label {
       font-size: 1rem;
       font-weight: 500;
       &:hover {
-        color: $accent;
+        color: var(--accent);
         cursor: pointer;
       }
     }
@@ -87,18 +87,18 @@ label {
     justify-content: center;
     gap: 2vh;
     text-align: center;
-    background-color: $background2;
+    background-color: var(--background) 2;
     border-radius: 10px;
     padding: 50px 35px;
 
     > h1 {
-      color: $accent;
+      color: var(--accent);
       font-size: 1.5rem;
     }
 
     > span {
       font-size: 4rem;
-      background-color: $accent;
+      background-color: var(--accent);
       border-radius: 50px;
       padding: 10px;
     }
@@ -106,7 +106,7 @@ label {
     > p {
       font-weight: 500;
       line-height: 25px;
-      color: $textSec;
+      color: var(--textSec);
     }
   }
 }
@@ -120,20 +120,20 @@ label {
   height: 7vh;
   font-size: 0.9rem;
   font-weight: bold;
-  color: $textSec;
+  color: var(--textSec);
   gap: 15px;
   margin-left: auto;
   margin-right: auto;
   left: 0;
   right: 0;
-  background-color: $background2;
+  background-color: var(--background) 2;
 
   > a,
   p {
-    color: $textSec;
+    color: var(--textSec);
 
     &:hover {
-      color: $accent;
+      color: var(--accent);
       cursor: pointer;
     }
   }

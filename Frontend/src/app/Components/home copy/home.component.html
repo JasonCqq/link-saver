@@ -1,30 +1,16 @@
 <main class="home-page">
   <header class="landing-page" #home>
-    <nav class="landing-nav">
-      <h1>linkstorag<span>e</span></h1>
-      <a routerLink="/versions">Changelogs</a>
+    <a routerLink="/user/login" *ngIf="!user" class="home-login">Login</a>
 
-      <span class="landing-nav-right">
-        <a routerLink="/user/login" *ngIf="!user" class="home-login">Log in</a>
-
-        <a routerLink="/user/register" *ngIf="!user" class="register-button">
-          Get started
-        </a>
-      </span>
-    </nav>
-
-    <h1 class="landing-title">Save > Preview & Track Your Links with Ease</h1>
-    <section *ngIf="this.data" class="landing-stats">
-      <div class="landing-stats-items">
-        <p>{{ this.data.links }}+ <span>links archived</span></p>
-      </div>
-    </section>
+    <div class="landing-heading">
+      <h1>LinkStorage</h1>
+      <a routerLink="/versions"><u>Release Notes</u></a>
+    </div>
 
     <div class="landing-body">
       <a routerLink="/user/register" *ngIf="!user" class="register-button">
-        Try for free
+        Sign Up
       </a>
-
       <a routerLink="/dashboard" *ngIf="user" class="dashboard-button"
         >Dashboard</a
       >
@@ -32,7 +18,7 @@
       <section class="home_showcase">
         <div class="showcase_header" (click)="toggleShowcase()">
           <span class="material-icons-round"> play_circle </span>
-          <h1>See Demo</h1>
+          <h1>Watch Demo</h1>
         </div>
       </section>
     </div>
@@ -52,8 +38,14 @@
     ></iframe>
   </div>
 
+  <section *ngIf="this.data" class="landing-stats">
+    <div class="landing-stats-items">
+      <p>{{ this.data.links }}+ <span>links archived</span></p>
+    </div>
+  </section>
+
   <section class="home_picture">
-    <img src="../../../assets/265shots_so.png" />
+    <img src="../../../assets/265shots_so1.png" />
   </section>
 
   <section class="home_transparency">
@@ -68,7 +60,7 @@
   </section>
 
   <section #home_features class="home_features">
-    <h1>FEATURES</h1>
+    <h1>What we offer</h1>
     <div class="home-features-grid">
       <div class="home-features-item">
         <span>
@@ -76,12 +68,12 @@
         </span>
 
         <span>
-          <h2>Share links & folders</h2>
+          <h2>Sharing links and folders</h2>
           <p>
             Share publicly or privately with a password.
             <a routerLink="/public/1" target="_blank"
-              ><u style="color: black"
-                >Check out one of our shared folders!</u
+              ><strong style="color: white"
+                >Check out one of our shared folders!</strong
               ></a
             >
           </p>
@@ -94,7 +86,7 @@
         </span>
 
         <span>
-          <h2>Thumbnails</h2>
+          <h2>Thumbnails for links</h2>
           <p>Easily preview stored links with website thumbnails.</p>
         </span>
       </div>
@@ -108,7 +100,7 @@
         </span>
 
         <span>
-          <h2>Search & Filter</h2>
+          <h2>Search and Filter</h2>
           <p>
             Locate your links with search and sort functionalities. (Sort by
             visits, name, date)
@@ -118,7 +110,10 @@
 
       <div class="home-features-item">
         <span>
-          <span class="material-icons-round home-features-icon">
+          <span
+            class="material-icons-round home-features-icon"
+            style="transform: scale(2.25)"
+          >
             edit_note
           </span>
         </span>
@@ -132,6 +127,8 @@
   </section>
 
   <section #home_faq class="home_faq">
+    <h1>Frequently <br />asked questions</h1>
+
     <div class="home-faq-container">
       <div
         class="faq-item"
@@ -153,19 +150,19 @@
       action="https://formsubmit.co/jason.cq.huang@gmail.com"
       method="POST"
     >
-      <h1>CONTACT</h1>
+      <h1>Contact</h1>
 
-      <label for="name">Name</label>
+      <label for="name">Name:</label>
       <mat-form-field appearance="fill">
         <input matInput type="text" #name required name="name" />
       </mat-form-field>
 
-      <label for="email">Email</label>
+      <label for="email">Email:</label>
       <mat-form-field appearance="fill">
         <input matInput type="email" #email required name="email" />
       </mat-form-field>
 
-      <label for="message" style="padding-bottom: 8px">Message</label>
+      <label for="message" style="padding-bottom: 8px">Message:</label>
       <mat-form-field class="home-message">
         <textarea
           matInput
@@ -178,7 +175,7 @@
         ></textarea>
       </mat-form-field>
 
-      <button type="submit">Send Message</button>
+      <button type="submit">Submit</button>
     </form>
   </section>
 

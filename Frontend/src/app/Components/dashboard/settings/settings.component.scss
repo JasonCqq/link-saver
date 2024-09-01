@@ -2,7 +2,7 @@
 
 .settings-page {
   margin-left: 20vw;
-  color: $text;
+  color: var(--text);
   padding: 12.5vh 7.5%;
   font-weight: 500;
 
@@ -27,7 +27,7 @@
       left: 0;
 
       > .settings-delete-prompt {
-        background-color: $background;
+        background-color: var(--background);
         width: 25vw;
         height: 32.5vh;
         border-radius: 10px;
@@ -37,11 +37,11 @@
         gap: 2vh;
 
         > .settings-delete {
-          background-color: $imp-button;
-          border: 3px solid $imp-button;
+          background-color: var(--imp-button);
+          border: 3px solid var(--imp-button);
           padding: 10px 25px;
           border-radius: 10px;
-          color: $text;
+          color: var(--text);
 
           transition: background-color 0.1s;
 
@@ -72,7 +72,7 @@
 
         > input {
           border: none;
-          border: 3px solid $accent;
+          border: 3px solid var(--accent);
           background: transparent;
           border-radius: 10px;
           padding: 1vh 1vw;
@@ -91,7 +91,7 @@
 
           &:hover {
             cursor: pointer;
-            color: $accent;
+            color: var(--accent);
           }
         }
       }
@@ -116,17 +116,17 @@
       gap: 2vh;
 
       > h3 {
-        color: $accent;
+        color: var(--accent);
       }
 
       > p {
         font-size: 1.1rem;
-        color: $textSec;
+        color: var(--textSec);
       }
 
       > a {
         &:hover {
-          color: $accent;
+          color: var(--accent);
         }
       }
 
@@ -136,24 +136,24 @@
       }
 
       > .settings-change-pass {
-        border: 3px solid $accent;
+        border: 3px solid var(--accent);
         border-radius: 10px;
         background: transparent;
         padding: 10px 0px;
         width: 170px;
         transition: background-color 0.1s;
         &:hover {
-          background-color: $accent;
+          background-color: var(--accent);
           cursor: pointer;
         }
       }
 
       > .settings-delete {
-        background-color: $imp-button;
-        border: 3px solid $imp-button;
+        background-color: var(--imp-button);
+        border: 3px solid var(--imp-button);
         padding: 10px 20px;
         border-radius: 10px;
-        color: $text;
+        color: var(--text);
         transition: background-color 0.1s;
 
         &:hover {
@@ -179,7 +179,7 @@
           justify-content: center;
           align-items: center;
           gap: 2vh;
-          background-color: $background2;
+          background-color: var(--background) 2;
           width: 25vw;
           height: 55vh;
           margin: auto;
@@ -202,15 +202,15 @@
           }
 
           > button {
-            border: 3px solid $accent;
+            border: 3px solid var(--accent);
             background-color: transparent;
             padding: 10px 20px;
             border-radius: 10px;
-            color: $text;
+            color: var(--text);
 
             transition: background-color 0.1s ease;
             &:hover {
-              background-color: $accent;
+              background-color: var(--accent);
               cursor: pointer;
             }
 
@@ -229,7 +229,7 @@
 
             &:hover {
               cursor: pointer;
-              color: $accent;
+              color: var(--accent);
             }
           }
         }
@@ -239,8 +239,8 @@
         padding: 10px 20px;
         border: none;
         border-radius: 10px;
-        border: 3px solid $accent;
-        color: $text;
+        border: 3px solid var(--accent);
+        color: var(--text);
         background-color: transparent;
         transition:
           background-color 0.1s ease-in-out,
@@ -254,8 +254,8 @@
         }
 
         &:hover {
-          background-color: $accent;
-          color: $text;
+          background-color: var(--accent);
+          color: var(--text);
           cursor: pointer;
         }
       }

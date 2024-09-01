@@ -16,11 +16,11 @@
       position: absolute;
       top: 0;
       height: 4vh;
-      background: $accent;
+      background: var(--accent);
       display: flex;
       justify-content: center;
       align-items: center;
-      color: $text;
+      color: var(--text);
       width: 100vw;
       font-weight: 500;
 
@@ -34,7 +34,7 @@
     }
 
     > a {
-      color: $accent;
+      color: var(--accent);
       font-size: 2.5rem;
       font-weight: 900;
       padding-top: 7vh;
@@ -47,17 +47,17 @@
     > button {
       padding: 12px 20px;
       border: none;
-      border: 3px solid $accent;
+      border: 3px solid var(--accent);
       border-radius: 10px;
       background: transparent;
-      color: $text;
+      color: var(--text);
       margin-top: 10px;
       font-weight: 700;
       font-size: 0.9rem;
 
       &:hover {
         cursor: pointer;
-        background-color: $accent;
+        background-color: var(--accent);
       }
     }
   }
@@ -109,7 +109,7 @@
 
   > a {
     font-size: 2.5rem;
-    color: $accent;
+    color: var(--accent);
     font-weight: bold;
   }
 
@@ -124,10 +124,10 @@
     button {
       background: transparent;
       border-radius: 10px;
-      border: 3px solid $accent;
+      border: 3px solid var(--accent);
       padding: 10px 25px;
       font-weight: bold;
-      color: $text;
+      color: var(--text);
       font-size: 1rem;
       margin-bottom: 2vh;
 
@@ -136,7 +136,7 @@
         color 0.1s ease-in-out;
 
       &:hover {
-        background-color: $accent;
+        background-color: var(--accent);
         cursor: pointer;
       }
     }
@@ -152,20 +152,20 @@
   height: 7vh;
   font-size: 0.9rem;
   font-weight: bold;
-  color: $textSec;
+  color: var(--textSec);
   gap: 15px;
   margin-left: auto;
   margin-right: auto;
   left: 0;
   right: 0;
-  background: rgba($color: $background2, $alpha: 0.5);
+  background: rgba($color: var(--background2), $alpha: 0.5);
 
   > a,
   p {
-    color: $textSec;
+    color: var(--textSec);
 
     &:hover {
-      color: $accent;
+      color: var(--accent);
       cursor: pointer;
     }
   }

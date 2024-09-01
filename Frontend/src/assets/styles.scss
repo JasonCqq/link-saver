@@ -6,16 +6,28 @@
   src: url("../assets/RedditSans-VariableFont_wght.ttf");
 }
 
-$secondary: #517ee1;
-$accent: #517ee1;
-$background: #0f0f0f;
-$background2: #191919;
-$border: #494b52;
-$text: #fbfcfc;
-$text2: #0e0c0c;
-$textSec: #c1c9df;
-$imp-button: #f73830;
-$warn: #7067f2;
+//Light mode
+:root {
+  --accent: #214799;
+  --background: #fff;
+  --background2: #000;
+  --text: #000;
+  --text2: #fff;
+  --textSec: #282828;
+  --imp-button: #f73830;
+  --warn: #7067f2;
+}
+
+//Dark mode
+// :root {
+//   --text: #517ee1;
+//   --background: #0f0f0f;
+//   --text: #fbfcfc;
+//   --text2: #0e0c0c;
+//   --textSec: #c1c9df;
+//   --imp-button: #f73830;
+//   --warn: #7067f2;
+// }
 
 $my-custom-typography-config: mat.define-typography-config(
   $caption:
@@ -47,31 +59,31 @@ $Frontend-theme: mat.define-dark-theme(
 ::ng-deep {
   .mdc-text-field--outlined:not(.mdc-text-field--disabled)
     .mdc-text-field__input {
-    color: white !important;
+    color: var(--text) !important;
   }
 }
 
 //Top bottom border, if label is inside
 ::ng-deep.mdc-notched-outline__notch {
-  border-top: 3px solid $accent !important;
-  border-bottom: 3px solid $accent !important;
+  border-top: 3px solid var(--text) !important;
+  border-bottom: 3px solid var(--text) !important;
 }
 
 //Top bottom border, if label is notched
 ::ng-deep.mdc-notched-outline--notched {
   ::ng-deep.mdc-notched-outline__notch {
     border-top: none !important;
-    border-bottom: 3px solid $accent !important;
+    border-bottom: 3px solid var(--text) !important;
   }
 }
 //Left border with edges
 ::ng-deep.mdc-notched-outline__leading {
-  border: 3px solid $accent !important;
+  border: 3px solid var(--text) !important;
   border-right: none !important;
 }
 //Right border with edges
 ::ng-deep.mdc-notched-outline__trailing {
-  border: 3px solid $accent !important;
+  border: 3px solid var(--text) !important;
   border-left: none !important;
 }
 
@@ -98,8 +110,8 @@ $Frontend-theme: mat.define-dark-theme(
 ::ng-deep .mat-mdc-select-panel {
   margin-top: 15px;
   border-radius: 10px !important;
-  background: $background !important;
-  border: 3px solid $accent;
+  background: var(--background) !important;
+  border: 3px solid var(--text);
 }
 
 // Date picker
@@ -108,15 +120,15 @@ $Frontend-theme: mat.define-dark-theme(
     background-color: transparent !important;
   }
   .mdc-line-ripple::before {
-    border-bottom: 3px solid $accent !important;
-    color: white !important;
+    border-bottom: 3px solid var(--text) !important;
+    color: var(--text) !important;
   }
   .mat-mdc-icon-button {
-    color: $accent !important;
+    color: var(--text) !important;
   }
   .mdc-text-field--filled:not(.mdc-text-field--disabled)
     .mdc-text-field__input {
-    color: white !important;
+    color: var(--text) !important;
   }
 }
 
@@ -131,7 +143,7 @@ $Frontend-theme: mat.define-dark-theme(
 html {
   scroll-behavior: smooth;
   box-sizing: border-box !important;
-  background-color: $background;
+  background-color: var(--background);
   height: auto;
 }
 
@@ -139,8 +151,8 @@ body {
   box-sizing: border-box !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: $text;
-  background-color: $background;
+  color: var(--text);
+  background-color: var(--background);
   height: auto;
 }
 
@@ -170,17 +182,28 @@ code {
 
 // Scrollbar
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 15px;
 }
 ::-webkit-scrollbar-track {
-  background: $background;
+  background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: $accent;
-  &:hover {
-    background: #2061c3;
-  }
+  background: var(--text);
 }
+
+// Dark Scrollbar
+// ::-webkit-scrollbar {
+//   width: 10px;
+// }
+// ::-webkit-scrollbar-track {
+//   background: var(--background);
+// }
+// ::-webkit-scrollbar-thumb {
+//   background: var(--text);
+//   &:hover {
+//     background: #2061c3;
+//   }
+// }
 
 // CSS Reset
 html,
@@ -206,10 +229,10 @@ ol {
 }
 a {
   text-decoration: none;
-  color: $text;
+  color: var(--text);
 }
 input {
-  color: $text;
+  color: var(--text);
 }
 
 html,
@@ -227,8 +250,8 @@ button {
   align-items: center;
   justify-content: flex-start;
   gap: 10px;
-  background: $warn;
-  color: $text;
+  background: var(--warn);
+  color: var(--text);
   text-align: center;
   padding: 10px 20px;
   border-radius: 10px;

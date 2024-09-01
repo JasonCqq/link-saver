@@ -15,7 +15,7 @@
 
   > .link-item-edit {
     position: absolute;
-    background-color: $background2;
+    background-color: var(--background) 2;
     display: flex;
     flex-direction: column;
     border-radius: 10px;
@@ -50,7 +50,7 @@
         margin-left: 2vw;
 
         &:hover {
-          color: $accent;
+          color: var(--accent);
           cursor: pointer;
         }
       }
@@ -64,11 +64,11 @@
 
     > button {
       border: none;
-      border: 3px solid $accent;
+      border: 3px solid var(--accent);
       padding: 10px 3vw;
       background-color: transparent;
       margin-top: 3vh;
-      color: $text;
+      color: var(--text);
       border-radius: 10px;
       font-weight: 500;
       transition:
@@ -87,8 +87,8 @@
 
       &:hover {
         cursor: pointer;
-        background-color: $accent;
-        color: $text2;
+        background-color: var(--accent);
+        color: var(--text2);
       }
     }
   }
@@ -111,5 +111,5 @@ mat-form-field {
 }
 
 mat-select {
-  color: $text;
+  color: var(--text);
 }

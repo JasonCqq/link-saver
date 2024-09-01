@@ -33,7 +33,7 @@
 .default-dash-container {
   padding-left: 14vw;
   height: auto;
-  background-color: $background;
+  background-color: var(--background);
 
   @media screen and (max-width: 340px) {
     padding: 0;

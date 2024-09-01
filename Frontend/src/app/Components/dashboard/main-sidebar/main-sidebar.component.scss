@@ -14,7 +14,7 @@
 
   .d-sidebar {
     min-width: 200px;
-    background-color: $background;
+    background-color: var(--background);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 
@@ -41,7 +41,7 @@
 
       > .sidebar-email {
         font-size: 0.6rem;
-        color: $textSec;
+        color: var(--textSec);
       }
     }
 
@@ -65,7 +65,7 @@
 
         > h1 {
           transition: color 0.1s ease-in-out;
-          color: $accent;
+          color: var(--accent);
         }
       }
 
@@ -76,12 +76,12 @@
       h1 {
         font-size: 0.9rem;
         font-weight: 700;
-        color: $text;
+        color: var(--text);
         letter-spacing: 0.85px;
       }
 
       .sidebar-icon {
-        color: $accent;
+        color: var(--accent);
         transform: scale(0.9);
       }
 
@@ -101,7 +101,7 @@
     gap: 8px;
 
     .sidebar-icon {
-      background: $accent;
+      background: var(--accent);
       padding: 10px;
       transform: scale(0.8);
       border-radius: 10px;
@@ -109,13 +109,13 @@
 
       &:hover {
         cursor: pointer;
-        background: rgba($accent, 0.75);
+        background: rgba(var(--accent), 0.75);
       }
     }
 
     .icon-toggle {
       background: transparent;
-      border: 3px solid $accent;
+      border: 3px solid var(--accent);
       padding: 7px;
       transform: scale(0.9);
       border-radius: 10px;
@@ -123,7 +123,7 @@
 
       &:hover {
         cursor: pointer;
-        background: rgba($accent, 1);
+        background: rgba(var(--accent), 1);
       }
     }
   }
@@ -131,7 +131,7 @@
 
 .open-menu {
   margin-left: 5vw;
-  background: rgba($accent, 1);
+  background: rgba(var(--accent), 1);
   padding: 10px;
   transform: scale(0.9);
   margin-top: 5vh;
@@ -142,6 +142,6 @@
 
   &:hover {
     cursor: pointer;
-    background: rgba($accent, 0.75);
+    background: rgba(var(--accent), 0.75);
   }
 }
