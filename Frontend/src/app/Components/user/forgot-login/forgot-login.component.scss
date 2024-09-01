@@ -1,7 +1,7 @@
 @import "../../../../assets/styles.scss";
 
 label {
-  font-weight: 500;
+  font-weight: 800;
 }
 
 .forgot-container {
@@ -48,7 +48,7 @@ label {
       }
 
       > p {
-        border: 3px solid #494b52;
+        border: 3px solid var(--text);
         background: transparent;
         padding: 10px 20px;
         border-radius: 10px;
@@ -57,18 +57,18 @@ label {
         font-size: 0.9rem;
 
         &:hover {
-          border-color: white;
+          background: var(--text);
           cursor: pointer;
+          color: var(--text2);
         }
       }
     }
 
     > .submit-new-pass,
     .get-code {
-      border: none;
       font-size: 1rem;
       background-color: transparent;
-      border: 3px solid var(--accent);
+      border: 3px solid var(--text);
       padding: 17.5px 0;
       border-radius: 10px;
       margin-top: 1vh;
@@ -76,17 +76,18 @@ label {
       color: var(--text);
       font-weight: bold;
       transition: background-color 0.1s;
+      letter-spacing: 0;
 
       &:hover {
         cursor: pointer;
-        background-color: var(--accent);
+        background-color: var(--text);
+        color: var(--text2);
       }
 
       &:disabled {
-        opacity: 0.4;
+        opacity: 0.5;
         &:hover {
           cursor: default;
-          color: var(--text2);
         }
       }
     }
@@ -96,7 +97,7 @@ label {
     border: none;
     font-size: 1rem;
     background-color: transparent;
-    border: 3px solid var(--accent);
+    border: 3px solid var(--text);
     padding: 17.5px 25px;
     border-radius: 10px;
     margin-top: 1vh;
@@ -107,14 +108,14 @@ label {
 
     &:hover {
       cursor: pointer;
-      background-color: var(--accent);
+      background-color: var(--text);
+      color: var(--text2);
     }
 
     &:disabled {
-      opacity: 0.4;
+      opacity: 0.5;
       &:hover {
         cursor: default;
-        color: var(--text2);
       }
     }
   }

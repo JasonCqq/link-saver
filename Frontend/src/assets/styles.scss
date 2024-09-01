@@ -33,7 +33,7 @@ $my-custom-typography-config: mat.define-typography-config(
   $caption:
     mat.define-typography-level(
       $font-size: 12px,
-      $font-weight: 500,
+      $font-weight: 700,
       $font-family: "Reddit Sans",
     ),
 );
@@ -88,11 +88,11 @@ $Frontend-theme: mat.define-dark-theme(
 }
 
 ::ng-deep .mdc-text-field--focused .mdc-notched-outline > * {
-  border-color: white !important;
+  border-color: var(--text) !important;
 }
 
 ::ng-deep .mat-mdc-floating-label.mdc-floating-label {
-  color: gray !important;
+  color: var(--text) !important;
   font-weight: 600;
   font-size: 14px;
   font-family: "Reddit Sans";
@@ -107,11 +107,27 @@ $Frontend-theme: mat.define-dark-theme(
   --mdc-outlined-text-field-container-shape: 10px !important;
 }
 
+// Dropdown menu
 ::ng-deep .mat-mdc-select-panel {
   margin-top: 15px;
   border-radius: 10px !important;
   background: var(--background) !important;
   border: 3px solid var(--text);
+}
+
+::ng-deep .mdc-list-item__primary-text {
+  color: var(--text);
+  font-weight: 700 !important;
+}
+
+::ng-deep .mat-mdc-select-value-text {
+  color: var(--text);
+}
+
+// Toggle label
+::ng-deep .mat-mdc-slide-toggle .mdc-form-field .mdc-label {
+  color: var(--text);
+  font-weight: 700 !important;
 }
 
 // Date picker

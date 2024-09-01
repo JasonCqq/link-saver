@@ -9,19 +9,18 @@
   > h1 {
     font-size: 1.5rem;
     padding: 0px 0px 2vh 0px;
+    font-weight: 800;
   }
 
   > button {
     background-color: transparent;
-    border: 3px solid var(--accent);
+    border: 3px solid var(--text);
     border-radius: 10px;
     padding: 10px 0px;
     color: var(--text);
     font-size: 1rem;
     font-weight: bold;
-    transition:
-      background-color 0.1s ease-in-out,
-      color 0.1s ease-in-out;
+    transition: background-color 0.1s ease-in-out;
     margin-top: 2vh;
     width: 100px;
 
@@ -30,7 +29,7 @@
     }
 
     &:hover {
-      background-color: var(--accent);
+      background-color: var(--background2);
       cursor: pointer;
       color: var(--text2);
     }

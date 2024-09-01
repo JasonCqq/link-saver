@@ -5,11 +5,20 @@ main {
   flex-direction: column;
 
   > h1 {
+    padding-bottom: 5px;
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 1px;
     text-align: center;
-    padding-top: 25px;
-    color: var(--accent);
-    font-weight: bold;
-    margin: auto;
+    padding-top: 5vh;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    > span {
+      border-bottom: 5px solid var(--accent);
+    }
   }
 
   > section {
@@ -31,11 +40,11 @@ main {
     > .versions-grid {
       > .versions-item {
         > h3 {
-          background-color: var(--background) 2;
           width: 85%;
-          padding: 25px;
           border-radius: 10px;
           margin-top: 20px;
+          font-weight: 900;
+          font-size: 1.25rem;
 
           &:hover {
             cursor: pointer;

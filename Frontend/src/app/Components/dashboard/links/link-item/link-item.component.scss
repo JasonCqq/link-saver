@@ -1,7 +1,7 @@
 @import "../../../../../assets/styles.scss";
 
 .link-item-border {
-  border: 3px solid var(--accent) !important;
+  border: 3px solid var(--text) !important;
   background-color: rgba(var(--accent), 0.75) !important;
 }
 
@@ -15,7 +15,7 @@
   border: 3px solid transparent;
 
   &:hover {
-    border-color: var(--accent);
+    border-color: var(--text);
   }
 
   @media screen and (max-width: 340px) {
@@ -64,8 +64,8 @@
       height: 50px;
 
       > .link-title {
-        font-size: 0.7rem;
-        font-weight: 700;
+        font-size: 0.8rem;
+        font-weight: 800;
         height: 35%;
         overflow: hidden;
         padding-top: 3px;
@@ -156,9 +156,9 @@
     position: absolute;
     top: 0;
     left: 0;
-    color: var(--accent);
+    color: var(--text2);
     border-radius: 7px;
-    background: var(--background) 2;
+    background: var(--background2);
     display: flex;
     align-items: center;
     gap: 2px;
@@ -169,7 +169,6 @@
 
     > * {
       &:hover {
-        color: var(--text);
         cursor: pointer;
       }
     }

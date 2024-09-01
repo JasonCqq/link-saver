@@ -10,6 +10,13 @@
         <a routerLink="/user/register" *ngIf="!user" class="register-button">
           Get started
         </a>
+
+        <a
+          routerLink="/dashboard"
+          *ngIf="user"
+          class="register-button dashboard-button"
+          >Dashboard</a
+        >
       </span>
     </nav>
 

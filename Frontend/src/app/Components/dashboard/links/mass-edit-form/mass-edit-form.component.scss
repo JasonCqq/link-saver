@@ -20,7 +20,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: var(--background) 2;
+    background-color: var(--background);
     border-radius: 10px;
     gap: 2vh;
     position: absolute;
@@ -46,8 +46,8 @@
       position: absolute;
       top: 0;
       left: 0;
-      margin-left: 10px;
-      margin-top: 10px;
+      margin-left: 15px;
+      margin-top: 15px;
 
       &:hover {
         cursor: pointer;
@@ -63,7 +63,6 @@
       align-items: center;
 
       > button {
-        color: var(--text2);
         border: none;
         border-radius: 10px;
         padding: 10px 15px;
@@ -77,6 +76,10 @@
           font-size: 0.7rem;
           padding: 10px 10px;
         }
+      }
+
+      > #massBookmark {
+        color: var(--text);
       }
       > .mass-delete-button {
         border: 3px solid var(--imp-button);
@@ -98,17 +101,18 @@
       color: var(--text);
       border: none;
       border-radius: 10px;
-      padding: 15px 25px;
+      padding: 10px 20px;
       background-color: transparent;
-      border: 3px solid var(--accent);
+      border: 3px solid var(--text);
 
       &:disabled {
         opacity: 0.5;
       }
 
       &:hover {
-        background-color: var(--accent);
+        background-color: var(--background2);
         cursor: pointer;
+        color: var(--text2);
       }
     }
   }

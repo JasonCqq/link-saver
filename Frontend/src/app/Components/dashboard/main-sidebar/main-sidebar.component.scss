@@ -37,6 +37,7 @@
         font-size: 1rem;
         font-weight: bold;
         margin-left: 20px;
+        color: var(--text);
       }
 
       > .sidebar-email {
@@ -81,7 +82,7 @@
       }
 
       .sidebar-icon {
-        color: var(--accent);
+        color: var(--text);
         transform: scale(0.9);
       }
 
@@ -101,29 +102,29 @@
     gap: 8px;
 
     .sidebar-icon {
-      background: var(--accent);
+      background: var(--background2);
       padding: 10px;
       transform: scale(0.8);
       border-radius: 10px;
-      color: white;
+      color: var(--text2);
 
       &:hover {
         cursor: pointer;
-        background: rgba(var(--accent), 0.75);
       }
     }
 
     .icon-toggle {
       background: transparent;
-      border: 3px solid var(--accent);
+      border: 3px solid var(--text);
       padding: 7px;
       transform: scale(0.9);
       border-radius: 10px;
-      color: white;
+      color: var(--text);
 
       &:hover {
+        background-color: var(--text);
         cursor: pointer;
-        background: rgba(var(--accent), 1);
+        color: var(--text2);
       }
     }
   }
@@ -131,17 +132,16 @@
 
 .open-menu {
   margin-left: 5vw;
-  background: rgba(var(--accent), 1);
-  padding: 10px;
+  padding: 7px;
   transform: scale(0.9);
   margin-top: 5vh;
-  border-radius: 10px;
-  color: white;
+  color: var(--text2);
   position: fixed;
   z-index: 97;
+  background: var(--background2);
+  border-radius: 10px;
 
   &:hover {
     cursor: pointer;
-    background: rgba(var(--accent), 0.75);
   }
 }

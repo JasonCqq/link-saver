@@ -16,13 +16,13 @@
       position: absolute;
       top: 0;
       height: 4vh;
-      background: var(--accent);
+      background: var(--background2);
       display: flex;
       justify-content: center;
       align-items: center;
-      color: var(--text);
+      color: var(--text2);
       width: 100vw;
-      font-weight: 500;
+      font-weight: 600;
 
       @media screen and (max-width: 400px) {
         font-size: 0.8rem;
@@ -34,10 +34,14 @@
     }
 
     > a {
-      color: var(--accent);
+      color: var(--text);
       font-size: 2.5rem;
       font-weight: 900;
       padding-top: 7vh;
+
+      > span {
+        border-bottom: 5px solid var(--accent);
+      }
     }
 
     > p {
@@ -45,33 +49,24 @@
     }
 
     > button {
-      padding: 12px 20px;
-      border: none;
-      border: 3px solid var(--accent);
+      border: 3px solid var(--text);
+      background-color: transparent;
       border-radius: 10px;
-      background: transparent;
       color: var(--text);
+      letter-spacing: 0px;
+      transition: background-color 0.1s ease-in-out;
+      padding: 12px 20px;
       margin-top: 10px;
       font-weight: 700;
       font-size: 0.9rem;
 
       &:hover {
         cursor: pointer;
-        background-color: var(--accent);
+        background-color: var(--text);
+        color: var(--text2);
       }
     }
   }
-
-  // > .content-grid-no-previews {
-  //   margin-left: 5vw;
-  //   margin-top: 3vh;
-
-  //   @media screen and (max-width: 440px) {
-  //     justify-content: center;
-  //     align-items: center;
-  //     margin-left: 0vw;
-  //   }
-  // }
 
   > .content-grid,
   .content-grid-no-previews {

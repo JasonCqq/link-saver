@@ -191,7 +191,9 @@
       }
 
       > span {
-        padding-bottom: 5px;
+        border-radius: 10px;
+        padding: 5px;
+        background: rgba(black, 0.25);
 
         @media screen and (max-width: 483px) {
         }

@@ -14,9 +14,13 @@ label {
 
   > .home-ref {
     font-size: 2.5rem;
-    color: var(--accent);
+    color: var(--text);
     margin-bottom: 5vh;
-    font-weight: 800;
+    font-weight: 900;
+
+    > span {
+      border-bottom: 5px solid var(--accent);
+    }
   }
 
   > .login-form {
@@ -50,11 +54,11 @@ label {
       text-align: center;
       padding-bottom: 2vh;
       font-size: 1.25rem;
+      font-weight: 800;
     }
 
     > button {
-      border: none;
-      border: 3px solid var(--accent);
+      border: 3px solid var(--text);
       font-size: 1rem;
       background-color: transparent;
       padding: 20px 0;
@@ -62,17 +66,19 @@ label {
       margin-top: 1vh;
       margin-bottom: 1vh;
       color: var(--text);
+      letter-spacing: 0px;
 
       font-weight: bold;
       transition: background-color 0.1s ease-in-out;
 
       &:hover {
         cursor: pointer;
-        background-color: var(--accent);
+        background-color: var(--text);
+        color: var(--text2);
       }
 
       &:disabled {
-        opacity: 0.4;
+        opacity: 0.5;
         &:hover {
           cursor: default;
           color: var(--text2);

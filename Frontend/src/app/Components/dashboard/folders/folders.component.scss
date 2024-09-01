@@ -18,7 +18,7 @@
     > .folders-item {
       display: flex;
       align-items: center;
-      border: 3px solid var(--accent);
+      border: 3px solid var(--text);
       border-radius: 10px;
       padding: 10px;
       gap: 5px;
@@ -27,12 +27,17 @@
       touch-action: auto !important;
 
       > p {
-        font-weight: 500;
+        font-weight: 700;
+      }
+
+      > .faq-icon {
+        color: var(--text);
+        transform: scale(1.2);
       }
 
       &:hover {
         cursor: pointer;
-        border-color: white;
+        border-color: var(--accent);
       }
 
       > .folders-item-flex {
@@ -40,6 +45,10 @@
         width: 100%;
         gap: 5px;
         align-items: center;
+
+        > mat-icon {
+          color: var(--text);
+        }
 
         > p {
           padding-top: 2px;
@@ -113,28 +122,23 @@
         > .folders-create-button {
           border: none;
           border-radius: 10px;
-          border: 3px solid var(--accent);
+          border: 3px solid var(--text);
           background-color: transparent;
           font-weight: bold;
           padding: 10px 0;
           width: 75px;
-          transition:
-            background-color 0.1s ease-in-out,
-            color 0.1s ease-in-out;
+          transition: background-color 0.1s ease-in-out;
           color: var(--text);
           gap: 5px;
 
           &:disabled {
-            opacity: 0.4;
-            &:hover {
-              cursor: default;
-            }
+            opacity: 0.5;
           }
 
           &:hover {
-            background-color: var(--accent);
-            color: var(--text);
+            background-color: var(--background2);
             cursor: pointer;
+            color: var(--text2);
           }
         }
 
@@ -204,27 +208,25 @@
       > .folders-share-button {
         border: none;
         border-radius: 10px;
-        border: 3px solid var(--accent);
+        border: 3px solid var(--text);
         background-color: transparent;
         font-weight: bold;
         padding: 1vh 0vw;
         width: 75px;
-        transition:
-          background-color 0.1s ease-in-out,
-          color 0.1s ease-in-out;
+        transition: background-color 0.1s ease-in-out;
         color: var(--text);
         gap: 5px;
         margin-top: 2vh;
 
         &:disabled {
-          opacity: 0.4;
+          opacity: 0.5;
           &:hover {
             cursor: default;
           }
         }
 
         &:hover {
-          background-color: var(--accent);
+          background-color: var(--background2);
           color: var(--text2);
           cursor: pointer;
         }
@@ -248,13 +250,11 @@
     > .folders-button {
       border: none;
       border-radius: 10px;
-      border: 3px solid var(--accent);
+      border: 3px solid var(--text);
       background-color: transparent;
       font-weight: 700;
       padding: 10px 25px;
-      transition:
-        background-color 0.1s ease-in-out,
-        color 0.1s ease-in-out;
+      transition: background-color 0.1s ease-in-out;
       color: var(--text);
       display: flex;
       align-items: center;
@@ -266,9 +266,9 @@
       }
 
       &:hover {
-        background-color: var(--accent);
-        color: var(--text);
+        background-color: var(--background2);
         cursor: pointer;
+        color: var(--text2);
       }
     }
   }

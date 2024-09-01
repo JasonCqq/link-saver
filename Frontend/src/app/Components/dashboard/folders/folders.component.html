@@ -84,11 +84,7 @@
   <!--Folders Tab-->
   <section class="folders-grid" *ngIf="!folderOpened">
     <div class="folders-item" (click)="toggleWindow()">
-      <span
-        class="material-icons-round faq-icon"
-        style="color: #517ee1; transform: scale(1.2)"
-        >add</span
-      >
+      <span class="material-icons-round faq-icon">add</span>
       <p>Create folder</p>
     </div>
 
@@ -162,7 +158,7 @@
       matTooltip="{{ folder.name }} has {{ folder.links.length }} links"
     >
       <div class="folders-item-flex">
-        <mat-icon fontIcon="folder" style="color: #517ee1"></mat-icon>
+        <mat-icon fontIcon="folder"></mat-icon>
         <p>
           {{ folder.name | slice: 0 : 10
           }}{{ folder.name.length > 10 ? "..." : "" }}

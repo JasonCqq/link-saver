@@ -32,22 +32,16 @@
     <section class="settings-item">
       <h3>Account</h3>
       <p>
-        Username: <span style="color: white">{{ user.user.username }}</span>
+        Username: <span>{{ user.user.username }}</span>
       </p>
       <p>
-        Email: <span style="color: white">{{ user.user.email }}</span>
+        Email: <span>{{ user.user.email }}</span>
       </p>
       <p>
         Account Created:
-        <span style="color: white">{{
-          user.user.creationDate | date: "shortDate"
-        }}</span>
+        <span>{{ user.user.creationDate | date: "shortDate" }}</span>
       </p>
-      <button
-        style="color: white"
-        class="settings-change-pass"
-        (click)="togglePassChangeForm()"
-      >
+      <button class="settings-change-pass" (click)="togglePassChangeForm()">
         Change Password
       </button>
 
