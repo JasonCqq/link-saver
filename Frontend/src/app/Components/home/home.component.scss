@@ -14,10 +14,74 @@
     > .landing-nav {
       display: flex;
       align-items: center;
-      gap: 25px;
       width: 75vw;
       font-weight: 700;
       padding-left: 24vw;
+
+      @media screen and (max-width: 1400px) {
+        width: 80vw;
+        padding-left: 10vw;
+      }
+
+      @media screen and (max-width: 650px) {
+        width: 90vw;
+        padding-left: 5vw;
+      }
+
+      > .landing-nav-left {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+
+        @media screen and (max-width: 650px) {
+          gap: 15px;
+        }
+
+        > h1 {
+          padding-bottom: 5px;
+          font-size: 2rem;
+          font-weight: 900;
+          letter-spacing: 1px;
+
+          @media screen and (max-width: 750px) {
+            font-size: 1.5rem;
+          }
+
+          @media screen and (max-width: 400px) {
+            font-size: 1rem;
+          }
+
+          > span {
+            border-bottom: 5px solid var(--accent);
+          }
+        }
+
+        > a {
+          @media screen and (max-width: 850px) {
+            display: none;
+          }
+        }
+
+        > .theme-toggle {
+          font-weight: 700;
+
+          @media screen and (max-width: 500px) {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            margin-left: 25px;
+            margin-bottom: 25px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 3px solid var(--text);
+          }
+
+          &:hover {
+            cursor: pointer;
+            border-bottom: 5px solid var(--accent);
+          }
+        }
+      }
 
       > .landing-nav-right {
         margin-left: auto;
@@ -26,6 +90,10 @@
         align-items: center;
         gap: 15px;
 
+        @media screen and (max-width: 1400px) {
+          margin-right: 0;
+        }
+
         > .register-button {
           background: var(--background2);
           color: var(--text2);
@@ -33,6 +101,14 @@
           border-radius: 10px;
           border: 3px solid transparent;
           transition: background-color 0.15s ease-in-out;
+
+          @media screen and (max-width: 400px) {
+            padding: 5px 10px;
+          }
+
+          @media screen and (max-width: 330px) {
+            font-size: 0.85rem;
+          }
 
           &:hover {
             cursor: pointer;
@@ -43,20 +119,13 @@
         }
 
         > .home-login {
+          @media screen and (max-width: 330px) {
+            font-size: 0.85rem;
+          }
+
           &:hover {
             color: var(--accent);
           }
-        }
-      }
-
-      > h1 {
-        padding-bottom: 5px;
-        font-size: 2rem;
-        font-weight: 900;
-        letter-spacing: 1px;
-
-        > span {
-          border-bottom: 5px solid var(--accent);
         }
       }
 
@@ -74,6 +143,14 @@
       text-align: center;
       font-weight: 800;
       font-size: 3rem;
+
+      @media screen and (max-width: 1100px) {
+        font-size: 2rem;
+      }
+
+      @media screen and (max-width: 400px) {
+        font-size: 1.25rem;
+      }
     }
 
     > .landing-body {
@@ -91,9 +168,13 @@
         border-radius: 10px;
         font-weight: bold;
         font-size: 1.2rem;
-
         border: 3px solid transparent;
         transition: background-color 0.15s ease-in-out;
+
+        @media screen and (max-width: 400px) {
+          font-size: 1rem;
+          padding: 10px 20px;
+        }
 
         &:hover {
           cursor: pointer;
@@ -177,7 +258,7 @@
     > h1 {
       font-size: 2.5rem;
       text-align: center;
-      line-height: 6vh;
+      line-height: 35px;
       font-weight: 800;
       padding-bottom: 15vh;
 
@@ -299,14 +380,14 @@
 
     .home-features-grid {
       display: grid;
-      width: 55vw;
+      width: 60vw;
       column-gap: 4vw;
       row-gap: 6vh;
       grid-template-columns: repeat(2, 1fr);
       border-radius: 10px;
 
       @media screen and (max-width: 1150px) {
-        width: 70vw;
+        width: 75vw;
       }
 
       @media screen and (max-width: 900px) {
@@ -440,6 +521,10 @@
           font-size: 0.9rem;
           font-weight: 600;
           line-height: 25px;
+
+          @media screen and (max-width: 700px) {
+            width: 75%;
+          }
 
           @media screen and (max-width: 500px) {
             width: 90%;

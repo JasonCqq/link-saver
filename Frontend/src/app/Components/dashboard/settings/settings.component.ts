@@ -3,6 +3,7 @@ import { UserService } from "../../user/user.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { DashboardService } from "../dashboard.service";
 import { LinkService } from "../links/link-item/link-item.service";
+import { Theme } from "src/app/theme.service";
 
 @Component({
   selector: "app-settings",
@@ -14,6 +15,7 @@ export class SettingsComponent implements OnInit {
     private userService: UserService,
     private dashboardService: DashboardService,
     private linkService: LinkService,
+    private themeService: Theme,
   ) {}
 
   user: any;
@@ -77,6 +79,10 @@ export class SettingsComponent implements OnInit {
 
   togglePassChangeForm(): void {
     this.passwordChangeOverlay = !this.passwordChangeOverlay;
+  }
+
+  setTheme(theme: string) {
+    this.themeService.setTheme(theme);
   }
 
   preferenceForm = new FormGroup({

@@ -7,27 +7,41 @@
 }
 
 //Light mode
+
 :root {
-  --accent: #214799;
-  --background: #fff;
-  --background2: #000;
-  --text: #000;
-  --text2: #fff;
+  --accent: #2e60cd;
+  --background: #eef1f3;
+  --background2: #0e1113;
+  --text: #0e1113;
+  --text2: #eef1f3;
   --textSec: #282828;
   --imp-button: #f73830;
   --warn: #7067f2;
 }
 
 //Dark mode
-// :root {
-//   --text: #517ee1;
-//   --background: #0f0f0f;
-//   --text: #fbfcfc;
-//   --text2: #0e0c0c;
-//   --textSec: #c1c9df;
-//   --imp-button: #f73830;
-//   --warn: #7067f2;
-// }
+[data-theme="dark"] {
+  --accent: #2e60cd;
+  --background: #0e1113;
+  --background2: #eef1f3;
+  --text: #eef1f3;
+  --text2: #0e1113;
+  --textSec: #c1c9df;
+  --imp-button: #f73830;
+  --warn: #7067f2;
+}
+
+//Old theme
+[data-theme="old"] {
+  --accent: #517ee1;
+  --background: #0f0f0f;
+  --background2: #517ee1;
+  --text: #fbfcfc;
+  --text2: #0e0c0c;
+  --textSec: #c1c9df;
+  --imp-button: #f73830;
+  --warn: #7067f2;
+}
 
 $my-custom-typography-config: mat.define-typography-config(
   $caption:

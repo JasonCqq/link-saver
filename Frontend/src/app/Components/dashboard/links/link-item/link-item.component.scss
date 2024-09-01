@@ -156,9 +156,9 @@
     position: absolute;
     top: 0;
     left: 0;
-    color: var(--text2);
+    color: var(--accent);
     border-radius: 7px;
-    background: var(--background2);
+    background: #191919;
     display: flex;
     align-items: center;
     gap: 2px;
@@ -170,6 +170,7 @@
     > * {
       &:hover {
         cursor: pointer;
+        color: white;
       }
     }
   }

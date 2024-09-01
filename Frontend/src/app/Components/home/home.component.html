@@ -1,8 +1,27 @@
 <main class="home-page">
   <header class="landing-page" #home>
     <nav class="landing-nav">
-      <h1>linkstorag<span>e</span></h1>
-      <a routerLink="/versions">Changelogs</a>
+      <span class="landing-nav-left">
+        <h1>linkstorag<span>e</span></h1>
+
+        <a routerLink="/versions">Changelogs</a>
+
+        <span
+          class="material-symbols-outlined theme-toggle"
+          (click)="toggleTheme('light')"
+          *ngIf="this.theme === 'dark'"
+        >
+          light_mode
+        </span>
+
+        <span
+          class="material-symbols-outlined theme-toggle"
+          (click)="toggleTheme('dark')"
+          *ngIf="this.theme === 'light'"
+        >
+          dark_mode
+        </span>
+      </span>
 
       <span class="landing-nav-right">
         <a routerLink="/user/login" *ngIf="!user" class="home-login">Log in</a>
@@ -87,9 +106,7 @@
           <p>
             Share publicly or privately with a password.
             <a routerLink="/public/1" target="_blank"
-              ><u style="color: black"
-                >Check out one of our shared folders!</u
-              ></a
+              ><u>Check out one of our shared folders!</u></a
             >
           </p>
         </span>

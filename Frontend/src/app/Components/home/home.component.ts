@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { UserService } from "../user/user.service";
 import { HomeService } from "./home.service";
 import { Subject, takeUntil } from "rxjs";
+import { Theme } from "src/app/theme.service";
 
 @Component({
   selector: "app-home",
@@ -13,16 +14,28 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     private homeService: HomeService,
+    private themeService: Theme,
   ) {}
 
   private destroy$ = new Subject<void>();
 
   user: any;
   data: any;
+  theme: any;
 
   videoShowcase: boolean = false;
   toggleShowcase() {
     this.videoShowcase = !this.videoShowcase;
+  }
+
+  toggleTheme(res: string) {
+    if (this.theme === "dark") {
+      this.theme = "light";
+    } else {
+      this.theme = "dark";
+    }
+
+    this.themeService.setTheme(res);
   }
 
   ngOnInit() {
@@ -36,6 +49,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe((response) => {
         this.data = response;
       });
+
+    this.theme = this.themeService.getTheme();
   }
 
   ngOnDestroy(): void {

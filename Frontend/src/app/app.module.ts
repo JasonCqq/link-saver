@@ -21,7 +21,7 @@ import { UserService } from "./Components/user/user.service";
 import { environment } from "../environments/environment";
 import { PublicFolderComponent } from "./Components/public-folder/public-folder.component";
 import { LoadingInterceptor } from "./Components/Loading.interceptor";
-import { VersionHistoryComponent } from './Components/home/versions/version-history/version-history.component';
+import { VersionHistoryComponent } from "./Components/home/versions/version-history/version-history.component";
 
 interface User {
   user: {
@@ -52,7 +52,12 @@ function initializeAppFactory(
 }
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, PublicFolderComponent, VersionHistoryComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    PublicFolderComponent,
+    VersionHistoryComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
