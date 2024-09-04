@@ -25,7 +25,7 @@ export class MainNavService {
   massEdit$ = this.massEditSubject.asObservable();
   massEditIDs: string[] = [];
 
-  private sortBySubject = new BehaviorSubject("");
+  private sortBySubject = new BehaviorSubject("Visits");
   sortBy$ = this.sortBySubject.asObservable();
 
   setSortBy(res: string) {

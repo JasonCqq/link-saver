@@ -27,8 +27,8 @@ export class Theme {
       document.documentElement.setAttribute("data-theme", "dark");
     } else if (theme === "light") {
       document.documentElement.setAttribute("data-theme", "default");
-    } else if (theme === "old") {
-      document.documentElement.setAttribute("data-theme", "old");
+    } else if (theme === "dim") {
+      document.documentElement.setAttribute("data-theme", "dim");
     }
   }
 

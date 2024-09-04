@@ -12,17 +12,17 @@
           class="close-form"
         ></mat-icon>
 
-        <p>Confirm Account Deletion</p>
-        <p>Type "abracadabra" to confirm</p>
+        <p>Confirm Account Deletion (FINAL)</p>
+        <p>Type your password to confirm</p>
         <input
           id="delete-confirm"
           type="text"
           required
-          placeholder="abracadabra"
+          placeholder="Password..."
         />
         <mat-error *ngIf="deletePromptError">Input does not match</mat-error>
         <button (click)="deleteAccount()" class="settings-delete">
-          Delete
+          Deactivate
         </button>
       </section>
     </div>
@@ -115,14 +115,18 @@
       </div>
 
       <button class="settings-delete" (click)="toggleDeletePrompt()">
-        Delete Account
+        Deactivate
       </button>
     </section>
 
     <section class="settings-item">
       <h3>Extra</h3>
-      <a routerLink="" fragment="home_contact">Contact Page</a>
-      <a routerLink="/versions">Version History</a>
+      <a routerLink="" fragment="home_faq">FAQs</a>
+      <a routerLink="" fragment="home_contact">Contact Us</a>
+      <a routerLink="/versions">Changelogs</a>
+      <a href="https://github.com/JasonCqq/link-saver" target="_blank"
+        >Source code</a
+      >
       <a
         href="https://www.termsfeed.com/live/a23806e5-a8bc-4542-a4fc-230353a493dc"
         target="_blank"
@@ -139,12 +143,28 @@
 
       <span class="settings-theme">
         <p>Themes</p>
-        <p>(Old theme is under construction)</p>
         <div>
-          <button type="button" (click)="this.setTheme('light')">Light</button>
-          <button type="button" (click)="this.setTheme('dark')">Dark</button>
-
-          <button type="button" (click)="this.setTheme('old')">Old</button>
+          <button
+            type="button"
+            (click)="this.setTheme('light')"
+            style="background-color: #eef1f3; color: black"
+          >
+            Light
+          </button>
+          <button
+            type="button"
+            (click)="this.setTheme('dark')"
+            style="background-color: #0e1113; color: white"
+          >
+            Dark
+          </button>
+          <button
+            type="button"
+            (click)="this.setTheme('dim')"
+            style="background-color: #15202b; color: white"
+          >
+            Dim
+          </button>
         </div>
       </span>
 

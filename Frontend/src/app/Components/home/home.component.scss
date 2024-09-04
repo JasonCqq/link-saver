@@ -57,6 +57,10 @@
         }
 
         > a {
+          &:hover {
+            color: var(--accent);
+          }
+
           @media screen and (max-width: 850px) {
             display: none;
           }
@@ -194,6 +198,11 @@
     gap: 3vh;
     margin-top: 5vh;
     padding-bottom: 5vh;
+    margin-left: 25px;
+
+    @media screen and (max-width: 320px) {
+      margin-left: 10px;
+    }
 
     .showcase_header {
       display: flex;
@@ -228,21 +237,25 @@
   .showcase_border {
     border-radius: 10px;
     padding: 2px;
-    width: fit-content;
-    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 50px;
+    width: 100vw;
 
     > .showcase_video {
       border-radius: 10px;
       width: 1000px;
 
+      @media screen and (max-width: 1020px) {
+        width: 95%;
+      }
+
       @media screen and (max-width: 580px) {
-        width: 400px;
         height: 250px;
       }
 
       @media screen and (max-width: 415px) {
-        width: 250px;
         height: 150px;
       }
     }
@@ -256,19 +269,18 @@
     justify-content: center;
 
     > h1 {
-      font-size: 2.5rem;
+      font-size: 3rem;
       text-align: center;
-      line-height: 35px;
-      font-weight: 800;
+      line-height: 45px;
+      font-weight: 900;
       padding-bottom: 15vh;
 
-      @media screen and (max-width: 656px) {
-        font-size: 1.5rem;
+      @media screen and (max-width: 1100px) {
+        font-size: 2rem;
       }
 
-      @media screen and (max-width: 350px) {
-        font-size: 1.15rem;
-        line-height: 4vh;
+      @media screen and (max-width: 400px) {
+        font-size: 1.25rem;
       }
 
       > span {
@@ -467,7 +479,7 @@
       gap: 3vh;
       width: 50%;
 
-      @media screen and (max-width: 500px) {
+      @media screen and (max-width: 1050px) {
         width: 85%;
       }
 

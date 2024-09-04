@@ -127,6 +127,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     } else if (linkType === "Trash") {
       this.tempLinks = this.links.filter((link) => link.trash === true);
     }
+    this.sortResults(this.mainNavService.getSortBy());
   }
 
   ngOnDestroy(): void {

@@ -52,11 +52,11 @@ export class MainNavComponent implements OnInit, OnDestroy {
       .subscribe((result) => {
         this.sortBy = result;
 
-        this.sortingForm.patchValue({
+        this.sortingForm.setValue({
           sortBy: result,
         });
 
-        this.sortByResults.emit(this.sortingForm.value.sortBy);
+        this.sortByResults.emit(result);
       });
   }
 

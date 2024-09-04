@@ -12,6 +12,7 @@
   @media screen and (max-width: 390px) {
     row-gap: 4vh;
     margin-top: 5vh;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 110px));
   }
 }
 

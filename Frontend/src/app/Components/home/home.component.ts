@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 1,
       question: "What is LinkStorage and how does it work?",
       answer:
-        "Our website is a link saver tool that allows you to store your links you want to revisit. Save any URLs with previews and other features!",
+        "Our website is a link storing tool that allows you to archive your links you want to revisit. Save any URLs with previews and other features!",
     },
 
     {
@@ -83,35 +83,35 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 3,
       question: "Is there a browser extension for LinkStorage?",
       answer:
-        "Not yet, but we plan on developing a browser extension that saves all the current tabs. Stay tuned for updates on this feature!",
+        "Not yet, but we plan on developing a browser extension that saves all the current tabs on your browser into your account. Stay tuned for updates on this feature!",
     },
 
     {
       id: 4,
       question: "What features are available on LinkStorage?",
       answer:
-        "LinkStorage offers a range of features including filtering such as searching, thumbnail screenshots, reminders, and folders for efficient organization.",
+        "LinkStorage offers a range of features including filtering by visits, name, date, searching, thumbnail previews, reminders, and folders.",
     },
 
     {
       id: 5,
       question: "Any restriction on types of links can I save?",
       answer:
-        "There are no restrictions on the types of links you can save. You can save links to websites, articles, videos, and more.",
+        "There are no restrictions on the types of links you can save. You can save anything, including links to websites, articles, videos, and more.",
     },
 
     {
       id: 6,
       question: "Can I share my folders/links to others?",
       answer:
-        "Yes! You can generate shareable links for your folders publicly or privately behind a password for others.",
+        "Yes, you can generate shareable links for your folders publicly or privately behind a password for others.",
     },
 
     {
       id: 7,
       question: "How can I suggest features/improvements?",
       answer:
-        "We value your input! To suggest new features or improvements for LinkStorage, please visit our Contact Section below. We're always eager to hear your ideas and make our platform even better based on user feedback.",
+        "We value your input! To suggest new features or improvements for LinkStorage, please visit our Contact Section below or through github. We're always eager to hear your ideas and make our platform even better based on user feedback.",
     },
   ];
 }

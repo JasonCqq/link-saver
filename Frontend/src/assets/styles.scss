@@ -7,7 +7,6 @@
 }
 
 //Light mode
-
 :root {
   --accent: #2e60cd;
   --background: #eef1f3;
@@ -31,14 +30,13 @@
   --warn: #7067f2;
 }
 
-//Old theme
-[data-theme="old"] {
+[data-theme="dim"] {
   --accent: #517ee1;
-  --background: #0f0f0f;
+  --background: #15202b;
   --background2: #517ee1;
-  --text: #fbfcfc;
+  --text: #f7f9f9;
   --text2: #0e0c0c;
-  --textSec: #c1c9df;
+  --textSec: #8b98a5;
   --imp-button: #f73830;
   --warn: #7067f2;
 }
@@ -81,6 +79,8 @@ $Frontend-theme: mat.define-dark-theme(
 ::ng-deep.mdc-notched-outline__notch {
   border-top: 3px solid var(--text) !important;
   border-bottom: 3px solid var(--text) !important;
+  border-right: none !important;
+  border-left: none !important;
 }
 
 //Top bottom border, if label is notched
@@ -132,10 +132,12 @@ $Frontend-theme: mat.define-dark-theme(
 ::ng-deep .mdc-list-item__primary-text {
   color: var(--text);
   font-weight: 700 !important;
+  font-size: 15px !important;
 }
 
 ::ng-deep .mat-mdc-select-value-text {
   color: var(--text);
+  font-size: 15px !important;
 }
 
 // Toggle label

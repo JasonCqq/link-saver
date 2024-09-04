@@ -6,12 +6,33 @@ import { Component } from "@angular/core";
   styleUrls: ["./version-history.component.scss"],
 })
 export class VersionHistoryComponent {
-  activeID: number = 9;
+  activeID: number = 10;
   toggleActive(id: number): void {
     this.activeID = this.activeID === id ? 0 : id;
   }
 
   versions = [
+    {
+      id: 10,
+      version: "2.1.0 - 09/04/24",
+      updates: [
+        "Created a way to create a linkstorage account/dashboard without signing up. \n - with just a folder name and password, you can store links and have similar features to an account. \n - HOWEVER, you will be missing some key features, \n - Also, it's mostly unretrievable if you forget the name/password",
+        "Implemented a feature to automatically section your dashboard \n - by grouping similar titles/urls and separate them into different groups in dashboard",
+        "Removed link reminding feature, will bring back in the future if requested",
+        "Added previews for more sites such as Twitter, Reddit, etc.",
+      ],
+      qols: [
+        "Added dim theme",
+        "Added a forgot username function",
+        "Deactivating account now requires password instead",
+        "Mobiles with <390px can now fit 2 links on dashboard",
+        "Refined UI, including form container UI",
+      ],
+      bugfixes: [
+        "Fixed performance issues on homepage",
+        "Fixed sort by not working when switching",
+      ],
+    },
     {
       id: 9,
       version: "2.0.1 - 08/27/24",
