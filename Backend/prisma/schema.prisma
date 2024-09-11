@@ -5,6 +5,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
 model tempUser {
@@ -66,19 +67,17 @@ model Share {
 }
 
 model Link {
-  id         String    @id @default(uuid())
+  id         String   @id @default(uuid())
   userId     String?
   folderId   String?
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime? @updatedAt
+  createdAt  DateTime @default(now())
   bookmarked Boolean
-  remind     DateTime?
   title      String
   url        String
-  trash      Boolean?  @default(false)
+  trash      Boolean? @default(false)
   thumbnail  String?
   pURL       String?
-  visits     Int       @default(0)
-  folder     Folder?   @relation(fields: [folderId], references: [id])
-  user       User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  visits     Int      @default(0)
+  folder     Folder?  @relation(fields: [folderId], references: [id])
+  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

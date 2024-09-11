@@ -44,7 +44,6 @@ export class LinkEditFormComponent implements OnInit, OnDestroy {
       editTitle: this.itemData.title,
       editBookmarked: this.itemData.bookmarked,
       editFolder: this.itemData.folderId ?? "",
-      editRemind: this.itemData.remind,
     });
   }
 
@@ -57,7 +56,6 @@ export class LinkEditFormComponent implements OnInit, OnDestroy {
     editTitle: new FormControl(),
     editFolder: new FormControl(),
     editBookmarked: new FormControl(),
-    editRemind: new FormControl(),
   });
 
   toggleEditForm(): void {
@@ -71,7 +69,6 @@ export class LinkEditFormComponent implements OnInit, OnDestroy {
         this.editForm.value.editTitle,
         this.editForm.value.editFolder,
         this.editForm.value.editBookmarked,
-        this.editForm.value.editRemind,
       )
       .subscribe((res: any) => {
         this.tempRenderService.updateLink(res.link);

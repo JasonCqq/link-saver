@@ -39,7 +39,7 @@
       </span>
     </nav>
 
-    <h1 class="landing-title">Save > Preview & Track Your Links with Ease</h1>
+    <h1 class="landing-title">Save + Preview & Track Your Links with Ease</h1>
     <section *ngIf="this.data" class="landing-stats">
       <div class="landing-stats-items">
         <p>{{ this.data.links }}+ <span>links archived</span></p>
@@ -79,7 +79,10 @@
   </div>
 
   <section class="home_picture">
-    <img src="../../../assets/667shots_so.png" />
+    <img
+      src="../../../assets/667shots_so.png"
+      alt="Image of linkstorage's dashboard"
+    />
   </section>
 
   <section class="home_transparency">
@@ -89,7 +92,10 @@
     </h1>
 
     <a href="https://github.com/JasonCqq/link-saver" target="_blank">
-      <img src="../../../assets/transparency.png" />
+      <img
+        src="../../../assets/transparency.png"
+        alt="Image of linkstorage's github source code"
+      />
     </a>
   </section>
 
@@ -98,15 +104,28 @@
     <div class="home-features-grid">
       <div class="home-features-item">
         <span>
+          <span class="material-icons-round home-features-icon">
+            view_list
+          </span>
+        </span>
+
+        <span>
+          <h2>Auto group/section</h2>
+          <p>Automatically group similar websites and separate by sections</p>
+        </span>
+      </div>
+
+      <div class="home-features-item">
+        <span>
           <mat-icon fontIcon="share" class="home-features-icon"></mat-icon>
         </span>
 
         <span>
-          <h2>Share links & folders</h2>
+          <h2>Share links/folders</h2>
           <p>
             Share publicly or privately with a password.
             <a routerLink="/public/1" target="_blank"
-              ><u>Check out one of our shared folders!</u></a
+              ><u>Check out our folder!</u></a
             >
           </p>
         </span>
@@ -132,11 +151,8 @@
         </span>
 
         <span>
-          <h2>Search & Filter</h2>
-          <p>
-            Locate your links with search and sort functionalities. (Sort by
-            visits, name, date)
-          </p>
+          <h2>Search/Filter</h2>
+          <p>Find links with search/sort functions, by visits name or date</p>
         </span>
       </div>
 
@@ -179,17 +195,17 @@
     >
       <h1>CONTACT</h1>
 
-      <label for="name">Name</label>
+      <mat-label for="name">Name</mat-label>
       <mat-form-field appearance="fill">
         <input matInput type="text" #name required name="name" />
       </mat-form-field>
 
-      <label for="email">Email</label>
+      <mat-label for="email">Email</mat-label>
       <mat-form-field appearance="fill">
         <input matInput type="email" #email required name="email" />
       </mat-form-field>
 
-      <label for="message" style="padding-bottom: 8px">Message</label>
+      <mat-label for="message" style="padding-bottom: 8px">Message</mat-label>
       <mat-form-field class="home-message">
         <textarea
           matInput
@@ -207,7 +223,7 @@
   </section>
 
   <footer class="foot-note">
-    <p routerLink="/versions">v2.0.1</p>
+    <p routerLink="/versions">v2.1.0</p>
 
     <a href="https://github.com/JasonCqq/link-saver" target="_blank"
       >Source Code</a

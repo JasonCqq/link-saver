@@ -12,7 +12,8 @@
           class="close-form"
         ></mat-icon>
 
-        <p>Confirm Account Deletion (FINAL)</p>
+        <p>Confirm Account Deletion</p>
+        <p style="color: red">This action is permanent.</p>
         <p>Type your password to confirm</p>
         <input
           id="delete-confirm"
@@ -153,17 +154,17 @@
           </button>
           <button
             type="button"
-            (click)="this.setTheme('dark')"
-            style="background-color: #0e1113; color: white"
-          >
-            Dark
-          </button>
-          <button
-            type="button"
             (click)="this.setTheme('dim')"
             style="background-color: #15202b; color: white"
           >
             Dim
+          </button>
+          <button
+            type="button"
+            (click)="this.setTheme('dark')"
+            style="background-color: #0e1113; color: white"
+          >
+            Dark
           </button>
         </div>
       </span>

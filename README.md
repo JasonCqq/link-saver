@@ -1,7 +1,9 @@
 <!--Template from https://github.com/othneildrew/Best-README-Template -->
+
 <a name="readme-top"></a>
 
 <!-- PROJECT SHIELDS -->
+
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
@@ -43,12 +45,13 @@ https://github.com/JasonCqq/link-saver/assets/121495300/3ca9d0ec-9ad0-411e-9841-
 </details>
 
 ## Features
+
 - [ ] Screenshots of websites as Previews
 - [ ] Share folders publicly (Check one out here! https://linkstorage.net/public/1)
 - [ ] or Share folders privately with password locks
 - [ ] Search links
 - [ ] Create folders to store links
-- [ ] Bookmark or add reminders to links
+- [ ] Bookmark links
 - [ ] Mass edit links with ease
 - [ ] User authentication w/ bcrypt/passport/express-session
 - [ ] User security with email confirmations and OTP system
@@ -56,6 +59,7 @@ https://github.com/JasonCqq/link-saver/assets/121495300/3ca9d0ec-9ad0-411e-9841-
 - [ ] Useful tooltips
 
 ## Learning Experience
+
 This project/app was created to not only learn Angular along with a SQL database to compare the difference
 <br />
 from React and MongoDB, but also, I wanted to create something I could use. Overall, I enjoyed using Angular
@@ -69,18 +73,21 @@ Overall, I'm happy with the outcome of the app. I will continue to update, optim
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
-* ![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
-* ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
-* ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
-* ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
-* ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
-* ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-* ![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
-* ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+
+- ![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+- ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+- ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+- ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+- ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
+- ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+- ![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
+- ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
+
 ## Upcoming Features
+
 Currently in the works.
 
 See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
@@ -89,6 +96,7 @@ You can propose your own features or issues by contacting or creating requests o
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -105,6 +113,7 @@ Don't forget to give the project a star! Thanks again!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
+
 ## Contact
 
 Jason Huang - jason.cq.huang@gmail.com
@@ -114,6 +123,7 @@ Project Link: [LinkStorage](https://github.com/JasonCqq/link-saver)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
 [contributors-url]: https://github.com/JasonCqq/link-saver/graphs/contributors
 [stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge

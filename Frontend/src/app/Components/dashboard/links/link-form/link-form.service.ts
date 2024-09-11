@@ -17,12 +17,7 @@ export class LinkFormService {
   ) {}
   private apiUrl = environment.apiUrl;
 
-  async submitLinkForm(
-    url: string,
-    folder: string,
-    bookmarked: boolean,
-    remind: Date,
-  ) {
+  async submitLinkForm(url: string, folder: string, bookmarked: boolean) {
     await this.http
       .post(
         `${this.apiUrl}/link/create`,
@@ -31,7 +26,6 @@ export class LinkFormService {
           url: url,
           folder: folder,
           bookmarked: bookmarked,
-          remind: remind,
         },
         {
           withCredentials: true,

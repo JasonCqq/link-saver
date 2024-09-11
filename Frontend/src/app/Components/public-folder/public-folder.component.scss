@@ -47,29 +47,9 @@
     > p {
       font-weight: 500;
     }
-
-    > button {
-      border: 3px solid var(--text);
-      background-color: transparent;
-      border-radius: 10px;
-      color: var(--text);
-      letter-spacing: 0px;
-      transition: background-color 0.1s ease-in-out;
-      padding: 12px 20px;
-      margin-top: 10px;
-      font-weight: 700;
-      font-size: 0.9rem;
-
-      &:hover {
-        cursor: pointer;
-        background-color: var(--text);
-        color: var(--text2);
-      }
-    }
   }
 
-  > .content-grid,
-  .content-grid-no-previews {
+  > .content-grid {
     margin-left: 3vw;
     margin-top: 3vh;
     margin-left: 6vw;

@@ -14,24 +14,25 @@ export class VersionHistoryComponent {
   versions = [
     {
       id: 10,
-      version: "2.1.0 - 09/04/24",
+      version: "2.1.0 - TBD",
       updates: [
-        "Created a way to create a linkstorage account/dashboard without signing up. \n - with just a folder name and password, you can store links and have similar features to an account. \n - HOWEVER, you will be missing some key features, \n - Also, it's mostly unretrievable if you forget the name/password",
-        "Implemented a feature to automatically section your dashboard \n - by grouping similar titles/urls and separate them into different groups in dashboard",
+        "Created a way to create a linkstorage account/dashboard without signing up. (In Progress) \n - with just a folder name and password, you can store links and have similar features to an account. \n - HOWEVER, you will be missing some key features, \n - Also, it's mostly unretrievable if you forget the name/password",
+        "Implemented a feature to automatically section your dashboard (In Progress) \n - by grouping similar titles/urls and separate them into different groups in dashboard",
         "Removed link reminding feature, will bring back in the future if requested",
-        "Added previews for more sites such as Twitter, Reddit, etc.",
+        "Added previews for more sites such as Twitter, Reddit, etc. (In Progress)",
+        "Removed disabling previews temporarily, you can change it in your settings",
+        "Change home toggle theme to a theme dropdown (In Progress)",
       ],
       qols: [
         "Added dim theme",
-        "Added a forgot username function",
-        "Deactivating account now requires password instead",
+        "You can now login with Email as well",
+        "Deactivating account now requires password instead (In Progress)",
         "Mobiles with <390px can now fit 2 links on dashboard",
-        "Refined UI, including form container UI",
+        "Added more texts to the features section on home page",
+        "Added more link references in extra section of settings",
+        "Refined UI",
       ],
-      bugfixes: [
-        "Fixed performance issues on homepage",
-        "Fixed sort by not working when switching",
-      ],
+      bugfixes: ["Fixed sort by not working when switching"],
     },
     {
       id: 9,

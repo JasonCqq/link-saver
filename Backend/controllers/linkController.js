@@ -30,7 +30,6 @@ exports.create_link = [
   body("url", "Invalid URL").isURL().trim().isLength({ min: 1 }).escape(),
   body("folder").trim().escape(),
   body("bookmarked").trim().escape(),
-  body("remind").trim().escape(),
   asyncHandler(async (req, res) => {
     const errs = validationResult(req);
 
@@ -38,11 +37,6 @@ exports.create_link = [
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
     } else {
-      let date = req.body.remind;
-      if (date === "") {
-        date = null;
-      }
-
       let decodedUrl = decode(req.body.url, { level: "html5" });
 
       if (
@@ -106,7 +100,6 @@ exports.create_link = [
                   : {}),
                 title: title,
                 bookmarked: JSON.parse(req.body.bookmarked),
-                remind: date,
                 thumbnail: "",
                 visits: 0,
               },
@@ -163,7 +156,6 @@ exports.create_link = [
                   : {}),
                 title: decodedUrl,
                 bookmarked: JSON.parse(req.body.bookmarked),
-                remind: date,
                 thumbnail: "",
                 visits: 0,
               },
@@ -256,7 +248,6 @@ exports.edit_link = [
   body("title").trim(),
   body("folder").trim().escape(),
   body("bookmarked").trim().escape(),
-  body("remind").trim().escape(),
 
   asyncHandler(async (req, res) => {
     const errs = validationResult(req);
@@ -279,7 +270,6 @@ exports.edit_link = [
           ...(req.body.folder
             ? { folder: { connect: { id: req.body.folder } } }
             : {}),
-          remind: req.body.remind || null,
         },
       });
       res.status(200).send({ link });
@@ -368,14 +358,6 @@ exports.search_link = asyncHandler(async (req, res) => {
     condition = { trash: false };
   } else if (property === "Bookmarks") {
     condition = { bookmarked: true, trash: false };
-  } else if (property === "Upcoming") {
-    condition = {
-      remind: {
-        not: null,
-      },
-
-      trash: false,
-    };
   } else if (property === "Trash") {
     condition = { trash: true };
   }
@@ -417,7 +399,6 @@ exports.search_link = asyncHandler(async (req, res) => {
 exports.mass_edit_links = [
   body("userID").trim().escape(),
   body("massTitle").trim(),
-  body("massRemind").trim().escape(),
   body("massFolder").trim().escape(),
   body("massBookmark").trim().escape(),
   body("massIDs").trim().escape(),
@@ -442,7 +423,6 @@ exports.mass_edit_links = [
 
             data: {
               title: req.body.massTitle || undefined,
-              remind: req.body.massRemind || undefined,
               ...(req.body.massFolder
                 ? { folder: { connect: { id: req.body.massFolder } } }
                 : {}),

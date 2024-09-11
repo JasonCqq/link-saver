@@ -106,8 +106,4 @@ export class MainNavComponent implements OnInit, OnDestroy {
         });
     }
   }
-
-  toggleThumbnail(): void {
-    this.linkService.toggleThumbnail();
-  }
 }

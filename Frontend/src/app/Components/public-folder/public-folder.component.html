@@ -10,25 +10,17 @@
       This folder was created by {{ author | slice: 0 : 11 }}
       {{ author.length > 11 ? "..." : "" }}
     </p>
-
-    <button (click)="toggleThumbnail()">Toggle Thumbnails</button>
   </header>
 
-  <section
-    [ngClass]="previews === true ? 'content-grid' : 'content-grid-no-previews'"
-  >
+  <section class="content-grid">
     <div *ngFor="let link of links">
       <div class="link-item" matTooltip="{{ link.url }}">
         <a [href]="'//' + link.url" target="_blank">
-          <div class="link-preview" *ngIf="previews">
+          <div class="link-preview">
             <img src="{{ link.pURL }}" height="100px" width="170px" />
           </div>
 
-          <a
-            [ngClass]="previews ? 'link-details' : 'link-details-no-previews'"
-            [href]="'//' + link.url"
-            target="_blank"
-          >
+          <a class="link-details" [href]="'//' + link.url" target="_blank">
             <p class="link-title">
               {{ link.title }}
             </p>
@@ -73,7 +65,7 @@
 </div>
 
 <footer class="foot-note">
-  <p routerLink="/versions">v2.0.1</p>
+  <p routerLink="/versions">v2.1.0</p>
 
   <a href="https://github.com/JasonCqq/link-saver" target="_blank"
     >Source Code</a

@@ -57,7 +57,17 @@ passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
       const user = await prisma.User.findFirst({
-        where: { username: username },
+        where: {
+          OR: [
+            {
+              email: username,
+            },
+
+            {
+              username: username,
+            },
+          ],
+        },
       });
       if (!user) {
         return done(null, false, { message: "Incorrect username" });

@@ -55,7 +55,6 @@ export class MassEditFormComponent implements OnInit, OnDestroy {
 
   massEditForm = new FormGroup({
     massTitle: new FormControl(),
-    massRemind: new FormControl(),
     massFolder: new FormControl(),
     massBookmark: new FormControl(),
   });
@@ -64,7 +63,6 @@ export class MassEditFormComponent implements OnInit, OnDestroy {
     this.mainNavService
       .submitMassEdit(
         this.massEditForm.value.massTitle,
-        this.massEditForm.value.massRemind,
         this.massEditForm.value.massFolder,
         this.massEditForm.value.massBookmark,
       )

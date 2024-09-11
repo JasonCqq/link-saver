@@ -12,7 +12,11 @@
     (auxclick)="visitedLink()"
   >
     <div class="link-preview" *ngIf="this.previews">
-      <img *ngIf="itemData.pURL" src="{{ itemData.pURL }}" />
+      <img
+        *ngIf="itemData.pURL"
+        src="{{ itemData.pURL }}"
+        alt="Preview image of the URL"
+      />
       <p *ngIf="!itemData.pURL" style="text-align: center">No image found</p>
     </div>
 
@@ -22,11 +26,8 @@
     >
       <p class="link-title">{{ itemData.title }}</p>
       <p class="link-url">{{ itemData.url | slice: 0 : 20 }}</p>
-      <p class="link-date" *ngIf="specialRequest !== 'Upcoming'">
+      <p class="link-date">
         {{ itemData.createdAt | date: "shortDate" }}
-      </p>
-      <p class="link-date link-date2" *ngIf="specialRequest === 'Upcoming'">
-        {{ itemData.remind | date: "shortDate" }}
       </p>
 
       <p class="link-visits">{{ itemData.visits }} visits</p>

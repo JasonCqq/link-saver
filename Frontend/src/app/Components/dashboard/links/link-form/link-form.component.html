@@ -1,5 +1,5 @@
 <form class="add-link-form" [formGroup]="linkForm" (submit)="submitForm()">
-  <h1>Add a link</h1>
+  <h1>ADD LINK</h1>
 
   <mat-form-field appearance="outline" floatLabel="always">
     <mat-label for="url">URL</mat-label>
@@ -13,20 +13,6 @@
         folder.name
       }}</mat-option>
     </mat-select>
-  </mat-form-field>
-
-  <p>Remind me on</p>
-  <mat-form-field>
-    <input
-      #remind
-      type="datetime"
-      formControlName="remind"
-      matInput
-      [matDatepicker]="picker"
-      placeholder="(Optional)"
-    />
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
   <mat-slide-toggle [hideIcon]="true" #bookmarked formControlName="bookmarked">

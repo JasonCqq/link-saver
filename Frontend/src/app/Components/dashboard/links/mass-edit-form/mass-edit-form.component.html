@@ -5,7 +5,7 @@
       class="close-form"
       (click)="toggleForm()"
     ></mat-icon>
-    <h1>Edit Actions</h1>
+    <h1>MASS EDIT</h1>
 
     <div class="mass-edit-flex">
       <button
@@ -36,22 +36,6 @@
     <mat-form-field appearance="outline" floatLabel="always">
       <mat-label for="massTitle">Title (Optional)</mat-label>
       <input matInput type="text" #massTitle formControlName="massTitle" />
-    </mat-form-field>
-
-    <mat-form-field>
-      <input
-        type="datetime"
-        matInput
-        #massRemind
-        formControlName="massRemind"
-        [matDatepicker]="massPicker"
-        placeholder="(Optional)"
-      />
-      <mat-datepicker-toggle
-        matSuffix
-        [for]="massPicker"
-      ></mat-datepicker-toggle>
-      <mat-datepicker #massPicker></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field appearance="outline" floatLabel="always">

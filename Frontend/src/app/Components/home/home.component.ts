@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   faqs = [
     {
       id: 1,
-      question: "What is LinkStorage and how does it work?",
+      question: "What is linkstorage and how does it work?",
       answer:
         "Our website is a link storing tool that allows you to archive your links you want to revisit. Save any URLs with previews and other features!",
     },
@@ -81,16 +81,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     {
       id: 3,
-      question: "Is there a browser extension for LinkStorage?",
+      question: "Is there a browser extension for linkstorage?",
       answer:
         "Not yet, but we plan on developing a browser extension that saves all the current tabs on your browser into your account. Stay tuned for updates on this feature!",
     },
 
     {
       id: 4,
-      question: "What features are available on LinkStorage?",
+      question: "What features are available on linkstorage?",
       answer:
-        "LinkStorage offers a range of features including filtering by visits, name, date, searching, thumbnail previews, reminders, and folders.",
+        "LinkStorage offers a range of features including filtering by visits, name, date, searching, thumbnail previews, and folders.",
     },
 
     {

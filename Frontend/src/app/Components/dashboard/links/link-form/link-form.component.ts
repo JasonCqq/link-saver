@@ -45,7 +45,6 @@ export class LinkFormComponent implements OnInit, OnDestroy {
     url: new FormControl("", [Validators.required]),
     folder: new FormControl(),
     bookmarked: new FormControl(),
-    remind: new FormControl(),
   });
 
   submitForm(): void {
@@ -53,7 +52,6 @@ export class LinkFormComponent implements OnInit, OnDestroy {
       this.linkForm.value.url ?? "",
       this.linkForm.value.folder ?? "",
       this.linkForm.value.bookmarked ?? false,
-      this.linkForm.value.remind ?? null,
     );
 
     this.closeForm.emit();
@@ -70,8 +68,5 @@ export class LinkFormComponent implements OnInit, OnDestroy {
   }
   get bookmarked() {
     return this.linkForm.get("bookmark");
-  }
-  get remind() {
-    return this.linkForm.get("remind");
   }
 }

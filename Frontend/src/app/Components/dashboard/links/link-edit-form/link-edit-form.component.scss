@@ -23,7 +23,7 @@
     height: auto;
     gap: 1vh;
     justify-content: center;
-    padding: 5% 5%;
+    padding: 7.5vh 5%;
 
     @media screen and (max-width: 1275px) {
       width: 35vw;
@@ -46,8 +46,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        margin-top: 3vh;
-        margin-left: 2vw;
+        margin: 15px 15px;
 
         &:hover {
           color: var(--accent);
@@ -57,9 +56,10 @@
     }
 
     > h1 {
-      padding-bottom: 1vh;
+      padding-bottom: 1.25vh;
       text-align: center;
       font-size: 1.5rem;
+      font-weight: 900;
     }
 
     > button {

@@ -9,11 +9,9 @@ export interface Link {
   folderId: string | null;
   title: string;
   createdAt: Date;
-  updatedAt: Date;
   bookmarked: boolean;
   thumbnail: string;
   pURL: string;
-  remind: Date | null;
   trash: boolean | null;
   visits: number;
 }

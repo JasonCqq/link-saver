@@ -25,7 +25,7 @@ export class MainNavService {
   massEdit$ = this.massEditSubject.asObservable();
   massEditIDs: string[] = [];
 
-  private sortBySubject = new BehaviorSubject("Visits");
+  private sortBySubject = new BehaviorSubject("");
   sortBy$ = this.sortBySubject.asObservable();
 
   setSortBy(res: string) {
@@ -41,12 +41,7 @@ export class MainNavService {
     this.massEditSubject.next(!this.massEditSubject.value);
   }
 
-  submitMassEdit(
-    massTitle: string,
-    massRemind: Date,
-    massFolder: string,
-    massBookmark: boolean,
-  ) {
+  submitMassEdit(massTitle: string, massFolder: string, massBookmark: boolean) {
     return this.http
       .put(
         `${this.apiUrl}/link/mass_edit`,
@@ -54,7 +49,6 @@ export class MainNavService {
           userID: this.userService.getUser()?.user.id,
           massIDs: this.massEditIDs,
           massTitle: massTitle,
-          massRemind: massRemind,
           massFolder: massFolder,
           massBookmark: massBookmark,
         },

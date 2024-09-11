@@ -62,8 +62,4 @@ export class PublicFolderComponent implements OnInit, OnDestroy {
         },
       });
   }
-
-  toggleThumbnail() {
-    this.previews = !this.previews;
-  }
 }

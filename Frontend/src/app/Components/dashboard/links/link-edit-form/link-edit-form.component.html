@@ -12,7 +12,7 @@
       ></mat-icon>
     </span>
 
-    <h1>Edit</h1>
+    <h1>EDIT</h1>
 
     <mat-form-field appearance="outline" floatLabel="always">
       <mat-label for="editTitle">Title</mat-label>
@@ -27,27 +27,6 @@
           folder.name
         }}</mat-option>
       </mat-select>
-    </mat-form-field>
-
-    <p>Remind me on</p>
-    <p style="color: gray; font-size: 0.8rem">
-      Current remind date -
-      {{ itemData.remind ? (itemData.remind | date: "shortDate") : "N/A" }}
-    </p>
-
-    <mat-form-field>
-      <input
-        #editRemind
-        type="datetime"
-        formControlName="editRemind"
-        matInput
-        [matDatepicker]="editPicker"
-      />
-      <mat-datepicker-toggle
-        matSuffix
-        [for]="editPicker"
-      ></mat-datepicker-toggle>
-      <mat-datepicker #editPicker></mat-datepicker>
     </mat-form-field>
 
     <mat-slide-toggle

@@ -9,7 +9,7 @@
   >
     <h1>Log in</h1>
 
-    <label for="username">Username</label>
+    <label for="username">Username / Email</label>
     <mat-form-field appearance="fill">
       <input
         matInput
@@ -52,7 +52,6 @@
     <a class="login-extra" routerLink="/user/register">
       Register for an account
     </a>
-    <p class="login-extra" style="color: gray">Forgot Username</p>
     <p class="login-extra" (click)="toggleForm()">Forgot Password</p>
   </form>
 </main>
@@ -66,7 +65,7 @@
 <p *ngIf="user">You are already logged in.</p>
 
 <footer class="foot-note" *ngIf="loginForm">
-  <p routerLink="/versions">v2.0.1</p>
+  <p routerLink="/versions">v2.1.0</p>
 
   <a href="https://github.com/JasonCqq/link-saver" target="_blank"
     >Source Code</a

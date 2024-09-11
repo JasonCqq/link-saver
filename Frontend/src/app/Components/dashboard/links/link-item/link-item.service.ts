@@ -19,9 +19,7 @@ export class LinkService {
     this.userService.getUser()?.settings.previews ?? true,
   );
   thumbnails$ = this.thumbnailsSubject.asObservable();
-  toggleThumbnail() {
-    this.thumbnailsSubject.next(!this.thumbnailsSubject.value);
-  }
+
   setThumbnail(state: boolean) {
     this.thumbnailsSubject.next(state);
   }
@@ -44,7 +42,6 @@ export class LinkService {
     title: string,
     folder: string,
     bookmarked: boolean,
-    remind: Date,
   ) {
     return this.http.put(
       `${this.apiUrl}/link/edit`,
@@ -54,7 +51,6 @@ export class LinkService {
         title: title,
         folder: folder,
         bookmarked: bookmarked,
-        remind: remind,
       },
 
       {
