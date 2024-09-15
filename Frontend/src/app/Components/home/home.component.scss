@@ -5,34 +5,32 @@
   background: var(--background);
 
   > .landing-page {
-    margin-top: 4vh;
     width: 100%;
     height: auto;
     display: flex;
     flex-direction: column;
+    align-items: center;
 
     > .landing-nav {
       display: flex;
       align-items: center;
-      width: 75vw;
+      width: 100vw;
       font-weight: 700;
-      padding-left: 24vw;
-
-      @media screen and (max-width: 1400px) {
-        width: 80vw;
-        padding-left: 10vw;
-      }
-
-      @media screen and (max-width: 650px) {
-        width: 90vw;
-        padding-left: 5vw;
-      }
+      padding-top: 25px;
+      padding-bottom: 15px;
+      position: fixed;
+      background-color: var(--background);
+      z-index: 2;
 
       > .landing-nav-left {
         display: flex;
         align-items: center;
         gap: 25px;
+        margin-left: 25vw;
 
+        @media screen and (max-width: 1400px) {
+          margin-left: 5vw;
+        }
         @media screen and (max-width: 650px) {
           gap: 15px;
         }
@@ -74,10 +72,13 @@
             bottom: 0;
             left: 0;
             margin-left: 25px;
-            margin-bottom: 25px;
+            margin-bottom: 50px;
             padding: 10px;
             border-radius: 10px;
-            border: 3px solid var(--text);
+            border: 2px solid var(--text);
+            background: white;
+            color: black;
+            z-index: 2;
           }
 
           &:hover {
@@ -95,7 +96,11 @@
         gap: 15px;
 
         @media screen and (max-width: 1400px) {
-          margin-right: 0;
+          margin-right: 5vw;
+        }
+
+        @media screen and (max-width: 500px) {
+          margin-right: 10px;
         }
 
         > .register-button {
@@ -103,7 +108,7 @@
           color: var(--text2);
           padding: 10px 20px;
           border-radius: 10px;
-          border: 3px solid transparent;
+          border: 2px solid transparent;
           transition: background-color 0.15s ease-in-out;
 
           @media screen and (max-width: 400px) {
@@ -118,7 +123,7 @@
             cursor: pointer;
             background-color: transparent;
             color: var(--text);
-            border: 3px solid var(--text);
+            border: 2px solid var(--text);
           }
         }
 
@@ -143,7 +148,7 @@
     }
 
     > .landing-title {
-      padding-top: 10vh;
+      margin-top: 15vh;
       text-align: center;
       font-weight: 800;
       font-size: 3rem;
@@ -172,7 +177,7 @@
         border-radius: 10px;
         font-weight: bold;
         font-size: 1.2rem;
-        border: 3px solid transparent;
+        border: 2px solid transparent;
         transition: background-color 0.15s ease-in-out;
 
         @media screen and (max-width: 400px) {
@@ -184,7 +189,7 @@
           cursor: pointer;
           background-color: transparent;
           color: var(--text);
-          border: 3px solid var(--text);
+          border: 2px solid var(--text);
         }
       }
     }
@@ -262,50 +267,50 @@
   }
 
   > .home_transparency {
-    margin-top: 15vh;
+    margin-top: 20vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    width: auto;
 
-    > h1 {
-      font-size: 3rem;
-      text-align: center;
-      line-height: 45px;
-      font-weight: 900;
-      padding-bottom: 15vh;
+    > .home_transparency_title {
+      padding-left: 25vw;
 
-      @media screen and (max-width: 1100px) {
+      @media screen and (max-width: 800px) {
+        padding-left: 5vw;
+      }
+
+      > h1 {
         font-size: 2rem;
-      }
 
-      @media screen and (max-width: 400px) {
-        font-size: 1.25rem;
-      }
-
-      > span {
-        border-radius: 10px;
-        padding: 5px;
-        background: rgba(black, 0.25);
-
-        @media screen and (max-width: 483px) {
+        @media screen and (max-width: 400px) {
+          font-size: 1.25rem;
         }
+      }
+
+      > p {
+        font-weight: 500;
       }
     }
 
-    > a {
-      border-radius: 10px;
+    > .home_transparency_content {
+      width: 65%;
+      margin: auto;
 
-      > img {
-        border-radius: 10px;
-        transition: transform 0.15s ease-in-out;
+      @media screen and (max-width: 1200px) {
+        width: 75%;
+      }
 
-        &:hover {
-          transform: scale(1.1);
-        }
+      @media screen and (max-width: 650px) {
+        width: 100%;
+      }
 
-        @media screen and (max-width: 1080px) {
+      > a {
+        > img {
           width: 100%;
+          transition: transform 0.15s ease-in-out;
+          &:hover {
+            transform: scale(1.05);
+          }
         }
       }
     }
@@ -348,13 +353,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 5vh;
+    border-radius: 10px;
+    margin-top: 10vh;
+    width: auto;
 
     > img {
+      box-shadow: 1px 1px 10px rgb(68, 68, 68);
       border-radius: 10px;
+      border: 3px solid gray;
+      margin-left: 25px;
 
-      @media screen and (max-width: 1080px) {
-        width: 100%;
+      @media screen and (max-width: 1280px) {
+        margin-left: 0;
+        width: 95%;
       }
     }
   }
@@ -385,22 +396,22 @@
 
     > h1 {
       font-size: 2rem;
-      text-align: center;
       padding-bottom: 50px;
-      font-weight: 900;
+
+      @media screen and (max-width: 400px) {
+        font-size: 1.25rem;
+      }
     }
 
     .home-features-grid {
       display: grid;
+      align-items: center;
+      justify-content: center;
       width: 65vw;
       column-gap: 4vw;
       row-gap: 6vh;
       grid-template-columns: repeat(3, 1fr);
       border-radius: 10px;
-
-      @media screen and (max-width: 1150px) {
-        width: 75vw;
-      }
 
       @media screen and (max-width: 900px) {
         width: 80vw;
@@ -415,7 +426,6 @@
       }
 
       .home-features-item {
-        padding: 15px;
         flex-direction: column;
         display: flex;
         justify-content: flex-start;
@@ -434,7 +444,6 @@
             color: var(--textSec);
             font-size: 0.95rem;
             line-height: 22.5px;
-            font-weight: 700;
           }
 
           > h2 {
@@ -466,18 +475,44 @@
   .home_faq {
     height: auto;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
     margin-top: 20vh;
+
+    @media screen and (max-width: 900px) {
+      flex-direction: column;
+      align-items: center;
+      gap: 5vh;
+      justify-content: center;
+    }
+
+    > .home-faq-title {
+      padding-right: 5vw;
+
+      > h1 {
+        font-size: 2rem;
+        padding-bottom: 10px;
+
+        @media screen and (max-width: 900px) {
+          text-align: center;
+        }
+      }
+
+      > p {
+        color: var(--textSec);
+        @media screen and (max-width: 900px) {
+          text-align: center;
+        }
+      }
+    }
 
     .home-faq-container {
       display: flex;
       flex-direction: column;
       gap: 3vh;
-      width: 50%;
+      width: 40%;
 
-      @media screen and (max-width: 1050px) {
-        width: 85%;
+      @media screen and (max-width: 900px) {
+        width: 90%;
       }
 
       .faq-item {
@@ -522,7 +557,7 @@
           }
         }
         .faq-answer {
-          width: 50%;
+          width: 75%;
           height: auto;
           padding-top: 1vh;
           animation: 0.15s ease-in-out 0s 1 fadeIn;
@@ -548,8 +583,7 @@
     font-size: 1.2rem;
     font-weight: 900;
     display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     margin-bottom: 12.5vh;
     margin-top: 15vh;
 
@@ -557,17 +591,18 @@
       display: flex;
       flex-direction: column;
       gap: 1vh;
-      border-radius: 10px;
+      justify-content: center;
 
       > h1 {
         text-align: center;
-        padding-bottom: 10px;
-        font-weight: 900;
+        padding-bottom: 3vh;
+        font-size: 2.5rem;
+        margin-top: 35px;
       }
 
       > button {
-        border: 3px solid var(--text);
-        padding: 10px 20px;
+        border: 2px solid var(--text);
+        padding: 15px 20px;
         font-size: 1.15rem;
         width: 175px;
         background-color: var(--text);
@@ -599,7 +634,6 @@
     font-weight: bold;
     color: var(--textSec);
     gap: 15px;
-    background-color: var(--background) 2;
 
     > a,
     p {

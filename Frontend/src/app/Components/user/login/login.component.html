@@ -7,7 +7,7 @@
     (submit)="submitLoginApplication()"
     *ngIf="loginForm"
   >
-    <h1>Log in</h1>
+    <h1>Log In</h1>
 
     <label for="username">Username / Email</label>
     <mat-form-field appearance="fill">
@@ -42,17 +42,17 @@
 
     <div *ngIf="loadingService.isLoading$ | async">
       <mat-spinner diameter="35" style="margin: auto"></mat-spinner>
-      <p style="text-align: center; margin-top: 10px">Logging in...</p>
+      <p style="text-align: center; margin-top: 10px">Logging In...</p>
     </div>
 
     <button type="submit" mat-raised-button [disabled]="applyLoginForm.invalid">
-      Login
+      Log In
     </button>
 
     <a class="login-extra" routerLink="/user/register">
       Register for an account
     </a>
-    <p class="login-extra" (click)="toggleForm()">Forgot Password</p>
+    <p class="login-extra" (click)="toggleForm()">Forgot password</p>
   </form>
 </main>
 

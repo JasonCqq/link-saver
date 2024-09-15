@@ -18,7 +18,7 @@
     > .folders-item {
       display: flex;
       align-items: center;
-      border: 3px solid var(--text);
+      border: 2px solid var(--text);
       border-radius: 10px;
       padding: 10px;
       gap: 5px;
@@ -27,7 +27,7 @@
       touch-action: auto !important;
 
       > p {
-        font-weight: 700;
+        font-weight: 600;
       }
 
       > .faq-icon {
@@ -52,7 +52,8 @@
 
         > p {
           padding-top: 2px;
-          font-weight: 500;
+          font-weight: 600;
+          letter-spacing: 1px;
         }
       }
 
@@ -122,7 +123,7 @@
         > .folders-create-button {
           border: none;
           border-radius: 10px;
-          border: 3px solid var(--text);
+          border: 2px solid var(--text);
           background-color: transparent;
           font-weight: bold;
           padding: 10px 0;
@@ -208,7 +209,7 @@
       > .folders-share-button {
         border: none;
         border-radius: 10px;
-        border: 3px solid var(--text);
+        border: 2px solid var(--text);
         background-color: transparent;
         font-weight: bold;
         padding: 1vh 0vw;
@@ -250,7 +251,7 @@
     > .folders-button {
       border: none;
       border-radius: 10px;
-      border: 3px solid var(--text);
+      border: 2px solid var(--text);
       background-color: transparent;
       font-weight: 700;
       padding: 10px 25px;

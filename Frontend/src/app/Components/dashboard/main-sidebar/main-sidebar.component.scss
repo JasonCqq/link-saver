@@ -15,13 +15,9 @@
   .d-sidebar {
     min-width: 200px;
     background-color: var(--background);
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-
     position: fixed;
     left: 0;
     top: 0;
-
     height: 100%;
     border: none;
 
@@ -36,7 +32,7 @@
       p {
         font-size: 1rem;
         font-weight: bold;
-        margin-left: 20px;
+        padding: 0 12px;
         color: var(--text);
       }
 
@@ -49,17 +45,17 @@
     .sidebar-bottom {
       position: absolute;
       bottom: 0;
-      margin-bottom: 7vh;
+      margin-bottom: 2vh;
     }
 
     .sidebar-tab {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      gap: 0.7vw;
       margin-top: 2vh;
       padding-right: 0.5vw;
-      margin-left: 20px;
+      padding: 0 12px;
+      gap: 1vw;
 
       &:hover {
         cursor: pointer;
@@ -75,7 +71,7 @@
       }
 
       h1 {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         font-weight: 700;
         color: var(--text);
         letter-spacing: 0.85px;
@@ -83,7 +79,7 @@
 
       .sidebar-icon {
         color: var(--text);
-        transform: scale(0.9);
+        transform: scale(0.8);
       }
 
       &:hover {
@@ -103,7 +99,7 @@
 
     .sidebar-icon {
       background: var(--background2);
-      padding: 10px;
+      padding: 7px;
       transform: scale(0.8);
       border-radius: 10px;
       color: var(--text2);
@@ -115,7 +111,7 @@
 
     .icon-toggle {
       background: transparent;
-      border: 3px solid var(--text);
+      border: 2px solid var(--text);
       padding: 7px;
       transform: scale(0.9);
       border-radius: 10px;
@@ -131,10 +127,10 @@
 }
 
 .open-menu {
-  margin-left: 5vw;
+  margin-left: 15px;
   padding: 7px;
   transform: scale(0.9);
-  margin-top: 5vh;
+  margin-top: 15px;
   color: var(--text2);
   position: fixed;
   z-index: 97;

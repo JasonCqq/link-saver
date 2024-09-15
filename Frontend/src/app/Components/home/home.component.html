@@ -24,10 +24,10 @@
       </span>
 
       <span class="landing-nav-right">
-        <a routerLink="/user/login" *ngIf="!user" class="home-login">Log in</a>
+        <a routerLink="/user/login" *ngIf="!user" class="home-login">Log In</a>
 
         <a routerLink="/user/register" *ngIf="!user" class="register-button">
-          Get started
+          Get Started
         </a>
 
         <a
@@ -48,7 +48,7 @@
 
     <div class="landing-body">
       <a routerLink="/user/register" *ngIf="!user" class="register-button">
-        Try for free
+        Try for Free
       </a>
 
       <a routerLink="/dashboard" *ngIf="user" class="dashboard-button"
@@ -80,27 +80,30 @@
 
   <section class="home_picture">
     <img
-      src="../../../assets/667shots_so.png"
+      src="../../../assets/home_pic.png"
       alt="Image of linkstorage's dashboard"
     />
   </section>
 
   <section class="home_transparency">
-    <h1>
-      Full <span>Transparency</span> <br />
-      Code in Its Pure Form
-    </h1>
+    <div class="home_transparency_title">
+      <h1>Our Source Code</h1>
+      <p>Full transparency, code in its purest form.</p>
+    </div>
 
-    <a href="https://github.com/JasonCqq/link-saver" target="_blank">
-      <img
-        src="../../../assets/transparency.png"
-        alt="Image of linkstorage's github source code"
-      />
-    </a>
+    <div class="home_transparency_content">
+      <a href="https://github.com/JasonCqq/link-saver" target="_blank">
+        <img
+          src="../../../assets/transparency.png"
+          alt="Image of linkstorage's github source code"
+        />
+      </a>
+    </div>
   </section>
 
   <section #home_features class="home_features">
-    <h1>FEATURES</h1>
+    <h1>Our Features</h1>
+
     <div class="home-features-grid">
       <div class="home-features-item">
         <span>
@@ -172,6 +175,15 @@
   </section>
 
   <section id="home_faq" class="home_faq">
+    <div class="home-faq-title">
+      <h1>Frequently Asked Questions</h1>
+
+      <p>
+        Have questions? Have a read through some of our FAQs <br />
+        or contact us below or on github
+      </p>
+    </div>
+
     <div class="home-faq-container">
       <div
         class="faq-item"
@@ -193,7 +205,7 @@
       action="https://formsubmit.co/jason.cq.huang@gmail.com"
       method="POST"
     >
-      <h1>CONTACT</h1>
+      <h1>Contact Us</h1>
 
       <mat-label for="name">Name</mat-label>
       <mat-form-field appearance="fill">

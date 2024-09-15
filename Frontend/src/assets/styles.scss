@@ -8,7 +8,7 @@
 
 //Light mode
 :root {
-  --accent: #2e60cd;
+  --accent: #4074e4;
   --background: #eef1f3;
   --background2: #0e1113;
   --text: #0e1113;
@@ -87,17 +87,17 @@ $Frontend-theme: mat.define-dark-theme(
 ::ng-deep.mdc-notched-outline--notched {
   ::ng-deep.mdc-notched-outline__notch {
     border-top: none !important;
-    border-bottom: 3px solid var(--text) !important;
+    border-bottom: 2px solid var(--text) !important;
   }
 }
 //Left border with edges
 ::ng-deep.mdc-notched-outline__leading {
-  border: 3px solid var(--text) !important;
+  border: 2px solid var(--text) !important;
   border-right: none !important;
 }
 //Right border with edges
 ::ng-deep.mdc-notched-outline__trailing {
-  border: 3px solid var(--text) !important;
+  border: 2px solid var(--text) !important;
   border-left: none !important;
 }
 
@@ -126,18 +126,21 @@ $Frontend-theme: mat.define-dark-theme(
   margin-top: 15px;
   border-radius: 10px !important;
   background: var(--background) !important;
-  border: 3px solid var(--text);
+  border: 2px solid var(--text);
 }
 
 ::ng-deep .mdc-list-item__primary-text {
   color: var(--text);
-  font-weight: 700 !important;
-  font-size: 15px !important;
+  font-size: 13px !important;
+  font-family: "Reddit Sans" !important;
+  font-weight: 600 !important;
 }
 
 ::ng-deep .mat-mdc-select-value-text {
   color: var(--text);
-  font-size: 15px !important;
+  font-size: 13px !important;
+  font-family: "Reddit Sans" !important;
+  font-weight: 600 !important;
 }
 
 // Toggle label

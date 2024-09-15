@@ -1,7 +1,7 @@
 @import "../../../../../assets/styles.scss";
 
 .link-item-border {
-  border: 3px solid var(--text) !important;
+  border: 2px solid var(--text) !important;
 }
 
 .link-item {
@@ -10,7 +10,7 @@
   height: 100%;
   border-radius: 10px;
   touch-action: auto !important;
-  border: 3px solid transparent;
+  border: 2px solid transparent;
 
   @media screen and (max-width: 340px) {
     width: 90%;
@@ -152,11 +152,11 @@
     left: 0;
     color: var(--accent);
     border-radius: 7px;
-    background: rgb(0, 0, 0);
+    background: rgb(31, 31, 31);
     display: flex;
     align-items: center;
     gap: 2px;
-    padding: 2px;
+    padding: 2px 5px;
     transform: scale(0.8);
     height: auto;
     transition: color 0.1s ease-in-out;

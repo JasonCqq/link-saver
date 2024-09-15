@@ -21,9 +21,11 @@ export class VersionHistoryComponent {
         "Removed link reminding feature, will bring back in the future if requested",
         "Added previews for more sites such as Twitter, Reddit, etc. (In Progress)",
         "Removed disabling previews temporarily, you can change it in your settings",
-        "Change home toggle theme to a theme dropdown (In Progress)",
+        ,
+        "Enhanced landing page",
       ],
       qols: [
+        "Added back to top button to dashboard (In Progress)",
         "Added dim theme",
         "You can now login with Email as well",
         "Deactivating account now requires password instead (In Progress)",

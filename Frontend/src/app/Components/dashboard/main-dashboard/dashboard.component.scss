@@ -49,7 +49,7 @@ span {
           border: none;
           padding: 10px 25px;
           color: var(--text);
-          border: 3px solid var(--accent);
+          border: 2px solid var(--accent);
           background: var(--accent);
           border-radius: 10px;
 
@@ -60,7 +60,7 @@ span {
         }
 
         > .clear-prompt-yes {
-          border: 3px solid var(--accent);
+          border: 2px solid var(--accent);
           background: transparent;
           &:hover {
             background: var(--accent);
@@ -75,7 +75,7 @@ span {
     padding: 12px 21px;
     font-weight: 900;
     background-color: var(--imp-button);
-    border: 3px solid var(--imp-button);
+    border: 2px solid var(--imp-button);
     border-radius: 10px;
     display: flex;
     align-items: center;

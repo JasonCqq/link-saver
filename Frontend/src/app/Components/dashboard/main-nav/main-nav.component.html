@@ -1,15 +1,6 @@
 <nav class="main-nav">
   <div class="nav-flex">
     <p class="nav-title">{{ title ? title : "Dashboard" }}</p>
-    <p
-      class="nav-question"
-      #tooltip="matTooltip"
-      matTooltip="This site is still in early stages, please use the contact form in the homepage or create an issue on Github. I will fix it or add it as soon as possible. Thank you."
-      (click)="tooltip.toggle()"
-      [matTooltipPosition]="'right'"
-    >
-      <u>Found a bug or want a feature?</u>
-    </p>
   </div>
 
   <div class="nav-container">
@@ -20,7 +11,7 @@
           style="transform: scale(0.75)"
           >add</span
         >
-        <p>Add link</p>
+        <p>Add Link</p>
       </button>
 
       <mat-form-field

@@ -4,7 +4,7 @@
   height: auto;
   display: flex;
   flex-direction: column;
-  margin-left: 14vw;
+  padding-left: 14vw;
   background-color: var(--background);
 
   @media screen and (max-width: 340px) {
@@ -25,23 +25,6 @@
       font-size: 1.4rem;
       font-weight: 800;
       margin: 5vh 0 2vh 0vw;
-    }
-
-    > .nav-question {
-      margin: 5vh 0 2.5vh 3vw;
-      font-size: 0.8rem;
-      cursor: help;
-      font-weight: 500;
-      color: var(--textSec);
-
-      @media screen and (max-width: 490px) {
-        margin-top: 0;
-        margin-left: 0;
-      }
-
-      @media screen and (max-width: 350px) {
-        font-size: 0.7rem;
-      }
     }
   }
 
@@ -84,7 +67,7 @@
         }
       }
 
-      @media screen and (max-width: 490px) {
+      @media screen and (max-width: 627px) {
         display: grid;
         grid-template-areas:
           "a a"
@@ -124,7 +107,7 @@
         padding: 7.5px 16px;
         max-width: 175px;
         font-weight: 700;
-        border: 3px solid transparent;
+        border: 2px solid transparent;
         border-radius: 10px;
         display: flex;
         align-items: center;
@@ -136,7 +119,7 @@
           background-color: transparent;
           cursor: pointer;
           color: var(--text);
-          border: 3px solid var(--text);
+          border: 2px solid var(--text);
         }
       }
     }
