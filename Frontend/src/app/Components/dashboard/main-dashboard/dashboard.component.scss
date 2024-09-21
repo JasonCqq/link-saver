@@ -98,3 +98,16 @@ span {
     }
   }
 }
+
+.to-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 2px 4px;
+  background-color: var(--background);
+  border-left: 2px solid var(--text);
+  border-bottom: 2px solid var(--text);
+  color: var(--text);
+}

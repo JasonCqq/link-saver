@@ -274,6 +274,7 @@
 
     > .home_transparency_title {
       padding-left: 25vw;
+      padding-bottom: 20px;
 
       @media screen and (max-width: 800px) {
         padding-left: 5vw;
@@ -293,6 +294,14 @@
     }
 
     > .home_transparency_content {
+      background: transparent;
+      background-image: radial-gradient(
+        rgba(107, 107, 107, 0.492) 1px,
+        transparent 0
+      );
+      background-size: 40px 40px;
+      background-position: -19px 19px;
+
       width: 65%;
       margin: auto;
 
@@ -351,6 +360,7 @@
 
   .home_picture {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
@@ -358,10 +368,12 @@
     width: auto;
 
     > img {
-      box-shadow: 1px 1px 10px rgb(68, 68, 68);
-      border-radius: 10px;
-      border: 3px solid gray;
-      margin-left: 25px;
+      background: transparent;
+      background-image: radial-gradient(
+        rgba(107, 107, 107, 0.492) 1px,
+        transparent 0
+      );
+      background-size: 50px 50px;
 
       @media screen and (max-width: 1280px) {
         margin-left: 0;
@@ -584,29 +596,31 @@
     font-weight: 900;
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-bottom: 12.5vh;
-    margin-top: 15vh;
+    margin-top: 20vh;
+    gap: 10vw;
+    width: 100%;
 
     .contact-form {
       display: flex;
       flex-direction: column;
       gap: 1vh;
       justify-content: center;
+      align-items: center;
 
       > h1 {
-        text-align: center;
-        padding-bottom: 3vh;
+        padding-bottom: 2vh;
         font-size: 2.5rem;
-        margin-top: 35px;
+        text-align: center;
       }
 
       > button {
         border: 2px solid var(--text);
         padding: 15px 20px;
         font-size: 1.15rem;
-        width: 175px;
+        width: 100%;
         background-color: var(--text);
-        margin-top: 3vh;
         border-radius: 10px;
         color: var(--text2);
         transition: background-color 0.15s ease-in-out;
@@ -619,8 +633,13 @@
         }
       }
 
+      > .contact-flex {
+        display: flex;
+        gap: 25px;
+      }
+
       > .home-message {
-        height: auto;
+        width: 100%;
       }
     }
   }
@@ -629,11 +648,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 7vh;
     font-size: 0.9rem;
     font-weight: bold;
     color: var(--textSec);
     gap: 15px;
+    height: 7vh;
 
     > a,
     p {
@@ -647,20 +666,6 @@
   }
 }
 
-mat-form-field {
-  font-weight: 600;
-  width: 30vw;
-  height: 70px;
-
-  @media screen and (max-width: 1200px) {
-    width: 45vw;
-  }
-
-  @media screen and (max-width: 1000px) {
-    width: 60vw;
-  }
-
-  @media screen and (max-width: 400px) {
-    width: 85vw;
-  }
+textarea {
+  resize: none;
 }

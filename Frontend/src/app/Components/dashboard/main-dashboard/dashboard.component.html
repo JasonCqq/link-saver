@@ -32,11 +32,6 @@
     @fadeIn
     @fadeOut
   >
-    <div *ngIf="loadingService.isLoading$ | async">
-      <mat-spinner diameter="35" style="margin: auto"></mat-spinner>
-      <p style="text-align: center; margin-top: 10px">Loading...<br /></p>
-    </div>
-
     <div *ngFor="let link of tempLinks">
       <app-link-item
         [itemData]="link"
@@ -45,4 +40,8 @@
       ></app-link-item>
     </div>
   </section>
+
+  <button type="button" (click)="scrollToTop()" class="to-top">
+    Back to Top
+  </button>
 </main>

@@ -1,16 +1,10 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-} from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { DashboardService } from "../dashboard.service";
 import { Link } from "../../../Interfaces/Link";
 import { Subject, takeUntil } from "rxjs";
 import { MainNavService } from "../main-nav/main-nav.service";
 import { LinkService } from "../links/link-item/link-item.service";
 import { fadeIn, fadeOut } from "src/app/app.component";
-import { LoadingService } from "../../LoadingInterceptor.service";
 import { TempRenderService } from "./tempRender.service";
 
 @Component({
@@ -18,14 +12,12 @@ import { TempRenderService } from "./tempRender.service";
   templateUrl: "./dashboard.component.html",
   styleUrls: ["./dashboard.component.scss"],
   animations: [fadeIn, fadeOut],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
     private dashboardService: DashboardService,
     private mainNavService: MainNavService,
     private linkService: LinkService,
-    public loadingService: LoadingService,
     private tempRenderService: TempRenderService,
   ) {}
 
@@ -41,6 +33,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.clearPrompt = !this.clearPrompt;
   }
 
+  scrollToTop(): void {
+    window.scrollTo(0, 0);
+  }
+
   deleteAllTrash(): void {
     this.dashboardService.deleteAllTrash().subscribe(() => {
       this.getLinks();
@@ -48,7 +44,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
-  progressSpin: boolean = false;
   ngOnInit(): void {
     this.getLinks();
     this.setupLinksUpdatedSubscription();
@@ -56,60 +51,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.setupThumbnailSubscription();
     this.setupAddLinkSubscription();
     this.setupEditLinkSubscription();
-  }
-
-  private setupLinksUpdatedSubscription(): void {
-    this.dashboardService
-      .linksUpdated()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        this.getLinks();
-      });
-  }
-
-  private setupTitleSubscription(): void {
-    this.mainNavService.title$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {
-        this.showOnly(res);
-        this.tempTitle = res;
-      });
-  }
-
-  private setupThumbnailSubscription(): void {
-    this.linkService.thumbnails$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((state) => {
-        this.previews = state;
-      });
-  }
-
-  private setupAddLinkSubscription(): void {
-    this.tempRenderService.addLink$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {
-        this.links.unshift(res);
-        this.tempLinks?.unshift(res);
-      });
-  }
-
-  private setupEditLinkSubscription(): void {
-    this.tempRenderService.editLink$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {
-        const index = this.links.findIndex((link) => link.id === res.id);
-        this.links[index] = res;
-
-        const tempIndex = this.tempLinks?.findIndex(
-          (link) => link.id === res.id,
-        );
-
-        if (tempIndex !== undefined && tempIndex !== 1 && this.tempLinks) {
-          this.tempLinks[tempIndex] = res;
-          this.showOnly(this.tempTitle);
-          this.sortResults(this.mainNavService.getSortBy());
-        }
-      });
   }
 
   // Filter links based on title
@@ -201,5 +142,55 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.links.splice(link, 1);
     this.showOnly(this.tempTitle);
     this.sortResults(this.mainNavService.getSortBy());
+  }
+
+  private setupLinksUpdatedSubscription(): void {
+    this.dashboardService
+      .linksUpdated()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.getLinks();
+      });
+  }
+  private setupTitleSubscription(): void {
+    this.mainNavService.title$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.showOnly(res);
+        this.tempTitle = res;
+      });
+  }
+  private setupThumbnailSubscription(): void {
+    this.linkService.thumbnails$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((state) => {
+        this.previews = state;
+      });
+  }
+  private setupAddLinkSubscription(): void {
+    this.tempRenderService.addLink$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.links.unshift(res);
+        this.tempLinks?.unshift(res);
+      });
+  }
+  private setupEditLinkSubscription(): void {
+    this.tempRenderService.editLink$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        const index = this.links.findIndex((link) => link.id === res.id);
+        this.links[index] = res;
+
+        const tempIndex = this.tempLinks?.findIndex(
+          (link) => link.id === res.id,
+        );
+
+        if (tempIndex !== undefined && tempIndex !== 1 && this.tempLinks) {
+          this.tempLinks[tempIndex] = res;
+          this.showOnly(this.tempTitle);
+          this.sortResults(this.mainNavService.getSortBy());
+        }
+      });
   }
 }

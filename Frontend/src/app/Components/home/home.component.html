@@ -207,26 +207,31 @@
     >
       <h1>Contact Us</h1>
 
-      <mat-label for="name">Name</mat-label>
-      <mat-form-field appearance="fill">
-        <input matInput type="text" #name required name="name" />
-      </mat-form-field>
+      <div class="contact-flex">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label for="name">Name</mat-label>
+          <input matInput type="text" #name required name="name" />
+        </mat-form-field>
 
-      <mat-label for="email">Email</mat-label>
-      <mat-form-field appearance="fill">
-        <input matInput type="email" #email required name="email" />
-      </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label for="email">Email</mat-label>
+          <input matInput type="email" #email required name="email" />
+        </mat-form-field>
+      </div>
 
-      <mat-label for="message" style="padding-bottom: 8px">Message</mat-label>
-      <mat-form-field class="home-message">
+      <mat-form-field
+        class="home-message"
+        appearance="outline"
+        floatLabel="always"
+      >
+        <mat-label for="message">Message</mat-label>
         <textarea
           matInput
           #message
           type="text"
           required
-          rows="1"
           name="message"
-          cdkTextareaAutosize
+          rows="7"
         ></textarea>
       </mat-form-field>
 
