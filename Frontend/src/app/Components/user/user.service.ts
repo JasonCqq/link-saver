@@ -97,11 +97,12 @@ export class UserService {
       });
   }
 
-  async deleteAccount() {
+  async deleteAccount(input: any) {
     await this.http
       .delete(`${this.apiUrl}/user/delete_account`, {
         body: {
           userID: this.getUser()?.user.id,
+          password: input,
         },
         withCredentials: true,
       })

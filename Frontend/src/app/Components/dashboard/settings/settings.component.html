@@ -21,7 +21,7 @@
           required
           placeholder="Password..."
         />
-        <mat-error *ngIf="deletePromptError">Input does not match</mat-error>
+        <mat-error *ngIf="deletePromptError">Input invalid</mat-error>
         <button (click)="deleteAccount()" class="settings-delete">
           Deactivate
         </button>
@@ -32,6 +32,7 @@
   <div class="settings-grid">
     <section class="settings-item">
       <h3>Account</h3>
+      <p style="color: gray">ID: {{ user.settings.userId }}</p>
       <p>
         Username: <span>{{ user.user.username }}</span>
       </p>

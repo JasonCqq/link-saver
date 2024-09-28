@@ -107,16 +107,10 @@ export class SettingsComponent implements OnInit {
   }
 
   deleteAccount(): void {
-    if (
-      (<HTMLInputElement>document.getElementById("delete-confirm")).value !==
-      "abracadabra"
-    ) {
-      this.deletePromptError = true;
-    } else if (
-      (<HTMLInputElement>document.getElementById("delete-confirm")).value ===
-      "abracadabra"
-    ) {
-      this.userService.deleteAccount();
+    if ((<HTMLInputElement>document.getElementById("delete-confirm")).value) {
+      this.userService.deleteAccount(
+        (<HTMLInputElement>document.getElementById("delete-confirm")).value,
+      );
     }
   }
 }

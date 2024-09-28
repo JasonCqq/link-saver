@@ -106,12 +106,12 @@
   > .settings-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    row-gap: 15vh;
+    row-gap: 10vh;
     justify-content: center;
 
     @media screen and (max-width: 850px) {
       grid-template-columns: repeat(1, 1fr);
-      row-gap: 10vh;
+      row-gap: 8vh;
     }
 
     > .settings-item {

@@ -26,10 +26,10 @@ export class VersionHistoryComponent {
         "Deactivating account now requires password instead (In Progress)",
         "Added back to top button to dashboard",
         "Added dim theme",
-        "You can now login with Email as well",
-        "Mobiles with <390px can now fit 2 links on dashboard",
-        "Added more texts to the features on home page",
+        "Ability to login with Email",
+        "Mobiles with <390px can fit 2 links in dashboard",
         "Added more link references in settings",
+        "Added user ID in settings",
         "Changed logo and title",
       ],
       bugfixes: [

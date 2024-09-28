@@ -165,20 +165,34 @@ exports.logout_user = asyncHandler(async (req, res) => {
 
 exports.delete_user = [
   body("userID").trim().escape(),
+  body("password").trim().escape(),
 
   asyncHandler(async (req, res) => {
-    await prisma.User.delete({
+    const user = await prisma.User.findUnique({
       where: {
         id: req.body.userID,
       },
     });
 
-    req.session.destroy((err) => {
-      if (err) {
-        res.status(500).json("Internal Server Error");
-      }
-    });
-    res.status(200).json({});
+    const check = await bcrypt.compare(req.body.password, user.password);
+
+    if (!check) {
+      res.status(401).json("Not authenticated");
+    } else {
+      await prisma.User.delete({
+        where: {
+          id: req.body.userID,
+        },
+      });
+
+      req.session.destroy((err) => {
+        if (err) {
+          res.status(500).json("Internal Server Error");
+        }
+      });
+
+      res.status(200).json({});
+    }
   }),
 ];
 
