@@ -40,11 +40,6 @@
     </nav>
 
     <h1 class="landing-title">Save + Preview & Track Your Links with Ease</h1>
-    <section *ngIf="this.data" class="landing-stats">
-      <div class="landing-stats-items">
-        <p>{{ this.data.links }}+ <span>links archived</span></p>
-      </div>
-    </section>
 
     <div class="landing-body">
       <a routerLink="/user/register" *ngIf="!user" class="register-button">
@@ -200,43 +195,56 @@
   </section>
 
   <section id="home_contact" class="home_contact">
-    <form
-      class="contact-form"
-      action="https://formsubmit.co/jason.cq.huang@gmail.com"
-      method="POST"
-    >
-      <h1>Contact Us</h1>
+    <div class="contact-title" (click)="toggleContact()">
+      <h1>CONTACT US</h1>
+      <span class="material-icons-round"> north_east </span>
+    </div>
 
-      <div class="contact-flex">
-        <mat-form-field appearance="outline" floatLabel="always">
-          <mat-label for="name">Name</mat-label>
-          <input matInput type="text" #name required name="name" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" floatLabel="always">
-          <mat-label for="email">Email</mat-label>
-          <input matInput type="email" #email required name="email" />
-        </mat-form-field>
-      </div>
-
-      <mat-form-field
-        class="home-message"
-        appearance="outline"
-        floatLabel="always"
+    <div class="contact-overlay" *ngIf="contactForm">
+      <span
+        class="material-icons-round"
+        (click)="toggleContact()"
+        style="margin: 10px"
       >
-        <mat-label for="message">Message</mat-label>
-        <textarea
-          matInput
-          #message
-          type="text"
-          required
-          name="message"
-          rows="7"
-        ></textarea>
-      </mat-form-field>
+        close
+      </span>
+      <form
+        class="contact-form"
+        action="https://formsubmit.co/jason.cq.huang@gmail.com"
+        method="POST"
+      >
+        <h1>Contact</h1>
+        <div class="contact-flex">
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label for="name">Name</mat-label>
+            <input matInput type="text" #name required name="name" />
+          </mat-form-field>
 
-      <button type="submit">Send Message</button>
-    </form>
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label for="email">Email</mat-label>
+            <input matInput type="email" #email required name="email" />
+          </mat-form-field>
+        </div>
+
+        <mat-form-field
+          class="home-message"
+          appearance="outline"
+          floatLabel="always"
+        >
+          <mat-label for="message">Message</mat-label>
+          <textarea
+            matInput
+            #message
+            type="text"
+            required
+            name="message"
+            rows="7"
+          ></textarea>
+        </mat-form-field>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
   </section>
 
   <footer class="foot-note">

@@ -62,6 +62,7 @@ exports.create_link = [
             const { error, html, result, response } = data;
             console.timeEnd("fetch");
 
+            console.log(html);
             if (!result.ogTitle && !result.ogSiteName) {
               title = result.requestUrl;
             } else {

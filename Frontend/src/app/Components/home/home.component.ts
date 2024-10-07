@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { UserService } from "../user/user.service";
-import { HomeService } from "./home.service";
 import { Subject, takeUntil } from "rxjs";
 import { Theme } from "src/app/theme.service";
 
@@ -13,15 +12,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   // Checks for user
   constructor(
     private userService: UserService,
-    private homeService: HomeService,
     private themeService: Theme,
   ) {}
 
   private destroy$ = new Subject<void>();
 
   user: any;
-  data: any;
   theme: any;
+
+  contactForm: boolean = false;
+  toggleContact() {
+    this.contactForm = !this.contactForm;
+  }
 
   videoShowcase: boolean = false;
   toggleShowcase() {
@@ -42,13 +44,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.userService.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       this.user = user?.user;
     });
-
-    this.homeService
-      .getStats()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((response) => {
-        this.data = response;
-      });
 
     this.theme = this.themeService.getTheme();
   }

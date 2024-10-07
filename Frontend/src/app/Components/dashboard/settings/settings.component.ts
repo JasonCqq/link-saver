@@ -101,7 +101,6 @@ export class SettingsComponent implements OnInit {
   }
 
   deletePrompt: boolean = false;
-  deletePromptError: boolean = false;
   toggleDeletePrompt(): void {
     this.deletePrompt = !this.deletePrompt;
   }
