@@ -40,6 +40,7 @@
         border-radius: 7px;
         height: 100%;
         width: 100%;
+        line-height: 100px;
       }
 
       > p {
@@ -73,9 +74,9 @@
       > .link-url {
         font-size: 0.65rem;
         color: var(--textSec);
-        height: auto;
         font-weight: 500;
         padding-left: 3px;
+        width: 100%;
 
         @media screen and (max-width: 340px) {
           font-size: 0.6rem;

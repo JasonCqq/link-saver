@@ -24,6 +24,7 @@
     "fs": "^0.0.1-security",
     "process": "^0.11.10",
     "rxjs": "~7.8.0",
+    "socket.io-client": "^4.8.0",
     "tslib": "^2.3.0",
     "util": "^0.12.5",
     "zone.js": "~0.13.0"

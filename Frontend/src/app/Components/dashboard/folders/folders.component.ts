@@ -51,6 +51,7 @@ export class FoldersComponent implements OnInit, OnDestroy {
     });
 
     this.tempLinks = this.folders[folderIndex].links;
+    this.changeDetector.detectChanges();
   }
 
   ngOnInit(): void {

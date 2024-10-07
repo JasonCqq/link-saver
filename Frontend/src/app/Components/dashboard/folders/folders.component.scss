@@ -2,7 +2,7 @@
 
 .folders-container {
   margin-top: 2vh;
-  margin-left: 14vw;
+  margin-left: 13vw;
 
   @media screen and (max-width: 340px) {
     margin-left: 10vw;
@@ -86,7 +86,7 @@
 
       > .folders-create {
         width: 27vw;
-        height: 24vh;
+        height: 30vh;
         background-color: var(--background);
         border-radius: 10px;
         display: flex;

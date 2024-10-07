@@ -4,8 +4,8 @@ const prisma = require("../prisma/prismaClient");
 const { decode } = require("html-entities");
 const sharp = require("sharp");
 const fetch = require("node-fetch-commonjs");
-
 const ogs = require("open-graph-scraper");
+const cheerio = require("cheerio");
 
 // Supabase
 const { createClient } = require("@supabase/supabase-js");
@@ -59,16 +59,18 @@ exports.create_link = [
 
         ogs(options)
           .then(async (data) => {
-            const { error, html, result, response } = data;
+            const { html, result } = data;
             console.timeEnd("fetch");
 
-            console.log(html);
+            // Get Title
             if (!result.ogTitle && !result.ogSiteName) {
-              title = result.requestUrl;
+              const $ = await cheerio.load(html);
+              title = $("title").text();
             } else {
-              title = result.ogSiteName || result.ogTitle;
+              title = result.ogTitle || result.ogSiteName;
             }
 
+            // Get Image
             if (result.ogImage && result.ogImage[0]) {
               console.time("image fetch");
               const imageResponse = await fetch(result.ogImage[0].url);
@@ -116,34 +118,34 @@ exports.create_link = [
               let imagePath = `thumbnails/${req.body.userID}/${linkID}`;
               let publicUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/thumbnails/${imagePath}`;
 
-              const { error } = await supabase.storage
-                .from("thumbnails")
-                .upload(imagePath, thumbnail, {
-                  contentType: "image/webp",
-                });
+              const updatedLink = await prisma.Link.update({
+                where: {
+                  id: linkID,
+                },
+                data: {
+                  thumbnail: imagePath,
+                  pURL: publicUrl,
+                },
+              });
 
-              console.timeEnd("supabase");
-              if (error) {
-                console.error("Supabase Error: ", error);
-              } else {
-                const updatedLink = await prisma.Link.update({
-                  where: {
-                    id: linkID,
-                  },
-                  data: {
-                    thumbnail: imagePath,
-                    pURL: publicUrl,
-                  },
-                });
+              res.status(202).json({ link: updatedLink });
 
-                res.status(200).json({ link: updatedLink });
-              }
+              (async () => {
+                const { error } = await supabase.storage
+                  .from("thumbnails")
+                  .upload(imagePath, thumbnail, {
+                    contentType: "image/webp",
+                  });
+
+                console.timeEnd("supabase");
+                if (error) {
+                  console.error("Supabase Error: ", error);
+                }
+              })();
             }
           })
-          .catch(async (error) => {
-            console.error(error);
-
-            console.time("database operation2");
+          .catch(async () => {
+            // Fallback to default link
             const link = await prisma.Link.create({
               data: {
                 url: decodedUrl,
@@ -158,10 +160,8 @@ exports.create_link = [
                 title: decodedUrl,
                 bookmarked: JSON.parse(req.body.bookmarked),
                 thumbnail: "",
-                visits: 0,
               },
             });
-            console.timeEnd("database operation2");
             res.status(200).json({ link: link });
           });
       } catch (error) {

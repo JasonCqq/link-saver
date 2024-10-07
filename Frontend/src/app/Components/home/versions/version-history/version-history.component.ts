@@ -17,6 +17,8 @@ export class VersionHistoryComponent {
       version: "2.1.0 - TBD",
       updates: [
         "Implemented a feature to automatically section your dashboard (In Progress) \n - by grouping similar titles/urls and separate them into different groups in dashboard",
+        "Added a temporary placeholder 'Refresh to view' to speed up adding links",
+        "Added more website title compatibilities",
         "Removed link reminding feature, will bring back in the future if requested",
         "Removed preview disabling temporarily, you can change it in your settings",
         "Enhanced landing page",
@@ -28,12 +30,13 @@ export class VersionHistoryComponent {
         "Change contact form to a pop up",
         "Added back to top button to dashboard",
         "Mobiles with <390px can fit 2 links in dashboard",
-        "Added userID and more link references in settings",
+        "Added userID to settings",
         "Updated logo and title",
       ],
       bugfixes: [
         "Fixed sorting not working when switching tabs",
         "Fixed not being able to copy link addresses",
+        "Fixed links not loading when adding to a folder while inside folder",
       ],
     },
     {

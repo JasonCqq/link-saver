@@ -15,8 +15,9 @@
       <img
         *ngIf="itemData.pURL"
         src="{{ itemData.pURL }}"
-        alt="Preview image of the URL"
+        alt="Refresh to view"
       />
+
       <p *ngIf="!itemData.pURL" style="text-align: center">No image found</p>
     </div>
 
