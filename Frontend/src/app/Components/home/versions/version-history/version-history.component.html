@@ -3,11 +3,10 @@
 
   <section>
     <h2>Versions</h2>
-    <p style="color: gray">These version numbers doesn't mean a lot</p>
 
     <div *ngFor="let version of versions" class="versions-grid">
       <div class="versions-item" (click)="toggleActive(version.id)">
-        <h3>Version {{ version.version }}</h3>
+        <h3>V{{ version.version }}</h3>
         <section *ngIf="this.activeID === version.id">
           <div>
             <h4>Update(s)</h4>

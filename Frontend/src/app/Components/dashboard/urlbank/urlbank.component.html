@@ -1,0 +1,39 @@
+<app-main-sidebar></app-main-sidebar>
+
+<main>
+  <div class="url-title">
+    <h1>URL Bank</h1>
+    <p style="color: rgb(199, 199, 199)">(Total of 38 urls)</p>
+  </div>
+
+  <div class="url-util">
+    <button class="url-util-add" (click)="toggleUrlForm()">Add URL(s)</button>
+    <button class="url-util-del">Delete All</button>
+  </div>
+
+  <p *ngIf="">Click to Confirm Delete All.</p>
+
+  <div class="url-grid">
+    <p>Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)</p>
+    <p>Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)</p>
+    <p>Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)</p>
+    <p>Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)</p>
+    <p>Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)</p>
+    <p>Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)</p>
+    <p>Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)</p>
+    <p>Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)</p>
+    <p>Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)</p>
+  </div>
+</main>
+
+<div *ngIf="urlForm" class="add-url-form">
+  <form>
+    <span class="material-icons-round" (click)="toggleUrlForm()"> close </span>
+
+    <h1>Add URL(s)</h1>
+    <p>Note: Commas will automatically be added at end of url</p>
+    <textarea rows="30" cols="50" placeholder="URLs go here..."></textarea>
+
+    <button type="submit">SUBMIT</button>
+  </form>
+</div>

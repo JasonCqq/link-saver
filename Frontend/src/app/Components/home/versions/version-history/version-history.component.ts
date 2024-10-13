@@ -17,6 +17,7 @@ export class VersionHistoryComponent {
       version: "2.1.0 - TBD",
       updates: [
         "Implemented a feature to automatically section your dashboard (In Progress) \n - by grouping similar titles/urls and separate them into different groups in dashboard",
+        "Implemented Quick add feature to store text only links (In Progress)",
         "Added a temporary placeholder 'Refresh to view' to speed up adding links",
         "Added more website title compatibilities",
         "Removed link reminding feature, will bring back in the future if requested",

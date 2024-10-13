@@ -1,0 +1,116 @@
+main {
+  padding-left: 13vw;
+  margin-top: 5vh;
+
+  .url-title {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .url-util {
+    display: flex;
+    gap: 25px;
+    margin-top: 10px;
+
+    > button {
+      border: none;
+      padding: 10px 25px;
+      border-radius: 10px;
+      border: 2px solid transparent;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    > .url-util-add {
+      background-color: var(--accent);
+      color: var(--text);
+      transition: background-color 0.1s;
+
+      &:hover {
+        background-color: transparent;
+        border: 2px solid var(--accent);
+      }
+    }
+
+    > .url-util-del {
+      background-color: var(--imp-button);
+      color: var(--text);
+      transition: background-color 0.1s;
+
+      &:hover {
+        background-color: transparent;
+        border: 2px solid var(--imp-button);
+      }
+    }
+  }
+
+  .url-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 25px;
+  }
+}
+
+.add-url-form {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99;
+  background-color: rgba(black, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  > form {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: var(--background);
+    padding: 25px;
+    gap: 10px;
+
+    > span {
+      width: 10px;
+      &:hover {
+        cursor: pointer;
+        color: var(--accent);
+      }
+    }
+
+    > p {
+      color: gray;
+      font-size: 0.8rem;
+    }
+
+    > textarea {
+      border: none;
+      background-color: transparent;
+      color: var(--text);
+      border: 1px solid gray;
+      border-radius: 5px;
+      padding: 5px;
+      resize: none;
+    }
+
+    > button {
+      margin-top: 5px;
+      border: none;
+      border: 2px solid var(--accent);
+      background-color: transparent;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      color: var(--text);
+      padding: 10px 0px;
+
+      &:hover {
+        cursor: pointer;
+        background-color: var(--accent);
+      }
+    }
+  }
+}

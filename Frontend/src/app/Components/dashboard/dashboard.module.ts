@@ -25,6 +25,7 @@ import { MainSidebarComponent } from "./main-sidebar/main-sidebar.component";
 import { MainNavComponent } from "./main-nav/main-nav.component";
 import { LinkEditFormComponent } from "./links/link-edit-form/link-edit-form.component";
 import { MassEditFormComponent } from "./links/mass-edit-form/mass-edit-form.component";
+import { UrlbankComponent } from './urlbank/urlbank.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { MassEditFormComponent } from "./links/mass-edit-form/mass-edit-form.com
     MainNavComponent,
     LinkEditFormComponent,
     MassEditFormComponent,
+    UrlbankComponent,
   ],
   imports: [
     CommonModule,
