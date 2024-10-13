@@ -11,28 +11,31 @@
     <button class="url-util-del">Delete All</button>
   </div>
 
-  <p *ngIf="">Click to Confirm Delete All.</p>
+  <p *ngIf="">Click here to confirm Delete All.</p>
+  <p style="color: gray">
+    Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)
+  </p>
 
-  <div class="url-grid">
-    <p>Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)</p>
-    <p>Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)</p>
-    <p>Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)</p>
-    <p>Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)</p>
-    <p>Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)</p>
-    <p>Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)</p>
-    <p>Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)</p>
-    <p>Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)</p>
-    <p>Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)</p>
+  <div class="url-grid" *ngFor="let u of this.urls">
+    <h1 class="url-title">{{ u.title }}</h1>
+    <p class="url-date">{{ u.url }}</p>
   </div>
 </main>
 
-<div *ngIf="urlForm" class="add-url-form">
-  <form>
+<div *ngIf="urlFormPop" class="add-url-form">
+  <form [formGroup]="urlForm" (submit)="submitUrlForm()">
     <span class="material-icons-round" (click)="toggleUrlForm()"> close </span>
 
     <h1>Add URL(s)</h1>
-    <p>Note: Commas will automatically be added at end of url</p>
-    <textarea rows="30" cols="50" placeholder="URLs go here..."></textarea>
+    <p>Note: Commas will auto add at the end of url</p>
+
+    <textarea
+      #urls
+      formControlName="urls"
+      rows="30"
+      cols="50"
+      placeholder="URLs go here..."
+    ></textarea>
 
     <button type="submit">SUBMIT</button>
   </form>
