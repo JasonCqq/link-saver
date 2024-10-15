@@ -104,8 +104,37 @@ exports.create_urls = [
   }),
 ];
 
-exports.delete_urls = asyncHandler(async (req, res) => {});
+exports.delete_urls = [
+  body("id").trim().escape(),
+  body("userID").trim().escape(),
 
-exports.deleteAll_urls = asyncHandler(async (req, res) => {});
+  asyncHandler(async (req, res) => {
+    await prisma.URL.delete({
+      where: {
+        id: req.body.id,
+        userId: req.body.userID,
+      },
+    });
 
+    res.status(200).json({});
+  }),
+];
+
+exports.deleteAll_urls = [
+  body("userID").trim().escape(),
+
+  asyncHandler(async (req, res) => {
+    await prisma.URL.deleteMany({
+      where: {
+        userId: {
+          contains: req.body.userID,
+        },
+      },
+    });
+
+    res.status(200).json({});
+  }),
+];
+
+// For drag and drop
 exports.update_url = asyncHandler(async (req, res) => {});

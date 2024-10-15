@@ -4,31 +4,38 @@
   <div class="url-title">
     <h1>URL Bank</h1>
     <p style="color: rgb(199, 199, 199)">
-      (Total of {{ this.urls.length }} urls)
+      (Total of {{ this.urls ? this.urls.length : "" }} urls)
     </p>
   </div>
 
   <div class="url-util">
     <button class="url-util-add" (click)="toggleUrlForm()">Add URL(s)</button>
-    <button class="url-util-del">Delete All</button>
+    <button class="url-util-del" (click)="toggleDelAllPrompt()">
+      Delete All
+    </button>
   </div>
 
-  <p *ngIf="">Click here to confirm Delete All.</p>
+  <p class="del-prompt" *ngIf="delAllPrompt" (click)="deleteAllUrls()">
+    Click here to confirm Delete All.
+  </p>
+  <p class="del-note" *ngIf="!delAllPrompt">Deletes are permanent</p>
 
   <div class="url-grid">
     <div class="url-item" *ngFor="let u of this.urls">
       <div class="url-options">
-        <span class="material-icons-round url-delete"> close </span>
+        <span class="material-icons-round url-delete" (click)="deleteUrl(u.id)">
+          close
+        </span>
 
         <span class="material-icons-round" (click)="copyUrl(u.url)">
           content_copy
         </span>
       </div>
 
-      <div class="url-details">
+      <a [href]="u.url" target="_blank" class="url-details">
         <h1 class="url-title">{{ u.title }}</h1>
         <p class="url-date">{{ u.url }}</p>
-      </div>
+      </a>
     </div>
   </div>
 </main>

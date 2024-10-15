@@ -13,6 +13,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { DashboardComponent } from "./main-dashboard/dashboard.component";
@@ -25,7 +26,7 @@ import { MainSidebarComponent } from "./main-sidebar/main-sidebar.component";
 import { MainNavComponent } from "./main-nav/main-nav.component";
 import { LinkEditFormComponent } from "./links/link-edit-form/link-edit-form.component";
 import { MassEditFormComponent } from "./links/mass-edit-form/mass-edit-form.component";
-import { UrlbankComponent } from './urlbank/urlbank.component';
+import { UrlbankComponent } from "./urlbank/urlbank.component";
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { UrlbankComponent } from './urlbank/urlbank.component';
     MatSidenavModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
+    MatSnackBarModule,
   ],
 
   exports: [LinkComponent],

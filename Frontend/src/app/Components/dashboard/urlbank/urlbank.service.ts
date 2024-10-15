@@ -34,4 +34,23 @@ export class UrlBankService {
       })
       .pipe(map((response: any) => response.urls));
   }
+
+  deleteUrl(id: string) {
+    return this.http.delete(`${this.apiUrl}/url/delete`, {
+      body: {
+        id: id,
+        userID: this.userService.getUser()?.user.id,
+      },
+      withCredentials: true,
+    });
+  }
+
+  deleteAllUrls() {
+    return this.http.delete(`${this.apiUrl}/url/deleteAll`, {
+      body: {
+        userID: this.userService.getUser()?.user.id,
+      },
+      withCredentials: true,
+    });
+  }
 }

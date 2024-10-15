@@ -6,6 +6,12 @@ main {
     display: flex;
     align-items: center;
     gap: 20px;
+
+    > h1 {
+      @media screen and (max-width: 320px) {
+        font-size: 1.65rem;
+      }
+    }
   }
 
   .url-util {
@@ -18,6 +24,10 @@ main {
       padding: 10px 25px;
       border-radius: 10px;
       border: 2px solid transparent;
+
+      @media screen and (max-width: 320px) {
+        padding: 10px 15px;
+      }
 
       &:hover {
         cursor: pointer;
@@ -55,6 +65,7 @@ main {
 
     > .url-item {
       display: flex;
+      width: auto;
 
       > .url-options {
         transform: scale(0.7);
@@ -77,14 +88,41 @@ main {
         > h1 {
           font-size: 13px;
           font-weight: 500;
+          white-space: nowrap;
+          overflow: hidden;
         }
 
         > p {
           color: var(--textSec);
           font-size: 10px;
         }
+
+        transition: color 0.05s ease-in-out;
+
+        &:hover {
+          color: var(--accent);
+        }
       }
     }
+  }
+
+  .del-prompt {
+    color: red;
+    font-weight: 700;
+    margin-top: 10px;
+    font-size: 13px;
+    width: fit-content;
+
+    &:hover {
+      font-weight: 900;
+      cursor: pointer;
+    }
+  }
+
+  .del-note {
+    color: var(--textSec);
+    margin-top: 10px;
+    font-size: 13px;
   }
 }
 
@@ -107,6 +145,11 @@ main {
     padding: 25px;
     gap: 10px;
 
+    @media screen and (max-width: 500px) {
+      width: 90vw;
+      height: 90vh;
+    }
+
     > span {
       width: 10px;
       &:hover {
@@ -118,6 +161,10 @@ main {
     > p {
       color: var(--textSec);
       font-size: 0.8rem;
+
+      @media screen and (max-width: 500px) {
+        font-size: 10px;
+      }
     }
 
     > textarea {

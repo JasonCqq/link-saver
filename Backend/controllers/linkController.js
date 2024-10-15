@@ -37,6 +37,7 @@ exports.create_link = [
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
     } else {
+      // Decodes URL after URL gets trim/escape in body.
       let decodedUrl = decode(req.body.url, { level: "html5" });
 
       if (

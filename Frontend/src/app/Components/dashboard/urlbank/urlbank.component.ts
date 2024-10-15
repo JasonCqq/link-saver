@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { UrlBankService } from "./urlbank.service";
 import { FormControl, FormGroup } from "@angular/forms";
 import { takeUntil, Subject } from "rxjs";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 // Separates URLs in textarea into an array of URLs
 function extractUrls(text: string) {
@@ -17,7 +18,10 @@ function extractUrls(text: string) {
   styleUrls: ["./urlbank.component.scss"],
 })
 export class UrlbankComponent implements OnInit, OnDestroy {
-  constructor(private urlBankService: UrlBankService) {}
+  constructor(
+    private urlBankService: UrlBankService,
+    public snackBar: MatSnackBar,
+  ) {}
   private destroy$ = new Subject<void>();
 
   ngOnDestroy(): void {
@@ -33,6 +37,30 @@ export class UrlbankComponent implements OnInit, OnDestroy {
   // URL Functions
   copyUrl(url: string) {
     navigator.clipboard.writeText(url);
+
+    this.snackBar.open("Copied to clipboard");
+    setTimeout(() => {
+      this.snackBar.dismiss();
+    }, 1000);
+  }
+
+  deleteUrl(id: string) {
+    this.urlBankService.deleteUrl(id).subscribe(() => {
+      const url = this.urls.findIndex((u: any) => u.id === id);
+      this.urls.splice(url, 1);
+    });
+  }
+
+  deleteAllUrls() {
+    this.urlBankService.deleteAllUrls().subscribe(() => {
+      this.urls = [];
+      this.toggleDelAllPrompt();
+    });
+  }
+
+  delAllPrompt: boolean = false;
+  toggleDelAllPrompt() {
+    this.delAllPrompt = !this.delAllPrompt;
   }
 
   getUrls() {
@@ -55,8 +83,6 @@ export class UrlbankComponent implements OnInit, OnDestroy {
   });
 
   submitUrlForm() {
-    //if form isn't empty
-
     const separatedUrls = extractUrls(this.urlForm.value.urls ?? "");
 
     this.urlBankService.submitForm(separatedUrls).subscribe({
