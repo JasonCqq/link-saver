@@ -1,6 +1,10 @@
 const asyncHandler = require("express-async-handler");
 const prisma = require("../prisma/prismaClient");
 const { body, validationResult } = require("express-validator");
+const { decode } = require("html-entities");
+
+const ogs = require("open-graph-scraper");
+const cheerio = require("cheerio");
 
 require("dotenv").config();
 
@@ -37,23 +41,65 @@ exports.create_urls = [
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
     } else {
-      try {
-        await prisma.URL.create({
-          data: {
-            url: req.body.urls,
-            title: "None currently",
+      // Decodes each url after trim/escape
+      let urls = req.body.urls.map((u) => {
+        let decodedUrl = decode(u, { level: "html5" });
+        if (
+          !decodedUrl.startsWith("http://") &&
+          !decodedUrl.startsWith("https://")
+        ) {
+          decodedUrl = "https://" + decodedUrl;
+        }
 
-            user: {
-              connect: {
-                id: req.body.userID,
+        return decodedUrl;
+      });
+
+      // Add scraped title to each url
+      const newUrls = await Promise.all(
+        urls.map(async (u) => {
+          const options = {
+            url: u,
+            onlyGetOpenGraphInfo: true,
+          };
+
+          let title;
+          try {
+            const data = await ogs(options);
+            const { html, result } = data;
+
+            // Get Title
+            if (!result.ogTitle && !result.ogSiteName) {
+              const $ = await cheerio.load(html);
+              title = $("title").text();
+            } else {
+              title = result.ogTitle || result.ogSiteName;
+            }
+
+            return { name: title, url: u };
+          } catch (err) {
+            console.log(err);
+            return { name: u, url: u };
+          }
+        }),
+      );
+
+      await prisma.$transaction(async (p) => {
+        for (const u of newUrls) {
+          await prisma.URL.create({
+            data: {
+              title: u.name,
+              url: u.url,
+              user: {
+                connect: {
+                  id: req.body.userID,
+                },
               },
             },
-          },
-        });
-        res.status(200).json({});
-      } catch (err) {
-        console.log(err);
-      }
+          });
+        }
+      });
+
+      res.status(200).json({});
     }
   }),
 ];

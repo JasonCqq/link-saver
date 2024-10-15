@@ -3,7 +3,9 @@
 <main>
   <div class="url-title">
     <h1>URL Bank</h1>
-    <p style="color: rgb(199, 199, 199)">(Total of 38 urls)</p>
+    <p style="color: rgb(199, 199, 199)">
+      (Total of {{ this.urls.length }} urls)
+    </p>
   </div>
 
   <div class="url-util">
@@ -12,13 +14,22 @@
   </div>
 
   <p *ngIf="">Click here to confirm Delete All.</p>
-  <p style="color: gray">
-    Link #1, Copy/Delete (a Moved date, Created date, Drag/Drop feature)
-  </p>
 
-  <div class="url-grid" *ngFor="let u of this.urls">
-    <h1 class="url-title">{{ u.title }}</h1>
-    <p class="url-date">{{ u.url }}</p>
+  <div class="url-grid">
+    <div class="url-item" *ngFor="let u of this.urls">
+      <div class="url-options">
+        <span class="material-icons-round url-delete"> close </span>
+
+        <span class="material-icons-round" (click)="copyUrl(u.url)">
+          content_copy
+        </span>
+      </div>
+
+      <div class="url-details">
+        <h1 class="url-title">{{ u.title }}</h1>
+        <p class="url-date">{{ u.url }}</p>
+      </div>
+    </div>
   </div>
 </main>
 
@@ -27,7 +38,10 @@
     <span class="material-icons-round" (click)="toggleUrlForm()"> close </span>
 
     <h1>Add URL(s)</h1>
-    <p>Note: Commas will auto add at the end of url</p>
+    <p>
+      Urls must start with (https/http/www) or end with (a dot) <br />
+      Paragraphs of links are allowed. Invalid Urls will be omitted
+    </p>
 
     <textarea
       #urls
@@ -37,6 +51,6 @@
       placeholder="URLs go here..."
     ></textarea>
 
-    <button type="submit">SUBMIT</button>
+    <button type="submit" [disabled]="!urlForm.dirty">SUBMIT</button>
   </form>
 </div>

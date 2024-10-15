@@ -50,8 +50,41 @@ main {
   .url-grid {
     display: flex;
     flex-direction: column;
-    gap: 10px;
     margin-top: 25px;
+    gap: 4px;
+
+    > .url-item {
+      display: flex;
+
+      > .url-options {
+        transform: scale(0.7);
+        display: flex;
+        gap: 10px;
+
+        > .url-delete {
+          color: var(--imp-button);
+        }
+
+        > span {
+          &:hover {
+            color: var(--text);
+            cursor: pointer;
+          }
+        }
+      }
+
+      > .url-details {
+        > h1 {
+          font-size: 13px;
+          font-weight: 500;
+        }
+
+        > p {
+          color: var(--textSec);
+          font-size: 10px;
+        }
+      }
+    }
   }
 }
 
@@ -83,7 +116,7 @@ main {
     }
 
     > p {
-      color: gray;
+      color: var(--textSec);
       font-size: 0.8rem;
     }
 
@@ -106,6 +139,10 @@ main {
       font-size: 0.9rem;
       color: var(--text);
       padding: 10px 0px;
+
+      &:disabled {
+        opacity: 0.35;
+      }
 
       &:hover {
         cursor: pointer;
