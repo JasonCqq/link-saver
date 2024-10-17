@@ -1,6 +1,11 @@
 @use "@angular/material" as mat;
 @include mat.core();
 
+@font-face {
+  font-family: "Ubuntu Sans";
+  src: url("../assets/UbuntuSans-VariableFont_wdth\,wght.ttf");
+}
+
 //Light mode
 :root {
   --accent: #4074e4;
@@ -41,7 +46,7 @@ $my-custom-typography-config: mat.define-typography-config(
     mat.define-typography-level(
       $font-size: 12px,
       $font-weight: 700,
-      $font-family: "Ubuntu" !important,
+      $font-family: "Ubuntu Sans" !important,
     ),
 );
 
@@ -104,7 +109,7 @@ $Frontend-theme: mat.define-dark-theme(
   color: var(--text) !important;
   font-weight: 600;
   font-size: 14px;
-  font-family: "Ubuntu";
+  font-family: "Ubuntu Sans";
 }
 
 ::ng-deep .mat-mdc-select-min-line {
@@ -127,14 +132,14 @@ $Frontend-theme: mat.define-dark-theme(
 ::ng-deep .mdc-list-item__primary-text {
   color: var(--text);
   font-size: 13px !important;
-  font-family: "Ubuntu" !important;
+  font-family: "Ubuntu Sans" !important;
   font-weight: 600 !important;
 }
 
 ::ng-deep .mat-mdc-select-value-text {
   color: var(--text);
   font-size: 13px !important;
-  font-family: "Ubuntu" !important;
+  font-family: "Ubuntu Sans" !important;
   font-weight: 600 !important;
 }
 
@@ -191,7 +196,7 @@ input,
 textarea,
 button {
   font-family:
-    "Ubuntu",
+    "Ubuntu Sans",
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
@@ -205,8 +210,8 @@ button {
 }
 
 code {
-  font-family: "Ubuntu", source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: "Ubuntu Sans", source-code-pro, Menlo, Monaco, Consolas,
+    "Courier New", monospace;
 }
 
 // Scrollbar
