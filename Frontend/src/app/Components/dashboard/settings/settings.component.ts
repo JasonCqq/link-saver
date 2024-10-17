@@ -1,8 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "../../user/user.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { DashboardService } from "../dashboard.service";
-import { LinkService } from "../links/link-item/link-item.service";
 import { Theme } from "src/app/theme.service";
 
 @Component({
@@ -13,8 +11,7 @@ import { Theme } from "src/app/theme.service";
 export class SettingsComponent implements OnInit {
   constructor(
     private userService: UserService,
-    private dashboardService: DashboardService,
-    private linkService: LinkService,
+
     private themeService: Theme,
   ) {}
 
@@ -22,12 +19,6 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.userService.getUser();
-
-    if (this.user) {
-      this.preferenceForm.patchValue({
-        previews: this.user.settings.previews,
-      });
-    }
   }
 
   passwordChangeOverlay: boolean = false;
@@ -83,21 +74,6 @@ export class SettingsComponent implements OnInit {
 
   setTheme(theme: string) {
     this.themeService.setTheme(theme);
-  }
-
-  preferenceForm = new FormGroup({
-    previews: new FormControl(),
-  });
-
-  changesApplied = false;
-  submitPreferenceForm(): void {
-    this.dashboardService
-      .submitSettings(this.preferenceForm.value.previews, this.user.user.id)
-      .subscribe((res) => {
-        this.changesApplied = true;
-        this.userService.updateUser(res);
-        this.linkService.setThumbnail(this.preferenceForm.value.previews);
-      });
   }
 
   deletePrompt: boolean = false;

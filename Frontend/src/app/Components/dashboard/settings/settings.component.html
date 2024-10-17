@@ -133,11 +133,7 @@
       >
     </section>
 
-    <form
-      class="settings-item"
-      [formGroup]="preferenceForm"
-      (submit)="submitPreferenceForm()"
-    >
+    <form class="settings-item">
       <h3>Preferences</h3>
 
       <span class="settings-theme">
@@ -166,25 +162,6 @@
           </button>
         </div>
       </span>
-
-      <span>
-        <mat-label for="previews">Rich Previews</mat-label>
-        <mat-slide-toggle
-          #previews
-          formControlName="previews"
-          [hideIcon]="true"
-        ></mat-slide-toggle
-      ></span>
-
-      <p *ngIf="changesApplied" style="color: #5b66ff">Changes Applied</p>
-
-      <button
-        type="submit"
-        class="settings-apply"
-        [disabled]="!preferenceForm.dirty"
-      >
-        Apply Changes
-      </button>
     </form>
   </div>
 </main>

@@ -211,40 +211,6 @@ exports.get_settings = [
   }),
 ];
 
-exports.submit_settings = [
-  body("userID").trim().escape(),
-  body("previews").trim().escape(),
-
-  asyncHandler(async (req, res) => {
-    const errs = validationResult(req);
-
-    if (!errs.isEmpty()) {
-      const firstError = errs.array({ onlyFirstError: true })[0].msg;
-      res.status(400).json(firstError);
-    } else {
-      try {
-        const userSettings = await prisma.UserSettings.update({
-          where: {
-            userId: req.body.userID,
-          },
-
-          data: {
-            previews: JSON.parse(req.body.previews),
-          },
-
-          include: { user: true },
-        });
-
-        res
-          .status(200)
-          .json({ user: userSettings.user, settings: userSettings });
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  }),
-];
-
 exports.change_password = [
   body("userID").trim().escape(),
   body("currentPass", "Password must be between 8-20 characters")

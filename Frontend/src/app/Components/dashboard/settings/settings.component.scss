@@ -237,7 +237,7 @@
           }
 
           > button {
-            border: 2px solid var(--accent);
+            border: 2px solid var(--text);
             background-color: transparent;
             padding: 10px 20px;
             border-radius: 10px;
@@ -245,7 +245,8 @@
 
             transition: background-color 0.1s ease;
             &:hover {
-              background-color: var(--accent);
+              background-color: var(--text);
+              color: var(--text2);
               cursor: pointer;
             }
 

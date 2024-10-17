@@ -23,8 +23,6 @@ router.post("/createOTPLink", otpController.generateOTPLink);
 const securityCheck = require("../routes/routeAuthenticate");
 router.use(securityCheck.authenticateReq);
 
-router.put("/submit_settings", userController.submit_settings);
-
 router.delete("/delete_account", userController.delete_user);
 
 router.put("/change_password", userController.change_password);

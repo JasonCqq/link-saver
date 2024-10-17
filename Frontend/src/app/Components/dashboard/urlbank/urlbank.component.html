@@ -33,7 +33,7 @@
       </div>
 
       <a [href]="u.url" target="_blank" class="url-details">
-        <h1 class="url-title">{{ u.title }}</h1>
+        <h1 class="url-title">{{ u.title | slice: 0 : 125 }}</h1>
         <p class="url-date">{{ u.url }}</p>
       </a>
     </div>

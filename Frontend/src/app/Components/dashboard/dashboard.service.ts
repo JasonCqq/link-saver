@@ -129,23 +129,9 @@ export class DashboardService implements OnInit {
       withCredentials: true,
     });
   }
-
-  submitSettings(previews: boolean, userId: string) {
-    return this.http.put(
-      `${this.apiUrl}/user/submit_settings`,
-      {
-        userID: userId,
-        previews: previews,
-      },
-      {
-        withCredentials: true,
-      },
-    );
-  }
 }
 
 interface Settings {
   id: string;
   userId: string;
-  previews: boolean;
 }

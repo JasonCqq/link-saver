@@ -1,11 +1,6 @@
 @use "@angular/material" as mat;
 @include mat.core();
 
-@font-face {
-  font-family: "Reddit Sans";
-  src: url("../assets/RedditSans-VariableFont_wght.ttf");
-}
-
 //Light mode
 :root {
   --accent: #4074e4;
@@ -46,7 +41,7 @@ $my-custom-typography-config: mat.define-typography-config(
     mat.define-typography-level(
       $font-size: 12px,
       $font-weight: 700,
-      $font-family: "Reddit Sans",
+      $font-family: "Ubuntu" !important,
     ),
 );
 
@@ -109,7 +104,7 @@ $Frontend-theme: mat.define-dark-theme(
   color: var(--text) !important;
   font-weight: 600;
   font-size: 14px;
-  font-family: "Reddit Sans";
+  font-family: "Ubuntu";
 }
 
 ::ng-deep .mat-mdc-select-min-line {
@@ -132,14 +127,14 @@ $Frontend-theme: mat.define-dark-theme(
 ::ng-deep .mdc-list-item__primary-text {
   color: var(--text);
   font-size: 13px !important;
-  font-family: "Reddit Sans" !important;
+  font-family: "Ubuntu" !important;
   font-weight: 600 !important;
 }
 
 ::ng-deep .mat-mdc-select-value-text {
   color: var(--text);
   font-size: 13px !important;
-  font-family: "Reddit Sans" !important;
+  font-family: "Ubuntu" !important;
   font-weight: 600 !important;
 }
 
@@ -196,13 +191,12 @@ input,
 textarea,
 button {
   font-family:
-    "Reddit Sans",
+    "Ubuntu",
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
     "Roboto",
     "Oxygen",
-    "Ubuntu",
     "Cantarell",
     "Fira Sans",
     "Droid Sans",
@@ -211,8 +205,8 @@ button {
 }
 
 code {
-  font-family: "Reddit Sans", source-code-pro, Menlo, Monaco, Consolas,
-    "Courier New", monospace;
+  font-family: "Ubuntu", source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
 // Scrollbar
@@ -225,20 +219,6 @@ code {
 ::-webkit-scrollbar-thumb {
   background: var(--text);
 }
-
-// Dark Scrollbar
-// ::-webkit-scrollbar {
-//   width: 10px;
-// }
-// ::-webkit-scrollbar-track {
-//   background: var(--background);
-// }
-// ::-webkit-scrollbar-thumb {
-//   background: var(--text);
-//   &:hover {
-//     background: #2061c3;
-//   }
-// }
 
 // CSS Reset
 html,
