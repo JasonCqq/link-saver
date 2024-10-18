@@ -1,31 +1,26 @@
-<!--Template from https://github.com/othneildrew/Best-README-Template -->
-
 <a name="readme-top"></a>
-
-<!-- PROJECT SHIELDS -->
-
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-<a href="https://linkstorage.net" target="_blank">Direct to website</a>
+<a href="https://linkstorage.net" target="_blank">https://linkstorage.net</a>
     
 ## App Showcase 
-https://github.com/JasonCqq/link-saver/assets/121495300/3ca9d0ec-9ad0-411e-9841-baac7796ea3f
+https://github.com/user-attachments/assets/8d6230d2-0a61-4584-802e-e02006b067c8
 
-<h3 align="center">Linkstorage.net</h3>
+
+
+<h3 align="center">linkstorage.net</h3>
     Need a place to store links you want to revisit?
         <br />
     This is the perfect website to store and organize all your favorite links and websites for easy access later. 
         <br />
     Sign up now and start curating your personalized collection of saved links today!
     <br />
-    <br />
-    -
     <a href="https://github.com/JasonCqq/link-saver/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
-    -
     <a href="https://github.com/JasonCqq/link-saver/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+
+
   </p>
 </div>
 
@@ -45,18 +40,15 @@ https://github.com/JasonCqq/link-saver/assets/121495300/3ca9d0ec-9ad0-411e-9841-
 </details>
 
 ## Features
-
-- [ ] Screenshots of websites as Previews
-- [ ] Share folders publicly (Check one out here! https://linkstorage.net/public/1)
-- [ ] or Share folders privately with password locks
-- [ ] Search links
-- [ ] Create folders to store links
-- [ ] Bookmark links
+- [ ] Storing URLs with previews
+- [ ] URL Bank, store urls in text format, can add many urls at once
+- [ ] Sorting by visits/dates/name, Searching, and Bookmarking links easily
+- [ ] Folders to store links
+- [ ] Share folders publicly/privately (Check one out here! https://linkstorage.net/public/1)
 - [ ] Mass edit links with ease
 - [ ] User authentication w/ bcrypt/passport/express-session
 - [ ] User security with email confirmations and OTP system
-- [ ] Responsive design
-- [ ] Useful tooltips
+- [ ] Responsive design and useful tooltips for UX
 
 ## Learning Experience
 
@@ -87,8 +79,10 @@ Overall, I'm happy with the outcome of the app. I will continue to update, optim
 <!-- ROADMAP -->
 
 ## Upcoming Features
-
-Currently in the works.
+- [ ] Ability to use linkstorage without an account
+- [ ] Browser extension to store current tabs
+- [ ] Copy other user's public folders
+- [ ] Sectioning Features
 
 See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
 You can propose your own features or issues by contacting or creating requests on github.
