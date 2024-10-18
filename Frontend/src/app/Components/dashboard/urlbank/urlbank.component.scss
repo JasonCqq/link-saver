@@ -69,7 +69,8 @@ main {
 
     > .url-item {
       display: flex;
-      width: fit-content;
+      max-width: 100vw;
+      overflow: hidden;
 
       > .url-options {
         transform: scale(0.7);
@@ -148,6 +149,7 @@ main {
     background-color: var(--background);
     padding: 25px;
     gap: 10px;
+    height: 70vh;
 
     @media screen and (max-width: 500px) {
       width: 90vw;
