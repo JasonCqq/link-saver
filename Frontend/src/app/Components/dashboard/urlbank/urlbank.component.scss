@@ -1,11 +1,14 @@
 main {
   padding-left: 13vw;
   margin-top: 5vh;
+  width: 85vw;
+  height: auto;
 
   .url-title {
     display: flex;
     align-items: center;
     gap: 20px;
+    width: fit-content;
 
     > h1 {
       @media screen and (max-width: 320px) {
@@ -62,10 +65,11 @@ main {
     flex-direction: column;
     margin-top: 15px;
     gap: 5px;
+    width: 100%;
 
     > .url-item {
       display: flex;
-      width: auto;
+      width: fit-content;
 
       > .url-options {
         transform: scale(0.7);
@@ -147,7 +151,7 @@ main {
 
     @media screen and (max-width: 500px) {
       width: 90vw;
-      height: 90vh;
+      height: 80vh;
     }
 
     > span {

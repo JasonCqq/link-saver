@@ -44,6 +44,7 @@
     "kill-port": "^2.0.1",
     "prettier": "^3.2.5",
     "prisma": "^5.12.1",
+    "sitemap": "^8.0.0",
     "ts-node": "^10.9.1"
   }
 }

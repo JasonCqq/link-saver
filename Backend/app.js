@@ -36,7 +36,7 @@ app.set("trust proxy", 1);
 app.use(
   session({
     cookie: {
-      maxAge: 7 * 24 * 60 * 60 * 1000, // ms
+      maxAge: 30 * 24 * 60 * 60 * 1000, // ms
       sameSite: process.env.NODE_ENV === "prod" ? "none" : "lax",
       secure: process.env.NODE_ENV === "prod" ? true : false,
       httpOnly: true,
@@ -46,7 +46,7 @@ app.use(
     saveUninitialized: false,
     store: new PrismaSessionStore(new PrismaClient(), {
       sessionModelName: "Session",
-      checkPeriod: 2 * 60 * 1000, //ms
+      checkPeriod: 5 * 60 * 1000, //ms
       dbRecordIdIsSessionId: true,
       dbRecordIdFunction: undefined,
     }),

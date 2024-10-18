@@ -16,25 +16,14 @@
   }
 }
 
-.content-grid-no-previews {
-  box-sizing: border-box;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 150px));
-
-  column-gap: 0.25vw;
-  row-gap: 2vh;
-  margin-top: 2vh;
-
-  @media screen and (max-width: 390px) {
-    row-gap: 4vh;
-    margin-top: 5vh;
-  }
-}
-
 .default-dash-container {
   padding-left: 13vw;
   height: auto;
   background-color: var(--background);
+
+  @media screen and (max-width: 720px) {
+    padding-left: 5vw;
+  }
 
   @media screen and (max-width: 340px) {
     padding: 0;
