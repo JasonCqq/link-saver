@@ -3,7 +3,7 @@ var router = express.Router();
 const userController = require("../controllers/userController");
 const otpController = require("../controllers/otpController");
 
-router.get("/create/:email/:otp", userController.create_user);
+router.post("/create", userController.create_user);
 
 router.get("/logout", userController.logout_user);
 
@@ -18,7 +18,7 @@ router.post("/verify_otp", otpController.verifyOTP);
 
 router.post("/change_password_otp", userController.change_password_otp);
 
-router.post("/createOTPLink", otpController.generateOTPLink);
+// router.post("/createOTPLink", otpController.generateOTPLink);
 
 const securityCheck = require("../routes/routeAuthenticate");
 router.use(securityCheck.authenticateReq);

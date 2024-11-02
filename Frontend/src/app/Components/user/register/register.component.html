@@ -17,14 +17,6 @@
       >
     </mat-form-field>
 
-    <label for="email">Email</label>
-    <mat-form-field appearance="fill">
-      <input matInput type="text" id="email" formControlName="email" />
-      <mat-error *ngIf="email?.invalid && email?.touched"
-        >Invalid Email</mat-error
-      >
-    </mat-form-field>
-
     <label for="password">Password (8-20 characters)</label>
     <mat-form-field appearance="fill">
       <input
@@ -37,6 +29,30 @@
         >Invalid Password</mat-error
       >
     </mat-form-field>
+
+    <div class="email-flex">
+      <section>
+        <label for="email">Email</label>
+        <mat-form-field appearance="fill">
+          <input matInput type="text" id="email" formControlName="email" />
+          <mat-error *ngIf="email?.invalid && email?.touched"
+            >Invalid Email</mat-error
+          >
+        </mat-form-field>
+      </section>
+
+      <section>
+        <label for="emailConfirm">Confirm Email</label>
+        <mat-form-field appearance="fill">
+          <input
+            matInput
+            type="text"
+            id="emailConfirm"
+            formControlName="emailConfirm"
+          />
+        </mat-form-field>
+      </section>
+    </div>
 
     <div *ngIf="formErrors" class="form-errors">
       <span class="material-icons-round"> error </span>
@@ -60,7 +76,7 @@
     <a class="register-extra" routerLink="/user/login"> I have an account </a>
   </form>
 
-  <div *ngIf="otpSent" class="register-otp">
+  <!-- <div *ngIf="otpSent" class="register-otp">
     <span class="material-icons-outlined"> done </span>
     <h1>Email Confirmation Link Sent</h1>
     <p>
@@ -68,7 +84,7 @@
       <br />Please check your inbox and spam folder. <br />This is a one time
       process. <br />(Your account will not be active until confirmation)
     </p>
-  </div>
+  </div> -->
 </main>
 
 <footer class="foot-note">

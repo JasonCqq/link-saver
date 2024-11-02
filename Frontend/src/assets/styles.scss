@@ -2,8 +2,8 @@
 @include mat.core();
 
 @font-face {
-  font-family: "Ubuntu Sans";
-  src: url("../assets/UbuntuSans-VariableFont_wdth\,wght.ttf");
+  font-family: "Onest";
+  src: url("../assets/Onest-VariableFont_wght.ttf");
 }
 
 //Light mode
@@ -21,10 +21,10 @@
 //Dark mode
 [data-theme="dark"] {
   --accent: #2e60cd;
-  --background: #0e1113;
+  --background: #13171b;
   --background2: #eef1f3;
   --text: #eef1f3;
-  --text2: #0e1113;
+  --text2: #13171b;
   --textSec: #c1c9df;
   --imp-button: #f73830;
   --warn: #7067f2;
@@ -46,7 +46,7 @@ $my-custom-typography-config: mat.define-typography-config(
     mat.define-typography-level(
       $font-size: 12px,
       $font-weight: 700,
-      $font-family: "Ubuntu Sans" !important,
+      $font-family: "Onest" !important,
     ),
 );
 
@@ -109,7 +109,7 @@ $Frontend-theme: mat.define-dark-theme(
   color: var(--text) !important;
   font-weight: 600;
   font-size: 14px;
-  font-family: "Ubuntu Sans";
+  font-family: "Onest";
 }
 
 ::ng-deep .mat-mdc-select-min-line {
@@ -132,14 +132,14 @@ $Frontend-theme: mat.define-dark-theme(
 ::ng-deep .mdc-list-item__primary-text {
   color: var(--text);
   font-size: 13px !important;
-  font-family: "Ubuntu Sans" !important;
+  font-family: "Onest" !important;
   font-weight: 600 !important;
 }
 
 ::ng-deep .mat-mdc-select-value-text {
   color: var(--text);
   font-size: 13px !important;
-  font-family: "Ubuntu Sans" !important;
+  font-family: "Onest" !important;
   font-weight: 600 !important;
 }
 
@@ -196,7 +196,7 @@ input,
 textarea,
 button {
   font-family:
-    "Ubuntu Sans",
+    "Onest",
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
@@ -210,8 +210,8 @@ button {
 }
 
 code {
-  font-family: "Ubuntu Sans", source-code-pro, Menlo, Monaco, Consolas,
-    "Courier New", monospace;
+  font-family: "Onest", source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
 // Scrollbar

@@ -71,9 +71,9 @@ export class UserService {
     );
   }
 
-  getOTPLink(username: string, email: string, password: string) {
+  submitRegister(username: string, email: string, password: string) {
     return this.http.post(
-      `${this.apiUrl}/user/createOTPLink`,
+      `${this.apiUrl}/user/create`,
       {
         username: username,
         email: email,

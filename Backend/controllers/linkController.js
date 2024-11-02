@@ -118,6 +118,7 @@ exports.create_link = [
 
               let imagePath = `thumbnails/${req.body.userID}/${linkID}`;
               let publicUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/thumbnails/${imagePath}`;
+              
 
               const updatedLink = await prisma.Link.update({
                 where: {

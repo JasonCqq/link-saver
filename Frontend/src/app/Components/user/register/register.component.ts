@@ -18,28 +18,34 @@ export class RegisterComponent implements OnInit {
   applyForm = new FormGroup({
     username: new FormControl("", [Validators.required]),
     email: new FormControl("", [Validators.required, Validators.email]),
+    emailConfirm: new FormControl("", [Validators.required, Validators.email]),
     password: new FormControl("", [
       Validators.required,
       Validators.minLength(8),
       Validators.maxLength(20),
     ]),
   });
-
   formErrors: any;
   formLoading: boolean = false;
   otpSent: boolean = false;
 
   submitApplication(): void {
+    console.log(this.applyForm.value.email, this.applyForm.value.emailConfirm);
+    if (this.applyForm.value.email !== this.applyForm.value.emailConfirm) {
+      this.formErrors = "Emails do not match.";
+      return;
+    }
+
     this.formLoading = true;
     this.userService
-      .getOTPLink(
+      .submitRegister(
         this.applyForm.value.username ?? "",
         this.applyForm.value.email ?? "",
         this.applyForm.value.password ?? "",
       )
       .subscribe({
         next: () => {
-          this.otpSent = true;
+          // this.otpSent = true;
           this.formLoading = false;
         },
         error: (error) => {

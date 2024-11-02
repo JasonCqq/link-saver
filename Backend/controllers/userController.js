@@ -6,27 +6,44 @@ const prisma = require("../prisma/prismaClient");
 
 require("dotenv").config();
 
-exports.create_user = asyncHandler(async (req, res) => {
-  const errs = validationResult(req);
+exports.create_user = [
+  body("username").trim().escape(),
+  body("password", "Password must be between 8-20 characters")
+    .trim()
+    .isLength({ min: 8, max: 20 })
+    .escape(),
+  body("email", "Invalid Email").trim().isEmail().escape(),
 
-  if (!errs.isEmpty()) {
-    const firstError = errs.array({ onlyFirstError: true })[0].msg;
-    res.status(400).json(firstError);
-  } else {
-    const user = await prisma.tempUser.findUnique({
-      where: {
-        email: req.params.email,
-      },
-    });
+  asyncHandler(async (req, res) => {
+    const errs = validationResult(req);
 
-    if (user) {
-      let currentDate = new Date();
-      const check = await bcrypt.compare(req.params.otp, user.otp);
+    if (!errs.isEmpty()) {
+      const firstError = errs.array({ onlyFirstError: true })[0].msg;
+      res.status(400).json(firstError);
+    } else {
+      const existingUser = await prisma.user.findMany({
+        where: {
+          OR: [{ email: req.body.email }, { username: req.body.username }],
+        },
+      });
 
-      if (check && user.otpExpiresAt > currentDate) {
-        // Hash Password
+      let error = null;
+
+      if (existingUser.length > 0) {
+        if (existingUser.some((user) => user.email === req.body.email)) {
+          error = "Email already in use";
+        } else if (
+          existingUser.some((user) => user.username === req.body.username)
+        ) {
+          error = "Username already in use";
+        }
+      }
+
+      if (error) {
+        res.status(500).json(error);
+      } else {
         try {
-          bcrypt.hash(user.password, 10, async (err, hashedPass) => {
+          bcrypt.hash(req.body.password, 10, async (err, hashedPass) => {
             if (err) {
               res.status(500).json({
                 errors: "Error Hashing Password. (Bcrypt Error)",
@@ -36,8 +53,8 @@ exports.create_user = asyncHandler(async (req, res) => {
             // Copy tempUser data
             const newUser = await prisma.User.create({
               data: {
-                username: user.username,
-                email: user.email,
+                username: req.body.username,
+                email: req.body.email,
                 password: hashedPass,
                 folders: {
                   create: {
@@ -87,24 +104,15 @@ exports.create_user = asyncHandler(async (req, res) => {
             };
             req.session.user = userData;
 
-            // Delete the tempUser
-            await prisma.tempUser.delete({
-              where: {
-                id: user.id,
-              },
-            });
-
             res.redirect(`${process.env.FRONT_END}/dashboard`);
           });
         } catch (err) {
           console.log(err);
         }
-      } else if (!check || user.otpExpiresAt < currentDate) {
-        res.status(401).json("Invalid Link");
       }
     }
-  }
-});
+  }),
+];
 
 exports.login_user = [
   body("username").trim().escape(),
