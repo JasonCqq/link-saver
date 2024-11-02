@@ -46,17 +46,6 @@ label {
       font-weight: 800;
     }
 
-    .email-flex {
-      display: flex;
-      gap: 25px;
-      width: 100%;
-
-      > section {
-        display: flex;
-        flex-direction: column;
-      }
-    }
-
     > button {
       border: 2px solid var(--text);
       font-size: 1rem;
@@ -130,7 +119,7 @@ label {
 
 .foot-note {
   position: absolute;
-  bottom: 0;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: center;

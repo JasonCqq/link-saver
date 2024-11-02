@@ -30,29 +30,23 @@
       >
     </mat-form-field>
 
-    <div class="email-flex">
-      <section>
-        <label for="email">Email</label>
-        <mat-form-field appearance="fill">
-          <input matInput type="text" id="email" formControlName="email" />
-          <mat-error *ngIf="email?.invalid && email?.touched"
-            >Invalid Email</mat-error
-          >
-        </mat-form-field>
-      </section>
+    <label for="email">Email</label>
+    <mat-form-field appearance="fill">
+      <input matInput type="text" id="email" formControlName="email" />
+      <mat-error *ngIf="email?.invalid && email?.touched"
+        >Invalid Email</mat-error
+      >
+    </mat-form-field>
 
-      <section>
-        <label for="emailConfirm">Confirm Email</label>
-        <mat-form-field appearance="fill">
-          <input
-            matInput
-            type="text"
-            id="emailConfirm"
-            formControlName="emailConfirm"
-          />
-        </mat-form-field>
-      </section>
-    </div>
+    <label for="emailConfirm">Confirm Email</label>
+    <mat-form-field appearance="fill">
+      <input
+        matInput
+        type="text"
+        id="emailConfirm"
+        formControlName="emailConfirm"
+      />
+    </mat-form-field>
 
     <div *ngIf="formErrors" class="form-errors">
       <span class="material-icons-round"> error </span>

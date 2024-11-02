@@ -118,7 +118,6 @@ exports.create_link = [
 
               let imagePath = `thumbnails/${req.body.userID}/${linkID}`;
               let publicUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/thumbnails/${imagePath}`;
-              
 
               const updatedLink = await prisma.Link.update({
                 where: {
@@ -315,7 +314,7 @@ exports.get_links = asyncHandler(async (req, res) => {
     );
 
     const formattedLinks = formatLinks(updatedLinks);
-    res.status(200).json({ links: formattedLinks });
+    res.json({ links: formattedLinks });
   } catch (err) {
     console.error("Error: ", err);
   }

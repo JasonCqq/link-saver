@@ -103,8 +103,7 @@ exports.create_user = [
               creationDate: newUser.creationDate,
             };
             req.session.user = userData;
-
-            res.redirect(`${process.env.FRONT_END}/dashboard`);
+            res.status(200).json({});
           });
         } catch (err) {
           console.log(err);

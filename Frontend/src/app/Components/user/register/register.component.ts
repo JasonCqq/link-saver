@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { UserService } from "../user.service";
 import { LoadingService } from "../../LoadingInterceptor.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-register",
@@ -13,6 +14,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private userService: UserService,
     public loadingService: LoadingService,
+    private router: Router,
   ) {}
 
   applyForm = new FormGroup({
@@ -47,6 +49,7 @@ export class RegisterComponent implements OnInit {
         next: () => {
           // this.otpSent = true;
           this.formLoading = false;
+          this.router.navigate(["/dashboard"]);
         },
         error: (error) => {
           this.formErrors = error.error;
