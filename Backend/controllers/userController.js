@@ -103,7 +103,7 @@ exports.create_user = [
               creationDate: newUser.creationDate,
             };
             req.session.user = userData;
-            res.status(200).json({});
+            res.status(200).json({ user: userData, settings: newUserSettings });
           });
         } catch (err) {
           console.log(err);

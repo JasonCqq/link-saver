@@ -46,8 +46,9 @@ export class RegisterComponent implements OnInit {
         this.applyForm.value.password ?? "",
       )
       .subscribe({
-        next: () => {
+        next: (response) => {
           // this.otpSent = true;
+          this.userService.updateUser(response);
           this.formLoading = false;
           this.router.navigate(["/dashboard"]);
         },
