@@ -2,11 +2,26 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { UserService } from "../user/user.service";
 import { Subject, takeUntil } from "rxjs";
 import { Theme } from "src/app/theme.service";
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from "@angular/animations";
 
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"],
+  animations: [
+    trigger("fadeInOut", [
+      state("visible", style({ opacity: 1 })),
+      state("hidden", style({ opacity: 0 })),
+      transition("visible => hidden", [animate("250ms ease-in-out")]),
+      transition("hidden => visible", [animate("250ms ease-in-out")]),
+    ]),
+  ],
 })
 export class HomeComponent implements OnInit, OnDestroy {
   // Checks for user
@@ -46,12 +61,55 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
 
     this.theme = this.themeService.getTheme();
+
+    setInterval(() => {
+      if (this.activePic < 3) {
+        this.changePic(this.activePic + 1);
+      } else {
+        this.changePic(0);
+      }
+    }, 3000);
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
+
+  // Gallery switcher
+  activePic: number = 0;
+  animState: string = "visible";
+
+  changePic(index: number) {
+    if (this.activePic === index) {
+      return;
+    }
+
+    this.animState = "hidden"; // Start animation
+    setTimeout(() => {
+      this.activePic = index;
+      this.animState = "visible"; // Fade-in
+    }, 250);
+  }
+
+  pictures = [
+    {
+      id: 1,
+      src: "../../../assets/Dashboard.png",
+    },
+    {
+      id: 2,
+      src: "../../../assets/URLBank.png",
+    },
+    {
+      id: 3,
+      src: "../../../assets/Public.png",
+    },
+    {
+      id: 4,
+      src: "../../../assets/Folders.png",
+    },
+  ];
 
   // Toggle FAQ
   activeID: number = 0;

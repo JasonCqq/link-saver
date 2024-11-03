@@ -39,7 +39,7 @@
       </span>
     </nav>
 
-    <h1 class="landing-title">Save + Preview & Track Your Links with Ease</h1>
+    <h1 class="landing-title">Save + Preview & Track Your Links</h1>
 
     <div class="landing-body">
       <a routerLink="/user/register" *ngIf="!user" class="register-button">
@@ -73,11 +73,45 @@
     ></iframe>
   </div>
 
-  <section class="home_picture">
-    <img
-      src="../../../assets/home_pic.png"
-      alt="Image of linkstorage's dashboard"
-    />
+  <section class="home_gallery">
+    <div class="gallery-flex">
+      <p
+        (click)="changePic(0)"
+        [ngClass]="activePic === 0 ? 'active-img' : 'inactive-img'"
+      >
+        <mat-icon fontIcon="dashboard"></mat-icon>
+        Dashboard
+      </p>
+      <p
+        (click)="changePic(1)"
+        [ngClass]="activePic === 1 ? 'active-img' : 'inactive-img'"
+      >
+        <mat-icon fontIcon="description"></mat-icon>
+        URL Bank
+      </p>
+      <p
+        (click)="changePic(2)"
+        [ngClass]="activePic === 2 ? 'active-img' : 'inactive-img'"
+      >
+        <mat-icon fontIcon="share"></mat-icon>
+        Folder Sharing
+      </p>
+      <p
+        (click)="changePic(3)"
+        [ngClass]="activePic === 3 ? 'active-img' : 'inactive-img'"
+      >
+        <mat-icon fontIcon="folder"></mat-icon>
+        Folders
+      </p>
+    </div>
+
+    <div class="gallery-back">
+      <img
+        [@fadeInOut]="animState"
+        [src]="pictures[activePic].src"
+        alt="Showcase images for linkstorage"
+      />
+    </div>
   </section>
 
   <section class="home_transparency">
@@ -102,9 +136,7 @@
     <div class="home-features-grid">
       <div class="home-features-item">
         <span>
-          <span class="material-icons-round home-features-icon">
-            description
-          </span>
+          <mat-icon fontIcon="description"></mat-icon>
         </span>
 
         <span>
@@ -115,20 +147,18 @@
 
       <div class="home-features-item">
         <span>
-          <span class="material-icons-round home-features-icon">
-            view_list
-          </span>
+          <mat-icon fontIcon="view_list"></mat-icon>
         </span>
 
         <span>
-          <h2>Auto group/section (In Prog.)</h2>
-          <p>Automatically group similar websites and separate by sections</p>
+          <h2>Auto group (In Prog.)</h2>
+          <p>Automatically group similar websites</p>
         </span>
       </div>
 
       <div class="home-features-item">
         <span>
-          <mat-icon fontIcon="share" class="home-features-icon"></mat-icon>
+          <mat-icon fontIcon="share"></mat-icon>
         </span>
 
         <span>
@@ -144,7 +174,7 @@
 
       <div class="home-features-item">
         <span>
-          <mat-icon fontIcon="panorama" class="home-features-icon"></mat-icon>
+          <mat-icon fontIcon="panorama"></mat-icon>
         </span>
 
         <span>
@@ -155,10 +185,7 @@
 
       <div class="home-features-item">
         <span>
-          <mat-icon
-            fontIcon="manage_search"
-            class="home-features-icon"
-          ></mat-icon>
+          <mat-icon fontIcon="manage_search"></mat-icon>
         </span>
 
         <span>
@@ -169,9 +196,7 @@
 
       <div class="home-features-item">
         <span>
-          <span class="material-icons-round home-features-icon">
-            edit_note
-          </span>
+          <mat-icon fontIcon="edit_note"></mat-icon>
         </span>
 
         <span>

@@ -7,8 +7,22 @@
     <a routerLink="" matTooltip="Home">linkstorag<span>e</span></a>
 
     <p matTooltip="{{ author }}">
-      This folder was created by {{ author | slice: 0 : 11 }}
+      Folder "{{ folderName }}" created by {{ author | slice: 0 : 11 }}
       {{ author.length > 11 ? "..." : "" }}
+    </p>
+
+    <p class="sort-flex">
+      Sort By
+      <span
+        (click)="sort('name')"
+        [ngClass]="currentSort === 'name' ? 'active' : 'inactive'"
+        >Name</span
+      >
+      <span
+        (click)="sort('date')"
+        [ngClass]="currentSort === 'date' ? 'active' : 'inactive'"
+        >Date</span
+      >
     </p>
   </header>
 

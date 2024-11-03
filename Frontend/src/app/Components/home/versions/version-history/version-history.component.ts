@@ -13,12 +13,21 @@ export class VersionHistoryComponent {
 
   versions = [
     {
-      id: 10,
-      version: "2.1.0 - TBD",
+      id: 11,
+      version: "2.1.1 - In Progress",
       updates: [
-        "Implemented a feature to automatically section your dashboard (In Progress) \n - by grouping similar titles/urls and separate them into different groups in dashboard",
+        "Implemented a feature to automatically section your dashboard  \n - by grouping similar titles/urls and separate them into different groups in dashboard",
+        "Drag and drop feature in URL Bank",
+      ],
+      qols: [],
+      bugfixes: [],
+    },
+    {
+      id: 10,
+      version: "2.1.0 - 11/2/2024",
+      updates: [
         "Added URL Bank feature, quickly store many urls with no previews. Can be given urls in any format",
-        "Drag and drop feature in URL Bank (In progress)",
+        "Removed email confirmation on sign up",
         "Removed link reminding feature",
         "Removed preview disabling (Use URL Bank instead)",
         "Added a temporary placeholder to speed up adding links",

@@ -39,21 +39,23 @@ main {
 
     > .url-util-add {
       background-color: var(--accent);
-      color: var(--text);
+      color: var(--text2);
       transition: background-color 0.1s;
 
       &:hover {
         background-color: transparent;
         border: 2px solid var(--accent);
+        color: var(--text);
       }
     }
 
     > .url-util-del {
       background-color: var(--imp-button);
-      color: var(--text);
+      color: var(--text2);
       transition: background-color 0.1s;
 
       &:hover {
+        color: var(--text);
         background-color: transparent;
         border: 2px solid var(--imp-button);
       }

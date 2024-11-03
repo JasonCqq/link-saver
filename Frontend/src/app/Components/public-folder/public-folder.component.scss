@@ -33,6 +33,28 @@
       }
     }
 
+    > .sort-flex {
+      display: flex;
+      gap: 7px;
+
+      span {
+        &:hover {
+          cursor: pointer;
+          color: var(--accent);
+        }
+      }
+
+      .active {
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .inactive {
+        font-weight: 500;
+        color: var(--text);
+      }
+    }
+
     > a {
       color: var(--text);
       font-size: 2.5rem;

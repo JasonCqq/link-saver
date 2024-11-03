@@ -15,13 +15,12 @@ export class PublicFolderComponent implements OnInit, OnDestroy {
     private service: PublicFolderService,
   ) {}
 
-  previews: boolean = true;
+  currentSort: string = "date";
   author: any;
   folderName: any;
   links: Link[] = [];
 
   passwordLocked: boolean = false;
-
   passwordForm = new FormGroup({
     password: new FormControl(),
   });
@@ -32,6 +31,8 @@ export class PublicFolderComponent implements OnInit, OnDestroy {
         this.author = res.authorName;
         this.folderName = res.folderName;
         this.links = res.links;
+
+        this.sort(this.currentSort);
       },
       error: (err) => {
         if (err.status === 401) {
@@ -61,5 +62,19 @@ export class PublicFolderComponent implements OnInit, OnDestroy {
           this.formErrors = error.error;
         },
       });
+  }
+
+  sort(input: string) {
+    if (input === "name") {
+      this.links?.sort((a, b) => a.title.localeCompare(b.title));
+      this.currentSort = "name";
+    } else if (input === "date") {
+      this.links?.sort((a, b) => {
+        return (
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+      });
+      this.currentSort = "date";
+    }
   }
 }
