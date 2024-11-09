@@ -29,6 +29,7 @@ interface User {
     username: string;
     email: string;
     creationDate: Date;
+    external_account: boolean;
   };
   settings: {
     id: string;

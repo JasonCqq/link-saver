@@ -19,6 +19,7 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.userService.getUser();
+    console.log(this.user);
   }
 
   passwordChangeOverlay: boolean = false;
@@ -82,10 +83,11 @@ export class SettingsComponent implements OnInit {
   }
 
   deleteAccount(): void {
-    if ((<HTMLInputElement>document.getElementById("delete-confirm")).value) {
-      this.userService.deleteAccount(
-        (<HTMLInputElement>document.getElementById("delete-confirm")).value,
-      );
+    if (
+      (<HTMLInputElement>document.getElementById("delete-confirm")).value ===
+      "confirmdelete"
+    ) {
+      this.userService.deleteAccount();
     }
   }
 }

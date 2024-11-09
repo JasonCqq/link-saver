@@ -14,13 +14,8 @@
 
         <p>Confirm Account Deletion</p>
         <p style="color: red">This action is permanent.</p>
-        <p>Type your password to confirm</p>
-        <input
-          id="delete-confirm"
-          type="text"
-          required
-          placeholder="Password..."
-        />
+        <p>Type 'confirmdelete' to confirm</p>
+        <input id="delete-confirm" type="text" required />
         <button (click)="deleteAccount()" class="settings-delete">
           Deactivate
         </button>
@@ -42,7 +37,11 @@
         Account Created:
         <span>{{ user.user.creationDate | date: "shortDate" }}</span>
       </p>
-      <button class="settings-change-pass" (click)="togglePassChangeForm()">
+      <button
+        class="settings-change-pass"
+        (click)="togglePassChangeForm()"
+        *ngIf="user.user.external_account === false"
+      >
         Change Password
       </button>
 

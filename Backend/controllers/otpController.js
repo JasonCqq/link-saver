@@ -34,6 +34,11 @@ exports.generateOTP = [
           email: req.body.email,
         },
       });
+
+      if (email.external_account === true) {
+        res.status(400).json("Cannot change Google account passwords.");
+      }
+
       if (!email) {
         res.status(404).json("Email not found");
       } else {

@@ -30,12 +30,14 @@ exports.create_user = [
   body("isExternal").trim().escape(),
 
   asyncHandler(async (req, res) => {
+    let isExternal = req.body.isExternal === "true";
     const errs = validationResult(req);
 
-    if (!errs.isEmpty() && Boolean(req.body.isExternal) === false) {
+    if (!errs.isEmpty() && isExternal === false) {
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
     } else {
+      console.log("2");
       const existingUser = await prisma.user.findMany({
         where: {
           OR: [{ email: req.body.email }, { username: req.body.username }],
@@ -54,11 +56,13 @@ exports.create_user = [
         }
       }
 
+      console.log("3");
       if (error) {
         res.status(500).json(error);
       } else {
         let user;
-        if (Boolean(req.body.isExternal) === true) {
+
+        if (isExternal === true) {
           user = await verifyToken(req.body.password);
         }
 
@@ -75,23 +79,20 @@ exports.create_user = [
               data: {
                 username: req.body.username,
                 email: req.body.email,
-                password:
-                  Boolean(req.body.isExternal) === true && user
-                    ? ""
-                    : hashedPass,
+                password: user ? "" : hashedPass,
                 folders: {
                   create: {
                     name: "Default",
                   },
                 },
-                external_account:
-                  Boolean(req.body.isExternal) === true && user ? true : null,
+                external_account: user ? true : false,
                 userSettings: {
                   create: {},
                 },
               },
             });
 
+            console.log("3");
             // Default User stuff
             const newFolder = await prisma.Folder.findFirst({
               where: {
@@ -126,6 +127,7 @@ exports.create_user = [
               username: newUser.username,
               email: newUser.email,
               creationDate: newUser.creationDate,
+              external_account: newUser.external_account,
             };
             req.session.user = userData;
             res.status(200).json({ user: userData, settings: newUserSettings });
@@ -147,34 +149,46 @@ exports.login_user = [
   body("isExternal").trim().escape(),
 
   async (req, res, next) => {
+    let isExternal = req.body.isExternal === "true";
     const errs = validationResult(req);
 
-    if (!errs.isEmpty() && Boolean(req.body.isExternal) === false) {
+    if (!errs.isEmpty() && isExternal === false) {
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
     } else {
       // Google sign in
-      if (Boolean(req.body.isExternal) === true) {
+
+      if (isExternal === true) {
         let googleUser = await verifyToken(req.body.username);
 
         const user = await prisma.User.findUnique({
           where: {
             email: googleUser,
+            external_account: true,
           },
           include: {
             userSettings: true,
           },
         });
 
-        const userData = {
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          creationDate: user.creationDate,
-        };
+        if (user) {
+          const userData = {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            creationDate: user.creationDate,
+            external_account: user.external_account,
+          };
 
-        req.session.user = userData;
-        res.status(200).json({ user: userData, settings: user.userSettings });
+          req.session.user = userData;
+          res.status(200).json({ user: userData, settings: user.userSettings });
+        } else {
+          res
+            .status(400)
+            .json(
+              "No Google account found, please use regular login or create a google account",
+            );
+        }
       } else {
         passport.authenticate("local", async (err, authenticated, info) => {
           if (err) {
@@ -224,7 +238,6 @@ exports.logout_user = asyncHandler(async (req, res) => {
 
 exports.delete_user = [
   body("userID").trim().escape(),
-  body("password").trim().escape(),
 
   asyncHandler(async (req, res) => {
     const user = await prisma.User.findUnique({
@@ -233,7 +246,7 @@ exports.delete_user = [
       },
     });
 
-    const check = await bcrypt.compare(req.body.password, user.password);
+    const check = req.session.user;
 
     if (!check) {
       res.status(401).json("Not authenticated");

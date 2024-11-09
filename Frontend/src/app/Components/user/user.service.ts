@@ -10,6 +10,7 @@ interface User {
     username: string;
     email: string;
     creationDate: Date;
+    external_account: boolean;
   };
   settings: {
     id: string;
@@ -35,6 +36,7 @@ export class UserService {
       username: "",
       email: "",
       creationDate: new Date(0),
+      external_account: false,
     },
     settings: {
       id: "",
@@ -104,12 +106,11 @@ export class UserService {
       });
   }
 
-  async deleteAccount(input: any) {
+  async deleteAccount() {
     await this.http
       .delete(`${this.apiUrl}/user/delete_account`, {
         body: {
           userID: this.getUser()?.user.id,
-          password: input,
         },
         withCredentials: true,
       })
