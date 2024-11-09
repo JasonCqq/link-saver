@@ -16,6 +16,7 @@ export class VersionHistoryComponent {
       id: 11,
       version: "2.1.1 - In Progress",
       updates: [
+        "Added Google account login and registration",
         "Implemented a feature to automatically section your dashboard  \n - by grouping similar titles/urls and separate them into different groups in dashboard",
         "Drag and drop feature in URL Bank",
       ],
@@ -36,7 +37,6 @@ export class VersionHistoryComponent {
       ],
       qols: [
         "Changed font",
-        "Deactivating account now requires password instead",
         "Ability to login with Email",
         "Added dim theme",
         "Change contact form to a pop up",
