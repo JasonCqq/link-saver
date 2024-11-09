@@ -13,11 +13,10 @@ async function verifyToken(token) {
   const ticket = await client.verifyIdToken({
     idToken: token,
     audience:
-      "307651115210-ro83kbna8k95pfm0ft2dubaoc2i3fpbc.apps.googleusercontent.com", // Specify your client ID
+      "307651115210-ro83kbna8k95pfm0ft2dubaoc2i3fpbc.apps.googleusercontent.com",
   });
   const payload = ticket.getPayload();
   return payload["email"];
-  // Here, you can use the payload data to log in the user or create a new account
 }
 
 exports.create_user = [
@@ -37,7 +36,6 @@ exports.create_user = [
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
     } else {
-      console.log("2");
       const existingUser = await prisma.user.findMany({
         where: {
           OR: [{ email: req.body.email }, { username: req.body.username }],
@@ -56,7 +54,6 @@ exports.create_user = [
         }
       }
 
-      console.log("3");
       if (error) {
         res.status(500).json(error);
       } else {
@@ -92,7 +89,6 @@ exports.create_user = [
               },
             });
 
-            console.log("3");
             // Default User stuff
             const newFolder = await prisma.Folder.findFirst({
               where: {
@@ -157,7 +153,6 @@ exports.login_user = [
       res.status(400).json(firstError);
     } else {
       // Google sign in
-
       if (isExternal === true) {
         let googleUser = await verifyToken(req.body.username);
 

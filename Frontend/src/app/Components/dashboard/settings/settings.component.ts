@@ -19,7 +19,6 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.userService.getUser();
-    console.log(this.user);
   }
 
   passwordChangeOverlay: boolean = false;

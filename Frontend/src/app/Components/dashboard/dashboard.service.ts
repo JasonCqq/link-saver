@@ -30,9 +30,6 @@ export class DashboardService implements OnInit {
   // User Information
   user: any;
   ngOnInit(): void {
-    this.getUser();
-  }
-  getUser(): void {
     this.userService.getUser()?.user;
   }
 

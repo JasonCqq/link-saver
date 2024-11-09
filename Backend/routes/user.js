@@ -18,8 +18,6 @@ router.post("/verify_otp", otpController.verifyOTP);
 
 router.post("/change_password_otp", userController.change_password_otp);
 
-// router.post("/createOTPLink", otpController.generateOTPLink);
-
 const securityCheck = require("../routes/routeAuthenticate");
 router.use(securityCheck.authenticateReq);
 

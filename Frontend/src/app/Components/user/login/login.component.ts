@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  NgZone,
+  OnInit,
+} from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { UserService } from "../user.service";
 import { Router } from "@angular/router";
@@ -16,6 +22,8 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     public loadingService: LoadingService,
+    private cdr: ChangeDetectorRef,
+    private zone: NgZone,
   ) {}
   user: any;
 
@@ -56,20 +64,18 @@ export class LoginComponent implements OnInit {
 
   // Google Signin
   handleCredentialResponse(response: any) {
-    console.log("Google Credential Response:", response);
-
-    // const responsePayload = this.decodeJwtResponse(response.credential);
-
     this.userService
       .submitLogin(response.credential, response.credential, true)
       .subscribe({
         next: (response) => {
-          // this.otpSent = true;
           this.userService.updateUser(response);
-          this.router.navigate(["/dashboard"]);
+          this.zone.run(() => {
+            this.router.navigate(["/dashboard"]);
+          });
         },
         error: (error) => {
           this.formErrors = error.error;
+          this.cdr.detectChanges();
         },
       });
   }
@@ -100,10 +106,13 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.userService.updateUser(response);
-          this.router.navigate(["/dashboard"]);
+          this.zone.run(() => {
+            this.router.navigate(["/dashboard"]);
+          });
         },
         error: (error) => {
           this.formErrors = error.error;
+          this.cdr.detectChanges();
         },
       });
   }

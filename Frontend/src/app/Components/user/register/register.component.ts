@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  NgZone,
+  OnInit,
+} from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { UserService } from "../user.service";
 import { LoadingService } from "../../LoadingInterceptor.service";
@@ -15,6 +21,8 @@ export class RegisterComponent implements OnInit {
     private userService: UserService,
     public loadingService: LoadingService,
     private router: Router,
+    private cdr: ChangeDetectorRef,
+    private zone: NgZone,
   ) {}
 
   applyForm = new FormGroup({
@@ -32,7 +40,6 @@ export class RegisterComponent implements OnInit {
   otpSent: boolean = false;
 
   submitApplication(): void {
-    console.log(this.applyForm.value.email, this.applyForm.value.emailConfirm);
     if (this.applyForm.value.email !== this.applyForm.value.emailConfirm) {
       this.formErrors = "Emails do not match.";
       return;
@@ -48,10 +55,11 @@ export class RegisterComponent implements OnInit {
       )
       .subscribe({
         next: (response) => {
-          // this.otpSent = true;
           this.userService.updateUser(response);
           this.formLoading = false;
-          this.router.navigate(["/dashboard"]);
+          this.zone.run(() => {
+            this.router.navigate(["/dashboard"]);
+          });
         },
         error: (error) => {
           this.formErrors = error.error;
@@ -97,9 +105,8 @@ export class RegisterComponent implements OnInit {
 
   // Google Signin
   handleCredentialResponse(response: any) {
-    console.log("Google Credential Response:", response);
-
     const responsePayload = this.decodeJwtResponse(response.credential);
+    this.formLoading = true;
 
     this.userService
       .submitRegister(
@@ -110,19 +117,18 @@ export class RegisterComponent implements OnInit {
       )
       .subscribe({
         next: (response) => {
-          // this.otpSent = true;
           this.userService.updateUser(response);
-          this.router.navigate(["/dashboard"]);
+          this.formLoading = false;
+          this.zone.run(() => {
+            this.router.navigate(["/dashboard"]);
+          });
         },
         error: (error) => {
-          this.formErrors = error.error;
           this.formLoading = false;
+          this.formErrors = error.error;
+          this.cdr.detectChanges();
         },
       });
-
-    // console.log("ID: " + responsePayload.sub);
-    // console.log("Full Name: " + responsePayload.name);
-    // console.log("Email: " + responsePayload.email);
   }
 
   get email() {

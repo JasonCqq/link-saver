@@ -219,7 +219,7 @@ export class FoldersComponent implements OnInit, OnDestroy {
   }
 
   // displayResults & sortResults are temporary
-  // Please MOVE to SERVICE functions ASAP.
+  // Make as reusable functions.
 
   // Displays search results
   displayResults(results: Link[]): void {
