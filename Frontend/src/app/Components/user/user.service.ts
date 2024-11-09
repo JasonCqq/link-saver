@@ -60,24 +60,31 @@ export class UserService {
   private apiUrl = environment.apiUrl;
 
   // Registration & Login Form (Sends POST to /create or /login)
-  submitLogin(username: string, password: string) {
+  submitLogin(username: string, password: string, external: boolean) {
     return this.http.post(
       `${this.apiUrl}/user/login`,
       {
         username: username,
         password: password,
+        isExternal: external,
       },
       { withCredentials: true },
     );
   }
 
-  submitRegister(username: string, email: string, password: string) {
+  submitRegister(
+    username: string,
+    email: string,
+    password: string,
+    external: boolean,
+  ) {
     return this.http.post(
       `${this.apiUrl}/user/create`,
       {
         username: username,
         email: email,
         password: password,
+        isExternal: external,
       },
       { withCredentials: true },
     );

@@ -6,6 +6,20 @@ const prisma = require("../prisma/prismaClient");
 
 require("dotenv").config();
 
+// Verify Google Token
+const { OAuth2Client } = require("google-auth-library");
+const client = new OAuth2Client();
+async function verifyToken(token) {
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience:
+      "307651115210-ro83kbna8k95pfm0ft2dubaoc2i3fpbc.apps.googleusercontent.com", // Specify your client ID
+  });
+  const payload = ticket.getPayload();
+  return payload["email"];
+  // Here, you can use the payload data to log in the user or create a new account
+}
+
 exports.create_user = [
   body("username").trim().escape(),
   body("password", "Password must be between 8-20 characters")
@@ -13,11 +27,12 @@ exports.create_user = [
     .isLength({ min: 8, max: 20 })
     .escape(),
   body("email", "Invalid Email").trim().isEmail().escape(),
+  body("isExternal").trim().escape(),
 
   asyncHandler(async (req, res) => {
     const errs = validationResult(req);
 
-    if (!errs.isEmpty()) {
+    if (!errs.isEmpty() && Boolean(req.body.isExternal) === false) {
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
     } else {
@@ -42,6 +57,11 @@ exports.create_user = [
       if (error) {
         res.status(500).json(error);
       } else {
+        let user;
+        if (Boolean(req.body.isExternal) === true) {
+          user = await verifyToken(req.body.password);
+        }
+
         try {
           bcrypt.hash(req.body.password, 10, async (err, hashedPass) => {
             if (err) {
@@ -55,12 +75,17 @@ exports.create_user = [
               data: {
                 username: req.body.username,
                 email: req.body.email,
-                password: hashedPass,
+                password:
+                  Boolean(req.body.isExternal) === true && user
+                    ? ""
+                    : hashedPass,
                 folders: {
                   create: {
                     name: "Default",
                   },
                 },
+                external_account:
+                  Boolean(req.body.isExternal) === true && user ? true : null,
                 userSettings: {
                   create: {},
                 },
@@ -119,41 +144,68 @@ exports.login_user = [
     .trim()
     .isLength({ min: 8, max: 20 })
     .escape(),
+  body("isExternal").trim().escape(),
 
   async (req, res, next) => {
     const errs = validationResult(req);
 
-    if (!errs.isEmpty()) {
+    if (!errs.isEmpty() && Boolean(req.body.isExternal) === false) {
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
     } else {
-      passport.authenticate("local", async (err, authenticated, info) => {
-        if (err) {
-          return next(err);
-        }
-        if (authenticated === false) {
-          res.status(400).json(info.message);
-        } else {
-          const user = await prisma.User.findUnique({
-            where: {
-              id: authenticated.id,
-            },
-            include: {
-              userSettings: true,
-            },
-          });
+      // Google sign in
+      if (Boolean(req.body.isExternal) === true) {
+        let googleUser = await verifyToken(req.body.username);
 
-          const userData = {
-            id: user.id,
-            username: user.username,
-            email: user.email,
-            creationDate: user.creationDate,
-          };
+        const user = await prisma.User.findUnique({
+          where: {
+            email: googleUser,
+          },
+          include: {
+            userSettings: true,
+          },
+        });
 
-          req.session.user = userData;
-          res.status(200).json({ user: userData, settings: user.userSettings });
-        }
-      })(req, res, next);
+        const userData = {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          creationDate: user.creationDate,
+        };
+
+        req.session.user = userData;
+        res.status(200).json({ user: userData, settings: user.userSettings });
+      } else {
+        passport.authenticate("local", async (err, authenticated, info) => {
+          if (err) {
+            return next(err);
+          }
+          if (authenticated === false) {
+            res.status(400).json(info.message);
+          } else {
+            const user = await prisma.User.findUnique({
+              where: {
+                id: authenticated.id,
+              },
+              include: {
+                userSettings: true,
+              },
+            });
+
+            const userData = {
+              id: user.id,
+              username: user.username,
+              email: user.email,
+              creationDate: user.creationDate,
+            };
+
+            req.session.user = userData;
+            res
+              .status(200)
+              .json({ user: userData, settings: user.userSettings });
+          }
+        })(req, res, next);
+      }
     }
   },
 ];

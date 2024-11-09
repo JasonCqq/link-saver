@@ -24,6 +24,7 @@
     "express-session": "^1.18.0",
     "express-validator": "^7.0.1",
     "fs": "^0.0.1-security",
+    "google-auth-library": "^9.14.2",
     "html-entities": "^2.4.0",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",

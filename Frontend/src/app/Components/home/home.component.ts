@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       } else {
         this.changePic(0);
       }
-    }, 3000);
+    }, 4000);
   }
 
   ngOnDestroy(): void {

@@ -53,6 +53,34 @@
       <p>{{ formErrors }}</p>
     </div>
 
+    <!--Google Signup-->
+    <!--Unsure if data-login_uri is correct-->
+
+    <!--Local client for testing 
+    307651115210-ro83kbna8k95pfm0ft2dubaoc2i3fpbc.apps.googleusercontent.com
+    -->
+
+    <!--Production client
+    307651115210-vtb69dnre74h6h87l9bv21t2m2qiipbk.apps.googleusercontent.com
+    -->
+    <div
+      id="g_id_onload"
+      data-client_id="307651115210-ro83kbna8k95pfm0ft2dubaoc2i3fpbc.apps.googleusercontent.com"
+      data-context="signup"
+      data-ux_mode="popup"
+      data-itp_support="true"
+      data-callback="handleCredentialResponse"
+    ></div>
+    <div
+      class="g_id_signin"
+      data-type="standard"
+      data-shape="rectangular"
+      data-theme="filled_black"
+      data-text="signup_with"
+      data-size="large"
+      data-logo_alignment="left"
+    ></div>
+
     <button
       type="submit"
       mat-raised-button
@@ -69,16 +97,6 @@
 
     <a class="register-extra" routerLink="/user/login"> I have an account </a>
   </form>
-
-  <!-- <div *ngIf="otpSent" class="register-otp">
-    <span class="material-icons-outlined"> done </span>
-    <h1>Email Confirmation Link Sent</h1>
-    <p>
-      Your confirmation link has been sent to your email.
-      <br />Please check your inbox and spam folder. <br />This is a one time
-      process. <br />(Your account will not be active until confirmation)
-    </p>
-  </div> -->
 </main>
 
 <footer class="foot-note">

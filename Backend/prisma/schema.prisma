@@ -18,19 +18,20 @@ model tempUser {
 }
 
 model User {
-  id           String        @id @default(uuid())
-  username     String        @unique
-  email        String        @unique
-  password     String
-  creationDate DateTime      @default(now())
-  otp          String?
-  otpExpiresAt DateTime?
-  otpVerified  Boolean       @default(false)
-  folders      Folder[]
-  links        Link[]
-  shares       Share[]
-  URL          URL[]
-  userSettings UserSettings?
+  id               String        @id @default(uuid())
+  username         String        @unique
+  email            String        @unique
+  password         String
+  creationDate     DateTime      @default(now())
+  otp              String?
+  otpExpiresAt     DateTime?
+  otpVerified      Boolean       @default(false)
+  external_account Boolean?
+  folders          Folder[]
+  links            Link[]
+  shares           Share[]
+  URL              URL[]
+  userSettings     UserSettings?
 }
 
 model UserSettings {
