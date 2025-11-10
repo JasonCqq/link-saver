@@ -20,11 +20,12 @@ export class VersionHistoryComponent {
       version: "2.1.1 - 11/9/2025",
       updates: [
         "Starting to update the site again",
+        "Site should work across any browsers now, including incognito modes",
         "Updated UI slightly",
         "Added Google account login and registration",
       ],
       qols: [],
-      bugfixes: ["Fixed slow loading times on mobile on first site visit"],
+      bugfixes: [],
     },
     {
       id: 10,
