@@ -4,7 +4,7 @@
       <span class="landing-nav-left">
         <h1>linkstorag<span>e</span></h1>
 
-        <a routerLink="/versions">Changelogs</a>
+        <a routerLink="/versions">Updates</a>
 
         <span
           class="material-symbols-outlined theme-toggle"
@@ -53,7 +53,7 @@
       <section class="home_showcase">
         <div class="showcase_header" (click)="toggleShowcase()">
           <span class="material-icons-round"> play_circle </span>
-          <h1>Play Demo</h1>
+          <h1>Demo</h1>
         </div>
       </section>
     </div>
@@ -224,7 +224,7 @@
         (click)="toggleFAQ(faq.id)"
       >
         <div class="faq-flex">
-          <p>{{ faq.question }}</p>
+          <p class="faq-question">{{ faq.question }}</p>
           <span class="material-icons-round faq-icon">add</span>
         </div>
         <p class="faq-answer" *ngIf="activeID === faq.id">{{ faq.answer }}</p>
@@ -234,8 +234,7 @@
 
   <section id="home_contact" class="home_contact">
     <div class="contact-title" (click)="toggleContact()">
-      <h1>CONTACT US</h1>
-      <span class="material-icons-round"> north_east </span>
+      <h1>Contact Us</h1>
     </div>
 
     <div class="contact-overlay" *ngIf="contactForm">
@@ -286,7 +285,7 @@
   </section>
 
   <footer class="foot-note">
-    <p routerLink="/versions">v2.1.0</p>
+    <p routerLink="/versions">v2.1.1</p>
 
     <a href="https://github.com/JasonCqq/link-saver" target="_blank"
       >Source Code</a

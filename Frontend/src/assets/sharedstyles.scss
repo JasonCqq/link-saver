@@ -3,16 +3,14 @@
 .content-grid {
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 130px));
-
-  column-gap: 0.25vw;
+  grid-template-columns: repeat(auto-fit, minmax(155px, 135px));
   row-gap: 2vh;
   margin-top: 2vh;
 
   @media screen and (max-width: 390px) {
     row-gap: 4vh;
     margin-top: 5vh;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 110px));
+    grid-template-columns: repeat(auto-fit, minmax(135px, 115px));
   }
 }
 

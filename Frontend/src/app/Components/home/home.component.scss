@@ -39,7 +39,6 @@
           padding-bottom: 5px;
           font-size: 2rem;
           font-weight: 900;
-          letter-spacing: 1px;
 
           @media screen and (max-width: 750px) {
             font-size: 1.5rem;
@@ -74,7 +73,7 @@
             margin-left: 25px;
             margin-bottom: 50px;
             padding: 10px;
-            border-radius: 10px;
+            border-radius: 8px;
             border: 2px solid var(--text);
             background: white;
             color: black;
@@ -83,7 +82,7 @@
 
           &:hover {
             cursor: pointer;
-            border-bottom: 5px solid var(--accent);
+            color: var(--accent);
           }
         }
       }
@@ -106,8 +105,8 @@
         > .register-button {
           background: var(--background2);
           color: var(--text2);
-          padding: 10px 20px;
-          border-radius: 10px;
+          padding: 10px 25px;
+          border-radius: 8px;
           border: 2px solid transparent;
           transition: background-color 0.15s ease-in-out;
 
@@ -175,7 +174,7 @@
         background: var(--background2);
         color: var(--text2);
         padding: 15px 30px;
-        border-radius: 10px;
+        border-radius: 8px;
         font-weight: bold;
         font-size: 1.2rem;
         border: 2px solid transparent;
@@ -242,7 +241,7 @@
   }
 
   .showcase_border {
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 2px;
     display: flex;
     align-items: center;
@@ -251,7 +250,7 @@
     width: 95vw;
 
     > .showcase_video {
-      border-radius: 10px;
+      border-radius: 8px;
       width: 1000px;
 
       @media screen and (max-width: 1020px) {
@@ -332,7 +331,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
+    border-radius: 8px;
     margin-top: 10vh;
     width: auto;
 
@@ -357,7 +356,7 @@
       }
 
       > p {
-        border-radius: 10px;
+        border-radius: 8px;
         border: 1px solid rgba(128, 128, 128, 0.5);
         font-size: 14px;
         font-weight: 500;
@@ -397,13 +396,13 @@
 
     .gallery-back {
       background-color: #13171b;
-      border-radius: 10px;
+      border-radius: 8px;
       border: 1px solid rgba(106, 106, 106, 0.261);
       box-shadow: 1px 1px 15px black;
       width: 65vw;
 
       > img {
-        border-radius: 10px;
+        border-radius: 8px;
         width: 100%;
       }
 
@@ -454,7 +453,7 @@
       column-gap: 4vw;
       row-gap: 6vh;
       grid-template-columns: repeat(3, 1fr);
-      border-radius: 10px;
+      border-radius: 8px;
 
       @media screen and (max-width: 1150px) {
         width: 75vw;
@@ -479,7 +478,7 @@
         flex-direction: column;
         display: flex;
         justify-content: flex-start;
-        border-radius: 10px;
+        border-radius: 8px;
         min-height: 125px;
         gap: 10px;
 
@@ -573,7 +572,10 @@
 
         &:hover {
           cursor: pointer;
-          color: var(--accent);
+
+          > .faq-flex > .faq-question {
+            color: var(--accent);
+          }
         }
 
         .faq-flex {
@@ -704,7 +706,7 @@
           font-size: 1.15rem;
           width: 95%;
           background-color: var(--text);
-          border-radius: 10px;
+          border-radius: 8px;
           color: var(--text2);
           transition: background-color 0.15s ease-in-out;
           font-weight: 700;

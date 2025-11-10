@@ -6,22 +6,25 @@ import { Component } from "@angular/core";
   styleUrls: ["./version-history.component.scss"],
 })
 export class VersionHistoryComponent {
-  activeID: number = 10;
+  activeID: number = 11;
   toggleActive(id: number): void {
     this.activeID = this.activeID === id ? 0 : id;
   }
 
+  // "Implemented a feature to automatically section your dashboard  \n - by grouping similar titles/urls and separate them into different groups in dashboard",
+  // "Drag and drop feature in URL Bank",
+
   versions = [
     {
       id: 11,
-      version: "2.1.1 - In Progress",
+      version: "2.1.1 - 11/9/2025",
       updates: [
+        "Starting to update the site again",
+        "Updated UI slightly",
         "Added Google account login and registration",
-        "Implemented a feature to automatically section your dashboard  \n - by grouping similar titles/urls and separate them into different groups in dashboard",
-        "Drag and drop feature in URL Bank",
       ],
       qols: [],
-      bugfixes: [],
+      bugfixes: ["Fixed slow loading times on mobile on first site visit"],
     },
     {
       id: 10,

@@ -101,7 +101,7 @@
       background: var(--background2);
       padding: 7px;
       transform: scale(0.8);
-      border-radius: 10px;
+      border-radius: 8px;
       color: var(--text2);
 
       &:hover {
@@ -114,7 +114,7 @@
       border: 2px solid var(--text);
       padding: 7px;
       transform: scale(0.9);
-      border-radius: 10px;
+      border-radius: 8px;
       color: var(--text);
 
       &:hover {
@@ -135,7 +135,7 @@
   position: fixed;
   z-index: 97;
   background: var(--background2);
-  border-radius: 10px;
+  border-radius: 8px;
 
   &:hover {
     cursor: pointer;

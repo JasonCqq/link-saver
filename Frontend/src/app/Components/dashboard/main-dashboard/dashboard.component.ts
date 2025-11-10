@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private dashboardService: DashboardService,
     private mainNavService: MainNavService,
     private linkService: LinkService,
-    private tempRenderService: TempRenderService,
+    private tempRenderService: TempRenderService
   ) {}
 
   private destroy$ = new Subject<void>();
@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.tempLinks = this.links.filter((link) => link.trash === false);
     } else if (linkType === "Bookmarks") {
       this.tempLinks = this.links.filter(
-        (link) => link.bookmarked === true && link.trash === false,
+        (link) => link.bookmarked === true && link.trash === false
       );
     } else if (linkType === "Trash") {
       this.tempLinks = this.links.filter((link) => link.trash === true);
@@ -183,7 +183,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.links[index] = res;
 
         const tempIndex = this.tempLinks?.findIndex(
-          (link) => link.id === res.id,
+          (link) => link.id === res.id
         );
 
         if (tempIndex !== undefined && tempIndex !== 1 && this.tempLinks) {

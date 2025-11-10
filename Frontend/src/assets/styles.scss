@@ -2,16 +2,74 @@
 @include mat.core();
 
 @font-face {
-  font-family: "Onest";
-  src: url("../assets/Onest-VariableFont_wght.ttf");
+  font-family: "AlbertSans";
+  src: url("../assets/fonts/AlbertSans-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AlbertSans";
+  src: url("../assets/fonts/AlbertSans-ExtraLight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AlbertSans";
+  src: url("../assets/fonts/AlbertSans-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AlbertSans";
+  src: url("../assets/fonts/AlbertSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AlbertSans";
+  src: url("../assets/fonts/AlbertSans-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AlbertSans";
+  src: url("../assets/fonts/AlbertSans-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AlbertSans";
+  src: url("../assets/fonts/AlbertSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AlbertSans";
+  src: url("../assets/fonts/AlbertSans-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AlbertSans";
+  src: url("../assets/fonts/AlbertSans-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
 }
 
 //Light mode
 :root {
   --accent: #4074e4;
   --background: #eef1f3;
-  --background2: #0e1113;
-  --text: #0e1113;
+  --background2: #0d0f11;
+  --text: #0d0f11;
   --text2: #eef1f3;
   --textSec: #282828;
   --imp-button: #f73830;
@@ -21,10 +79,10 @@
 //Dark mode
 [data-theme="dark"] {
   --accent: #2e60cd;
-  --background: #13171b;
+  --background: #0d0f11;
   --background2: #eef1f3;
   --text: #eef1f3;
-  --text2: #13171b;
+  --text2: #0d0f11;
   --textSec: #c1c9df;
   --imp-button: #f73830;
   --warn: #7067f2;
@@ -46,7 +104,7 @@ $my-custom-typography-config: mat.define-typography-config(
     mat.define-typography-level(
       $font-size: 12px,
       $font-weight: 700,
-      $font-family: "Onest" !important,
+      $font-family: "AlbertSans" !important,
     ),
 );
 
@@ -109,7 +167,7 @@ $Frontend-theme: mat.define-dark-theme(
   color: var(--text) !important;
   font-weight: 600;
   font-size: 14px;
-  font-family: "Onest";
+  font-family: "AlbertSans";
 }
 
 ::ng-deep .mat-mdc-select-min-line {
@@ -132,14 +190,14 @@ $Frontend-theme: mat.define-dark-theme(
 ::ng-deep .mdc-list-item__primary-text {
   color: var(--text);
   font-size: 13px !important;
-  font-family: "Onest" !important;
+  font-family: "AlbertSans" !important;
   font-weight: 600 !important;
 }
 
 ::ng-deep .mat-mdc-select-value-text {
   color: var(--text);
   font-size: 13px !important;
-  font-family: "Onest" !important;
+  font-family: "AlbertSans" !important;
   font-weight: 600 !important;
 }
 
@@ -196,7 +254,7 @@ input,
 textarea,
 button {
   font-family:
-    "Onest",
+    "AlbertSans",
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
@@ -210,8 +268,8 @@ button {
 }
 
 code {
-  font-family: "Onest", source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: "AlbertSans", source-code-pro, Menlo, Monaco, Consolas,
+    "Courier New", monospace;
 }
 
 // Scrollbar
@@ -274,7 +332,7 @@ button {
   color: var(--text);
   text-align: center;
   padding: 10px 20px;
-  border-radius: 10px;
+  border-radius: 8px;
   font-weight: 500;
   width: fit-content;
 }

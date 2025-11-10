@@ -29,7 +29,7 @@ app.use(
     origin: `${process.env.FRONT_END}`,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-  }),
+  })
 );
 
 app.set("trust proxy", 1);
@@ -50,7 +50,7 @@ app.use(
       dbRecordIdIsSessionId: true,
       dbRecordIdFunction: undefined,
     }),
-  }),
+  })
 );
 
 //Login Authentication
@@ -85,7 +85,7 @@ passport.use(
     } catch (e) {
       return done(e);
     }
-  }),
+  })
 );
 
 passport.serializeUser(function (user, done) {

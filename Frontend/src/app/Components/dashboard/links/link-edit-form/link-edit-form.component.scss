@@ -18,7 +18,7 @@
     background-color: var(--background);
     display: flex;
     flex-direction: column;
-    border-radius: 10px;
+    border-radius: 8px;
     width: 20vw;
     height: auto;
     gap: 1vh;
@@ -69,7 +69,7 @@
       background-color: transparent;
       margin-top: 3vh;
       color: var(--text);
-      border-radius: 10px;
+      border-radius: 8px;
       font-weight: 700;
       transition: background-color 0.1s ease-in-out;
       display: flex;

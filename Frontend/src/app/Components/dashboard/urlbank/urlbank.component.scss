@@ -25,7 +25,7 @@ main {
     > button {
       border: none;
       padding: 10px 25px;
-      border-radius: 10px;
+      border-radius: 8px;
       border: 2px solid transparent;
 
       @media screen and (max-width: 320px) {
@@ -147,7 +147,7 @@ main {
   > form {
     display: flex;
     flex-direction: column;
-    border-radius: 10px;
+    border-radius: 8px;
     background-color: var(--background);
     padding: 25px;
     gap: 10px;
@@ -190,7 +190,7 @@ main {
       border: none;
       border: 2px solid var(--accent);
       background-color: transparent;
-      border-radius: 10px;
+      border-radius: 8px;
       font-size: 0.9rem;
       color: var(--text);
       padding: 10px 0px;

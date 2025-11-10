@@ -31,7 +31,7 @@
         background-color: var(--background);
         width: 25vw;
         height: 37.5vh;
-        border-radius: 10px;
+        border-radius: 8px;
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -41,7 +41,7 @@
           background-color: var(--imp-button);
           border: 2px solid var(--imp-button);
           padding: 10px 25px;
-          border-radius: 10px;
+          border-radius: 8px;
           color: var(--text);
 
           transition: background-color 0.1s;
@@ -79,7 +79,7 @@
           border: none;
           border: 2px solid var(--accent);
           background: transparent;
-          border-radius: 10px;
+          border-radius: 8px;
           padding: 1vh 1vw;
           font-size: 1rem;
           font-weight: 500;
@@ -153,7 +153,7 @@
             padding: 10px 20px;
             font-weight: 600;
             border: 2px solid var(--text);
-            border-radius: 10px;
+            border-radius: 8px;
             background: transparent;
             color: var(--text);
 
@@ -168,7 +168,7 @@
 
       > .settings-change-pass {
         border: 2px solid var(--text);
-        border-radius: 10px;
+        border-radius: 8px;
         background: transparent;
         padding: 10px 0px;
         width: 170px;
@@ -186,7 +186,7 @@
         background-color: var(--imp-button);
         border: 2px solid var(--imp-button);
         padding: 10px 20px;
-        border-radius: 10px;
+        border-radius: 8px;
         color: var(--text);
         transition: background-color 0.1s;
 
@@ -217,7 +217,7 @@
           width: 20vw;
           height: 50vh;
           margin: auto;
-          border-radius: 10px;
+          border-radius: 8px;
 
           @media screen and (max-width: 1275px) {
             width: 35vw;
@@ -240,7 +240,7 @@
             border: 2px solid var(--text);
             background-color: transparent;
             padding: 10px 20px;
-            border-radius: 10px;
+            border-radius: 8px;
             color: var(--text);
 
             transition: background-color 0.1s ease;
@@ -273,7 +273,7 @@
       > .settings-apply {
         padding: 10px 20px;
         border: none;
-        border-radius: 10px;
+        border-radius: 8px;
         border: 2px solid var(--text);
         color: var(--text);
         background-color: transparent;

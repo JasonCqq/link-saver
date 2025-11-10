@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   // Checks for user
   constructor(
     private userService: UserService,
-    private themeService: Theme,
+    private themeService: Theme
   ) {}
 
   private destroy$ = new Subject<void>();
@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       } else {
         this.changePic(0);
       }
-    }, 4000);
+    }, 8000);
   }
 
   ngOnDestroy(): void {

@@ -108,7 +108,7 @@
         max-width: 175px;
         font-weight: 700;
         border: 2px solid transparent;
-        border-radius: 10px;
+        border-radius: 8px;
         display: flex;
         align-items: center;
         background-color: var(--background2);
@@ -141,7 +141,7 @@
         height: auto;
         padding: 0 0 10vh 0;
         width: 30vw;
-        border-radius: 10px;
+        border-radius: 8px;
 
         @media screen and (max-width: 1275px) {
           width: 35vw;
