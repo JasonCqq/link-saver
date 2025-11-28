@@ -29,44 +29,14 @@
 
       > .settings-delete-prompt {
         background-color: var(--background);
-        width: 25vw;
-        height: 37.5vh;
+        width: fit-content;
+        padding: 3vh 3vw;
+        height: fit-content;
         border-radius: 8px;
         display: flex;
         align-items: center;
         flex-direction: column;
         gap: 2vh;
-
-        > .settings-delete {
-          background-color: var(--imp-button);
-          border: 2px solid var(--imp-button);
-          padding: 10px 25px;
-          border-radius: 8px;
-          color: var(--text);
-
-          transition: background-color 0.1s;
-
-          &:hover {
-            cursor: pointer;
-            background-color: transparent;
-          }
-        }
-
-        @media screen and (max-width: 1365px) {
-          width: 35vw;
-        }
-
-        @media screen and (max-width: 1000px) {
-          width: 55vw;
-        }
-
-        @media screen and (max-width: 600px) {
-          width: 75vw;
-        }
-
-        @media screen and (max-width: 430px) {
-          width: 90vw;
-        }
 
         > p {
           @media screen and (max-width: 370px) {
@@ -75,24 +45,11 @@
           }
         }
 
-        > input {
-          border: none;
-          border: 2px solid var(--accent);
-          background: transparent;
-          border-radius: 8px;
-          padding: 1vh 1vw;
-          font-size: 1rem;
-          font-weight: 500;
-
-          @media screen and (max-width: 370px) {
-            width: 75%;
-          }
-        }
-
         > .close-form {
-          margin: 15px 15px;
           transform: scale(1);
           align-self: flex-start;
+          position: relative;
+          top: 0;
 
           &:hover {
             cursor: pointer;
@@ -163,133 +120,6 @@
               cursor: pointer;
             }
           }
-        }
-      }
-
-      > .settings-change-pass {
-        border: 2px solid var(--text);
-        border-radius: 8px;
-        background: transparent;
-        padding: 10px 0px;
-        width: 170px;
-        transition: background-color 0.1s;
-        color: var(--text);
-
-        &:hover {
-          background-color: var(--text);
-          cursor: pointer;
-          color: var(--text2);
-        }
-      }
-
-      > .settings-delete {
-        background-color: var(--imp-button);
-        border: 2px solid var(--imp-button);
-        padding: 10px 20px;
-        border-radius: 8px;
-        color: var(--text);
-        transition: background-color 0.1s;
-
-        &:hover {
-          cursor: pointer;
-          background-color: transparent;
-        }
-      }
-
-      > .password-change-overlay {
-        z-index: 99;
-        background-color: rgba($color: #000000, $alpha: 0.75);
-        position: fixed;
-        width: 100vw;
-        height: 100vh;
-        top: 0;
-        left: 0;
-        display: flex;
-
-        > form {
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          gap: 2vh;
-          background-color: var(--background);
-          width: 20vw;
-          height: 50vh;
-          margin: auto;
-          border-radius: 8px;
-
-          @media screen and (max-width: 1275px) {
-            width: 35vw;
-          }
-
-          @media screen and (max-width: 950px) {
-            width: 45vw;
-          }
-
-          @media screen and (max-width: 645px) {
-            width: 65vw;
-          }
-
-          @media screen and (max-width: 450px) {
-            height: 55vh;
-            width: 85vw;
-          }
-
-          > button {
-            border: 2px solid var(--text);
-            background-color: transparent;
-            padding: 10px 20px;
-            border-radius: 8px;
-            color: var(--text);
-
-            transition: background-color 0.1s ease;
-            &:hover {
-              background-color: var(--text);
-              color: var(--text2);
-              cursor: pointer;
-            }
-
-            &:disabled {
-              opacity: 0.5;
-              cursor: default;
-            }
-          }
-
-          > .close-form {
-            position: absolute;
-            top: 0;
-            left: 0;
-            margin: 15px 15px;
-
-            &:hover {
-              cursor: pointer;
-              color: var(--accent);
-            }
-          }
-        }
-      }
-
-      > .settings-apply {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 8px;
-        border: 2px solid var(--text);
-        color: var(--text);
-        background-color: transparent;
-        transition: background-color 0.1s ease-in-out;
-
-        &:disabled {
-          opacity: 0.5;
-          &:hover {
-            cursor: default;
-          }
-        }
-
-        &:hover {
-          background-color: var(--text);
-          cursor: pointer;
-          color: var(--text2);
         }
       }
     }

@@ -28,6 +28,10 @@ import { LinkEditFormComponent } from "./links/link-edit-form/link-edit-form.com
 import { MassEditFormComponent } from "./links/mass-edit-form/mass-edit-form.component";
 import { UrlbankComponent } from "./urlbank/urlbank.component";
 
+import { ButtonModule } from "primeng/button";
+import { DialogModule } from "primeng/dialog";
+import { InputTextModule } from "primeng/inputtext";
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -58,6 +62,10 @@ import { UrlbankComponent } from "./urlbank/urlbank.component";
     MatTooltipModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+
+    ButtonModule,
+    DialogModule,
+    InputTextModule,
   ],
 
   exports: [LinkComponent],
