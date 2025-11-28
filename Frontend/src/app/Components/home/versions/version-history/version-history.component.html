@@ -4,32 +4,40 @@
   <section>
     <h2>Versions</h2>
 
-    <div *ngFor="let version of versions" class="versions-grid">
-      <div class="versions-item" (click)="toggleActive(version.id)">
-        <h3>v{{ version.version }}</h3>
-        <section *ngIf="this.activeID === version.id">
-          <div>
-            <h4>Update(s)</h4>
-            <ul *ngFor="let update of version.updates">
-              <li>{{ update }}</li>
-            </ul>
-          </div>
-
-          <div>
-            <h4>Quality of Life</h4>
-            <ul *ngFor="let qol of version.qols">
-              <li>{{ qol }}</li>
-            </ul>
-          </div>
-
-          <div>
-            <h4>Bug fixes</h4>
-            <ul *ngFor="let bugfix of version.bugfixes">
-              <li>{{ bugfix }}</li>
-            </ul>
-          </div>
-        </section>
+    @for (version of versions; track version) {
+      <div class="versions-grid">
+        <div class="versions-item" (click)="toggleActive(version.id)">
+          <h3>v{{ version.version }}</h3>
+          @if (this.activeID === version.id) {
+            <section>
+              <div>
+                <h4>Update(s)</h4>
+                @for (update of version.updates; track update) {
+                  <ul>
+                    <li>{{ update }}</li>
+                  </ul>
+                }
+              </div>
+              <div>
+                <h4>Quality of Life</h4>
+                @for (qol of version.qols; track qol) {
+                  <ul>
+                    <li>{{ qol }}</li>
+                  </ul>
+                }
+              </div>
+              <div>
+                <h4>Bug fixes</h4>
+                @for (bugfix of version.bugfixes; track bugfix) {
+                  <ul>
+                    <li>{{ bugfix }}</li>
+                  </ul>
+                }
+              </div>
+            </section>
+          }
+        </div>
       </div>
-    </div>
+    }
   </section>
 </main>

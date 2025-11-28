@@ -7,190 +7,193 @@
 
 <main class="folders-container">
   <!-- Sharing Folder Form -->
-  <div class="folders-share-overlay" *ngIf="shareWindowOpened">
-    <form
-      class="folders-share"
-      [formGroup]="shareFolderForm"
-      (submit)="shareFolder()"
-    >
-      <mat-icon
-        fontIcon="close"
-        (click)="toggleShareWindow()"
-        class="folders-share-close"
-      ></mat-icon>
-
-      <h3>Share</h3>
-
-      <section class="folders-share-url">
-        This folder's URL will be located here:
-
-        <p *ngIf="tempShareUrl">linkstorage.net/public/{{ tempShareUrl }}</p>
-
-        <p *ngIf="tempShareUrl" style="color: #517ee1">Success!</p>
-      </section>
-
-      <mat-label for="passwordToggle">Password Locked</mat-label>
-
-      <mat-slide-toggle
-        #passwordToggle
-        formControlName="passwordToggle"
-        [hideIcon]="true"
-        (click)="togglePasswordInput()"
-      >
-      </mat-slide-toggle>
-
-      <mat-form-field>
-        <mat-label>Password</mat-label>
-        <input matInput type="password" formControlName="password" />
-      </mat-form-field>
-
-      <button type="submit" class="folders-share-button">Share</button>
-
-      <p class="folders-share-hint">
-        *Your username will be shown when sharing
-      </p>
-    </form>
-  </div>
+  @if (shareWindowOpened) {
+    <div class="folders-share-overlay">
+      <form
+        class="folders-share"
+        [formGroup]="shareFolderForm"
+        (submit)="shareFolder()"
+        >
+        <mat-icon
+          fontIcon="close"
+          (click)="toggleShareWindow()"
+          class="folders-share-close"
+        ></mat-icon>
+        <h3>Share</h3>
+        <section class="folders-share-url">
+          This folder's URL will be located here:
+          @if (tempShareUrl) {
+            <p>linkstorage.net/public/{{ tempShareUrl }}</p>
+          }
+          @if (tempShareUrl) {
+            <p style="color: #517ee1">Success!</p>
+          }
+        </section>
+        <mat-label for="passwordToggle">Password Locked</mat-label>
+        <mat-slide-toggle
+          #passwordToggle
+          formControlName="passwordToggle"
+          [hideIcon]="true"
+          (click)="togglePasswordInput()"
+          >
+        </mat-slide-toggle>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" />
+        </mat-form-field>
+        <button type="submit" class="folders-share-button">Share</button>
+        <p class="folders-share-hint">
+          *Your username will be shown when sharing
+        </p>
+      </form>
+    </div>
+  }
 
   <div class="folders-buttons">
-    <button
-      class="folders-button folders-back"
-      *ngIf="folderOpened"
-      (click)="closeFolder()"
-    >
-      <mat-icon fontIcon="arrow_back"></mat-icon>
-      Go Back
-    </button>
+    @if (folderOpened) {
+      <button
+        class="folders-button folders-back"
+        (click)="closeFolder()"
+        >
+        <mat-icon fontIcon="arrow_back"></mat-icon>
+        Go Back
+      </button>
+    }
 
-    <button
-      class="folders-button folders-share"
-      (click)="toggleShareWindow()"
-      *ngIf="folderOpened && tempShare"
-    >
-      <mat-icon fontIcon="share"></mat-icon>
-      Share Folder
-    </button>
+    @if (folderOpened && tempShare) {
+      <button
+        class="folders-button folders-share"
+        (click)="toggleShareWindow()"
+        >
+        <mat-icon fontIcon="share"></mat-icon>
+        Share Folder
+      </button>
+    }
 
-    <button
-      class="folders-button folders-share"
-      *ngIf="folderOpened && !tempShare"
-      (click)="unshareFolder()"
-    >
-      <mat-icon fontIcon="share"></mat-icon>
-      Unshare
-    </button>
+    @if (folderOpened && !tempShare) {
+      <button
+        class="folders-button folders-share"
+        (click)="unshareFolder()"
+        >
+        <mat-icon fontIcon="share"></mat-icon>
+        Unshare
+      </button>
+    }
   </div>
 
   <!--Folders Tab-->
-  <section class="folders-grid" *ngIf="!folderOpened">
-    <div class="folders-item" (click)="toggleWindow()">
-      <span class="material-icons-round faq-icon">add</span>
-      <p>Create Folder</p>
-    </div>
-
-    <div *ngIf="loadingService.isLoading$ | async">
-      <mat-spinner diameter="35" style="margin: auto"></mat-spinner>
-      <p style="text-align: center; margin-top: 10px">
-        Getting your folders...
-      </p>
-    </div>
-
-    <!--Create Folder Form-->
-    <div class="folders-create-overlay" *ngIf="windowOpened">
-      <form
-        class="folders-create"
-        [formGroup]="createFolderForm"
-        (submit)="createFolder()"
-      >
-        <mat-icon
-          fontIcon="close"
-          (click)="toggleWindow()"
-          class="folders-create-close"
-        ></mat-icon>
-
-        <h3>Create a Folder</h3>
-
-        <mat-form-field appearance="outline" floatLabel="always">
-          <mat-label for="folderName">Folder Name</mat-label>
-          <input
-            matInput
-            type="text"
-            #folderName
-            formControlName="folderName"
-          />
-        </mat-form-field>
-        <button type="submit" class="folders-create-button">Create</button>
-      </form>
-    </div>
-
-    <!--Edit Folder Form-->
-    <div class="folders-create-overlay" *ngIf="editWindowOpened">
-      <form
-        class="folders-create"
-        [formGroup]="createFolderForm"
-        (submit)="editFolder()"
-      >
-        <mat-icon
-          fontIcon="close"
-          (click)="toggleEditWindow('none')"
-          class="folders-create-close"
-        ></mat-icon>
-
-        <h3>Edit</h3>
-
-        <mat-form-field appearance="outline" floatLabel="always">
-          <mat-label for="editFolderName">Folder Name</mat-label>
-          <input
-            matInput
-            type="text"
-            #editFolderName
-            formControlName="editFolderName"
-          />
-        </mat-form-field>
-        <button type="submit" class="folders-create-button">Edit</button>
-      </form>
-    </div>
-
-    <div
-      *ngFor="let folder of folders"
-      class="folders-item"
-      (click)="openFolder(folder.id)"
-      matTooltip="{{ folder.name }} has {{ folder.links.length }} links"
-    >
-      <div class="folders-item-flex">
-        <mat-icon fontIcon="folder"></mat-icon>
-        <p>
-          {{ folder.name | slice: 0 : 10
-          }}{{ folder.name.length > 10 ? "..." : "" }}
-        </p>
+  @if (!folderOpened) {
+    <section class="folders-grid">
+      <div class="folders-item" (click)="toggleWindow()">
+        <span class="material-icons-round faq-icon">add</span>
+        <p>Create Folder</p>
       </div>
+      @if (loadingService.isLoading$ | async) {
+        <div>
+          <mat-spinner diameter="35" style="margin: auto"></mat-spinner>
+          <p style="text-align: center; margin-top: 10px">
+            Getting your folders...
+          </p>
+        </div>
+      }
+      <!--Create Folder Form-->
+      @if (windowOpened) {
+        <div class="folders-create-overlay">
+          <form
+            class="folders-create"
+            [formGroup]="createFolderForm"
+            (submit)="createFolder()"
+            >
+            <mat-icon
+              fontIcon="close"
+              (click)="toggleWindow()"
+              class="folders-create-close"
+            ></mat-icon>
+            <h3>Create a Folder</h3>
+            <mat-form-field appearance="outline" floatLabel="always">
+              <mat-label for="folderName">Folder Name</mat-label>
+              <input
+                matInput
+                type="text"
+                #folderName
+                formControlName="folderName"
+                />
+              </mat-form-field>
+              <button type="submit" class="folders-create-button">Create</button>
+            </form>
+          </div>
+        }
+        <!--Edit Folder Form-->
+        @if (editWindowOpened) {
+          <div class="folders-create-overlay">
+            <form
+              class="folders-create"
+              [formGroup]="createFolderForm"
+              (submit)="editFolder()"
+              >
+              <mat-icon
+                fontIcon="close"
+                (click)="toggleEditWindow('none')"
+                class="folders-create-close"
+              ></mat-icon>
+              <h3>Edit</h3>
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label for="editFolderName">Folder Name</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  #editFolderName
+                  formControlName="editFolderName"
+                  />
+                </mat-form-field>
+                <button type="submit" class="folders-create-button">Edit</button>
+              </form>
+            </div>
+          }
+          @for (folder of folders; track folder) {
+            <div
+              class="folders-item"
+              (click)="openFolder(folder.id)"
+              matTooltip="{{ folder.name }} has {{ folder.links.length }} links"
+              >
+              <div class="folders-item-flex">
+                <mat-icon fontIcon="folder"></mat-icon>
+                <p>
+                  {{ folder.name | slice: 0 : 10
+                  }}{{ folder.name.length > 10 ? "..." : "" }}
+                </p>
+              </div>
+              <div class="folders-item-options">
+                <mat-icon
+                  fontIcon="edit"
+                  (click)="$event.stopPropagation(); toggleEditWindow(folder.id)"
+                  matTooltip="Edit Folder"
+                ></mat-icon>
+                <mat-icon
+                  fontIcon="close"
+                  matTooltip="Delete Folder"
+                  style="color: #f73830"
+                  (click)="$event.stopPropagation(); deleteFolder(folder.id)"
+                ></mat-icon>
+              </div>
+            </div>
+          }
+        </section>
+      }
 
-      <div class="folders-item-options">
-        <mat-icon
-          fontIcon="edit"
-          (click)="$event.stopPropagation(); toggleEditWindow(folder.id)"
-          matTooltip="Edit Folder"
-        ></mat-icon>
-        <mat-icon
-          fontIcon="close"
-          matTooltip="Delete Folder"
-          style="color: #f73830"
-          (click)="$event.stopPropagation(); deleteFolder(folder.id)"
-        ></mat-icon>
-      </div>
-    </div>
-  </section>
-
-  <!--Links Tab-->
-  <section
-    *ngIf="folderOpened && tempLinks"
-    [ngClass]="previews === true ? 'content-grid' : 'content-grid-no-previews'"
-  >
-    <div *ngFor="let link of tempLinks">
-      <app-link-item
-        [itemData]="link"
-        (linkUpdate)="deleteLink($event)"
-      ></app-link-item>
-    </div>
-  </section>
-</main>
+      <!--Links Tab-->
+      @if (folderOpened && tempLinks) {
+        <section
+          [ngClass]="previews === true ? 'content-grid' : 'content-grid-no-previews'"
+          >
+          @for (link of tempLinks; track link) {
+            <div>
+              <app-link-item
+                [itemData]="link"
+                (linkUpdate)="deleteLink($event)"
+              ></app-link-item>
+            </div>
+          }
+        </section>
+      }
+    </main>

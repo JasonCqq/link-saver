@@ -10,57 +10,59 @@
           class="material-icons-round faq-icon"
           style="transform: scale(0.75)"
           >add</span
-        >
-        <p>Add Link</p>
-      </button>
+          >
+          <p>Add Link</p>
+        </button>
 
-      <mat-form-field
-        appearance="outline"
-        floatLabel="always"
-        [formGroup]="query"
-        class="nav-search"
-      >
-        <mat-label for="linkQuery">Search</mat-label>
-        <input
-          matInput
-          type="text"
-          formControlName="linkQuery"
-          #linkQuery
-          style="display: flex; align-items: center"
-        />
-      </mat-form-field>
-
-      <div class="nav-buttons-flex">
         <mat-form-field
           appearance="outline"
           floatLabel="always"
-          [formGroup]="sortingForm"
-        >
-          <mat-label for="navSort">Sort By</mat-label>
-          <mat-select
-            #navSort
-            formControlName="sortBy"
-            (selectionChange)="submitSortingForm()"
+          [formGroup]="query"
+          class="nav-search"
           >
-            <mat-option value="Visits">Visits</mat-option>
-            <mat-option value="Latest">Latest</mat-option>
-            <mat-option value="Oldest">Oldest</mat-option>
-            <mat-option value="Nameup">Name A-Z</mat-option>
-            <mat-option value="Namedown">Name Z-A</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
+          <mat-label for="linkQuery">Search</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="linkQuery"
+            #linkQuery
+            style="display: flex; align-items: center"
+            />
+          </mat-form-field>
 
-    <div *ngIf="createForm === true" class="create-form-overlay">
-      <div class="create-form">
-        <mat-icon
-          fontIcon="close"
-          (click)="toggleForm()"
-          class="create-form-close"
-        ></mat-icon>
-        <app-link-form (closeForm)="toggleForm()"></app-link-form>
+          <div class="nav-buttons-flex">
+            <mat-form-field
+              appearance="outline"
+              floatLabel="always"
+              [formGroup]="sortingForm"
+              >
+              <mat-label for="navSort">Sort By</mat-label>
+              <mat-select
+                #navSort
+                formControlName="sortBy"
+                (selectionChange)="submitSortingForm()"
+                >
+                <mat-option value="Visits">Visits</mat-option>
+                <mat-option value="Latest">Latest</mat-option>
+                <mat-option value="Oldest">Oldest</mat-option>
+                <mat-option value="Nameup">Name A-Z</mat-option>
+                <mat-option value="Namedown">Name Z-A</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        @if (createForm === true) {
+          <div class="create-form-overlay">
+            <div class="create-form">
+              <mat-icon
+                fontIcon="close"
+                (click)="toggleForm()"
+                class="create-form-close"
+              ></mat-icon>
+              <app-link-form (closeForm)="toggleForm()"></app-link-form>
+            </div>
+          </div>
+        }
       </div>
-    </div>
-  </div>
-</nav>
+    </nav>

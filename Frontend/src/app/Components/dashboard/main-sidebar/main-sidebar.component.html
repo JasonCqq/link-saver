@@ -1,41 +1,45 @@
 <mat-drawer-container class="d-sidebar-container" autosize>
   <mat-drawer [(opened)]="opened" mode="side" #drawer class="d-sidebar">
     <div class="sidebar-icon-contain">
-      <mat-icon
-        fontIcon="close"
-        (click)="drawer.toggle(); opened = !opened"
-        *ngIf="opened"
-        class="sidebar-icon"
-        matTooltip="Close sidebar"
-      >
-      </mat-icon>
+      @if (opened) {
+        <mat-icon
+          fontIcon="close"
+          (click)="drawer.toggle(); opened = !opened"
+          class="sidebar-icon"
+          matTooltip="Close sidebar"
+          >
+        </mat-icon>
+      }
 
-      <span
-        class="material-icons-round sidebar-icon"
-        *ngIf="!massEditting"
-        (click)="toggleMassEdit()"
-        matTooltip="Enter Edit Mode"
-      >
-        edit
-      </span>
+      @if (!massEditting) {
+        <span
+          class="material-icons-round sidebar-icon"
+          (click)="toggleMassEdit()"
+          matTooltip="Enter Edit Mode"
+          >
+          edit
+        </span>
+      }
 
-      <span
-        class="material-icons-round sidebar-icon icon-toggle"
-        *ngIf="massEditting"
-        (click)="toggleMassEdit()"
-        matTooltip="Exit Edit Mode"
-      >
-        edit
-      </span>
+      @if (massEditting) {
+        <span
+          class="material-icons-round sidebar-icon icon-toggle"
+          (click)="toggleMassEdit()"
+          matTooltip="Exit Edit Mode"
+          >
+          edit
+        </span>
+      }
 
-      <span
-        class="material-icons-round sidebar-icon"
-        *ngIf="massEditting"
-        (click)="toggleMassEditForm()"
-        matTooltip="Apply Edit"
-      >
-        done
-      </span>
+      @if (massEditting) {
+        <span
+          class="material-icons-round sidebar-icon"
+          (click)="toggleMassEditForm()"
+          matTooltip="Apply Edit"
+          >
+          done
+        </span>
+      }
     </div>
 
     <li class="sidebar-profile">
@@ -53,7 +57,7 @@
       class="sidebar-tab"
       (click)="changeTitle('Dashboard')"
       routerLink="/dashboard"
-    >
+      >
       <span class="material-icons-round sidebar-icon"> dashboard </span>
       <h1 class="tab-id">Dashboard</h1>
     </div>
@@ -62,7 +66,7 @@
       class="sidebar-tab"
       routerLink="/dashboard/folders"
       (click)="changeTitle('Folders')"
-    >
+      >
       <mat-icon fontIcon="folder" class="sidebar-icon"></mat-icon>
       <h1 class="tab-id">Folders</h1>
     </a>
@@ -71,7 +75,7 @@
       class="sidebar-tab"
       routerLink="/dashboard/urlbank"
       (click)="changeTitle('URLBank')"
-    >
+      >
       <span class="material-icons-round sidebar-icon"> description </span>
       <h1 class="tab-id">URL Bank</h1>
     </a>
@@ -80,7 +84,7 @@
       class="sidebar-tab"
       (click)="changeTitle('Bookmarks')"
       routerLink="/dashboard"
-    >
+      >
       <span class="material-icons-round sidebar-icon"> bookmark </span>
       <h1 class="tab-id">Bookmarks</h1>
     </div>
@@ -89,7 +93,7 @@
       class="sidebar-tab"
       (click)="changeTitle('Trash')"
       routerLink="/dashboard"
-    >
+      >
       <span class="material-icons-round sidebar-icon"> delete </span>
       <h1 class="tab-id">Trash</h1>
     </div>
@@ -113,15 +117,17 @@
   </mat-drawer>
 </mat-drawer-container>
 
-<mat-icon
-  fontIcon="menu"
-  (click)="drawer.toggle(); opened = !opened"
-  *ngIf="!opened"
-  class="open-menu"
-  matTooltip="Open sidebar"
-></mat-icon>
+@if (!opened) {
+  <mat-icon
+    fontIcon="menu"
+    (click)="drawer.toggle(); opened = !opened"
+    class="open-menu"
+    matTooltip="Open sidebar"
+  ></mat-icon>
+}
 
-<app-mass-edit-form
-  *ngIf="massEditForm"
-  (toggleMassEditForm)="toggleMassEditForm()"
-></app-mass-edit-form>
+@if (massEditForm) {
+  <app-mass-edit-form
+    (toggleMassEditForm)="toggleMassEditForm()"
+  ></app-mass-edit-form>
+}

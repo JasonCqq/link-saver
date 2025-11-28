@@ -4,23 +4,24 @@
   <div class="settings-flex">
     <h1>User Settings</h1>
 
-    <div class="settings-delete-overlay" *ngIf="deletePrompt">
-      <section class="settings-delete-prompt">
-        <mat-icon
-          fontIcon="close"
-          (click)="toggleDeletePrompt()"
-          class="close-form"
-        ></mat-icon>
-
-        <p>Confirm Account Deletion</p>
-        <p style="color: red">This action is permanent.</p>
-        <p>Type 'confirmdelete' to confirm</p>
-        <input id="delete-confirm" type="text" required />
-        <button (click)="deleteAccount()" class="settings-delete">
-          Deactivate
-        </button>
-      </section>
-    </div>
+    @if (deletePrompt) {
+      <div class="settings-delete-overlay">
+        <section class="settings-delete-prompt">
+          <mat-icon
+            fontIcon="close"
+            (click)="toggleDeletePrompt()"
+            class="close-form"
+          ></mat-icon>
+          <p>Confirm Account Deletion</p>
+          <p style="color: red">This action is permanent.</p>
+          <p>Type 'confirmdelete' to confirm</p>
+          <input id="delete-confirm" type="text" required />
+          <button (click)="deleteAccount()" class="settings-delete">
+            Deactivate
+          </button>
+        </section>
+      </div>
+    }
   </div>
 
   <div class="settings-grid">
@@ -37,128 +38,131 @@
         Account Created:
         <span>{{ user.user.creationDate | date: "shortDate" }}</span>
       </p>
-      <button
-        class="settings-change-pass"
-        (click)="togglePassChangeForm()"
-        *ngIf="user.user.external_account === false"
-      >
-        Change Password
-      </button>
+      @if (user.user.external_account === false) {
+        <button
+          class="settings-change-pass"
+          (click)="togglePassChangeForm()"
+          >
+          Change Password
+        </button>
+      }
 
-      <div class="password-change-overlay" *ngIf="this.passwordChangeOverlay">
-        <form
-          [formGroup]="passwordChangeForm"
-          (submit)="submitPasswordChange()"
-        >
-          <mat-icon
-            fontIcon="close"
-            (click)="togglePassChangeForm()"
-            class="close-form"
-          ></mat-icon>
-          <h3>Change Password</h3>
+      @if (this.passwordChangeOverlay) {
+        <div class="password-change-overlay">
+          <form
+            [formGroup]="passwordChangeForm"
+            (submit)="submitPasswordChange()"
+            >
+            <mat-icon
+              fontIcon="close"
+              (click)="togglePassChangeForm()"
+              class="close-form"
+            ></mat-icon>
+            <h3>Change Password</h3>
+            @if (formErrors) {
+              <div class="form-errors">
+                <span class="material-icons-round"> error </span>
+                <p>{{ formErrors }}</p>
+              </div>
+            }
+            <mat-form-field appearance="outline" floatLabel="always">
+              <mat-label for="currentPass">Current Password</mat-label>
+              <input
+                matInput
+                type="password"
+                required
+                formControlName="currentPass"
+                #currentPass
+                minlength="8"
+                maxlength="20"
+                />
+                @if (passwordChangeForm.get('currentPass')?.invalid) {
+                  <mat-error
+                    >Invalid password</mat-error
+                    >
+                }
+              </mat-form-field>
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label for="newPass">New Password (8-20 characters)</mat-label>
+                <input
+                  matInput
+                  type="password"
+                  required
+                  formControlName="newPass"
+                  #newPass
+                  minlength="8"
+                  maxlength="20"
+                  />
+                  @if (passwordChangeForm.get('newPass')?.invalid) {
+                    <mat-error
+                      >Invalid new password</mat-error
+                      >
+                  }
+                </mat-form-field>
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label for="newPass2">Confirm New Password</mat-label>
+                  <input
+                    matInput
+                    type="password"
+                    required
+                    formControlName="newPass2"
+                    #newPass2
+                    minlength="8"
+                    maxlength="20"
+                    />
+                  </mat-form-field>
+                  <button type="submit" [disabled]="!passwordChangeForm.dirty">
+                    Change Password
+                  </button>
+                </form>
+              </div>
+            }
 
-          <div *ngIf="formErrors" class="form-errors">
-            <span class="material-icons-round"> error </span>
-            <p>{{ formErrors }}</p>
+            <button class="settings-delete" (click)="toggleDeletePrompt()">
+              Deactivate
+            </button>
+          </section>
+
+          <section class="settings-item">
+            <h3>Extra</h3>
+            <a routerLink="/versions">Changelogs</a>
+            <a href="https://github.com/JasonCqq/link-saver" target="_blank"
+              >Source code</a
+              >
+              <a routerLink="/privacy">Privacy Policy</a>
+
+              <a routerLink="/terms">Terms of Service</a>
+            </section>
+
+            <form class="settings-item">
+              <h3>Preferences</h3>
+
+              <span class="settings-theme">
+                <p>Themes</p>
+                <div>
+                  <button
+                    type="button"
+                    (click)="this.setTheme('light')"
+                    style="background-color: #eef1f3; color: black"
+                    >
+                    Light
+                  </button>
+                  <button
+                    type="button"
+                    (click)="this.setTheme('dim')"
+                    style="background-color: #15202b; color: white"
+                    >
+                    Dim
+                  </button>
+                  <button
+                    type="button"
+                    (click)="this.setTheme('dark')"
+                    style="background-color: #0e1113; color: white"
+                    >
+                    Dark
+                  </button>
+                </div>
+              </span>
+            </form>
           </div>
-
-          <mat-form-field appearance="outline" floatLabel="always">
-            <mat-label for="currentPass">Current Password</mat-label>
-            <input
-              matInput
-              type="password"
-              required
-              formControlName="currentPass"
-              #currentPass
-              minlength="8"
-              maxlength="20"
-            />
-            <mat-error *ngIf="passwordChangeForm.get('currentPass')?.invalid"
-              >Invalid password</mat-error
-            >
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" floatLabel="always">
-            <mat-label for="newPass">New Password (8-20 characters)</mat-label>
-            <input
-              matInput
-              type="password"
-              required
-              formControlName="newPass"
-              #newPass
-              minlength="8"
-              maxlength="20"
-            />
-
-            <mat-error *ngIf="passwordChangeForm.get('newPass')?.invalid"
-              >Invalid new password</mat-error
-            >
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" floatLabel="always">
-            <mat-label for="newPass2">Confirm New Password</mat-label>
-            <input
-              matInput
-              type="password"
-              required
-              formControlName="newPass2"
-              #newPass2
-              minlength="8"
-              maxlength="20"
-            />
-          </mat-form-field>
-
-          <button type="submit" [disabled]="!passwordChangeForm.dirty">
-            Change Password
-          </button>
-        </form>
-      </div>
-
-      <button class="settings-delete" (click)="toggleDeletePrompt()">
-        Deactivate
-      </button>
-    </section>
-
-    <section class="settings-item">
-      <h3>Extra</h3>
-      <a routerLink="/versions">Changelogs</a>
-      <a href="https://github.com/JasonCqq/link-saver" target="_blank"
-        >Source code</a
-      >
-      <a routerLink="/privacy">Privacy Policy</a>
-
-      <a routerLink="/terms">Terms of Service</a>
-    </section>
-
-    <form class="settings-item">
-      <h3>Preferences</h3>
-
-      <span class="settings-theme">
-        <p>Themes</p>
-        <div>
-          <button
-            type="button"
-            (click)="this.setTheme('light')"
-            style="background-color: #eef1f3; color: black"
-          >
-            Light
-          </button>
-          <button
-            type="button"
-            (click)="this.setTheme('dim')"
-            style="background-color: #15202b; color: white"
-          >
-            Dim
-          </button>
-          <button
-            type="button"
-            (click)="this.setTheme('dark')"
-            style="background-color: #0e1113; color: white"
-          >
-            Dark
-          </button>
-        </div>
-      </span>
-    </form>
-  </div>
-</main>
+        </main>

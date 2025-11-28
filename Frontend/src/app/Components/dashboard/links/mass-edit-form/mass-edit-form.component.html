@@ -8,46 +8,50 @@
     <h1>MASS EDIT</h1>
 
     <div class="mass-edit-flex">
-      <button
-        *ngIf="title !== 'Trash'"
-        (click)="submitMassResDelForm('delete')"
-        type="button"
-        class="mass-delete-button"
-      >
-        Move to Trash
-      </button>
-      <button
-        *ngIf="title === 'Trash'"
-        (click)="submitMassResDelForm('restore')"
-        type="button"
-        class="mass-restore-button"
-      >
-        Restore All
-      </button>
+      @if (title !== 'Trash') {
+        <button
+          (click)="submitMassResDelForm('delete')"
+          type="button"
+          class="mass-delete-button"
+          >
+          Move to Trash
+        </button>
+      }
+      @if (title === 'Trash') {
+        <button
+          (click)="submitMassResDelForm('restore')"
+          type="button"
+          class="mass-restore-button"
+          >
+          Restore All
+        </button>
+      }
 
       <mat-slide-toggle
         [hideIcon]="true"
         #massBookmark
         formControlName="massBookmark"
         >Bookmark All</mat-slide-toggle
-      >
-    </div>
+        >
+      </div>
 
-    <mat-form-field appearance="outline" floatLabel="always">
-      <mat-label for="massTitle">Title (Optional)</mat-label>
-      <input matInput type="text" #massTitle formControlName="massTitle" />
-    </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label for="massTitle">Title (Optional)</mat-label>
+        <input matInput type="text" #massTitle formControlName="massTitle" />
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" floatLabel="always">
-      <mat-label>Folder (Optional)</mat-label>
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Folder (Optional)</mat-label>
 
-      <mat-select #massFolder formControlName="massFolder">
-        <mat-option *ngFor="let folder of folders" [value]="folder.id">{{
-          folder.name
-        }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+        <mat-select #massFolder formControlName="massFolder">
+          @for (folder of folders; track folder) {
+            <mat-option [value]="folder.id">{{
+              folder.name
+            }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
 
-    <button type="submit" [disabled]="!massEditForm.dirty">Submit</button>
-  </form>
-</div>
+      <button type="submit" [disabled]="!massEditForm.dirty">Submit</button>
+    </form>
+  </div>

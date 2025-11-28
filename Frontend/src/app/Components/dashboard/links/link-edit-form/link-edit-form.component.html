@@ -3,7 +3,7 @@
     class="link-item-edit"
     [formGroup]="editForm"
     (submit)="submitEditForm()"
-  >
+    >
     <span>
       <mat-icon
         fontIcon="close"
@@ -23,9 +23,11 @@
       <mat-label for="editFolder">Folder</mat-label>
 
       <mat-select #editFolder formControlName="editFolder">
-        <mat-option *ngFor="let folder of folders" [value]="folder.id">{{
-          folder.name
-        }}</mat-option>
+        @for (folder of folders; track folder) {
+          <mat-option [value]="folder.id">{{
+            folder.name
+          }}</mat-option>
+        }
       </mat-select>
     </mat-form-field>
 
@@ -33,7 +35,7 @@
       #editBookmarked
       formControlName="editBookmarked"
       [hideIcon]="true"
-    >
+      >
       <p style="margin-left: 0.5vw; font-weight: 600">Bookmark</p>
     </mat-slide-toggle>
 

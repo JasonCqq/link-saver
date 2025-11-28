@@ -15,46 +15,49 @@
     </button>
   </div>
 
-  <p class="del-prompt" *ngIf="delAllPrompt" (click)="deleteAllUrls()">
-    Click here to confirm Delete All.
-  </p>
-  <p class="del-note" *ngIf="!delAllPrompt">Deletes are permanent</p>
+  @if (delAllPrompt) {
+    <p class="del-prompt" (click)="deleteAllUrls()">
+      Click here to confirm Delete All.
+    </p>
+  }
+  @if (!delAllPrompt) {
+    <p class="del-note">Deletes are permanent</p>
+  }
 
   <div class="url-grid">
-    <div class="url-item" *ngFor="let u of this.urls">
-      <div class="url-options">
-        <span class="material-icons-round url-delete" (click)="deleteUrl(u.id)">
-          close
-        </span>
-
-        <span class="material-icons-round" (click)="copyUrl(u.url)">
-          content_copy
-        </span>
+    @for (u of this.urls; track u) {
+      <div class="url-item">
+        <div class="url-options">
+          <span class="material-icons-round url-delete" (click)="deleteUrl(u.id)">
+            close
+          </span>
+          <span class="material-icons-round" (click)="copyUrl(u.url)">
+            content_copy
+          </span>
+        </div>
+        <a [href]="u.url" target="_blank" class="url-details">
+          <h1 class="url-title">{{ u.title | slice: 0 : 125 }}</h1>
+          <p class="url-date">{{ u.url }}</p>
+        </a>
       </div>
-
-      <a [href]="u.url" target="_blank" class="url-details">
-        <h1 class="url-title">{{ u.title | slice: 0 : 125 }}</h1>
-        <p class="url-date">{{ u.url }}</p>
-      </a>
-    </div>
+    }
   </div>
 </main>
 
-<div *ngIf="urlFormPop" class="add-url-form">
-  <form [formGroup]="urlForm" (submit)="submitUrlForm()">
-    <span class="material-icons-round" (click)="toggleUrlForm()"> close </span>
-
-    <h1>Add URL(s)</h1>
-    <p>For best results, separate urls by line. Invalid urls will be omitted</p>
-
-    <textarea
-      #urls
-      formControlName="urls"
-      rows="30"
-      cols="50"
-      placeholder="URLs go here..."
-    ></textarea>
-
-    <button type="submit" [disabled]="!urlForm.dirty">SUBMIT</button>
-  </form>
-</div>
+@if (urlFormPop) {
+  <div class="add-url-form">
+    <form [formGroup]="urlForm" (submit)="submitUrlForm()">
+      <span class="material-icons-round" (click)="toggleUrlForm()"> close </span>
+      <h1>Add URL(s)</h1>
+      <p>For best results, separate urls by line. Invalid urls will be omitted</p>
+      <textarea
+        #urls
+        formControlName="urls"
+        rows="30"
+        cols="50"
+        placeholder="URLs go here..."
+      ></textarea>
+      <button type="submit" [disabled]="!urlForm.dirty">SUBMIT</button>
+    </form>
+  </div>
+}

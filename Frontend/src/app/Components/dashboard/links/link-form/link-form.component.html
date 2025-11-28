@@ -9,9 +9,11 @@
   <mat-form-field appearance="outline" floatLabel="always">
     <mat-label for="folder">Folder (Optional)</mat-label>
     <mat-select #folder formControlName="folder">
-      <mat-option *ngFor="let folder of folders" [value]="folder.id">{{
-        folder.name
-      }}</mat-option>
+      @for (folder of folders; track folder) {
+        <mat-option [value]="folder.id">{{
+          folder.name
+        }}</mat-option>
+      }
     </mat-select>
   </mat-form-field>
 

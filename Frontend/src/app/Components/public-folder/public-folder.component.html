@@ -1,93 +1,95 @@
-<main class="public-folder" *ngIf="this.author && !this.passwordLocked">
-  <header>
-    <p class="public-sign-up">
-      Sign up today to share your own links and folders!
-    </p>
+@if (this.author && !this.passwordLocked) {
+  <main class="public-folder">
+    <header>
+      <p class="public-sign-up">
+        Sign up today to share your own links and folders!
+      </p>
+      <a routerLink="" matTooltip="Home">linkstorag<span>e</span></a>
+      <p matTooltip="{{ author }}">
+        Folder "{{ folderName }}" created by {{ author | slice: 0 : 11 }}
+        {{ author.length > 11 ? "..." : "" }}
+      </p>
+      <p class="sort-flex">
+        Sort By
+        <span
+          (click)="sort('name')"
+          [ngClass]="currentSort === 'name' ? 'active' : 'inactive'"
+          >Name</span
+          >
+          <span
+            (click)="sort('date')"
+            [ngClass]="currentSort === 'date' ? 'active' : 'inactive'"
+            >Date</span
+            >
+          </p>
+        </header>
+        <section class="content-grid">
+          @for (link of links; track link) {
+            <div>
+              <div class="link-item" matTooltip="{{ link.url }}">
+                <a [href]="'//' + link.url" target="_blank">
+                  <div class="link-preview">
+                    <img src="{{ link.pURL }}" height="100px" width="170px" />
+                  </div>
+                  <a class="link-details" [href]="'//' + link.url" target="_blank">
+                    <p class="link-title">
+                      {{ link.title }}
+                    </p>
+                    <p class="link-url">{{ link.url | slice: 0 : 20 }}</p>
+                    <p class="link-date">
+                      {{ link.createdAt | date: "shortDate" }}
+                    </p>
+                  </a>
+                </a>
+              </div>
+            </div>
+          }
+        </section>
+      </main>
+    }
 
-    <a routerLink="" matTooltip="Home">linkstorag<span>e</span></a>
-
-    <p matTooltip="{{ author }}">
-      Folder "{{ folderName }}" created by {{ author | slice: 0 : 11 }}
-      {{ author.length > 11 ? "..." : "" }}
-    </p>
-
-    <p class="sort-flex">
-      Sort By
-      <span
-        (click)="sort('name')"
-        [ngClass]="currentSort === 'name' ? 'active' : 'inactive'"
-        >Name</span
-      >
-      <span
-        (click)="sort('date')"
-        [ngClass]="currentSort === 'date' ? 'active' : 'inactive'"
-        >Date</span
-      >
-    </p>
-  </header>
-
-  <section class="content-grid">
-    <div *ngFor="let link of links">
-      <div class="link-item" matTooltip="{{ link.url }}">
-        <a [href]="'//' + link.url" target="_blank">
-          <div class="link-preview">
-            <img src="{{ link.pURL }}" height="100px" width="170px" />
-          </div>
-
-          <a class="link-details" [href]="'//' + link.url" target="_blank">
-            <p class="link-title">
-              {{ link.title }}
-            </p>
-            <p class="link-url">{{ link.url | slice: 0 : 20 }}</p>
-            <p class="link-date">
-              {{ link.createdAt | date: "shortDate" }}
-            </p>
-          </a>
-        </a>
+    @if (!this.author && !this.passwordLocked) {
+      <div class="public-hidden">
+        <a routerLink="">LinkStorage</a>
+        <h2 text-align="center">404 PAGE NOT FOUND</h2>
       </div>
-    </div>
-  </section>
-</main>
+    }
 
-<div class="public-hidden" *ngIf="!this.author && !this.passwordLocked">
-  <a routerLink="">LinkStorage</a>
-  <h2 text-align="center">404 PAGE NOT FOUND</h2>
-</div>
+    @if (this.passwordLocked) {
+      <div class="public-password">
+        <a routerLink="">LinkStorage</a>
+        <h4 text-align="center">This folder is password locked.</h4>
+        @if (formErrors) {
+          <div class="form-errors">
+            <span class="material-icons-round"> error </span>
+            <p>{{ formErrors }}</p>
+          </div>
+        }
+        <form [formGroup]="passwordForm" (submit)="authorizeFolder()">
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label for="publicPassword">Password</mat-label>
+            <input
+              matInput
+              #publicPassword
+              type="password"
+              formControlName="password"
+              />
+            </mat-form-field>
+            <button type="submit">Enter</button>
+          </form>
+        </div>
+      }
 
-<div class="public-password" *ngIf="this.passwordLocked">
-  <a routerLink="">LinkStorage</a>
-  <h4 text-align="center">This folder is password locked.</h4>
+      <footer class="foot-note">
+        <p routerLink="/versions">v2.1.1</p>
 
-  <div *ngIf="formErrors" class="form-errors">
-    <span class="material-icons-round"> error </span>
-    <p>{{ formErrors }}</p>
-  </div>
+        <a href="https://github.com/JasonCqq/link-saver" target="_blank"
+          >Source Code</a
+          >
 
-  <form [formGroup]="passwordForm" (submit)="authorizeFolder()">
-    <mat-form-field appearance="outline" floatLabel="always">
-      <mat-label for="publicPassword">Password</mat-label>
-      <input
-        matInput
-        #publicPassword
-        type="password"
-        formControlName="password"
-      />
-    </mat-form-field>
-
-    <button type="submit">Enter</button>
-  </form>
-</div>
-
-<footer class="foot-note">
-  <p routerLink="/versions">v2.1.1</p>
-
-  <a href="https://github.com/JasonCqq/link-saver" target="_blank"
-    >Source Code</a
-  >
-
-  <a
-    href="https://www.termsfeed.com/live/a23806e5-a8bc-4542-a4fc-230353a493dc"
-    target="_blank"
-    >Privacy Policy</a
-  >
-</footer>
+          <a
+            href="https://www.termsfeed.com/live/a23806e5-a8bc-4542-a4fc-230353a493dc"
+            target="_blank"
+            >Privacy Policy</a
+            >
+          </footer>

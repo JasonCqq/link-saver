@@ -3,28 +3,32 @@
   [ngClass]="addingID && massEditting ? 'link-item-border' : ''"
   (click)="addMassID(itemData.id)"
   matTooltip="{{ itemData.title }}"
->
+  >
   <a
     [ngClass]="massEditting ? 'disabled' : 'link-item-wrapper'"
     [href]="'//' + itemData.url"
     target="_blank"
     (click)="visitedLink()"
     (auxclick)="visitedLink()"
-  >
-    <div class="link-preview" *ngIf="this.previews">
-      <img
-        *ngIf="itemData.pURL"
-        src="{{ itemData.pURL }}"
-        alt="Refresh to view"
-      />
-
-      <p *ngIf="!itemData.pURL" style="text-align: center">No image found</p>
-    </div>
+    >
+    @if (this.previews) {
+      <div class="link-preview">
+        @if (itemData.pURL) {
+          <img
+            src="{{ itemData.pURL }}"
+            alt="Refresh to view"
+            />
+        }
+        @if (!itemData.pURL) {
+          <p style="text-align: center">No image found</p>
+        }
+      </div>
+    }
 
     <div
       target="_blank"
       [ngClass]="previews ? 'link-details' : 'link-details-no-previews'"
-    >
+      >
       <p class="link-title">{{ itemData.title }}</p>
       <p class="link-url">{{ itemData.url | slice: 0 : 20 }}</p>
       <p class="link-date">
@@ -36,44 +40,48 @@
   </a>
 
   <!--Link CRUD Options-->
-  <div class="link-options" *ngIf="!massEditting">
-    <mat-icon
-      fontIcon="close"
-      class="link-delete"
-      (click)="moveToTrash()"
-      *ngIf="specialRequest !== 'Trash'"
-      matTooltip="Move to trash"
-    ></mat-icon>
-
-    <mat-icon
-      fontIcon="edit"
-      class="link-edit"
-      *ngIf="specialRequest !== 'Trash'"
-      (click)="toggleEdit()"
-      matTooltip="Edit Link"
-    ></mat-icon>
-
-    <mat-icon
-      fontIcon="restore"
-      class="link-restore"
-      *ngIf="specialRequest === 'Trash'"
-      (click)="restoreLink()"
-      matTooltip="Restore Link"
-    ></mat-icon>
-
-    <mat-icon
-      fontIcon="close"
-      class="link-delete"
-      *ngIf="specialRequest === 'Trash'"
-      (click)="permanentDelete()"
-      matTooltip="Remove Permanently"
-    ></mat-icon>
-  </div>
+  @if (!massEditting) {
+    <div class="link-options">
+      @if (specialRequest !== 'Trash') {
+        <mat-icon
+          fontIcon="close"
+          class="link-delete"
+          (click)="moveToTrash()"
+          matTooltip="Move to trash"
+        ></mat-icon>
+      }
+      @if (specialRequest !== 'Trash') {
+        <mat-icon
+          fontIcon="edit"
+          class="link-edit"
+          (click)="toggleEdit()"
+          matTooltip="Edit Link"
+        ></mat-icon>
+      }
+      @if (specialRequest === 'Trash') {
+        <mat-icon
+          fontIcon="restore"
+          class="link-restore"
+          (click)="restoreLink()"
+          matTooltip="Restore Link"
+        ></mat-icon>
+      }
+      @if (specialRequest === 'Trash') {
+        <mat-icon
+          fontIcon="close"
+          class="link-delete"
+          (click)="permanentDelete()"
+          matTooltip="Remove Permanently"
+        ></mat-icon>
+      }
+    </div>
+  }
 </div>
 
 <!-- Edit Form -->
-<app-link-edit-form
-  *ngIf="editForm"
-  [itemData]="itemData"
-  (toggleEdit)="toggleEdit()"
-></app-link-edit-form>
+@if (editForm) {
+  <app-link-edit-form
+    [itemData]="itemData"
+    (toggleEdit)="toggleEdit()"
+  ></app-link-edit-form>
+}

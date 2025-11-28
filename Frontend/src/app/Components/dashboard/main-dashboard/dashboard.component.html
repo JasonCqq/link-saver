@@ -5,40 +5,43 @@
 ></app-main-nav>
 
 <main class="dashboard-container default-dash-container">
-  <span *ngIf="tempTitle === 'Trash'">
-    <button (click)="togglePrompt()">Clear All</button>
-
-    <section *ngIf="clearPrompt" class="clear-prompt-overlay">
-      <div class="clear-prompt">
-        <h1>Clear all links?</h1>
-        <p style="color: red">This action is permanent.</p>
-
-        <div class="clear-prompt-flex">
-          <button (click)="togglePrompt()">No</button>
-
-          <button
-            class="clear-prompt-yes"
-            (click)="deleteAllTrash(); togglePrompt()"
-          >
-            Yes
-          </button>
-        </div>
-      </div>
-    </section>
-  </span>
+  @if (tempTitle === 'Trash') {
+    <span>
+      <button (click)="togglePrompt()">Clear All</button>
+      @if (clearPrompt) {
+        <section class="clear-prompt-overlay">
+          <div class="clear-prompt">
+            <h1>Clear all links?</h1>
+            <p style="color: red">This action is permanent.</p>
+            <div class="clear-prompt-flex">
+              <button (click)="togglePrompt()">No</button>
+              <button
+                class="clear-prompt-yes"
+                (click)="deleteAllTrash(); togglePrompt()"
+                >
+                Yes
+              </button>
+            </div>
+          </div>
+        </section>
+      }
+    </span>
+  }
 
   <section
     [ngClass]="previews === true ? 'content-grid' : 'content-grid-no-previews'"
     @fadeIn
     @fadeOut
-  >
-    <div *ngFor="let link of tempLinks">
-      <app-link-item
-        [itemData]="link"
-        (linkUpdate)="linkEvent($event)"
-        (linkPermDelete)="deletePerm($event)"
-      ></app-link-item>
-    </div>
+    >
+    @for (link of tempLinks; track link) {
+      <div>
+        <app-link-item
+          [itemData]="link"
+          (linkUpdate)="linkEvent($event)"
+          (linkPermDelete)="deletePerm($event)"
+        ></app-link-item>
+      </div>
+    }
   </section>
 
   <button type="button" (click)="scrollToTop()" class="to-top">
