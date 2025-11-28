@@ -3,9 +3,9 @@
     class="forgot-form"
     [formGroup]="forgotPasswordForm"
     (submit)="submitForgotApplication()"
-    >
+  >
     <header>
-      <p (click)="toggleForm()">Go Back</p>
+      <p-button (click)="toggleForm()">Go Back</p-button>
       <h1>Forgot Password</h1>
     </header>
 
@@ -16,95 +16,108 @@
       </div>
     }
 
-    <label for="forgot_email">Email</label>
-    <mat-form-field appearance="fill">
+    <p-floatlabel variant="on">
       <input
-        matInput
-        type="email"
+        pInputText
+        type="text"
         id="forgot_email"
         formControlName="forgot_email"
+        [ngClass]="{
+          'p-invalid': forgot_email?.invalid && forgot_email?.touched,
+        }"
+      />
+      <label for="forgot_email">Email</label>
+    </p-floatlabel>
+
+    @if (step1) {
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          type="number"
+          id="forgot_new_pass"
+          formControlName="forgot_new_pass"
+          [ngClass]="{
+            'p-invalid': forgot_new_pass?.invalid && forgot_new_pass?.touched,
+          }"
         />
-        @if (forgot_email?.invalid && forgot_email?.touched) {
-          <mat-error
-            >Invalid Email</mat-error
-            >
-        }
-      </mat-form-field>
+        <label for="forgot_new_pass">OTP Code</label>
+      </p-floatlabel>
+    }
 
-      <label for="forgot_otp">OTP Code</label>
-      @if (step1) {
-        <mat-form-field appearance="fill">
-          <input
-            matInput
-            type="number"
-            id="forgot_otp"
-            formControlName="forgot_otp"
-            />
-          </mat-form-field>
-        }
+    @if (!step1) {
+      <p-button
+        type="submit"
+        [disabled]="forgotPasswordForm.invalid"
+        class="get-code"
+      >
+        Get Code
+      </p-button>
+    }
 
-        @if (!step1) {
-          <button
-            type="submit"
-            mat-raised-button
-            [disabled]="forgotPasswordForm.invalid"
-            class="get-code"
-            >
-            Get Code
-          </button>
-        }
+    @if (loadingService.isLoading$ | async) {
+      <p-progress-spinner
+        strokeWidth="5"
+        fill="transparent"
+        animationDuration=".75s"
+        [style]="{ width: '35px', height: '35px' }"
+      />
+    }
+  </form>
 
-        @if (loadingService.isLoading$ | async) {
-          <div>
-            <mat-spinner diameter="35" style="margin: auto"></mat-spinner>
-            <p style="text-align: center; margin-top: 10px">Sending OTP Code...</p>
-          </div>
-        }
-      </form>
+  @if (step1 && !step2) {
+    <p-button
+      [disabled]="forgotPasswordForm.invalid"
+      (click)="submitOTPApplication()"
+      class="submit-code"
+      type="button"
+    >
+      Submit Code
+    </p-button>
+  }
 
-      @if (step1 && !step2) {
-        <button
-          mat-raised-button
-          [disabled]="forgotPasswordForm.invalid"
-          (click)="submitOTPApplication()"
-          class="submit-code"
-          type="button"
-          >
-          Submit Code
-        </button>
+  @if (step2) {
+    <form
+      [formGroup]="newPasswordForm"
+      (submit)="submitNewPasswordApplication()"
+      class="new-pass-form"
+    >
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          type="number"
+          id="forgot_new_pass"
+          formControlName="forgot_new_pass"
+          [ngClass]="{
+            'p-invalid': forgot_new_pass?.invalid && forgot_new_pass?.touched,
+          }"
+        />
+        <label for="forgot_new_pass">New Password (8-20 characters)</label>
+      </p-floatlabel>
+
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          type="number"
+          id="forgot_new_pass2"
+          formControlName="forgot_new_pass2"
+          [ngClass]="{
+            'p-invalid': forgot_new_pass2?.invalid && forgot_new_pass2?.touched,
+          }"
+        />
+        <label for="forgot_new_pass2">Confirm New Password</label>
+      </p-floatlabel>
+
+      @if (loadingService.isLoading$ | async) {
+        <p-progress-spinner
+          strokeWidth="5"
+          fill="transparent"
+          animationDuration=".75s"
+          [style]="{ width: '35px', height: '35px' }"
+        />
       }
-
-      @if (step2) {
-        <form
-          [formGroup]="newPasswordForm"
-          (submit)="submitNewPasswordApplication()"
-          class="new-pass-form"
-          >
-          <label for="forgot_new_pass">New Password (8-20 characters)</label>
-          <mat-form-field appearance="fill">
-            <input
-              matInput
-              type="password"
-              id="forgot_new_pass"
-              formControlName="forgot_new_pass"
-              />
-            </mat-form-field>
-            <label for="forgot_new_pass2">Confirm New Password</label>
-            <mat-form-field appearance="fill">
-              <input
-                matInput
-                type="password"
-                id="forgot_new_pass2"
-                formControlName="forgot_new_pass2"
-                />
-              </mat-form-field>
-              @if (loadingService.isLoading$ | async) {
-                <div>
-                  <mat-spinner diameter="35" style="margin: auto"></mat-spinner>
-                  <p style="text-align: center; margin-top: 10px">Changing...</p>
-                </div>
-              }
-              <button type="submit" class="submit-new-pass">Submit New Password</button>
-            </form>
-          }
-        </div>
+      <p-button type="submit" class="submit-new-pass"
+        >Submit New Password</p-button
+      >
+    </form>
+  }
+</div>

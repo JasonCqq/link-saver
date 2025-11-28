@@ -1,7 +1,7 @@
 @import "../../../../assets/styles.scss";
 
-label {
-  font-weight: 800;
+input {
+  width: 15vw;
 }
 
 .forgot-container {
@@ -46,44 +46,10 @@ label {
         text-align: center;
         font-size: 1rem;
       }
-
-      > p {
-        border: 2px solid var(--text);
-        background: transparent;
-        padding: 10px 20px;
-        border-radius: 8px;
-        color: var(--text);
-        font-weight: bold;
-        font-size: 0.9rem;
-
-        &:hover {
-          background: var(--text);
-          cursor: pointer;
-          color: var(--text2);
-        }
-      }
     }
 
     > .submit-new-pass,
     .get-code {
-      font-size: 1rem;
-      background-color: transparent;
-      border: 2px solid var(--text);
-      padding: 17.5px 0;
-      border-radius: 8px;
-      margin-top: 1vh;
-      margin-bottom: 1vh;
-      color: var(--text);
-      font-weight: bold;
-      transition: background-color 0.1s;
-      letter-spacing: 0;
-
-      &:hover {
-        cursor: pointer;
-        background-color: var(--text);
-        color: var(--text2);
-      }
-
       &:disabled {
         opacity: 0.5;
         &:hover {
@@ -94,24 +60,6 @@ label {
   }
 
   > .submit-code {
-    border: none;
-    font-size: 1rem;
-    background-color: transparent;
-    border: 2px solid var(--text);
-    padding: 17.5px 25px;
-    border-radius: 8px;
-    margin-top: 1vh;
-    margin-bottom: 1vh;
-    color: var(--text);
-    font-weight: bold;
-    transition: background-color 0.1s;
-
-    &:hover {
-      cursor: pointer;
-      background-color: var(--text);
-      color: var(--text2);
-    }
-
     &:disabled {
       opacity: 0.5;
       &:hover {

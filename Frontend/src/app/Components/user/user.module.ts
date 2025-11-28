@@ -12,6 +12,11 @@ import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
 import { ForgotLoginComponent } from "./forgot-login/forgot-login.component";
 
+import { InputTextModule } from "primeng/inputtext";
+import { FloatLabelModule } from "primeng/floatlabel";
+import { ButtonModule } from "primeng/button";
+import { ProgressSpinnerModule } from "primeng/progressspinner";
+
 @NgModule({
   declarations: [RegisterComponent, LoginComponent, ForgotLoginComponent],
   imports: [
@@ -22,6 +27,11 @@ import { ForgotLoginComponent } from "./forgot-login/forgot-login.component";
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
+
+    InputTextModule,
+    FloatLabelModule,
+    ButtonModule,
+    ProgressSpinnerModule,
   ],
 })
 export class UserModule {}

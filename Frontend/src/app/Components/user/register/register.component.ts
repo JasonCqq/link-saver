@@ -11,11 +11,11 @@ import { LoadingService } from "../../LoadingInterceptor.service";
 import { Router } from "@angular/router";
 
 @Component({
-    selector: "app-register",
-    templateUrl: "./register.component.html",
-    styleUrls: ["./register.component.scss"],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: "app-register",
+  templateUrl: "./register.component.html",
+  styleUrls: ["./register.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class RegisterComponent implements OnInit {
   constructor(
@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
     public loadingService: LoadingService,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private zone: NgZone,
+    private zone: NgZone
   ) {}
 
   applyForm = new FormGroup({
@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
         this.applyForm.value.username ?? "",
         this.applyForm.value.email ?? "",
         this.applyForm.value.password ?? "",
-        false,
+        false
       )
       .subscribe({
         next: (response) => {
@@ -98,7 +98,7 @@ export class RegisterComponent implements OnInit {
         .map(function (c) {
           return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
         })
-        .join(""),
+        .join("")
     );
 
     return JSON.parse(jsonPayload);
@@ -114,7 +114,7 @@ export class RegisterComponent implements OnInit {
         responsePayload.email,
         responsePayload.email,
         response.credential,
-        true,
+        true
       )
       .subscribe({
         next: (response) => {
@@ -140,5 +140,9 @@ export class RegisterComponent implements OnInit {
   }
   get password() {
     return this.applyForm.get("password");
+  }
+
+  get emailConfirm() {
+    return this.applyForm.get("emailConfirm");
   }
 }

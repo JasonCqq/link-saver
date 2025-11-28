@@ -6,97 +6,99 @@
         class="login-form"
         [formGroup]="applyLoginForm"
         (submit)="submitLoginApplication()"
-        >
+      >
         <h1>Log In</h1>
-        <label for="username">Username / Email</label>
-        <mat-form-field appearance="fill">
+
+        <p-floatlabel variant="on">
           <input
-            matInput
+            pInputText
             type="text"
             id="login_username"
             formControlName="username"
-            />
-            @if (username?.invalid && username?.touched) {
-              <mat-error
-                >Username required</mat-error
-                >
-            }
-          </mat-form-field>
+            [ngClass]="{ 'p-invalid': username?.invalid && username?.touched }"
+          />
+          <label for="username">Username / Email</label>
+        </p-floatlabel>
+
+        <p-floatlabel variant="on">
+          <input
+            pInputText
+            id="login_password"
+            type="password"
+            formControlName="password"
+            [ngClass]="{ 'p-invalid': password?.invalid && password?.touched }"
+          />
           <label for="login_password">Password (8-20 characters)</label>
-          <mat-form-field appearance="fill">
-            <input
-              matInput
-              id="login_password"
-              type="password"
-              formControlName="password"
-              />
-              @if (password?.invalid && password?.touched) {
-                <mat-error
-                  >Invalid Password</mat-error
-                  >
-              }
-            </mat-form-field>
-            @if (formErrors) {
-              <div class="form-errors">
-                <span class="material-icons-round"> error </span>
-                <p>{{ formErrors }}</p>
-              </div>
-            }
-            @if (loadingService.isLoading$ | async) {
-              <div>
-                <mat-spinner diameter="35" style="margin: auto"></mat-spinner>
-                <p style="text-align: center; margin-top: 10px">Logging In...</p>
-              </div>
-            }
-            <!--Google Signup-->
-            <div
-              id="g_id_onload"
-              data-client_id="307651115210-ro83kbna8k95pfm0ft2dubaoc2i3fpbc.apps.googleusercontent.com"
-              data-context="signin"
-              data-ux_mode="popup"
-              data-itp_support="true"
-              data-callback="handleCredentialResponse"
-              data-auto_prompt="false"
-            ></div>
-            <div
-              class="g_id_signin"
-              data-type="standard"
-              data-shape="rectangular"
-              data-theme="filled_black"
-              data-text="signin_with"
-              data-size="large"
-              data-logo_alignment="left"
-            ></div>
-            <button type="submit" mat-raised-button [disabled]="applyLoginForm.invalid">
-              Log In
-            </button>
-            <a class="login-extra" routerLink="/user/register">
-              Register for an account
-            </a>
-            <p class="login-extra" (click)="toggleForm()">Forgot password</p>
-          </form>
+        </p-floatlabel>
+
+        @if (formErrors) {
+          <div class="form-errors">
+            <span class="material-icons-round"> error </span>
+            <p>{{ formErrors }}</p>
+          </div>
         }
-      </main>
-    }
+        @if (loadingService.isLoading$ | async) {
+          <p-progress-spinner
+            strokeWidth="5"
+            fill="transparent"
+            animationDuration=".75s"
+            [style]="{ width: '35px', height: '35px' }"
+          />
+        }
 
-    <!--Forgot password form-->
-    @if (!loginForm) {
-      <app-forgot-login
-        (toggleFormE)="toggleForm()"
-      ></app-forgot-login>
-    }
+        <p-button
+          type="submit"
+          mat-raised-button
+          [disabled]="applyLoginForm.invalid"
+        >
+          Log In
+        </p-button>
 
-    @if (user) {
-      <p>You are already logged in.</p>
-    }
+        <!--Google Signup-->
+        <div
+          id="g_id_onload"
+          data-client_id="307651115210-ro83kbna8k95pfm0ft2dubaoc2i3fpbc.apps.googleusercontent.com"
+          data-context="signin"
+          data-ux_mode="popup"
+          data-itp_support="true"
+          data-callback="handleCredentialResponse"
+          data-auto_prompt="false"
+        ></div>
+        <div
+          class="g_id_signin"
+          data-type="standard"
+          data-shape="rectangular"
+          data-theme="filled_black"
+          data-text="signin_with"
+          data-size="large"
+          data-logo_alignment="left"
+        ></div>
 
-    @if (loginForm) {
-      <footer class="foot-note">
-        <p routerLink="/versions">v2.1.1</p>
-        <a href="https://github.com/JasonCqq/link-saver" target="_blank"
-          >Source Code</a
-          >
-          <a routerLink="/privacy">Privacy Policy</a>
-          <a routerLink="/terms">Terms of Service</a>
-        </footer>
-      }
+        <a class="login-extra" routerLink="/user/register">
+          Register for an account
+        </a>
+        <p class="login-extra" (click)="toggleForm()">Forgot password</p>
+      </form>
+    }
+  </main>
+}
+
+<!--Forgot password form-->
+@if (!loginForm) {
+  <app-forgot-login (toggleFormE)="toggleForm()"></app-forgot-login>
+}
+
+@if (user) {
+  <p>You are already logged in.</p>
+}
+
+@if (loginForm) {
+  <footer class="foot-note">
+    <p routerLink="/versions">v2.1.1</p>
+    <a href="https://github.com/JasonCqq/link-saver" target="_blank"
+      >Source Code</a
+    >
+    <a routerLink="/privacy">Privacy Policy</a>
+    <a routerLink="/terms">Terms of Service</a>
+  </footer>
+}

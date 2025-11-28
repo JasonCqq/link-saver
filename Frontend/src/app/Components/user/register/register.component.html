@@ -6,102 +6,109 @@
       class="register-form"
       [formGroup]="applyForm"
       (submit)="submitApplication()"
-      >
+    >
       <h1>Sign Up</h1>
-      <label for="username">Username</label>
-      <mat-form-field appearance="fill">
-        <input matInput type="text" id="username" formControlName="username" />
-        @if (username?.invalid && username?.touched) {
-          <mat-error
-            >Username required</mat-error
-            >
-          }
-        </mat-form-field>
+
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          type="text"
+          id="username"
+          formControlName="username"
+          [ngClass]="{ 'p-invalid': username?.invalid && username?.touched }"
+        />
+        <label for="username">Username</label>
+      </p-floatlabel>
+
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          id="password"
+          type="password"
+          formControlName="password"
+          [ngClass]="{ 'p-invalid': password?.invalid && password?.touched }"
+        />
         <label for="password">Password (8-20 characters)</label>
-        <mat-form-field appearance="fill">
-          <input
-            matInput
-            id="password"
-            type="password"
-            formControlName="password"
-            />
-            @if (password?.invalid && password?.touched) {
-              <mat-error
-                >Invalid Password</mat-error
-                >
-            }
-          </mat-form-field>
-          <label for="email">Email</label>
-          <mat-form-field appearance="fill">
-            <input matInput type="text" id="email" formControlName="email" />
-            @if (email?.invalid && email?.touched) {
-              <mat-error
-                >Invalid Email</mat-error
-                >
-              }
-            </mat-form-field>
-            <label for="emailConfirm">Confirm Email</label>
-            <mat-form-field appearance="fill">
-              <input
-                matInput
-                type="text"
-                id="emailConfirm"
-                formControlName="emailConfirm"
-                />
-              </mat-form-field>
-              @if (formErrors) {
-                <div class="form-errors">
-                  <span class="material-icons-round"> error </span>
-                  <p>{{ formErrors }}</p>
-                </div>
-              }
-              <!--Google Signup-->
-              <div
-                id="g_id_onload"
-                data-client_id="307651115210-ro83kbna8k95pfm0ft2dubaoc2i3fpbc.apps.googleusercontent.com"
-                data-context="signup"
-                data-ux_mode="popup"
-                data-itp_support="true"
-                data-callback="handleCredentialResponse"
-                data-auto_prompt="false"
-              ></div>
-              <div
-                class="g_id_signin"
-                data-type="standard"
-                data-shape="rectangular"
-                data-theme="filled_black"
-                data-text="signup_with"
-                data-size="large"
-                data-logo_alignment="left"
-              ></div>
-              @if (!formLoading) {
-                <button
-                  type="submit"
-                  mat-raised-button
-                  [disabled]="applyForm.invalid"
-                  >
-                  Register
-                </button>
-              }
-              @if (loadingService.isLoading$ | async) {
-                <div>
-                  <mat-spinner diameter="35" style="margin: auto"></mat-spinner>
-                  <p style="text-align: center; margin-top: 10px">One Second...</p>
-                </div>
-              }
-              <a class="register-extra" routerLink="/user/login"> I have an account </a>
-            </form>
-          }
-        </main>
+      </p-floatlabel>
 
-        <footer class="foot-note">
-          <p routerLink="/versions">v2.1.1</p>
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          id="email"
+          type="text"
+          formControlName="email"
+          [ngClass]="{ 'p-invalid': email?.invalid && email?.touched }"
+        />
+        <label for="email">Email</label>
+      </p-floatlabel>
 
-          <a href="https://github.com/JasonCqq/link-saver" target="_blank"
-            >Source Code</a
-            >
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          id="email"
+          type="text"
+          formControlName="emailConfirm"
+          [ngClass]="{
+            'p-invalid': emailConfirm?.invalid && emailConfirm?.touched,
+          }"
+        />
+        <label for="emailConfirm">Confirm Email</label>
+      </p-floatlabel>
 
-            <a routerLink="/privacy">Privacy Policy</a>
+      @if (formErrors) {
+        <div class="form-errors">
+          <span class="material-icons-round"> error </span>
+          <p>{{ formErrors }}</p>
+        </div>
+      }
 
-            <a routerLink="/terms">Terms of Service</a>
-          </footer>
+      @if (!formLoading) {
+        <p-button type="submit" [disabled]="applyForm.invalid">
+          Register
+        </p-button>
+      }
+
+      <!--Google Signup-->
+      <div
+        id="g_id_onload"
+        data-client_id="307651115210-ro83kbna8k95pfm0ft2dubaoc2i3fpbc.apps.googleusercontent.com"
+        data-context="signup"
+        data-ux_mode="popup"
+        data-itp_support="true"
+        data-callback="handleCredentialResponse"
+        data-auto_prompt="false"
+      ></div>
+      <div
+        class="g_id_signin"
+        data-type="standard"
+        data-shape="rectangular"
+        data-theme="filled_black"
+        data-text="signup_with"
+        data-size="large"
+        data-logo_alignment="left"
+      ></div>
+
+      @if (loadingService.isLoading$ | async) {
+        <p-progress-spinner
+          strokeWidth="5"
+          fill="transparent"
+          animationDuration=".75s"
+          [style]="{ width: '35px', height: '35px' }"
+        />
+      }
+      <a class="register-extra" routerLink="/user/login"> I have an account </a>
+    </form>
+  }
+</main>
+
+<footer class="foot-note">
+  <p routerLink="/versions">v2.1.1</p>
+
+  <a href="https://github.com/JasonCqq/link-saver" target="_blank"
+    >Source Code</a
+  >
+
+  <a routerLink="/privacy">Privacy Policy</a>
+
+  <a routerLink="/terms">Terms of Service</a>
+</footer>

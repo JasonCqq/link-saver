@@ -4,15 +4,15 @@ import { UserService } from "../user.service";
 import { LoadingService } from "../../LoadingInterceptor.service";
 
 @Component({
-    selector: "app-forgot-login",
-    templateUrl: "./forgot-login.component.html",
-    styleUrls: ["./forgot-login.component.scss"],
-    standalone: false
+  selector: "app-forgot-login",
+  templateUrl: "./forgot-login.component.html",
+  styleUrls: ["./forgot-login.component.scss"],
+  standalone: false,
 })
 export class ForgotLoginComponent {
   constructor(
     private userService: UserService,
-    public loadingService: LoadingService,
+    public loadingService: LoadingService
   ) {}
 
   @Output() toggleFormE = new EventEmitter<void>();
@@ -59,7 +59,7 @@ export class ForgotLoginComponent {
     this.userService
       .submitOTP(
         this.forgotPasswordForm.getRawValue().forgot_email ?? "",
-        this.forgotPasswordForm.value.forgot_otp ?? "",
+        this.forgotPasswordForm.value.forgot_otp ?? ""
       )
       .subscribe({
         next: () => {
@@ -97,7 +97,7 @@ export class ForgotLoginComponent {
           .submitNewPassword(
             this.forgotPasswordForm.getRawValue().forgot_email ?? "",
             this.newPasswordForm.value.forgot_new_pass ?? "",
-            this.newPasswordForm.value.forgot_new_pass2 ?? "",
+            this.newPasswordForm.value.forgot_new_pass2 ?? ""
           )
           .subscribe({
             next: () => {
@@ -121,5 +121,13 @@ export class ForgotLoginComponent {
 
   get forgot_otp() {
     return this.forgotPasswordForm.get("forgot_otp");
+  }
+
+  get forgot_new_pass() {
+    return this.newPasswordForm.get("forgot_new_pass");
+  }
+
+  get forgot_new_pass2() {
+    return this.newPasswordForm.get("forgot_new_pass2");
   }
 }
