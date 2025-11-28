@@ -99,20 +99,20 @@
   --warn: #7067f2;
 }
 
-$my-custom-typography-config: mat.define-typography-config(
+$my-custom-typography-config: mat.m2-define-typography-config(
   $caption:
-    mat.define-typography-level(
+    mat.m2-define-typography-level(
       $font-size: 12px,
       $font-weight: 700,
       $font-family: "AlbertSans" !important,
     ),
 );
 
-$Frontend-primary: mat.define-palette(mat.$indigo-palette);
-$Frontend-accent: mat.define-palette(mat.$indigo-palette, A200);
-$Frontend-warn: mat.define-palette(mat.$red-palette);
+$Frontend-primary: mat.m2-define-palette(mat.$m2-indigo-palette);
+$Frontend-accent: mat.m2-define-palette(mat.$m2-indigo-palette, A200);
+$Frontend-warn: mat.m2-define-palette(mat.$m2-red-palette);
 
-$Frontend-theme: mat.define-dark-theme(
+$Frontend-theme: mat.m2-define-dark-theme(
   (
     color: (
       primary: $Frontend-primary,
