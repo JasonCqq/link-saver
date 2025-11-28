@@ -1,6 +1,5 @@
 import { animate, transition, style, trigger } from "@angular/animations";
 import { Component, OnInit } from "@angular/core";
-import { Theme } from "./theme.service";
 
 // Animations
 const enterTransition = transition(":enter", [
@@ -22,16 +21,14 @@ const fadeOut = trigger("fadeOut", [exitTransition]);
 export { fadeIn, fadeOut };
 
 @Component({
-    selector: "app-root",
-    templateUrl: "./app.component.html",
-    standalone: false
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  standalone: false,
 })
 export class AppComponent implements OnInit {
-  constructor(private themeService: Theme) {}
+  constructor() {}
 
   title = "LinkStorage";
 
-  ngOnInit(): void {
-    this.themeService.detectColorScheme();
-  }
+  ngOnInit(): void {}
 }

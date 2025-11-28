@@ -1,18 +1,8 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MatIconModule } from "@angular/material/icon";
-import { MatButtonModule } from "@angular/material/button";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
-import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatNativeDateModule } from "@angular/material/core";
 import { ReactiveFormsModule } from "@angular/forms";
-import { MatSlideToggleModule } from "@angular/material/slide-toggle";
-import { MatSelectModule } from "@angular/material/select";
-import { MatSidenavModule } from "@angular/material/sidenav";
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { DashboardComponent } from "./main-dashboard/dashboard.component";
@@ -40,6 +30,7 @@ import { IconFieldModule } from "primeng/iconfield";
 import { InputIconModule } from "primeng/inputicon";
 import { FloatLabelModule } from "primeng/floatlabel";
 import { ToggleSwitchModule } from "primeng/toggleswitch";
+import { ProgressSpinnerModule } from "primeng/progressspinner";
 
 @NgModule({
   declarations: [
@@ -58,18 +49,8 @@ import { ToggleSwitchModule } from "primeng/toggleswitch";
     CommonModule,
     DashboardRoutingModule,
     MatIconModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatCheckboxModule,
     MatNativeDateModule,
     ReactiveFormsModule,
-    MatSlideToggleModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatProgressSpinnerModule,
-    MatSnackBarModule,
 
     ButtonModule,
     DialogModule,
@@ -84,6 +65,7 @@ import { ToggleSwitchModule } from "primeng/toggleswitch";
     InputIconModule,
     FloatLabelModule,
     ToggleSwitchModule,
+    ProgressSpinnerModule,
   ],
 
   exports: [LinkComponent],

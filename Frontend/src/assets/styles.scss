@@ -67,20 +67,11 @@
   font-style: normal;
 }
 
-//Light mode
-:root {
-  --accent: #4074e4;
-  --background: #eef1f3;
-  --background2: #0d0f11;
-  --text: #0d0f11;
-  --text2: #eef1f3;
-  --textSec: #282828;
-  --imp-button: #f73830;
-  --warn: #7067f2;
+.p-button {
+  font-weight: 700 !important;
 }
 
-//Dark mode
-[data-theme="dark"] {
+:root {
   --accent: #2e60cd;
   --background: #0d0f11;
   --background2: #eef1f3;
@@ -90,150 +81,6 @@
   --imp-button: #f73830;
   --warn: #7067f2;
 }
-
-[data-theme="dim"] {
-  --accent: #517ee1;
-  --background: #15202b;
-  --background2: #517ee1;
-  --text: #f7f9f9;
-  --text2: #0e0c0c;
-  --textSec: #8b98a5;
-  --imp-button: #f73830;
-  --warn: #7067f2;
-}
-
-$my-custom-typography-config: mat.m2-define-typography-config(
-  $caption: mat.m2-define-typography-level(
-      $font-size: 12px,
-      $font-weight: 700,
-      $font-family: "AlbertSans" !important,
-    ),
-);
-
-$Frontend-primary: mat.m2-define-palette(mat.$m2-indigo-palette);
-$Frontend-accent: mat.m2-define-palette(mat.$m2-indigo-palette, A200);
-$Frontend-warn: mat.m2-define-palette(mat.$m2-red-palette);
-
-$Frontend-theme: mat.m2-define-dark-theme(
-  (
-    color: (
-      primary: $Frontend-primary,
-      accent: $Frontend-accent,
-      warn: $Frontend-warn,
-    ),
-
-    typography: $my-custom-typography-config,
-
-    density: -3,
-  )
-);
-
-::ng-deep {
-  .mdc-text-field--outlined:not(.mdc-text-field--disabled)
-    .mdc-text-field__input {
-    color: var(--text) !important;
-  }
-}
-
-//Top bottom border, if label is inside
-::ng-deep.mdc-notched-outline__notch {
-  border-top: 3px solid var(--text) !important;
-  border-bottom: 3px solid var(--text) !important;
-  border-right: none !important;
-  border-left: none !important;
-}
-
-//Top bottom border, if label is notched
-::ng-deep.mdc-notched-outline--notched {
-  ::ng-deep.mdc-notched-outline__notch {
-    border-top: none !important;
-    border-bottom: 2px solid var(--text) !important;
-  }
-}
-//Left border with edges
-::ng-deep.mdc-notched-outline__leading {
-  border: 2px solid var(--text) !important;
-  border-right: none !important;
-}
-//Right border with edges
-::ng-deep.mdc-notched-outline__trailing {
-  border: 2px solid var(--text) !important;
-  border-left: none !important;
-}
-
-::ng-deep .mdc-text-field--focused .mdc-notched-outline > * {
-  border-color: var(--text) !important;
-}
-
-::ng-deep .mat-mdc-floating-label.mdc-floating-label {
-  color: var(--text) !important;
-  font-weight: 600;
-  font-size: 14px;
-  font-family: "AlbertSans";
-}
-
-::ng-deep .mat-mdc-select-min-line {
-  font-weight: 600;
-}
-
-// Border-Radius for inputs
-.mdc-text-field--outlined {
-  --mdc-outlined-text-field-container-shape: 10px !important;
-}
-
-// Dropdown menu
-::ng-deep .mat-mdc-select-panel {
-  margin-top: 15px;
-  border-radius: 10px !important;
-  background: var(--background) !important;
-  border: 2px solid var(--text);
-}
-
-::ng-deep .mdc-list-item__primary-text {
-  color: var(--text);
-  font-size: 13px !important;
-  font-family: "AlbertSans" !important;
-  font-weight: 600 !important;
-}
-
-::ng-deep .mat-mdc-select-value-text {
-  color: var(--text);
-  font-size: 13px !important;
-  font-family: "AlbertSans" !important;
-  font-weight: 600 !important;
-}
-
-// Toggle label
-::ng-deep .mat-mdc-slide-toggle .mdc-form-field .mdc-label {
-  color: var(--text);
-  font-weight: 700 !important;
-}
-
-// Date picker
-::ng-deep {
-  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-    background-color: transparent !important;
-  }
-  .mdc-line-ripple::before {
-    border-bottom: 3px solid var(--text) !important;
-    color: var(--text) !important;
-  }
-  .mat-mdc-icon-button {
-    color: var(--text) !important;
-  }
-  .mdc-text-field--filled:not(.mdc-text-field--disabled)
-    .mdc-text-field__input {
-    color: var(--text) !important;
-  }
-}
-
-.mat-progress-spinner circle {
-  stroke-linecap: round !important;
-}
-
-@include mat.tooltip-typography($my-custom-typography-config);
-@include mat.all-component-typographies($my-custom-typography-config);
-@include mat.all-component-themes($Frontend-theme);
 
 html {
   scroll-behavior: smooth;
@@ -321,10 +168,6 @@ body {
   width: 100% !important;
 }
 
-button {
-  font-weight: 600;
-}
-
 .form-errors {
   display: flex;
   position: relative;
@@ -337,8 +180,4 @@ button {
   border-radius: 8px;
   font-weight: 500;
   width: fit-content;
-}
-
-mat-form-field {
-  font-weight: 500;
 }

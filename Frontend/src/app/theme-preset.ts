@@ -5,6 +5,8 @@ import { definePreset } from "@primeuix/themes";
 import Lara from "@primeuix/themes/lara";
 
 export const MyPreset = definePreset(Lara, {
+  
+
   semantic: {
     primary: {
       50: "{slate.50}",
@@ -46,14 +48,6 @@ export const MyPreset = definePreset(Lara, {
           focusBackground: "rgba(250, 250, 250, .24)",
           color: "rgba(255,255,255,.87)",
           focusColor: "rgba(255,255,255,.87)",
-        },
-      },
-    },
-
-    button: {
-      root: {
-        label: {
-          fontWeight: "900", // This sets button label font weight
         },
       },
     },

@@ -29,21 +29,24 @@
             <p style="color: #517ee1">Success!</p>
           }
         </section>
-        <mat-label for="passwordToggle">Password Locked</mat-label>
-        <mat-slide-toggle
-          #passwordToggle
-          formControlName="passwordToggle"
-          [hideIcon]="true"
-          (click)="togglePasswordInput()"
-        >
-        </mat-slide-toggle>
-        <mat-form-field>
-          <mat-label>Password</mat-label>
-          <input matInput type="password" formControlName="password" />
-        </mat-form-field>
-        <button type="submit" class="folders-share-button">Share</button>
+
+        <span>
+          <p style="padding-bottom: 8px">Password Locked</p>
+          <p-toggleswitch
+            #passwordToggle
+            formControlName="passwordToggle"
+            (click)="togglePasswordInput()"
+          />
+        </span>
+
+        <p-floatlabel variant="on">
+          <label>Password</label>
+          <input pInputText type="password" formControlName="password" />
+        </p-floatlabel>
+
+        <p-button type="submit" class="folders-share-button">Share</p-button>
         <p class="folders-share-hint">
-          *Your username will be shown when sharing
+          -Your username will be shown when sharing
         </p>
       </form>
     </div>
@@ -51,27 +54,25 @@
 
   <div class="folders-buttons">
     @if (folderOpened) {
-      <button class="folders-button folders-back" (click)="closeFolder()">
-        <mat-icon fontIcon="arrow_back"></mat-icon>
-        Go Back
-      </button>
+      <p-button class="folders-button folders-back" (click)="closeFolder()">
+        < Go Back
+      </p-button>
     }
 
     @if (folderOpened && tempShare) {
-      <button
+      <p-button
         class="folders-button folders-share"
         (click)="toggleShareWindow()"
       >
-        <mat-icon fontIcon="share"></mat-icon>
         Share Folder
-      </button>
+      </p-button>
     }
 
     @if (folderOpened && !tempShare) {
-      <button class="folders-button folders-share" (click)="unshareFolder()">
+      <p-button class="folders-button folders-share" (click)="unshareFolder()">
         <mat-icon fontIcon="share"></mat-icon>
         Unshare
-      </button>
+      </p-button>
     }
   </div>
 
@@ -79,16 +80,16 @@
   @if (!folderOpened) {
     <section class="folders-grid">
       <div class="folders-item" (click)="toggleWindow()">
-        <i class="pi pi-plus"></i>
+        <i class="pi pi-plus" style="font-size: 0.8rem"></i>
         <p>Create Folder</p>
       </div>
       @if (loadingService.isLoading$ | async) {
-        <div>
-          <mat-spinner diameter="35" style="margin: auto"></mat-spinner>
-          <p style="text-align: center; margin-top: 10px">
-            Getting your folders...
-          </p>
-        </div>
+        <p-progress-spinner
+          strokeWidth="5"
+          fill="transparent"
+          animationDuration=".75s"
+          [style]="{ width: '35px', height: '35px' }"
+        />
       }
       <!--Create Folder Form-->
       @if (windowOpened) {
@@ -104,16 +105,21 @@
               class="folders-create-close"
             ></mat-icon>
             <h3>Create a Folder</h3>
-            <mat-form-field appearance="outline" floatLabel="always">
-              <mat-label for="folderName">Folder Name</mat-label>
+
+            <p-floatlabel variant="on">
+              <label for="folderName">Folder Name</label>
               <input
-                matInput
+                pInputText
                 type="text"
                 #folderName
                 formControlName="folderName"
+                required
               />
-            </mat-form-field>
-            <button type="submit" class="folders-create-button">Create</button>
+            </p-floatlabel>
+
+            <p-button type="submit" class="folders-create-button"
+              >Create</p-button
+            >
           </form>
         </div>
       }
@@ -131,16 +137,20 @@
               class="folders-create-close"
             ></mat-icon>
             <h3>Edit</h3>
-            <mat-form-field appearance="outline" floatLabel="always">
-              <mat-label for="editFolderName">Folder Name</mat-label>
+
+            <p-floatlabel variant="on">
+              <label for="editFolderName">Folder Name</label>
               <input
-                matInput
+                pInputText
                 type="text"
                 #editFolderName
                 formControlName="editFolderName"
               />
-            </mat-form-field>
-            <button type="submit" class="folders-create-button">Edit</button>
+            </p-floatlabel>
+
+            <p-button type="submit" class="folders-create-button"
+              >Edit</p-button
+            >
           </form>
         </div>
       }
@@ -158,17 +168,17 @@
             </p>
           </div>
           <div class="folders-item-options">
-            <mat-icon
-              fontIcon="edit"
+            <i
+              class="pi pi-pencil"
               (click)="$event.stopPropagation(); toggleEditWindow(folder.id)"
               pTooltip="Edit Folder"
-            ></mat-icon>
-            <mat-icon
-              fontIcon="close"
+            ></i>
+
+            <i
+              class="pi pi-trash"
               pTooltip="Delete Folder"
-              style="color: #f73830"
               (click)="$event.stopPropagation(); deleteFolder(folder.id)"
-            ></mat-icon>
+            ></i>
           </div>
         </div>
       }

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { UserService } from "../user/user.service";
 import { Subject, takeUntil } from "rxjs";
-import { Theme } from "src/app/theme.service";
+
 import {
   trigger,
   state,
@@ -31,30 +31,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   // Checks for user
   constructor(
     private userService: UserService,
-    private themeService: Theme
+
   ) {}
 
   private destroy$ = new Subject<void>();
 
   user: any;
-  theme: any;
-
-  toggleTheme(res: string) {
-    if (this.theme === "dark") {
-      this.theme = "light";
-    } else {
-      this.theme = "dark";
-    }
-
-    this.themeService.setTheme(res);
-  }
 
   ngOnInit() {
     this.userService.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       this.user = user?.user;
     });
 
-    this.theme = this.themeService.getTheme();
 
     setInterval(() => {
       if (this.activePic < 3) {

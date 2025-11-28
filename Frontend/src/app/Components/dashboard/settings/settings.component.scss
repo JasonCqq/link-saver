@@ -97,32 +97,6 @@
         display: flex;
         gap: 2vw;
       }
-
-      > .settings-theme {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-
-        > div {
-          display: flex;
-          gap: 10px;
-
-          > button {
-            padding: 10px 20px;
-            font-weight: 600;
-            border: 2px solid var(--text);
-            border-radius: 8px;
-            background: transparent;
-            color: var(--text);
-
-            &:hover {
-              background: var(--text);
-              color: var(--text2);
-              cursor: pointer;
-            }
-          }
-        }
-      }
     }
   }
 }

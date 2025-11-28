@@ -5,10 +5,7 @@
 
   <div class="nav-container">
     <div class="nav-buttons">
-      <button (click)="toggleForm()" pButton>
-        <i class="pi pi-plus" pButtonIcon></i>
-        <p pButtonLabel>Add Link</p>
-      </button>
+      <p-button (click)="toggleForm()"> Add Link </p-button>
 
       <p-iconfield [formGroup]="query">
         <p-inputicon class="pi pi-search" />

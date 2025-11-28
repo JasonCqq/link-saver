@@ -124,22 +124,3 @@
   }
 }
 
-mat-form-field {
-  width: 20vw;
-
-  @media screen and (max-width: 1275px) {
-    width: 30vw;
-  }
-
-  @media screen and (max-width: 850px) {
-    width: 45vw;
-  }
-
-  @media screen and (max-width: 425px) {
-    width: 70vw;
-  }
-}
-
-mat-select {
-  color: var(--text);
-}

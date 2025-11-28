@@ -14,9 +14,7 @@ import {
 } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatIconModule } from "@angular/material/icon";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+
 import { Observable, map } from "rxjs";
 import { ReactiveFormsModule } from "@angular/forms";
 
@@ -39,6 +37,8 @@ import { CardModule } from "primeng/card";
 import { TooltipModule } from "primeng/tooltip";
 
 import { NgxBorderBeamComponent } from "@omnedia/ngx-border-beam";
+import { FloatLabelModule } from "primeng/floatlabel";
+import { InputTextModule } from "primeng/inputtext";
 
 interface User {
   user: {
@@ -82,16 +82,15 @@ function initializeAppFactory(
     AppRoutingModule,
     MatIconModule,
     BrowserAnimationsModule,
-    MatInputModule,
-    MatFormFieldModule,
     ReactiveFormsModule,
-    MatProgressSpinnerModule,
 
     AccordionModule,
     ButtonModule,
     NgxBorderBeamComponent,
     CardModule,
     TooltipModule,
+    FloatLabelModule,
+    InputTextModule,
   ],
   providers: [
     provideAnimationsAsync(),

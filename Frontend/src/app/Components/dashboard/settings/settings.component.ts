@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "../../user/user.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Theme } from "src/app/theme.service";
+
 
 @Component({
     selector: "app-settings",
@@ -12,8 +12,6 @@ import { Theme } from "src/app/theme.service";
 export class SettingsComponent implements OnInit {
   constructor(
     private userService: UserService,
-
-    private themeService: Theme,
   ) {}
 
   user: any;
@@ -73,9 +71,7 @@ export class SettingsComponent implements OnInit {
     this.passwordChangeOverlay = !this.passwordChangeOverlay;
   }
 
-  setTheme(theme: string) {
-    this.themeService.setTheme(theme);
-  }
+ 
 
   deletePrompt: boolean = false;
   toggleDeletePrompt(): void {
