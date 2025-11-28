@@ -1,9 +1,10 @@
 import { Component } from "@angular/core";
 
 @Component({
-  selector: "app-version-history",
-  templateUrl: "./version-history.component.html",
-  styleUrls: ["./version-history.component.scss"],
+    selector: "app-version-history",
+    templateUrl: "./version-history.component.html",
+    styleUrls: ["./version-history.component.scss"],
+    standalone: false
 })
 export class VersionHistoryComponent {
   activeID: number = 11;

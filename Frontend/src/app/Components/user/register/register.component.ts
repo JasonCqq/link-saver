@@ -11,10 +11,11 @@ import { LoadingService } from "../../LoadingInterceptor.service";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: "app-register",
-  templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: "app-register",
+    templateUrl: "./register.component.html",
+    styleUrls: ["./register.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class RegisterComponent implements OnInit {
   constructor(

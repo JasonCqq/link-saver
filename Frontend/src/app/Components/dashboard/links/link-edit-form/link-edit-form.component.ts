@@ -14,9 +14,10 @@ import { FoldersService } from "../../folders/folders.service";
 import { TempRenderService } from "../../main-dashboard/tempRender.service";
 
 @Component({
-  selector: "app-link-edit-form",
-  templateUrl: "./link-edit-form.component.html",
-  styleUrls: ["./link-edit-form.component.scss"],
+    selector: "app-link-edit-form",
+    templateUrl: "./link-edit-form.component.html",
+    styleUrls: ["./link-edit-form.component.scss"],
+    standalone: false
 })
 export class LinkEditFormComponent implements OnInit, OnDestroy {
   constructor(

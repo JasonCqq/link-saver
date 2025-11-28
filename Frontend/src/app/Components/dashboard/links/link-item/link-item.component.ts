@@ -12,9 +12,10 @@ import { Subject, takeUntil } from "rxjs";
 import { MainNavService } from "../../main-nav/main-nav.service";
 
 @Component({
-  selector: "app-link-item",
-  templateUrl: "./link-item.component.html",
-  styleUrls: ["./link-item.component.scss"],
+    selector: "app-link-item",
+    templateUrl: "./link-item.component.html",
+    styleUrls: ["./link-item.component.scss"],
+    standalone: false
 })
 export class LinkComponent implements OnInit, OnDestroy {
   constructor(

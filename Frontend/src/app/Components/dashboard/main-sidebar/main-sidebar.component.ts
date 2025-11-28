@@ -3,9 +3,10 @@ import { UserService } from "../../user/user.service";
 import { MainNavService } from "../main-nav/main-nav.service";
 
 @Component({
-  selector: "app-main-sidebar",
-  templateUrl: "./main-sidebar.component.html",
-  styleUrls: ["./main-sidebar.component.scss"],
+    selector: "app-main-sidebar",
+    templateUrl: "./main-sidebar.component.html",
+    styleUrls: ["./main-sidebar.component.scss"],
+    standalone: false
 })
 export class MainSidebarComponent implements OnInit {
   constructor(

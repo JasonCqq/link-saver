@@ -11,10 +11,11 @@ import { Router } from "@angular/router";
 import { LoadingService } from "../../LoadingInterceptor.service";
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["../login/login.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: "app-login",
+    templateUrl: "./login.component.html",
+    styleUrls: ["../login/login.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LoginComponent implements OnInit {
   // Checks for user

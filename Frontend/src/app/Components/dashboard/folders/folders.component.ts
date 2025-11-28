@@ -15,10 +15,11 @@ interface shareUrl {
 }
 
 @Component({
-  selector: "app-folders",
-  templateUrl: "./folders.component.html",
-  styleUrls: ["./folders.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: "app-folders",
+    templateUrl: "./folders.component.html",
+    styleUrls: ["./folders.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FoldersComponent implements OnInit, OnDestroy {
   constructor(

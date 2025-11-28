@@ -11,17 +11,18 @@ import {
 } from "@angular/animations";
 
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"],
-  animations: [
-    trigger("fadeInOut", [
-      state("visible", style({ opacity: 1 })),
-      state("hidden", style({ opacity: 0 })),
-      transition("visible => hidden", [animate("250ms ease-in-out")]),
-      transition("hidden => visible", [animate("250ms ease-in-out")]),
-    ]),
-  ],
+    selector: "app-home",
+    templateUrl: "./home.component.html",
+    styleUrls: ["./home.component.scss"],
+    animations: [
+        trigger("fadeInOut", [
+            state("visible", style({ opacity: 1 })),
+            state("hidden", style({ opacity: 0 })),
+            transition("visible => hidden", [animate("250ms ease-in-out")]),
+            transition("hidden => visible", [animate("250ms ease-in-out")]),
+        ]),
+    ],
+    standalone: false
 })
 export class HomeComponent implements OnInit, OnDestroy {
   // Checks for user

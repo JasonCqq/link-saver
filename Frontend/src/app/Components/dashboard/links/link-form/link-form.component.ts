@@ -11,9 +11,10 @@ import { DashboardService } from "../../dashboard.service";
 import { Subject, takeUntil } from "rxjs";
 
 @Component({
-  selector: "app-link-form",
-  templateUrl: "./link-form.component.html",
-  styleUrls: ["./link-form.component.scss"],
+    selector: "app-link-form",
+    templateUrl: "./link-form.component.html",
+    styleUrls: ["./link-form.component.scss"],
+    standalone: false
 })
 export class LinkFormComponent implements OnInit, OnDestroy {
   constructor(

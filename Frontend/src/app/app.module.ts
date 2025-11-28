@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER, Injector } from "@angular/core";
+import { NgModule, Injector, inject, provideAppInitializer } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
 import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
@@ -63,12 +63,10 @@ function initializeAppFactory(
         ReactiveFormsModule,
         MatTooltipModule,
         MatProgressSpinnerModule], providers: [
-        {
-            provide: APP_INITIALIZER,
-            multi: true,
-            useFactory: (httpClient: HttpClient, injector: Injector) => initializeAppFactory(httpClient, injector),
-            deps: [HttpClient, Injector],
-        },
+        provideAppInitializer(() => {
+        const initializerFn = ((httpClient: HttpClient, injector: Injector) => initializeAppFactory(httpClient, injector))(inject(HttpClient), inject(Injector));
+        return initializerFn();
+      }),
         {
             provide: HTTP_INTERCEPTORS,
             useClass: LoadingInterceptor,

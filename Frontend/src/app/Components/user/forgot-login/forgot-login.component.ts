@@ -4,9 +4,10 @@ import { UserService } from "../user.service";
 import { LoadingService } from "../../LoadingInterceptor.service";
 
 @Component({
-  selector: "app-forgot-login",
-  templateUrl: "./forgot-login.component.html",
-  styleUrls: ["./forgot-login.component.scss"],
+    selector: "app-forgot-login",
+    templateUrl: "./forgot-login.component.html",
+    styleUrls: ["./forgot-login.component.scss"],
+    standalone: false
 })
 export class ForgotLoginComponent {
   constructor(

@@ -12,9 +12,10 @@ import { MainNavService } from "../../main-nav/main-nav.service";
 import { FoldersService } from "../../folders/folders.service";
 
 @Component({
-  selector: "app-mass-edit-form",
-  templateUrl: "./mass-edit-form.component.html",
-  styleUrls: ["./mass-edit-form.component.scss"],
+    selector: "app-mass-edit-form",
+    templateUrl: "./mass-edit-form.component.html",
+    styleUrls: ["./mass-edit-form.component.scss"],
+    standalone: false
 })
 export class MassEditFormComponent implements OnInit, OnDestroy {
   constructor(

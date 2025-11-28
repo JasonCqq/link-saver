@@ -14,9 +14,10 @@ import { LinkService } from "../links/link-item/link-item.service";
 import { MainNavService } from "./main-nav.service";
 
 @Component({
-  selector: "app-main-nav",
-  templateUrl: "./main-nav.component.html",
-  styleUrls: ["./main-nav.component.scss"],
+    selector: "app-main-nav",
+    templateUrl: "./main-nav.component.html",
+    styleUrls: ["./main-nav.component.scss"],
+    standalone: false
 })
 export class MainNavComponent implements OnInit, OnDestroy {
   previews: any;

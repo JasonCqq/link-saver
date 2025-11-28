@@ -8,10 +8,11 @@ import { fadeIn, fadeOut } from "src/app/app.component";
 import { TempRenderService } from "./tempRender.service";
 
 @Component({
-  selector: "app-dashboard",
-  templateUrl: "./dashboard.component.html",
-  styleUrls: ["./dashboard.component.scss"],
-  animations: [fadeIn, fadeOut],
+    selector: "app-dashboard",
+    templateUrl: "./dashboard.component.html",
+    styleUrls: ["./dashboard.component.scss"],
+    animations: [fadeIn, fadeOut],
+    standalone: false
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   constructor(

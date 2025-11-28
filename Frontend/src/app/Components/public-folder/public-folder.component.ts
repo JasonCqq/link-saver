@@ -5,9 +5,10 @@ import { Link } from "src/app/Interfaces/Link";
 import { FormControl, FormGroup } from "@angular/forms";
 
 @Component({
-  selector: "app-public-folder",
-  templateUrl: "./public-folder.component.html",
-  styleUrls: ["./public-folder.component.scss"],
+    selector: "app-public-folder",
+    templateUrl: "./public-folder.component.html",
+    styleUrls: ["./public-folder.component.scss"],
+    standalone: false
 })
 export class PublicFolderComponent implements OnInit, OnDestroy {
   constructor(

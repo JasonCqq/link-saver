@@ -13,9 +13,10 @@ function extractUrls(text: string) {
 }
 
 @Component({
-  selector: "app-urlbank",
-  templateUrl: "./urlbank.component.html",
-  styleUrls: ["./urlbank.component.scss"],
+    selector: "app-urlbank",
+    templateUrl: "./urlbank.component.html",
+    styleUrls: ["./urlbank.component.scss"],
+    standalone: false
 })
 export class UrlbankComponent implements OnInit, OnDestroy {
   constructor(
