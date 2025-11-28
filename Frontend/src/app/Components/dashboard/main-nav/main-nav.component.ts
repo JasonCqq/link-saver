@@ -13,11 +13,16 @@ import { Subject, debounceTime, takeUntil } from "rxjs";
 import { LinkService } from "../links/link-item/link-item.service";
 import { MainNavService } from "./main-nav.service";
 
+interface sortBy {
+  name: string;
+  value: string;
+}
+
 @Component({
-    selector: "app-main-nav",
-    templateUrl: "./main-nav.component.html",
-    styleUrls: ["./main-nav.component.scss"],
-    standalone: false
+  selector: "app-main-nav",
+  templateUrl: "./main-nav.component.html",
+  styleUrls: ["./main-nav.component.scss"],
+  standalone: false,
 })
 export class MainNavComponent implements OnInit, OnDestroy {
   previews: any;
@@ -25,12 +30,25 @@ export class MainNavComponent implements OnInit, OnDestroy {
   constructor(
     private dashboardService: DashboardService,
     private linkService: LinkService,
-    private mainNavService: MainNavService,
+    private mainNavService: MainNavService
   ) {}
 
   private destroy$ = new Subject<void>();
 
+  sort: sortBy[] | undefined;
   ngOnInit(): void {
+    // Select Menu
+    this.sort = [
+      { name: "Visits", value: "Visits" },
+      { name: "Latest", value: "Latest" },
+      { name: "Oldest", value: "Oldest" },
+      { name: "Name A-Z", value: "Nameup" },
+      { name: "Name Z-A", value: "Namedown" },
+    ];
+    // this.sortingForm.get("sortBy")?.valueChanges.subscribe(() => {
+    //   this.submitSortingForm();
+    // });
+
     this.query.valueChanges
       .pipe(debounceTime(1000), takeUntil(this.destroy$))
       .subscribe(() => this.searchLinks());
@@ -85,9 +103,9 @@ export class MainNavComponent implements OnInit, OnDestroy {
     sortBy: new FormControl(),
   });
 
-  submitSortingForm() {
-    this.sortByResults.emit(this.sortingForm.value.sortBy);
-    this.mainNavService.submitSortBy(this.sortingForm.value.sortBy);
+  submitSortingForm(value: string) {
+    this.sortByResults.emit(value);
+    this.mainNavService.submitSortBy(value);
   }
 
   searchLinks(): void {

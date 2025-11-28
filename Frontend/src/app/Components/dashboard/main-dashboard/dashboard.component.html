@@ -5,7 +5,7 @@
 ></app-main-nav>
 
 <main class="dashboard-container default-dash-container">
-  @if (tempTitle === 'Trash') {
+  @if (tempTitle === "Trash") {
     <span>
       <button (click)="togglePrompt()">Clear All</button>
       @if (clearPrompt) {
@@ -18,7 +18,7 @@
               <button
                 class="clear-prompt-yes"
                 (click)="deleteAllTrash(); togglePrompt()"
-                >
+              >
                 Yes
               </button>
             </div>
@@ -32,7 +32,7 @@
     [ngClass]="previews === true ? 'content-grid' : 'content-grid-no-previews'"
     @fadeIn
     @fadeOut
-    >
+  >
     @for (link of tempLinks; track link) {
       <div>
         <app-link-item

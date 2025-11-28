@@ -4,7 +4,7 @@
   height: auto;
   display: flex;
   flex-direction: column;
-  padding-left: 13vw;
+  padding-left: 5vw;
   background-color: var(--background);
 
   @media screen and (max-width: 720px) {
@@ -24,7 +24,7 @@
     > .nav-title {
       font-size: 1.4rem;
       font-weight: 800;
-      margin: 5vh 0 2vh 0vw;
+      margin: 0vh 0 2vh 0vw;
     }
   }
 
@@ -51,20 +51,6 @@
         grid-template-rows: repeat(2, auto);
         row-gap: 15px;
         column-gap: 15px;
-
-        > button {
-          justify-content: center;
-          font-size: 17.5px;
-
-          > .faq-icon {
-            transform: scale(1) !important;
-            margin-right: 5px;
-          }
-
-          > p {
-            margin-right: 15px;
-          }
-        }
       }
 
       @media screen and (max-width: 400px) {
@@ -94,33 +80,6 @@
         font-weight: 600;
         height: 45px;
         width: clamp(100px, 175px, 300px);
-      }
-
-      > .nav-buttons-flex {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-      }
-
-      > button {
-        color: var(--text2);
-        padding: 7.5px 16px;
-        max-width: 175px;
-        font-weight: 700;
-        border: 2px solid transparent;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        background-color: var(--background2);
-
-        transition: background-color 0.1s ease-in-out;
-
-        &:hover {
-          background-color: transparent;
-          cursor: pointer;
-          color: var(--text);
-          border: 2px solid var(--text);
-        }
       }
     }
 
@@ -170,10 +129,4 @@
       }
     }
   }
-}
-
-mat-form-field {
-  font-weight: 600;
-  height: 45px;
-  width: 120px;
 }

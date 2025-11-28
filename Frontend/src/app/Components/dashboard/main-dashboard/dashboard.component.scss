@@ -104,10 +104,12 @@ span {
   top: 0;
   right: 0;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 0px;
   padding: 2px 4px;
   background-color: var(--background);
   border-left: 2px solid var(--text);
   border-bottom: 2px solid var(--text);
+  border-right: 0px;
+  border-top: 0px;
   color: var(--text);
 }

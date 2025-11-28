@@ -1,133 +1,38 @@
-<mat-drawer-container class="d-sidebar-container" autosize>
-  <mat-drawer [(opened)]="opened" mode="side" #drawer class="d-sidebar">
-    <div class="sidebar-icon-contain">
-      @if (opened) {
-        <mat-icon
-          fontIcon="close"
-          (click)="drawer.toggle(); opened = !opened"
-          class="sidebar-icon"
-          matTooltip="Close sidebar"
-          >
-        </mat-icon>
-      }
-
-      @if (!massEditting) {
-        <span
-          class="material-icons-round sidebar-icon"
-          (click)="toggleMassEdit()"
-          matTooltip="Enter Edit Mode"
-          >
-          edit
-        </span>
-      }
-
-      @if (massEditting) {
-        <span
-          class="material-icons-round sidebar-icon icon-toggle"
-          (click)="toggleMassEdit()"
-          matTooltip="Exit Edit Mode"
-          >
-          edit
-        </span>
-      }
-
-      @if (massEditting) {
-        <span
-          class="material-icons-round sidebar-icon"
-          (click)="toggleMassEditForm()"
-          matTooltip="Apply Edit"
-          >
-          done
-        </span>
-      }
-    </div>
-
-    <li class="sidebar-profile">
-      <p>
-        {{ user.username | slice: 0 : 11
-        }}{{ user.username.length > 11 ? "..." : "" }}
-      </p>
-      <p class="sidebar-email">
-        {{ user.email | slice: 0 : 25
-        }}{{ user.email.length > 25 ? "..." : "" }}
-      </p>
-    </li>
-
-    <div
-      class="sidebar-tab"
-      (click)="changeTitle('Dashboard')"
-      routerLink="/dashboard"
-      >
-      <span class="material-icons-round sidebar-icon"> dashboard </span>
-      <h1 class="tab-id">Dashboard</h1>
-    </div>
-
-    <a
-      class="sidebar-tab"
-      routerLink="/dashboard/folders"
-      (click)="changeTitle('Folders')"
-      >
-      <mat-icon fontIcon="folder" class="sidebar-icon"></mat-icon>
-      <h1 class="tab-id">Folders</h1>
-    </a>
-
-    <a
-      class="sidebar-tab"
-      routerLink="/dashboard/urlbank"
-      (click)="changeTitle('URLBank')"
-      >
-      <span class="material-icons-round sidebar-icon"> description </span>
-      <h1 class="tab-id">URL Bank</h1>
-    </a>
-
-    <div
-      class="sidebar-tab"
-      (click)="changeTitle('Bookmarks')"
-      routerLink="/dashboard"
-      >
-      <span class="material-icons-round sidebar-icon"> bookmark </span>
-      <h1 class="tab-id">Bookmarks</h1>
-    </div>
-
-    <div
-      class="sidebar-tab"
-      (click)="changeTitle('Trash')"
-      routerLink="/dashboard"
-      >
-      <span class="material-icons-round sidebar-icon"> delete </span>
-      <h1 class="tab-id">Trash</h1>
-    </div>
-
-    <section class="sidebar-bottom">
-      <a routerLink="/dashboard/settings" class="sidebar-tab">
-        <span class="material-icons-round sidebar-icon"> settings </span>
-        <h1 class="tab-id">Settings</h1>
-      </a>
-
-      <a routerLink="" class="sidebar-tab">
-        <span class="material-icons-round sidebar-icon"> home </span>
-        <h1>Home</h1>
-      </a>
-
-      <a class="sidebar-tab" (click)="logOut()">
-        <span class="material-icons-round sidebar-icon"> logout </span>
-        <h1>Logout</h1>
-      </a>
-    </section>
-  </mat-drawer>
-</mat-drawer-container>
-
-@if (!opened) {
-  <mat-icon
-    fontIcon="menu"
-    (click)="drawer.toggle(); opened = !opened"
-    class="open-menu"
-    matTooltip="Open sidebar"
-  ></mat-icon>
-}
-
 @if (massEditForm) {
   <app-mass-edit-form
     (toggleMassEditForm)="toggleMassEditForm()"
   ></app-mass-edit-form>
 }
+
+<p-drawer [(visible)]="visible" header="Dashboard">
+  <p-menu [model]="items" class="side-menu" />
+
+  <div class="mass-edit">
+    @if (!massEditting) {
+      <p-button (click)="toggleMassEdit()" pTooltip="Enter Edit Mode"
+        >Mass Edit</p-button
+      >
+    }
+
+    @if (massEditting) {
+      <p-button
+        (click)="toggleMassEdit()"
+        pTooltip="Exit Edit Mode"
+        severity="secondary"
+      >
+        Exit Edit
+      </p-button>
+    }
+
+    @if (massEditting) {
+      <p-button
+        (click)="toggleMassEditForm()"
+        pTooltip="Apply Edit"
+        severity="success"
+        >Apply Edits
+      </p-button>
+    }
+  </div>
+</p-drawer>
+
+<p-button (click)="visible = true" icon="pi pi-arrow-right" />
