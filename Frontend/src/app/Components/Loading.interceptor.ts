@@ -1,9 +1,5 @@
 import { Injectable } from "@angular/core";
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpInterceptor,
-} from "@angular/common/http";
+import { HttpRequest, HttpHandler, HttpInterceptor } from "@angular/common/http";
 import { finalize } from "rxjs/operators";
 import { LoadingService } from "./LoadingInterceptor.service";
 

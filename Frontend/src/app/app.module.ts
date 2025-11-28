@@ -1,11 +1,7 @@
 import { NgModule, APP_INITIALIZER, Injector } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
-import {
-  HTTP_INTERCEPTORS,
-  HttpClient,
-  HttpClientModule,
-} from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTooltipModule } from "@angular/material/tooltip";
@@ -52,41 +48,32 @@ function initializeAppFactory(
       .pipe(map((res) => userService.setUser(res)));
 }
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    PublicFolderComponent,
-    VersionHistoryComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    MatIconModule,
-    BrowserAnimationsModule,
-    MatInputModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatTooltipModule,
-    MatProgressSpinnerModule,
-  ],
-  providers: [
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      useFactory: (httpClient: HttpClient, injector: Injector) =>
-        initializeAppFactory(httpClient, injector),
-      deps: [HttpClient, Injector],
-    },
-
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: LoadingInterceptor,
-      multi: true,
-    },
-  ],
-
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [
+        AppComponent,
+        HomeComponent,
+        PublicFolderComponent,
+        VersionHistoryComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        MatIconModule,
+        BrowserAnimationsModule,
+        MatInputModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatTooltipModule,
+        MatProgressSpinnerModule], providers: [
+        {
+            provide: APP_INITIALIZER,
+            multi: true,
+            useFactory: (httpClient: HttpClient, injector: Injector) => initializeAppFactory(httpClient, injector),
+            deps: [HttpClient, Injector],
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: LoadingInterceptor,
+            multi: true,
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule {}
