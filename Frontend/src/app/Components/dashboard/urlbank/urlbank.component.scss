@@ -6,7 +6,6 @@ main {
 
   .url-title {
     display: flex;
-    align-items: center;
     gap: 20px;
     width: fit-content;
 
@@ -20,53 +19,14 @@ main {
   .url-util {
     display: flex;
     gap: 25px;
-    margin-top: 10px;
-
-    > button {
-      border: none;
-      padding: 10px 25px;
-      border-radius: 8px;
-      border: 2px solid transparent;
-
-      @media screen and (max-width: 320px) {
-        padding: 10px 15px;
-      }
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
-
-    > .url-util-add {
-      background-color: var(--accent);
-      color: var(--text2);
-      transition: background-color 0.1s;
-
-      &:hover {
-        background-color: transparent;
-        border: 2px solid var(--accent);
-        color: var(--text);
-      }
-    }
-
-    > .url-util-del {
-      background-color: var(--imp-button);
-      color: var(--text2);
-      transition: background-color 0.1s;
-
-      &:hover {
-        color: var(--text);
-        background-color: transparent;
-        border: 2px solid var(--imp-button);
-      }
-    }
+    margin-top: 20px;
   }
 
   .url-grid {
     display: flex;
     flex-direction: column;
     margin-top: 15px;
-    gap: 5px;
+    gap: 10px;
     width: 100%;
 
     > .url-item {
@@ -151,14 +111,14 @@ main {
     background-color: var(--background);
     padding: 25px;
     gap: 10px;
-    height: 70vh;
+    height: fit-content;
 
     @media screen and (max-width: 500px) {
       width: 90vw;
       height: 80vh;
     }
 
-    > span {
+    > div > span {
       width: 10px;
       &:hover {
         cursor: pointer;

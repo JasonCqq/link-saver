@@ -3,16 +3,22 @@
 <main>
   <div class="url-title">
     <h1>URL Bank</h1>
-    <p style="color: rgb(199, 199, 199)">
+    <p style="color: rgb(199, 199, 199); font-size: 12px">
       (Total of {{ this.urls ? this.urls.length : "" }} urls)
     </p>
   </div>
 
   <div class="url-util">
-    <button class="url-util-add" (click)="toggleUrlForm()">Add URL(s)</button>
-    <button class="url-util-del" (click)="toggleDelAllPrompt()">
+    <p-button class="url-util-add" (click)="toggleUrlForm()"
+      >Add URL(s)</p-button
+    >
+    <p-button
+      class="url-util-del"
+      (click)="toggleDelAllPrompt()"
+      severity="danger"
+    >
       Delete All
-    </button>
+    </p-button>
   </div>
 
   @if (delAllPrompt) {
@@ -28,7 +34,10 @@
     @for (u of this.urls; track u) {
       <div class="url-item">
         <div class="url-options">
-          <span class="material-icons-round url-delete" (click)="deleteUrl(u.id)">
+          <span
+            class="material-icons-round url-delete"
+            (click)="deleteUrl(u.id)"
+          >
             close
           </span>
           <span class="material-icons-round" (click)="copyUrl(u.url)">
@@ -47,17 +56,31 @@
 @if (urlFormPop) {
   <div class="add-url-form">
     <form [formGroup]="urlForm" (submit)="submitUrlForm()">
-      <span class="material-icons-round" (click)="toggleUrlForm()"> close </span>
-      <h1>Add URL(s)</h1>
-      <p>For best results, separate urls by line. Invalid urls will be omitted</p>
+      <div style="display: flex">
+        <h1>Add URL(s)</h1>
+
+        <span
+          class="material-icons-round"
+          (click)="toggleUrlForm()"
+          style="margin-left: auto"
+        >
+          close
+        </span>
+      </div>
+
+      <p>
+        For best results, separate urls by line. Invalid urls will be omitted
+      </p>
       <textarea
         #urls
         formControlName="urls"
-        rows="30"
+        rows="4"
         cols="50"
-        placeholder="URLs go here..."
+        placeholder="URLs"
+        pTextarea
+        [autoResize]="true"
       ></textarea>
-      <button type="submit" [disabled]="!urlForm.dirty">SUBMIT</button>
+      <p-button type="submit" [disabled]="!urlForm.dirty">SUBMIT</p-button>
     </form>
   </div>
 }

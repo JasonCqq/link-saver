@@ -31,6 +31,7 @@ import { UrlbankComponent } from "./urlbank/urlbank.component";
 import { ButtonModule } from "primeng/button";
 import { DialogModule } from "primeng/dialog";
 import { InputTextModule } from "primeng/inputtext";
+import { TextareaModule } from "primeng/textarea";
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { InputTextModule } from "primeng/inputtext";
     ButtonModule,
     DialogModule,
     InputTextModule,
+    TextareaModule,
   ],
 
   exports: [LinkComponent],

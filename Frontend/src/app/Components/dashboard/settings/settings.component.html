@@ -7,13 +7,17 @@
     @if (deletePrompt) {
       <div class="settings-delete-overlay">
         <section class="settings-delete-prompt">
-          <mat-icon
-            fontIcon="close"
-            (click)="toggleDeletePrompt()"
-            class="close-form"
-          ></mat-icon>
+          <div style="display: flex">
+            <h2>Confirm Account Deletion</h2>
 
-          <p>Confirm Account Deletion</p>
+            <mat-icon
+              fontIcon="close"
+              (click)="toggleDeletePrompt()"
+              class="close-form"
+              style="margin-left: auto"
+            ></mat-icon>
+          </div>
+
           <p style="color: red">This action is permanent.</p>
           <p>Type 'confirmdelete' to confirm</p>
 

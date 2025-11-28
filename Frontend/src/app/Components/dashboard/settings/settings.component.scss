@@ -30,7 +30,7 @@
       > .settings-delete-prompt {
         background-color: var(--background);
         width: fit-content;
-        padding: 3vh 3vw;
+        padding: 3vh 2vw;
         height: fit-content;
         border-radius: 8px;
         display: flex;
@@ -38,6 +38,9 @@
         flex-direction: column;
         gap: 2vh;
 
+        h2 {
+          padding-right: 55px;
+        }
         > p {
           @media screen and (max-width: 370px) {
             font-size: 0.9rem;
@@ -45,11 +48,9 @@
           }
         }
 
-        > .close-form {
+        > div > .close-form {
           transform: scale(1);
           align-self: flex-start;
-          position: relative;
-          top: 0;
 
           &:hover {
             cursor: pointer;
