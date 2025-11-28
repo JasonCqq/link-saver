@@ -4,310 +4,226 @@
       <span class="landing-nav-left">
         <h1>linkstorag<span>e</span></h1>
 
-        <a routerLink="/versions">Updates</a>
+        <a routerLink="/versions"
+          ><i
+            class="pi pi-refresh"
+            style="font-size: 0.75rem; padding-right: 5px"
+          ></i
+          >Updates</a
+        >
 
-        @if (this.theme === 'dark') {
-          <span
-            class="material-symbols-outlined theme-toggle"
-            (click)="toggleTheme('light')"
-            >
-            light_mode
+        @if (this.theme === "dark") {
+          <span class="pi pi-sun theme-toggle" (click)="toggleTheme('light')">
           </span>
         }
 
-        @if (this.theme === 'light') {
-          <span
-            class="material-symbols-outlined theme-toggle"
-            (click)="toggleTheme('dark')"
-            >
-            dark_mode
+        @if (this.theme === "light") {
+          <span class="pi pi-moon theme-toggle" (click)="toggleTheme('dark')">
           </span>
         }
       </span>
 
       <span class="landing-nav-right">
         @if (!user) {
-          <a routerLink="/user/login" class="home-login">Log In</a>
+          <p-button routerLink="/user/login" class="home-login"
+            >Log In</p-button
+          >
         }
 
         @if (!user) {
-          <a routerLink="/user/register" class="register-button">
-            Get Started
-          </a>
+          <p-button routerLink="/user/register"> Register </p-button>
         }
 
         @if (user) {
-          <a
+          <p-button
             routerLink="/dashboard"
             class="register-button dashboard-button"
-            >Dashboard</a
-            >
-          }
-        </span>
-      </nav>
-
-      <h1 class="landing-title">Save + Preview & Track Your Links</h1>
-
-      <div class="landing-body">
-        @if (!user) {
-          <a routerLink="/user/register" class="register-button">
-            Try for Free
-          </a>
+            >Dashboard</p-button
+          >
         }
+      </span>
+    </nav>
 
-        @if (user) {
-          <a routerLink="/dashboard" class="dashboard-button"
-            >Dashboard</a
+    <h1 class="landing-title">Save + Preview & Track Your Links</h1>
+  </header>
+
+  <section class="home_gallery">
+    <div class="gallery-flex">
+      <p
+        (click)="changePic(0)"
+        [ngClass]="activePic === 0 ? 'active-img' : 'inactive-img'"
+      >
+        <mat-icon fontIcon="dashboard"></mat-icon>
+        Dashboard
+      </p>
+      <p
+        (click)="changePic(1)"
+        [ngClass]="activePic === 1 ? 'active-img' : 'inactive-img'"
+      >
+        <mat-icon fontIcon="description"></mat-icon>
+        URL Bank
+      </p>
+      <p
+        (click)="changePic(2)"
+        [ngClass]="activePic === 2 ? 'active-img' : 'inactive-img'"
+      >
+        <mat-icon fontIcon="share"></mat-icon>
+        Folder Sharing
+      </p>
+      <p
+        (click)="changePic(3)"
+        [ngClass]="activePic === 3 ? 'active-img' : 'inactive-img'"
+      >
+        <mat-icon fontIcon="folder"></mat-icon>
+        Folders
+      </p>
+    </div>
+
+    <div class="gallery-back">
+      <om-border-beam animationDuration="8s" borderRadius="8px">
+        <img
+          [@fadeInOut]="animState"
+          [src]="pictures[activePic].src"
+          alt="Showcase images for linkstorage"
+        />
+      </om-border-beam>
+    </div>
+  </section>
+
+  <section class="home_transparency">
+    <div class="home_transparency_title">
+      <h1>Our Source Code</h1>
+      <p>Full transparency, code in its purest form.</p>
+    </div>
+
+    <div class="home_transparency_content">
+      <a href="https://github.com/JasonCqq/link-saver" target="_blank">
+        <img
+          src="../../../assets/transparency.png"
+          alt="Image of linkstorage's github source code"
+        />
+      </a>
+    </div>
+  </section>
+
+  <section #home_features class="home_features">
+    <h1>Our Features</h1>
+
+    <div class="home-features-grid">
+      <div class="home-features-item">
+        <span>
+          <mat-icon fontIcon="description"></mat-icon>
+        </span>
+
+        <span>
+          <h2>URL Bank</h2>
+          <p>Quickly store multiple links in text format</p>
+        </span>
+      </div>
+
+      <div class="home-features-item">
+        <span>
+          <mat-icon fontIcon="view_list"></mat-icon>
+        </span>
+
+        <span>
+          <h2>Auto group (In Prog.)</h2>
+          <p>Automatically group similar websites</p>
+        </span>
+      </div>
+
+      <div class="home-features-item">
+        <span>
+          <mat-icon fontIcon="share"></mat-icon>
+        </span>
+
+        <span>
+          <h2>Share links/folders</h2>
+          <p>
+            Share publicly or privately with a password.
+            <a routerLink="/public/1" target="_blank"
+              ><u>Check out our folder!</u></a
             >
-          }
+          </p>
+        </span>
+      </div>
 
-          <section class="home_showcase">
-            <div class="showcase_header" (click)="toggleShowcase()">
-              <span class="material-icons-round"> play_circle </span>
-              <h1>Demo</h1>
-            </div>
-          </section>
-        </div>
-      </header>
+      <div class="home-features-item">
+        <span>
+          <mat-icon fontIcon="panorama"></mat-icon>
+        </span>
 
-      @if (videoShowcase) {
-        <div class="showcase_border">
-          <iframe
-            width="800"
-            height="500"
-            src="https://www.youtube.com/embed/OrvRE0zM_QY?si=LnaUI-mnPKAjiRoW?autoplay=1&mute=1"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-            class="showcase_video"
-          ></iframe>
-        </div>
+        <span>
+          <h2>Thumbnails</h2>
+          <p>Easily preview stored links with website thumbnails.</p>
+        </span>
+      </div>
+
+      <div class="home-features-item">
+        <span>
+          <mat-icon fontIcon="manage_search"></mat-icon>
+        </span>
+
+        <span>
+          <h2>Search/Filter</h2>
+          <p>Find links with search/sort functions, by visits name or date</p>
+        </span>
+      </div>
+
+      <div class="home-features-item">
+        <span>
+          <mat-icon fontIcon="edit_note"></mat-icon>
+        </span>
+
+        <span>
+          <h2>Mass Edit</h2>
+          <p>Quickly edit/move/delete multiple links at once.</p>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section id="home_faq" class="home_faq">
+    <div class="home-faq-title">
+      <h1>Frequently Asked Questions</h1>
+
+      <p>
+        Have questions? Have a read through some of our FAQs <br />
+        or contact us below or on github
+      </p>
+    </div>
+
+    <p-accordion class="home-faq-container" [value]="0">
+      @for (faq of faqs; track faq) {
+        <p-accordion-panel class="faq-item" [value]="faq.id">
+          <p-accordion-header>{{ faq.question }}</p-accordion-header>
+          <p-accordion-content>
+            <p class="m-0">{{ faq.answer }}</p>
+          </p-accordion-content>
+        </p-accordion-panel>
       }
+    </p-accordion>
+  </section>
 
-      <section class="home_gallery">
-        <div class="gallery-flex">
-          <p
-            (click)="changePic(0)"
-            [ngClass]="activePic === 0 ? 'active-img' : 'inactive-img'"
-            >
-            <mat-icon fontIcon="dashboard"></mat-icon>
-            Dashboard
-          </p>
-          <p
-            (click)="changePic(1)"
-            [ngClass]="activePic === 1 ? 'active-img' : 'inactive-img'"
-            >
-            <mat-icon fontIcon="description"></mat-icon>
-            URL Bank
-          </p>
-          <p
-            (click)="changePic(2)"
-            [ngClass]="activePic === 2 ? 'active-img' : 'inactive-img'"
-            >
-            <mat-icon fontIcon="share"></mat-icon>
-            Folder Sharing
-          </p>
-          <p
-            (click)="changePic(3)"
-            [ngClass]="activePic === 3 ? 'active-img' : 'inactive-img'"
-            >
-            <mat-icon fontIcon="folder"></mat-icon>
-            Folders
-          </p>
-        </div>
+  <section id="home_contact" class="home_contact">
+    <p-button
+      class="contact-title"
+      pTooltip="jasonh21715@gmail.com"
+      tooltipPosition="right"
+    >
+      Contact Us
+    </p-button>
+  </section>
 
-        <div class="gallery-back">
-          <img
-            [@fadeInOut]="animState"
-            [src]="pictures[activePic].src"
-            alt="Showcase images for linkstorage"
-            />
-          </div>
-        </section>
+  <footer class="foot-note">
+    <p routerLink="/versions">v2.1.1</p>
 
-        <section class="home_transparency">
-          <div class="home_transparency_title">
-            <h1>Our Source Code</h1>
-            <p>Full transparency, code in its purest form.</p>
-          </div>
+    <a href="https://github.com/JasonCqq/link-saver" target="_blank"
+      >Source Code</a
+    >
 
-          <div class="home_transparency_content">
-            <a href="https://github.com/JasonCqq/link-saver" target="_blank">
-              <img
-                src="../../../assets/transparency.png"
-                alt="Image of linkstorage's github source code"
-                />
-              </a>
-            </div>
-          </section>
+    <a routerLink="/privacy">Privacy Policy</a>
 
-          <section #home_features class="home_features">
-            <h1>Our Features</h1>
-
-            <div class="home-features-grid">
-              <div class="home-features-item">
-                <span>
-                  <mat-icon fontIcon="description"></mat-icon>
-                </span>
-
-                <span>
-                  <h2>URL Bank</h2>
-                  <p>Quickly store multiple links in text format</p>
-                </span>
-              </div>
-
-              <div class="home-features-item">
-                <span>
-                  <mat-icon fontIcon="view_list"></mat-icon>
-                </span>
-
-                <span>
-                  <h2>Auto group (In Prog.)</h2>
-                  <p>Automatically group similar websites</p>
-                </span>
-              </div>
-
-              <div class="home-features-item">
-                <span>
-                  <mat-icon fontIcon="share"></mat-icon>
-                </span>
-
-                <span>
-                  <h2>Share links/folders</h2>
-                  <p>
-                    Share publicly or privately with a password.
-                    <a routerLink="/public/1" target="_blank"
-                      ><u>Check out our folder!</u></a
-                      >
-                    </p>
-                  </span>
-                </div>
-
-                <div class="home-features-item">
-                  <span>
-                    <mat-icon fontIcon="panorama"></mat-icon>
-                  </span>
-
-                  <span>
-                    <h2>Thumbnails</h2>
-                    <p>Easily preview stored links with website thumbnails.</p>
-                  </span>
-                </div>
-
-                <div class="home-features-item">
-                  <span>
-                    <mat-icon fontIcon="manage_search"></mat-icon>
-                  </span>
-
-                  <span>
-                    <h2>Search/Filter</h2>
-                    <p>Find links with search/sort functions, by visits name or date</p>
-                  </span>
-                </div>
-
-                <div class="home-features-item">
-                  <span>
-                    <mat-icon fontIcon="edit_note"></mat-icon>
-                  </span>
-
-                  <span>
-                    <h2>Mass Edit</h2>
-                    <p>Quickly edit/move/delete multiple links at once.</p>
-                  </span>
-                </div>
-              </div>
-            </section>
-
-            <section id="home_faq" class="home_faq">
-              <div class="home-faq-title">
-                <h1>Frequently Asked Questions</h1>
-
-                <p>
-                  Have questions? Have a read through some of our FAQs <br />
-                  or contact us below or on github
-                </p>
-              </div>
-
-              <div class="home-faq-container">
-                @for (faq of faqs; track faq) {
-                  <div
-                    class="faq-item"
-                    (click)="toggleFAQ(faq.id)"
-                    >
-                    <div class="faq-flex">
-                      <p class="faq-question">{{ faq.question }}</p>
-                      <span class="material-icons-round faq-icon">add</span>
-                    </div>
-                    @if (activeID === faq.id) {
-                      <p class="faq-answer">{{ faq.answer }}</p>
-                    }
-                  </div>
-                }
-              </div>
-            </section>
-
-            <section id="home_contact" class="home_contact">
-              <div class="contact-title" (click)="toggleContact()">
-                <h1>Contact Us</h1>
-              </div>
-
-              @if (contactForm) {
-                <div class="contact-overlay">
-                  <span
-                    class="material-icons-round"
-                    (click)="toggleContact()"
-                    style="margin: 10px"
-                    >
-                    close
-                  </span>
-                  <form
-                    class="contact-form"
-                    action="https://formsubmit.co/linkstoragenet@gmail.com"
-                    method="POST"
-                    >
-                    <h1>Contact</h1>
-                    <div class="contact-flex">
-                      <mat-form-field appearance="outline" floatLabel="always">
-                        <mat-label for="name">Name</mat-label>
-                        <input matInput type="text" #name required name="name" />
-                      </mat-form-field>
-                      <mat-form-field appearance="outline" floatLabel="always">
-                        <mat-label for="email">Email</mat-label>
-                        <input matInput type="email" #email required name="email" />
-                      </mat-form-field>
-                    </div>
-                    <mat-form-field
-                      class="home-message"
-                      appearance="outline"
-                      floatLabel="always"
-                      >
-                      <mat-label for="message">Message</mat-label>
-                      <textarea
-                        matInput
-                        #message
-                        type="text"
-                        required
-                        name="message"
-                        rows="7"
-                      ></textarea>
-                    </mat-form-field>
-                    <button type="submit">Send Message</button>
-                  </form>
-                </div>
-              }
-            </section>
-
-            <footer class="foot-note">
-              <p routerLink="/versions">v2.1.1</p>
-
-              <a href="https://github.com/JasonCqq/link-saver" target="_blank"
-                >Source Code</a
-                >
-
-                <a routerLink="/privacy">Privacy Policy</a>
-
-                <a routerLink="/terms">Terms of Service</a>
-              </footer>
-            </main>
+    <a routerLink="/terms">Terms of Service</a>
+  </footer>
+</main>

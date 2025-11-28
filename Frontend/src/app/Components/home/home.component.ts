@@ -10,6 +10,9 @@ import {
   transition,
 } from "@angular/animations";
 
+
+
+
 @Component({
     selector: "app-home",
     templateUrl: "./home.component.html",
@@ -35,16 +38,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   user: any;
   theme: any;
-
-  contactForm: boolean = false;
-  toggleContact() {
-    this.contactForm = !this.contactForm;
-  }
-
-  videoShowcase: boolean = false;
-  toggleShowcase() {
-    this.videoShowcase = !this.videoShowcase;
-  }
 
   toggleTheme(res: string) {
     if (this.theme === "dark") {

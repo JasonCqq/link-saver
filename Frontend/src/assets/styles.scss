@@ -2,6 +2,8 @@
 @include mat.elevation-classes();
 @include mat.app-background();
 
+@import "primeicons/primeicons.css";
+
 @font-face {
   font-family: "AlbertSans";
   src: url("../assets/fonts/AlbertSans-Thin.ttf") format("truetype");
@@ -101,8 +103,7 @@
 }
 
 $my-custom-typography-config: mat.m2-define-typography-config(
-  $caption:
-    mat.m2-define-typography-level(
+  $caption: mat.m2-define-typography-level(
       $font-size: 12px,
       $font-weight: 700,
       $font-family: "AlbertSans" !important,
@@ -269,8 +270,9 @@ button {
 }
 
 code {
-  font-family: "AlbertSans", source-code-pro, Menlo, Monaco, Consolas,
-    "Courier New", monospace;
+  font-family:
+    "AlbertSans", source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
 // Scrollbar

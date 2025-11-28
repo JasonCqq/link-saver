@@ -102,30 +102,6 @@
           margin-right: 10px;
         }
 
-        > .register-button {
-          background: var(--background2);
-          color: var(--text2);
-          padding: 10px 25px;
-          border-radius: 8px;
-          border: 2px solid transparent;
-          transition: background-color 0.15s ease-in-out;
-
-          @media screen and (max-width: 400px) {
-            padding: 5px 10px;
-          }
-
-          @media screen and (max-width: 330px) {
-            font-size: 0.85rem;
-          }
-
-          &:hover {
-            cursor: pointer;
-            background-color: transparent;
-            color: var(--text);
-            border: 2px solid var(--text);
-          }
-        }
-
         > .home-login {
           @media screen and (max-width: 330px) {
             font-size: 0.85rem;
@@ -159,110 +135,6 @@
       @media screen and (max-width: 450px) {
         font-size: 1.25rem;
         width: 90vw;
-      }
-    }
-
-    > .landing-body {
-      display: flex;
-      gap: 1.5vw;
-      margin-top: 5vh;
-      align-items: center;
-      justify-content: center;
-
-      > .register-button,
-      .dashboard-button {
-        background: var(--background2);
-        color: var(--text2);
-        padding: 15px 30px;
-        border-radius: 8px;
-        font-weight: bold;
-        font-size: 1.2rem;
-        border: 2px solid transparent;
-        transition: background-color 0.15s ease-in-out;
-
-        @media screen and (max-width: 400px) {
-          font-size: 1rem;
-          padding: 10px 20px;
-        }
-
-        &:hover {
-          cursor: pointer;
-          background-color: transparent;
-          color: var(--text);
-          border: 2px solid var(--text);
-        }
-      }
-    }
-  }
-
-  .home_showcase {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 3vh;
-    margin-top: 5vh;
-    padding-bottom: 5vh;
-    margin-left: 25px;
-
-    @media screen and (max-width: 320px) {
-      margin-left: 10px;
-    }
-
-    .showcase_header {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      font-size: 0.8rem;
-      font-weight: 500;
-
-      @media screen and (max-width: 390px) {
-        font-size: 0.6rem;
-      }
-
-      &:hover {
-        > h1,
-        .material-icons-round {
-          cursor: pointer;
-          color: var(--accent);
-        }
-      }
-
-      > h1 {
-        color: var(--text);
-      }
-
-      > .material-icons-round {
-        color: var(--text);
-        font-size: 1.5rem;
-        padding-right: 5px;
-      }
-    }
-  }
-
-  .showcase_border {
-    border-radius: 8px;
-    padding: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 50px;
-    width: 95vw;
-
-    > .showcase_video {
-      border-radius: 8px;
-      width: 1000px;
-
-      @media screen and (max-width: 1020px) {
-        width: 95%;
-      }
-
-      @media screen and (max-width: 580px) {
-        height: 250px;
-      }
-
-      @media screen and (max-width: 415px) {
-        height: 150px;
       }
     }
   }
@@ -303,7 +175,7 @@
       background-size: 40px 40px;
       background-position: -19px 19px;
 
-      width: 65%;
+      width: 60%;
       margin: auto;
 
       @media screen and (max-width: 1200px) {
@@ -397,13 +269,14 @@
     .gallery-back {
       background-color: #13171b;
       border-radius: 8px;
-      border: 1px solid rgba(106, 106, 106, 0.261);
-      box-shadow: 1px 1px 15px black;
+      box-shadow: 1px 1px 15px rgb(8, 8, 8);
       width: 65vw;
+      border-width: 5px;
 
-      > img {
+      img {
         border-radius: 8px;
-        width: 100%;
+        width: 95%;
+        height: 95%;
       }
 
       @media screen and (max-width: 1280px) {
@@ -449,7 +322,7 @@
       display: grid;
       align-items: center;
       justify-content: center;
-      width: 65vw;
+      width: 50vw;
       column-gap: 4vw;
       row-gap: 6vh;
       grid-template-columns: repeat(3, 1fr);
@@ -557,75 +430,10 @@
     .home-faq-container {
       display: flex;
       flex-direction: column;
-      gap: 3vh;
       width: 40%;
 
       @media screen and (max-width: 900px) {
         width: 90%;
-      }
-
-      .faq-item {
-        transition: color 0.1s ease-in-out;
-        padding-bottom: 25px;
-        border-bottom: 1px solid gray;
-        border-radius: 2px;
-
-        &:hover {
-          cursor: pointer;
-
-          > .faq-flex > .faq-question {
-            color: var(--accent);
-          }
-        }
-
-        .faq-flex {
-          display: flex;
-
-          > p {
-            font-weight: 700;
-            font-size: 1.1rem;
-
-            @media screen and (max-width: 815px) {
-              font-size: 1rem;
-            }
-
-            @media screen and (max-width: 415px) {
-              font-size: 0.95rem;
-            }
-          }
-
-          > .faq-icon {
-            margin-left: auto;
-            color: var(--accent);
-            transform: scale(1.1);
-
-            @media screen and (max-width: 415px) {
-              transform: scale(0.75);
-            }
-
-            @media screen and (max-width: 300px) {
-              transform: scale(0.5);
-            }
-          }
-        }
-        .faq-answer {
-          width: 75%;
-          height: auto;
-          padding-top: 1vh;
-          animation: 0.15s ease-in-out 0s 1 fadeIn;
-          opacity: 0.9;
-          font-size: 0.9rem;
-          font-weight: 600;
-          line-height: 25px;
-
-          @media screen and (max-width: 700px) {
-            width: 75%;
-          }
-
-          @media screen and (max-width: 500px) {
-            width: 90%;
-          }
-        }
       }
     }
   }
@@ -633,100 +441,22 @@
   .home_contact {
     height: auto;
     margin-bottom: 12.5vh;
-    margin-top: 20vh;
-    width: 100%;
+    margin-top: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     > .contact-title {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 5px;
+      width: max-content;
 
       transition: color 0.1s ease-in-out;
       &:hover {
         color: var(--accent);
         cursor: pointer;
-      }
-
-      > h1 {
-        font-size: 2.25rem;
-        font-weight: 900;
-        text-align: center;
-      }
-
-      > span {
-        font-weight: 900;
-        transform: scale(1.5);
-        margin-left: 10px;
-      }
-    }
-
-    > .contact-overlay {
-      position: fixed;
-      bottom: 0;
-      right: 0;
-      background-color: var(--background);
-      border-top: 3px solid var(--textSec);
-      height: 450px;
-      width: 25vw;
-      margin-right: 25px;
-      z-index: 99;
-
-      @media screen and (max-width: 1300px) {
-        width: 40vw;
-      }
-
-      @media screen and (max-width: 750px) {
-        width: 60vw;
-      }
-
-      @media screen and (max-width: 550px) {
-        width: 100vw;
-        margin-right: 0;
-      }
-
-      > span {
-        transform: scale(1.25);
-        &:hover {
-          cursor: pointer;
-          color: var(--accent);
-        }
-      }
-
-      > .contact-form {
-        display: flex;
-        flex-direction: column;
-        gap: 1vh;
-        justify-content: center;
-        align-items: center;
-
-        > button {
-          border: 2px solid var(--text);
-          padding: 15px 20px;
-          font-size: 1.15rem;
-          width: 95%;
-          background-color: var(--text);
-          border-radius: 8px;
-          color: var(--text2);
-          transition: background-color 0.15s ease-in-out;
-          font-weight: 700;
-
-          &:hover {
-            cursor: pointer;
-            background-color: transparent;
-            color: var(--text);
-          }
-        }
-
-        > .contact-flex {
-          display: flex;
-          gap: 25px;
-          width: 95%;
-        }
-
-        > .home-message {
-          width: 95%;
-        }
       }
     }
   }
@@ -751,8 +481,4 @@
       }
     }
   }
-}
-
-textarea {
-  resize: none;
 }
