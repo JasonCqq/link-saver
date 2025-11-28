@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
 
 @Component({
-    selector: "app-version-history",
-    templateUrl: "./version-history.component.html",
-    styleUrls: ["./version-history.component.scss"],
-    standalone: false
+  selector: "app-version-history",
+  templateUrl: "./version-history.component.html",
+  styleUrls: ["./version-history.component.scss"],
+  standalone: false,
 })
 export class VersionHistoryComponent {
   activeID: number = 11;
@@ -18,14 +18,15 @@ export class VersionHistoryComponent {
   versions = [
     {
       id: 11,
-      version: "2.1.1 - 11/9/2025",
+      version: "2.2 - 11/28/2025",
       updates: [
-        "Starting to update the site again",
-        "Updated UI slightly",
+        "Revamped most of UI",
+        "Fixed cookies causing some browsers to not work",
         "Added Google account login and registration",
+        "Removed unused features"
       ],
       qols: [],
-      bugfixes: ["Fixed slow loading times on mobile on first site visit"],
+      bugfixes: [],
     },
     {
       id: 10,
