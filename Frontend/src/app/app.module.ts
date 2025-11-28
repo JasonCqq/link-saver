@@ -14,7 +14,6 @@ import {
 } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatIconModule } from "@angular/material/icon";
-import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
@@ -86,7 +85,6 @@ function initializeAppFactory(
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatTooltipModule,
     MatProgressSpinnerModule,
 
     AccordionModule,

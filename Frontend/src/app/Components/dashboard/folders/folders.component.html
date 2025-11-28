@@ -13,7 +13,7 @@
         class="folders-share"
         [formGroup]="shareFolderForm"
         (submit)="shareFolder()"
-        >
+      >
         <mat-icon
           fontIcon="close"
           (click)="toggleShareWindow()"
@@ -35,7 +35,7 @@
           formControlName="passwordToggle"
           [hideIcon]="true"
           (click)="togglePasswordInput()"
-          >
+        >
         </mat-slide-toggle>
         <mat-form-field>
           <mat-label>Password</mat-label>
@@ -51,10 +51,7 @@
 
   <div class="folders-buttons">
     @if (folderOpened) {
-      <button
-        class="folders-button folders-back"
-        (click)="closeFolder()"
-        >
+      <button class="folders-button folders-back" (click)="closeFolder()">
         <mat-icon fontIcon="arrow_back"></mat-icon>
         Go Back
       </button>
@@ -64,17 +61,14 @@
       <button
         class="folders-button folders-share"
         (click)="toggleShareWindow()"
-        >
+      >
         <mat-icon fontIcon="share"></mat-icon>
         Share Folder
       </button>
     }
 
     @if (folderOpened && !tempShare) {
-      <button
-        class="folders-button folders-share"
-        (click)="unshareFolder()"
-        >
+      <button class="folders-button folders-share" (click)="unshareFolder()">
         <mat-icon fontIcon="share"></mat-icon>
         Unshare
       </button>
@@ -85,7 +79,7 @@
   @if (!folderOpened) {
     <section class="folders-grid">
       <div class="folders-item" (click)="toggleWindow()">
-        <span class="material-icons-round faq-icon">add</span>
+        <i class="pi pi-plus"></i>
         <p>Create Folder</p>
       </div>
       @if (loadingService.isLoading$ | async) {
@@ -103,7 +97,7 @@
             class="folders-create"
             [formGroup]="createFolderForm"
             (submit)="createFolder()"
-            >
+          >
             <mat-icon
               fontIcon="close"
               (click)="toggleWindow()"
@@ -117,83 +111,85 @@
                 type="text"
                 #folderName
                 formControlName="folderName"
-                />
-              </mat-form-field>
-              <button type="submit" class="folders-create-button">Create</button>
-            </form>
-          </div>
-        }
-        <!--Edit Folder Form-->
-        @if (editWindowOpened) {
-          <div class="folders-create-overlay">
-            <form
-              class="folders-create"
-              [formGroup]="createFolderForm"
-              (submit)="editFolder()"
-              >
-              <mat-icon
-                fontIcon="close"
-                (click)="toggleEditWindow('none')"
-                class="folders-create-close"
-              ></mat-icon>
-              <h3>Edit</h3>
-              <mat-form-field appearance="outline" floatLabel="always">
-                <mat-label for="editFolderName">Folder Name</mat-label>
-                <input
-                  matInput
-                  type="text"
-                  #editFolderName
-                  formControlName="editFolderName"
-                  />
-                </mat-form-field>
-                <button type="submit" class="folders-create-button">Edit</button>
-              </form>
-            </div>
-          }
-          @for (folder of folders; track folder) {
-            <div
-              class="folders-item"
-              (click)="openFolder(folder.id)"
-              matTooltip="{{ folder.name }} has {{ folder.links.length }} links"
-              >
-              <div class="folders-item-flex">
-                <mat-icon fontIcon="folder"></mat-icon>
-                <p>
-                  {{ folder.name | slice: 0 : 10
-                  }}{{ folder.name.length > 10 ? "..." : "" }}
-                </p>
-              </div>
-              <div class="folders-item-options">
-                <mat-icon
-                  fontIcon="edit"
-                  (click)="$event.stopPropagation(); toggleEditWindow(folder.id)"
-                  matTooltip="Edit Folder"
-                ></mat-icon>
-                <mat-icon
-                  fontIcon="close"
-                  matTooltip="Delete Folder"
-                  style="color: #f73830"
-                  (click)="$event.stopPropagation(); deleteFolder(folder.id)"
-                ></mat-icon>
-              </div>
-            </div>
-          }
-        </section>
+              />
+            </mat-form-field>
+            <button type="submit" class="folders-create-button">Create</button>
+          </form>
+        </div>
       }
-
-      <!--Links Tab-->
-      @if (folderOpened && tempLinks) {
-        <section
-          [ngClass]="previews === true ? 'content-grid' : 'content-grid-no-previews'"
+      <!--Edit Folder Form-->
+      @if (editWindowOpened) {
+        <div class="folders-create-overlay">
+          <form
+            class="folders-create"
+            [formGroup]="createFolderForm"
+            (submit)="editFolder()"
           >
-          @for (link of tempLinks; track link) {
-            <div>
-              <app-link-item
-                [itemData]="link"
-                (linkUpdate)="deleteLink($event)"
-              ></app-link-item>
-            </div>
-          }
-        </section>
+            <mat-icon
+              fontIcon="close"
+              (click)="toggleEditWindow('none')"
+              class="folders-create-close"
+            ></mat-icon>
+            <h3>Edit</h3>
+            <mat-form-field appearance="outline" floatLabel="always">
+              <mat-label for="editFolderName">Folder Name</mat-label>
+              <input
+                matInput
+                type="text"
+                #editFolderName
+                formControlName="editFolderName"
+              />
+            </mat-form-field>
+            <button type="submit" class="folders-create-button">Edit</button>
+          </form>
+        </div>
       }
-    </main>
+      @for (folder of folders; track folder) {
+        <div
+          class="folders-item"
+          (click)="openFolder(folder.id)"
+          pTooltip="{{ folder.name }} has {{ folder.links.length }} links"
+        >
+          <div class="folders-item-flex">
+            <mat-icon fontIcon="folder"></mat-icon>
+            <p>
+              {{ folder.name | slice: 0 : 10
+              }}{{ folder.name.length > 10 ? "..." : "" }}
+            </p>
+          </div>
+          <div class="folders-item-options">
+            <mat-icon
+              fontIcon="edit"
+              (click)="$event.stopPropagation(); toggleEditWindow(folder.id)"
+              pTooltip="Edit Folder"
+            ></mat-icon>
+            <mat-icon
+              fontIcon="close"
+              pTooltip="Delete Folder"
+              style="color: #f73830"
+              (click)="$event.stopPropagation(); deleteFolder(folder.id)"
+            ></mat-icon>
+          </div>
+        </div>
+      }
+    </section>
+  }
+
+  <!--Links Tab-->
+  @if (folderOpened && tempLinks) {
+    <section
+      [ngClass]="
+        previews === true ? 'content-grid' : 'content-grid-no-previews'
+      "
+    >
+      @for (link of tempLinks; track link) {
+        <div>
+          <app-link-item
+            [itemData]="link"
+            (linkUpdate)="deleteLink($event)"
+          ></app-link-item>
+        </div>
+      }
+    </section>
+  }
+</main>

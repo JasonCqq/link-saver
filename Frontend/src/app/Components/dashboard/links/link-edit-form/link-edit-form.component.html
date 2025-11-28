@@ -3,7 +3,7 @@
     class="link-item-edit"
     [formGroup]="editForm"
     (submit)="submitEditForm()"
-    >
+  >
     <span>
       <mat-icon
         fontIcon="close"
@@ -14,31 +14,25 @@
 
     <h1>EDIT</h1>
 
-    <mat-form-field appearance="outline" floatLabel="always">
-      <mat-label for="editTitle">Title</mat-label>
-      <input matInput type="text" #editTitle formControlName="editTitle" />
-    </mat-form-field>
+    <p-floatlabel variant="on">
+      <label for="editTitle">Title</label>
+      <input pInputText type="text" #editTitle formControlName="editTitle" />
+    </p-floatlabel>
 
-    <mat-form-field appearance="outline" floatLabel="always">
-      <mat-label for="editFolder">Folder</mat-label>
+    <p-select
+      formControlName="editFolder"
+      #editFolder
+      [options]="folders"
+      optionLabel="name"
+      optionValue="id"
+      placeholder="Select folder"
+    ></p-select>
 
-      <mat-select #editFolder formControlName="editFolder">
-        @for (folder of folders; track folder) {
-          <mat-option [value]="folder.id">{{
-            folder.name
-          }}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
+    <span>
+      <p style="padding-bottom: 8px">Bookmark</p>
+      <p-toggleswitch #editBookmarked formControlName="editBookmarked" />
+    </span>
 
-    <mat-slide-toggle
-      #editBookmarked
-      formControlName="editBookmarked"
-      [hideIcon]="true"
-      >
-      <p style="margin-left: 0.5vw; font-weight: 600">Bookmark</p>
-    </mat-slide-toggle>
-
-    <button type="submit" [disabled]="!editForm.dirty">Confirm Edit</button>
+    <p-button type="submit" [disabled]="!editForm.dirty">Confirm Edit</p-button>
   </form>
 </div>

@@ -1,25 +1,34 @@
-<form class="add-link-form" [formGroup]="linkForm" (submit)="submitForm()">
-  <h1>ADD LINK</h1>
+<div class="create-form-overlay">
+  <form class="add-link-form" [formGroup]="linkForm" (submit)="submitForm()">
+    <span style="display: flex">
+      <h1>ADD LINK</h1>
+      <mat-icon
+        fontIcon="close"
+        (click)="closeForm.emit()"
+        class="create-form-close"
+        style="margin-left: auto"
+      ></mat-icon>
+    </span>
 
-  <mat-form-field appearance="outline" floatLabel="always">
-    <mat-label for="url">URL</mat-label>
-    <input matInput type="url" #url formControlName="url" required />
-  </mat-form-field>
+    <p-floatlabel variant="on">
+      <label for="url">URL</label>
+      <input pInputText type="url" #url formControlName="url" required />
+    </p-floatlabel>
 
-  <mat-form-field appearance="outline" floatLabel="always">
-    <mat-label for="folder">Folder (Optional)</mat-label>
-    <mat-select #folder formControlName="folder">
-      @for (folder of folders; track folder) {
-        <mat-option [value]="folder.id">{{
-          folder.name
-        }}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
+    <p-select
+      formControlName="folder"
+      #folder
+      [options]="folders"
+      optionLabel="name"
+      optionValue="id"
+      placeholder="Select folder"
+    ></p-select>
 
-  <mat-slide-toggle [hideIcon]="true" #bookmarked formControlName="bookmarked">
-    <p>Bookmark</p>
-  </mat-slide-toggle>
+    <span>
+      <p style="padding-bottom: 8px">Bookmark</p>
+      <p-toggleswitch #bookmarked formControlName="bookmarked" />
+    </span>
 
-  <button type="submit" [disabled]="linkForm.invalid">Submit</button>
-</form>
+    <p-button type="submit" [disabled]="linkForm.invalid">Submit</p-button>
+  </form>
+</div>

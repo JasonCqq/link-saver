@@ -15,8 +15,10 @@
 
   > form {
     display: flex;
-    height: 50vh;
-    width: 25vw;
+    height: fit-content;
+    width: fit-content;
+    padding: 4vh 3vw;
+
     flex-direction: column;
     justify-content: center;
     align-items: center;

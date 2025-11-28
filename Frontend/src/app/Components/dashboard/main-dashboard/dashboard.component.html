@@ -7,20 +7,22 @@
 <main class="dashboard-container default-dash-container">
   @if (tempTitle === "Trash") {
     <span>
-      <button (click)="togglePrompt()">Clear All</button>
+      <p-button (click)="togglePrompt()" severity="danger">Clear All</p-button>
       @if (clearPrompt) {
         <section class="clear-prompt-overlay">
           <div class="clear-prompt">
             <h1>Clear all links?</h1>
-            <p style="color: red">This action is permanent.</p>
+            <p style="color: rgb(215, 57, 57)">This action is permanent.</p>
             <div class="clear-prompt-flex">
-              <button (click)="togglePrompt()">No</button>
-              <button
+              <p-button
                 class="clear-prompt-yes"
                 (click)="deleteAllTrash(); togglePrompt()"
+                severity="danger"
               >
                 Yes
-              </button>
+              </p-button>
+
+              <p-button (click)="togglePrompt()">No</p-button>
             </div>
           </div>
         </section>
@@ -28,6 +30,7 @@
     </span>
   }
 
+  <!--Questionable, not sure if need rn-->
   <section
     [ngClass]="previews === true ? 'content-grid' : 'content-grid-no-previews'"
     @fadeIn

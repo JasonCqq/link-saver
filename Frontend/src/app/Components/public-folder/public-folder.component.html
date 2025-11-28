@@ -4,8 +4,8 @@
       <p class="public-sign-up">
         Sign up today to share your own links and folders!
       </p>
-      <a routerLink="" matTooltip="Home">linkstorag<span>e</span></a>
-      <p matTooltip="{{ author }}">
+      <a routerLink="" pTooltip="Home">linkstorag<span>e</span></a>
+      <p pTooltip="{{ author }}">
         Folder "{{ folderName }}" created by {{ author | slice: 0 : 11 }}
         {{ author.length > 11 ? "..." : "" }}
       </p>
@@ -26,7 +26,7 @@
         <section class="content-grid">
           @for (link of links; track link) {
             <div>
-              <div class="link-item" matTooltip="{{ link.url }}">
+              <div class="link-item" pTooltip="{{ link.url }}">
                 <a [href]="'//' + link.url" target="_blank">
                   <div class="link-preview">
                     <img src="{{ link.pURL }}" height="100px" width="170px" />

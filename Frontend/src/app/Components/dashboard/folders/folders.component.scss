@@ -2,15 +2,7 @@
 
 .folders-container {
   margin-top: 2vh;
-  margin-left: 13vw;
-
-  @media screen and (max-width: 720px) {
-    margin-left: 5vw;
-  }
-
-  @media screen and (max-width: 340px) {
-    margin-left: 10vw;
-  }
+  margin-left: 5vw;
 
   > .folders-grid {
     display: grid;

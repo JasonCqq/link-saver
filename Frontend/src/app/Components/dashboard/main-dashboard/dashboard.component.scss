@@ -1,7 +1,7 @@
 @import "../../../../assets/sharedstyles.scss";
 
 span {
-  margin: 0;
+  margin-top: 25px;
   > .clear-prompt-overlay {
     position: fixed;
     top: 0;
@@ -20,22 +20,11 @@ span {
       align-items: center;
       justify-content: center;
       gap: 2vh;
-      width: 25vw;
-      height: 20vh;
+      padding: 3vh 5vw;
+      width: fit-content;
+      height: fit-content;
       border-radius: 8px;
       background: var(--background);
-
-      @media screen and (max-width: 1200px) {
-        width: 35vw;
-      }
-
-      @media screen and (max-width: 850px) {
-        width: 50vw;
-      }
-
-      @media screen and (max-width: 550px) {
-        width: 75vw;
-      }
 
       > .clear-prompt-flex {
         display: flex;
@@ -44,57 +33,7 @@ span {
         @media screen and (max-width: 850px) {
           gap: 5vw;
         }
-
-        > button {
-          border: none;
-          padding: 10px 25px;
-          color: var(--text);
-          border: 2px solid var(--accent);
-          background: var(--accent);
-          border-radius: 8px;
-
-          &:hover {
-            cursor: pointer;
-            background: transparent;
-          }
-        }
-
-        > .clear-prompt-yes {
-          border: 2px solid var(--accent);
-          background: transparent;
-          &:hover {
-            background: var(--accent);
-          }
-        }
       }
-    }
-  }
-
-  > button {
-    color: var(--text);
-    padding: 12px 21px;
-    font-weight: 900;
-    background-color: var(--imp-button);
-    border: 2px solid var(--imp-button);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    transition: box-shadow 0.1s ease-in-out;
-    margin-top: 3vh;
-
-    @media screen and (max-width: 440px) {
-      margin-top: 2vh;
-    }
-
-    @media screen and (max-width: 340px) {
-      margin-top: 2vh;
-      margin-left: 10vw;
-    }
-
-    transition: background-color 0.1s;
-    &:hover {
-      cursor: pointer;
-      background-color: transparent;
     }
   }
 }

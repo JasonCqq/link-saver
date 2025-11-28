@@ -6,6 +6,7 @@
   flex-direction: column;
   padding-left: 5vw;
   background-color: var(--background);
+  padding-bottom: 2vh;
 
   @media screen and (max-width: 720px) {
     padding-left: 5vw;
@@ -80,52 +81,6 @@
         font-weight: 600;
         height: 45px;
         width: clamp(100px, 175px, 300px);
-      }
-    }
-
-    > .create-form-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      background-color: rgba($color: #000000, $alpha: 0.8);
-      height: 100vh;
-      width: 100vw;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 99;
-
-      > .create-form {
-        background-color: var(--background);
-        height: auto;
-        padding: 0 0 10vh 0;
-        width: 30vw;
-        border-radius: 8px;
-
-        @media screen and (max-width: 1275px) {
-          width: 35vw;
-        }
-
-        @media screen and (max-width: 850px) {
-          width: 50vw;
-        }
-
-        @media screen and (max-width: 525px) {
-          width: 65vw;
-        }
-
-        @media screen and (max-width: 425px) {
-          width: 73vw;
-        }
-
-        > .create-form-close {
-          font-size: 1.75rem;
-          margin: 15px;
-          &:hover {
-            cursor: pointer;
-            color: var(--accent);
-          }
-        }
       }
     }
   }

@@ -2,22 +2,19 @@
   class="link-item"
   [ngClass]="addingID && massEditting ? 'link-item-border' : ''"
   (click)="addMassID(itemData.id)"
-  matTooltip="{{ itemData.title }}"
-  >
+  pTooltip="{{ itemData.title }}"
+>
   <a
     [ngClass]="massEditting ? 'disabled' : 'link-item-wrapper'"
     [href]="'//' + itemData.url"
     target="_blank"
     (click)="visitedLink()"
     (auxclick)="visitedLink()"
-    >
+  >
     @if (this.previews) {
       <div class="link-preview">
         @if (itemData.pURL) {
-          <img
-            src="{{ itemData.pURL }}"
-            alt="Refresh to view"
-            />
+          <img src="{{ itemData.pURL }}" alt="Refresh to view" />
         }
         @if (!itemData.pURL) {
           <p style="text-align: center">No image found</p>
@@ -28,7 +25,7 @@
     <div
       target="_blank"
       [ngClass]="previews ? 'link-details' : 'link-details-no-previews'"
-      >
+    >
       <p class="link-title">{{ itemData.title }}</p>
       <p class="link-url">{{ itemData.url | slice: 0 : 20 }}</p>
       <p class="link-date">
@@ -42,36 +39,36 @@
   <!--Link CRUD Options-->
   @if (!massEditting) {
     <div class="link-options">
-      @if (specialRequest !== 'Trash') {
+      @if (specialRequest !== "Trash") {
         <mat-icon
           fontIcon="close"
           class="link-delete"
           (click)="moveToTrash()"
-          matTooltip="Move to trash"
+          pTooltip="Move to trash"
         ></mat-icon>
       }
-      @if (specialRequest !== 'Trash') {
+      @if (specialRequest !== "Trash") {
         <mat-icon
           fontIcon="edit"
           class="link-edit"
           (click)="toggleEdit()"
-          matTooltip="Edit Link"
+          pTooltip="Edit Link"
         ></mat-icon>
       }
-      @if (specialRequest === 'Trash') {
+      @if (specialRequest === "Trash") {
         <mat-icon
           fontIcon="restore"
           class="link-restore"
           (click)="restoreLink()"
-          matTooltip="Restore Link"
+          pTooltip="Restore Link"
         ></mat-icon>
       }
-      @if (specialRequest === 'Trash') {
+      @if (specialRequest === "Trash") {
         <mat-icon
           fontIcon="close"
           class="link-delete"
           (click)="permanentDelete()"
-          matTooltip="Remove Permanently"
+          pTooltip="Remove Permanently"
         ></mat-icon>
       }
     </div>

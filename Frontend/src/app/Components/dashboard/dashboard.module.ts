@@ -11,7 +11,6 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSidenavModule } from "@angular/material/sidenav";
-import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 
@@ -39,6 +38,8 @@ import { MenubarModule } from "primeng/menubar";
 import { SelectModule } from "primeng/select";
 import { IconFieldModule } from "primeng/iconfield";
 import { InputIconModule } from "primeng/inputicon";
+import { FloatLabelModule } from "primeng/floatlabel";
+import { ToggleSwitchModule } from "primeng/toggleswitch";
 
 @NgModule({
   declarations: [
@@ -67,7 +68,6 @@ import { InputIconModule } from "primeng/inputicon";
     MatSlideToggleModule,
     MatSelectModule,
     MatSidenavModule,
-    MatTooltipModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
 
@@ -82,6 +82,8 @@ import { InputIconModule } from "primeng/inputicon";
     SelectModule,
     IconFieldModule,
     InputIconModule,
+    FloatLabelModule,
+    ToggleSwitchModule,
   ],
 
   exports: [LinkComponent],

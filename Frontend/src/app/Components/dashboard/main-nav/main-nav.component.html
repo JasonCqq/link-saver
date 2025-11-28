@@ -33,16 +33,7 @@
     </div>
 
     @if (createForm === true) {
-      <div class="create-form-overlay">
-        <div class="create-form">
-          <mat-icon
-            fontIcon="close"
-            (click)="toggleForm()"
-            class="create-form-close"
-          ></mat-icon>
-          <app-link-form (closeForm)="toggleForm()"></app-link-form>
-        </div>
-      </div>
+      <app-link-form (closeForm)="toggleForm()"></app-link-form>
     }
   </div>
 </nav>
