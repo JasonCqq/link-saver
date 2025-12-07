@@ -5,43 +5,27 @@ import { definePreset } from "@primeuix/themes";
 import Lara from "@primeuix/themes/lara";
 
 export const MyPreset = definePreset(Lara, {
-  
-
   semantic: {
     primary: {
-      50: "{slate.50}",
-      100: "{slate.100}",
-      200: "{slate.200}",
-      300: "{slate.300}",
-      400: "{slate.400}",
-      500: "{slate.500}",
-      600: "{slate.600}",
-      700: "{slate.700}",
-      800: "{slate.800}",
-      900: "{slate.900}",
-      950: "{slate.950}",
+      50: "{gray.50}",
+      100: "{gray.100}",
+      200: "{gray.200}",
+      300: "{gray.300}",
+      400: "{gray.400}",
+      500: "{gray.500}",
+      600: "{gray.600}",
+      700: "{gray.700}",
+      800: "{gray.800}",
+      900: "{gray.900}",
+      950: "{gray.950}",
     },
     colorScheme: {
-      light: {
-        primary: {
-          color: "{slate.950}",
-          inverseColor: "#ffffff",
-          hoverColor: "{slate.900}",
-          activeColor: "{slate.800}",
-        },
-        highlight: {
-          background: "{slate.950}",
-          focusBackground: "{slate.700}",
-          color: "#ffffff",
-          focusColor: "#ffffff",
-        },
-      },
       dark: {
         primary: {
-          color: "{slate.50}",
-          inverseColor: "{slate.950}",
-          hoverColor: "{slate.300}",
-          activeColor: "{slate.200}",
+          color: "{gray.50}",
+          inverseColor: "{gray.950}",
+          hoverColor: "{gray.300}",
+          activeColor: "{gray.200}",
         },
         highlight: {
           background: "rgba(250, 250, 250, .16)",

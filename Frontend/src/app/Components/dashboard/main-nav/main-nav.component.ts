@@ -27,6 +27,8 @@ interface sortBy {
 export class MainNavComponent implements OnInit, OnDestroy {
   previews: any;
 
+  massEditting: boolean = false;
+
   constructor(
     private dashboardService: DashboardService,
     private linkService: LinkService,
@@ -77,6 +79,10 @@ export class MainNavComponent implements OnInit, OnDestroy {
 
         this.sortByResults.emit(result);
       });
+
+    this.mainNavService.massEdit$.subscribe((bool) => {
+      this.massEditting = bool;
+    });
   }
 
   ngOnDestroy(): void {
@@ -124,5 +130,14 @@ export class MainNavComponent implements OnInit, OnDestroy {
           this.searchResults.emit(result);
         });
     }
+  }
+
+  toggleMassEdit(): void {
+    this.mainNavService.toggleMassEdit();
+  }
+
+  massEditForm: boolean = false;
+  toggleMassEditForm(): void {
+    this.massEditForm = !this.massEditForm;
   }
 }

@@ -79,17 +79,15 @@
       gap: 2vh;
 
       > h3 {
-        color: var(--accent);
-      }
-
-      > p {
-        font-size: 1.1rem;
         color: var(--text);
       }
 
-      > a {
+      > p,
+      a  {
+        font-size: 1.1rem;
+        color: var(--textSec);
         &:hover {
-          color: var(--accent);
+          color: var(--text);
         }
       }
 

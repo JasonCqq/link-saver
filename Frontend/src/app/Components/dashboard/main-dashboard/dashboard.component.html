@@ -7,7 +7,12 @@
 <main class="dashboard-container default-dash-container">
   @if (tempTitle === "Trash") {
     <span>
-      <p-button (click)="togglePrompt()" severity="danger">Clear All</p-button>
+      <p-button
+        (click)="togglePrompt()"
+        severity="danger"
+        [style]="{ margin: '15px 0px 0px 0px' }"
+        >Clear All</p-button
+      >
       @if (clearPrompt) {
         <section class="clear-prompt-overlay">
           <div class="clear-prompt">
@@ -47,7 +52,7 @@
     }
   </section>
 
-  <button type="button" (click)="scrollToTop()" class="to-top">
+  <!-- <button type="button" (click)="scrollToTop()" class="to-top">
     Back to Top
-  </button>
+  </button> -->
 </main>

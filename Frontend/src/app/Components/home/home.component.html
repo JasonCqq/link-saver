@@ -4,13 +4,7 @@
       <span class="landing-nav-left">
         <h1>linkstorag<span>e</span></h1>
 
-        <a routerLink="/versions"
-          ><i
-            class="pi pi-refresh"
-            style="font-size: 0.75rem; padding-right: 5px"
-          ></i
-          >Updates</a
-        >
+        <a routerLink="/versions">Updates</a>
       </span>
 
       <span class="landing-nav-right">
@@ -97,78 +91,62 @@
   </section>
 
   <section #home_features class="home_features">
-    <h1>Our Features</h1>
-
     <div class="home-features-grid">
       <div class="home-features-item">
         <span>
           <mat-icon fontIcon="description"></mat-icon>
+          <h2>URL Bank</h2>
         </span>
 
-        <span>
-          <h2>URL Bank</h2>
-          <p>Quickly store multiple links in text format</p>
-        </span>
+        <p>Quickly store multiple links in text format</p>
       </div>
 
       <div class="home-features-item">
         <span>
           <mat-icon fontIcon="view_list"></mat-icon>
+          <h2>Auto group (TBD)</h2>
         </span>
 
-        <span>
-          <h2>Auto group (In Prog.)</h2>
-          <p>Automatically group similar websites</p>
-        </span>
+        <p>Automatically group similar websites</p>
       </div>
 
       <div class="home-features-item">
         <span>
           <mat-icon fontIcon="share"></mat-icon>
+          <h2>Share links/folders</h2>
         </span>
 
-        <span>
-          <h2>Share links/folders</h2>
-          <p>
-            Share publicly or privately with a password.
-            <a routerLink="/public/1" target="_blank"
-              ><u>Check out our folder!</u></a
-            >
-          </p>
-        </span>
+        <p>
+          Share publicly or privately with a password.
+          <a routerLink="/public/1" target="_blank"><u>Example</u></a>
+        </p>
       </div>
 
       <div class="home-features-item">
         <span>
           <mat-icon fontIcon="panorama"></mat-icon>
+          <h2>Thumbnails</h2>
         </span>
 
-        <span>
-          <h2>Thumbnails</h2>
-          <p>Easily preview stored links with website thumbnails.</p>
-        </span>
+        <p>Easily preview stored links with website thumbnails.</p>
       </div>
 
       <div class="home-features-item">
         <span>
           <mat-icon fontIcon="manage_search"></mat-icon>
+          <h2>Search/Filter</h2>
         </span>
 
-        <span>
-          <h2>Search/Filter</h2>
-          <p>Find links with search/sort functions, by visits name or date</p>
-        </span>
+        <p>Find links with search/sort functions, by visits name or date</p>
       </div>
 
       <div class="home-features-item">
         <span>
           <mat-icon fontIcon="edit_note"></mat-icon>
+          <h2>Mass Edit</h2>
         </span>
 
-        <span>
-          <h2>Mass Edit</h2>
-          <p>Quickly edit/move/delete multiple links at once.</p>
-        </span>
+        <p>Quickly edit/move/delete multiple links at once.</p>
       </div>
     </div>
   </section>
@@ -206,7 +184,7 @@
   </section>
 
   <footer class="foot-note">
-    <p routerLink="/versions">v2.1.1</p>
+    <p routerLink="/versions">2.2</p>
 
     <a href="https://github.com/JasonCqq/link-saver" target="_blank"
       >Source Code</a

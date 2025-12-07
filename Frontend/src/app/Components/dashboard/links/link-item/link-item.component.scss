@@ -1,12 +1,13 @@
 @import "../../../../../assets/styles.scss";
 
 .link-item-border {
-  border: 2px solid var(--text) !important;
+  background: rgb(55, 55, 55) !important;
+  scale: 1.1;
 }
 
 .link-item {
   position: relative;
-  width: 130px;
+  width: 140px;
   height: 100%;
   border-radius: 8px;
   touch-action: auto !important;
@@ -34,10 +35,10 @@
       align-items: center;
       justify-content: center;
       background-color: var(--background);
-      border-radius: 7px;
+      border-radius: 8px;
 
       > img {
-        border-radius: 7px;
+        border-radius: 8px;
         height: 100%;
         width: 100%;
         line-height: 100px;
@@ -63,7 +64,7 @@
         font-weight: 800;
         height: 35%;
         overflow: hidden;
-        padding-top: 3px;
+        padding-top: 5px;
         padding-left: 3px;
 
         @media screen and (max-width: 340px) {
@@ -72,10 +73,11 @@
       }
 
       > .link-url {
-        font-size: 0.65rem;
+        font-size: 0.7rem;
         color: var(--textSec);
         font-weight: 500;
         padding-left: 3px;
+        padding-bottom: 3px;
         width: 100%;
 
         @media screen and (max-width: 340px) {
@@ -164,7 +166,7 @@
     }
 
     > .link-edit {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
     }
   }
 }

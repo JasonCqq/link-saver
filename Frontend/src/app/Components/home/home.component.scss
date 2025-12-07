@@ -54,8 +54,11 @@
         }
 
         > a {
+          margin-left: 15px;
+          font-size: 14px;
+          color: var(--textSec);
           &:hover {
-            color: var(--accent);
+            color: var(--text);
           }
 
           @media screen and (max-width: 850px) {
@@ -140,6 +143,7 @@
 
       > p {
         font-weight: 500;
+        color: var(--textSec);
       }
     }
 
@@ -206,7 +210,6 @@
 
       > p {
         border-radius: 8px;
-        border: 1px solid rgba(128, 128, 128, 0.5);
         font-size: 14px;
         font-weight: 500;
         margin-bottom: 25px;
@@ -244,7 +247,6 @@
     }
 
     .gallery-back {
-      background-color: #13171b;
       border-radius: 8px;
       box-shadow: 1px 1px 15px rgb(8, 8, 8);
       width: 65vw;
@@ -280,48 +282,42 @@
   }
 
   > .home_features {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     height: auto;
     margin-top: 20vh;
+    align-items: center;
 
-    > h1 {
-      font-size: 2rem;
-      padding-bottom: 50px;
-
-      @media screen and (max-width: 400px) {
-        font-size: 1.25rem;
-      }
+    @media screen and (max-width: 380px) {
+      margin-top: 12.5vh;
     }
 
     .home-features-grid {
       display: grid;
       align-items: center;
       justify-content: center;
-      width: 50vw;
-      column-gap: 4vw;
-      row-gap: 6vh;
+      width: 55vw;
       grid-template-columns: repeat(3, 1fr);
       border-radius: 8px;
+      column-gap: 5vw;
 
       @media screen and (max-width: 1150px) {
         width: 75vw;
       }
 
       @media screen and (max-width: 1000px) {
-        width: 95vw;
+        width: 85vw;
       }
 
-      @media screen and (max-width: 750px) {
-        grid-template-columns: repeat(1, 1fr);
-        margin-left: 5vw;
+      @media screen and (max-width: 850px) {
         width: 90vw;
-        row-gap: 3vh;
+        row-gap: 2vh;
+        grid-template-columns: repeat(2, 1fr);
       }
 
-      @media screen and (max-width: 390px) {
-        row-gap: 4vh;
+      @media screen and (max-width: 380px) {
+        row-gap: 0;
       }
 
       .home-features-item {
@@ -331,6 +327,7 @@
         border-radius: 8px;
         min-height: 125px;
         gap: 10px;
+        max-width: 250px;
 
         @media screen and (max-width: 390px) {
           padding: 3vh 0vw;
@@ -339,32 +336,35 @@
         }
 
         > span {
-          > p {
-            color: var(--textSec);
-            font-size: 0.95rem;
-            line-height: 22.5px;
-          }
+          display: flex;
+          gap: 5px;
+          align-items: center;
 
           > h2 {
-            font-size: 1.15rem;
-            padding-bottom: 10px;
-            font-weight: 800;
+            font-size: 1rem;
+            font-weight: 500;
             letter-spacing: 0.5px;
+
+            @media screen and (max-width: 380px) {
+              font-size: 12px;
+            }
           }
 
           > mat-icon {
             color: var(--text);
-            transform: scale(1.25);
+            transform: scale(0.75);
+          }
+        }
 
-            @media screen and (max-width: 620px) {
-              padding-right: 15px;
-            }
+        > p {
+          color: var(--textSec);
+          font-size: 13.5px;
+          line-height: 22.5px;
+          font-weight: 500;
+          padding-left: 5px;
 
-            @media screen and (max-width: 390px) {
-              margin-left: 0;
-              padding-right: 0;
-              padding-bottom: 10px;
-            }
+          @media screen and (max-width: 380px) {
+            display: none;
           }
         }
       }
@@ -376,6 +376,10 @@
     display: flex;
     justify-content: center;
     margin-top: 20vh;
+
+    @media screen and (max-width: 380px) {
+      margin-top: 12.5vh;
+    }
 
     @media screen and (max-width: 900px) {
       flex-direction: column;
@@ -398,6 +402,7 @@
 
       > p {
         color: var(--textSec);
+        font-weight: 500;
         @media screen and (max-width: 900px) {
           text-align: center;
         }

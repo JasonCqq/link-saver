@@ -3,15 +3,9 @@
 .content-grid {
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(155px, 135px));
+  grid-template-columns: repeat(auto-fit, minmax(155px, 140px));
   row-gap: 2vh;
-  margin-top: 2vh;
-
-  @media screen and (max-width: 390px) {
-    row-gap: 4vh;
-    margin-top: 5vh;
-    grid-template-columns: repeat(auto-fit, minmax(135px, 115px));
-  }
+  margin-top: 20px;
 }
 
 .default-dash-container {

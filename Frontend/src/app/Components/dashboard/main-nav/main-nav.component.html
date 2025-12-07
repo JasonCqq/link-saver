@@ -1,3 +1,9 @@
+@if (massEditForm) {
+  <app-mass-edit-form
+    (toggleMassEditForm)="toggleMassEditForm()"
+  ></app-mass-edit-form>
+}
+
 <nav class="main-nav">
   <div class="nav-flex">
     <p class="nav-title">{{ title ? title : "Dashboard" }}</p>
@@ -27,6 +33,33 @@
           (onChange)="submitSortingForm($event.value.value)"
         />
       </form>
+
+      <div class="mass-edit">
+        @if (!massEditting) {
+          <p-button (click)="toggleMassEdit()" pTooltip="Enter Edit Mode"
+            >Mass Edit</p-button
+          >
+        }
+
+        @if (massEditting) {
+          <p-button
+            (click)="toggleMassEdit()"
+            pTooltip="Exit Edit Mode"
+            severity="secondary"
+          >
+            Exit Edit
+          </p-button>
+        }
+
+        @if (massEditting) {
+          <p-button
+            (click)="toggleMassEditForm()"
+            pTooltip="Apply Edit"
+            severity="success"
+            >Apply
+          </p-button>
+        }
+      </div>
     </div>
 
     @if (createForm === true) {

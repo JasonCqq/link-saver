@@ -1,38 +1,15 @@
-@if (massEditForm) {
-  <app-mass-edit-form
-    (toggleMassEditForm)="toggleMassEditForm()"
-  ></app-mass-edit-form>
-}
-
 <p-drawer [(visible)]="visible" header="Dashboard">
   <p-menu [model]="items" class="side-menu" />
-
-  <div class="mass-edit">
-    @if (!massEditting) {
-      <p-button (click)="toggleMassEdit()" pTooltip="Enter Edit Mode"
-        >Mass Edit</p-button
-      >
-    }
-
-    @if (massEditting) {
-      <p-button
-        (click)="toggleMassEdit()"
-        pTooltip="Exit Edit Mode"
-        severity="secondary"
-      >
-        Exit Edit
-      </p-button>
-    }
-
-    @if (massEditting) {
-      <p-button
-        (click)="toggleMassEditForm()"
-        pTooltip="Apply Edit"
-        severity="success"
-        >Apply Edits
-      </p-button>
-    }
-  </div>
 </p-drawer>
 
-<p-button (click)="visible = true" icon="pi pi-arrow-right" />
+<p-button
+  (click)="visible = true"
+  icon="pi pi-bars"
+  [style]="{
+    borderRadius: '0px 0px 8px 0px',
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    zIndex: '99',
+  }"
+/>

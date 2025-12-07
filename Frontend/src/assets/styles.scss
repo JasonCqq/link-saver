@@ -67,17 +67,55 @@
   font-style: normal;
 }
 
-.p-button {
-  font-weight: 700 !important;
+:root,
+:host {
+  .p-drawer {
+    --p-drawer-background: var(--background) !important;
+    --p-drawer-border-color: var(--background) !important;
+  }
+
+  .p-menu {
+    --p-menu-background: var(--background) !important;
+    --p-menu-border-color: var(--background) !important;
+
+    --p-menu-item-border-radius: 8px;
+    --p-menu-list-gap: 6px;
+    --p-menu-item-gap: 10px;
+  }
+
+  .p-tooltip .p-tooltip-text {
+    font-size: 12px;
+  }
+
+  .p-button {
+    padding: 8px 12px;
+  }
+
+  .p-select {
+    --p-select-padding-y: 8px;
+
+    .p-select-overlay {
+      margin-top: 5px;
+      background: var(--background);
+      ::-webkit-scrollbar {
+        width: 0px;
+      }
+    }
+  }
+
+  .p-inputtext {
+    --p-inputtext-padding-y: 8px;
+    width: clamp(250px, calc(20vw + 5rem), 300px);
+  }
 }
 
 :root {
   --accent: #2e60cd;
-  --background: #0d0f11;
+  --background: #08090a;
   --background2: #eef1f3;
   --text: #eef1f3;
   --text2: #0d0f11;
-  --textSec: #c1c9df;
+  --textSec: #8a8f98;
   --imp-button: #f73830;
   --warn: #7067f2;
 }
@@ -87,6 +125,8 @@ html {
   box-sizing: border-box !important;
   background-color: var(--background);
   height: auto;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 body {
@@ -114,6 +154,8 @@ button {
     "Droid Sans",
     "Helvetica Neue",
     sans-serif !important;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 code {

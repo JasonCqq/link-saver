@@ -19,8 +19,6 @@ export class MainSidebarComponent implements OnInit {
   ) {}
   user: any;
 
-  massEditting: boolean = false;
-
   items: MenuItem[] | undefined;
   visible: boolean = false;
 
@@ -114,9 +112,6 @@ export class MainSidebarComponent implements OnInit {
       },
     ];
 
-    this.mainNavService.massEdit$.subscribe((bool) => {
-      this.massEditting = bool;
-    });
   }
 
   logOut(): void {
@@ -127,12 +122,4 @@ export class MainSidebarComponent implements OnInit {
     this.mainNavService.changeTitle(title);
   }
 
-  toggleMassEdit(): void {
-    this.mainNavService.toggleMassEdit();
-  }
-
-  massEditForm: boolean = false;
-  toggleMassEditForm(): void {
-    this.massEditForm = !this.massEditForm;
-  }
 }
