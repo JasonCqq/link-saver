@@ -77,16 +77,20 @@
     margin-left: 6vw;
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 130px));
+    grid-template-columns: repeat(auto-fit, 175px);
 
     position: relative;
 
-    column-gap: 0.25vw;
+    column-gap: 15px;
     row-gap: 2vh;
 
     @media screen and (max-width: 817px) {
       justify-content: center;
       align-items: center;
+    }
+
+    @media screen and (max-width: 400px) {
+      grid-template-columns: repeat(auto-fit, 150px);
     }
 
     @media screen and (max-width: 340px) {

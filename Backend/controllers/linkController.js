@@ -81,8 +81,7 @@ exports.create_link = [
               console.time("sharp");
               try {
                 thumbnail = await sharp(Buffer.from(imageBuffer))
-                  .resize(200, 200)
-                  .webp({ quality: 50 })
+                  .webp({ quality: 40 })
                   .toBuffer();
               } catch (err) {
                 thumbnail = "";

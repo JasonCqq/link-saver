@@ -20,13 +20,21 @@ export class VersionHistoryComponent {
       id: 11,
       version: "2.2 - 12/08/2025",
       updates: [
+        "Increased image quality, and sizing",
         "Thumbnails now update automatically",
-        "Revamped most of UI",
+        "Revamped UI",
         "Fixed cookies causing some browsers to not work",
         "Added Google account login and registration",
+        "Reader view (coming soon)",
+        "Import / Export (coming soon)",
+        "Auto Group (coming soon)",
+        "Extension for saving tabs (coming soon)",
+      ],
+      qols: [
+        "Added icons to urls in url bank",
+        "Updated mass edit position",
         "Removed unused features",
       ],
-      qols: ["Added icons to urls in url bank", "Updated mass edit position"],
       bugfixes: [],
     },
     {

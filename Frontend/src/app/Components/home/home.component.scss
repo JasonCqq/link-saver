@@ -192,13 +192,15 @@
       display: flex;
       gap: 20px;
 
+      @media screen and (max-width: 625px) {
+        gap: 5px;
+      }
+
       @media screen and (max-width: 450px) {
         display: grid;
         grid-template-columns: repeat(2, 125px);
-      }
-
-      @media screen and (max-width: 625px) {
-        gap: 5px;
+        column-gap: 5vw;
+        margin-bottom: 25px;
       }
 
       > .active-img {

@@ -38,19 +38,19 @@ export class MainSidebarComponent implements OnInit {
             },
           },
           {
-            label: "Folders",
-            icon: "pi pi-folder",
-            command: () => {
-              this.changeTitle("Folders");
-              this.router.navigate(["/dashboard/folders"]);
-            },
-          },
-          {
             label: "URL Bank",
             icon: "pi pi-database",
             command: () => {
               this.changeTitle("URLBank");
               this.router.navigate(["/dashboard/urlbank"]);
+            },
+          },
+          {
+            label: "Folders",
+            icon: "pi pi-folder",
+            command: () => {
+              this.changeTitle("Folders");
+              this.router.navigate(["/dashboard/folders"]);
             },
           },
           {
@@ -111,7 +111,6 @@ export class MainSidebarComponent implements OnInit {
         ],
       },
     ];
-
   }
 
   logOut(): void {
@@ -121,5 +120,4 @@ export class MainSidebarComponent implements OnInit {
   changeTitle(title: string): void {
     this.mainNavService.changeTitle(title);
   }
-
 }
