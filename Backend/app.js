@@ -65,9 +65,6 @@ app.use(
   })
 );
 
-io.on("connection", (socket) => {
-  console.log("user connected");
-});
 app.set("io", io);
 
 //Login Authentication

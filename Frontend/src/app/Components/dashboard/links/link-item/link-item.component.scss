@@ -40,14 +40,22 @@
       > img {
         border-radius: 8px;
         height: 100%;
-        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
         line-height: 100px;
+        object-fit: cover;
       }
 
       > p {
+        height: 94px;
+        max-width: 100%;
+        min-width: 100%;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-weight: 600;
         color: var(--textSec);
-        width: 75%;
       }
     }
 

@@ -3,9 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  // directUrl = env("DIRECT_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
 }
 
 model tempUser {
@@ -90,5 +89,6 @@ model URL {
   title     String?
   url       String?
   userId    String
+  logo      String?
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

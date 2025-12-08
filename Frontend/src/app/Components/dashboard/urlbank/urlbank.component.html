@@ -34,19 +34,26 @@
     @for (u of this.urls; track u) {
       <div class="url-item">
         <div class="url-options">
+          <span class="material-icons-round" (click)="copyUrl(u.url)">
+            content_copy
+          </span>
           <span
             class="material-icons-round url-delete"
             (click)="deleteUrl(u.id)"
           >
             close
           </span>
-          <span class="material-icons-round" (click)="copyUrl(u.url)">
-            content_copy
-          </span>
         </div>
         <a [href]="u.url" target="_blank" class="url-details">
-          <h1 class="url-title">{{ u.title | slice: 0 : 125 }}</h1>
-          <p class="url-date">{{ u.url }}</p>
+          <img
+            [src]="'https://www.google.com/s2/favicons?domain=' + u.url"
+            alt="favicon"
+          />
+
+          <span>
+            <h1 class="url-title">{{ u.title | slice: 0 : 125 }}</h1>
+            <p class="url">{{ u.url }}</p>
+          </span>
         </a>
       </div>
     }
@@ -58,7 +65,9 @@
     <form [formGroup]="urlForm" (submit)="submitUrlForm()">
       <div style="display: flex">
         <h1>Add URL(s)</h1>
-
+        <p style="color: gray; font-size: 10px; margin-left: 10px">
+          Invalid urls may be omitted
+        </p>
         <span
           class="material-icons-round"
           (click)="toggleUrlForm()"
@@ -69,7 +78,9 @@
       </div>
 
       <p>
-        For best results, separate urls by line. Invalid urls will be omitted
+        Example: <br />
+        https://url.com <br />
+        https://url.com
       </p>
       <textarea
         #urls
@@ -80,7 +91,7 @@
         pTextarea
         [autoResize]="true"
       ></textarea>
-      <p-button type="submit" [disabled]="!urlForm.dirty">SUBMIT</p-button>
+      <p-button type="submit" [disabled]="!urlForm.dirty">Submit</p-button>
     </form>
   </div>
 }

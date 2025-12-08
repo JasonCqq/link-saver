@@ -13,15 +13,15 @@ function extractUrls(text: string) {
 }
 
 @Component({
-    selector: "app-urlbank",
-    templateUrl: "./urlbank.component.html",
-    styleUrls: ["./urlbank.component.scss"],
-    standalone: false
+  selector: "app-urlbank",
+  templateUrl: "./urlbank.component.html",
+  styleUrls: ["./urlbank.component.scss"],
+  standalone: false,
 })
 export class UrlbankComponent implements OnInit, OnDestroy {
   constructor(
     private urlBankService: UrlBankService,
-    public snackBar: MatSnackBar,
+    public snackBar: MatSnackBar
   ) {}
   private destroy$ = new Subject<void>();
 

@@ -30,7 +30,7 @@ main {
     display: flex;
     flex-direction: column;
     margin-top: 15px;
-    gap: 10px;
+    gap: 15px;
     width: 100%;
 
     > .url-item {
@@ -56,22 +56,36 @@ main {
       }
 
       > .url-details {
-        > h1 {
-          font-size: 13px;
-          font-weight: 500;
-          white-space: nowrap;
-          overflow: hidden;
+        display: flex;
+
+        img {
+          border: 2px solid var(--textSec);
+          border-radius: 8px;
+          width: 32px;
+          height: 32px;
+          object-fit: fill;
         }
 
-        > p {
-          color: var(--textSec);
-          font-size: 10px;
-        }
+        > span {
+          padding-left: 10px;
+          > h1 {
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+          }
 
-        transition: color 0.05s ease-in-out;
+          transition: color 0.05s ease-in-out;
 
-        &:hover {
-          color: var(--accent);
+          &:hover {
+            color: var(--accent);
+          }
+
+          > p {
+            color: var(--textSec);
+            font-size: 10px;
+            padding-top: 3px;
+          }
         }
       }
     }

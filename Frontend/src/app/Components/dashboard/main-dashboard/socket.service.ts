@@ -9,7 +9,6 @@ export class SocketService {
   private socket: Socket;
 
   constructor() {
-    console.log("SocketService constructor called");
     this.socket = io(environment.apiUrl, {
       withCredentials: true,
     });

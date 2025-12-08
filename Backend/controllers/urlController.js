@@ -59,10 +59,10 @@ exports.create_urls = [
         urls.map(async (u) => {
           const options = {
             url: u,
-            onlyGetOpenGraphInfo: true,
           };
 
           let title;
+          let favIcon;
           try {
             const data = await ogs(options);
             const { html, result } = data;
@@ -75,29 +75,40 @@ exports.create_urls = [
               title = result.ogTitle || result.ogSiteName;
             }
 
-            return { name: title, url: u };
+            favIcon = result.favicon || "";
+
+            return {
+              name: title,
+              url: u,
+              logo: favIcon,
+            };
           } catch (err) {
             console.log(err);
-            return { name: u, url: u };
+            return { name: u, url: u, logo: u };
           }
-        }),
+        })
       );
 
-      await prisma.$transaction(async (p) => {
-        for (const u of newUrls) {
-          await prisma.URL.create({
-            data: {
-              title: u.name,
-              url: u.url,
-              user: {
-                connect: {
-                  id: req.body.userID,
+      await prisma
+        .$transaction(async (p) => {
+          for (const u of newUrls) {
+            await prisma.URL.create({
+              data: {
+                title: u.name,
+                url: u.url,
+                logo: u.logo,
+                user: {
+                  connect: {
+                    id: req.body.userID,
+                  },
                 },
               },
-            },
-          });
-        }
-      });
+            });
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
 
       res.status(200).json({});
     }

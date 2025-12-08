@@ -18,14 +18,15 @@ export class VersionHistoryComponent {
   versions = [
     {
       id: 11,
-      version: "2.2 - 11/28/2025",
+      version: "2.2 - 12/08/2025",
       updates: [
+        "Thumbnails now update automatically",
         "Revamped most of UI",
         "Fixed cookies causing some browsers to not work",
         "Added Google account login and registration",
-        "Removed unused features"
+        "Removed unused features",
       ],
-      qols: [],
+      qols: ["Added icons to urls in url bank", "Updated mass edit position"],
       bugfixes: [],
     },
     {
