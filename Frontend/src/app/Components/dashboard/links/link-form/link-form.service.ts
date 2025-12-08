@@ -14,8 +14,10 @@ export class LinkFormService {
     private userService: UserService,
     private folderService: FoldersService,
     private tempRenderService: TempRenderService,
-  ) {}
+  ) {
+  }
   private apiUrl = environment.apiUrl;
+
 
   async submitLinkForm(url: string, folder: string, bookmarked: boolean) {
     await this.http
@@ -29,7 +31,7 @@ export class LinkFormService {
         },
         {
           withCredentials: true,
-        },
+        }
       )
       .subscribe({
         next: (res: any) => {

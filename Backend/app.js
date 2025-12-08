@@ -10,6 +10,9 @@ const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const { PrismaClient } = require("@prisma/client");
 const prisma = require("./prisma/prismaClient");
 
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
@@ -22,8 +25,17 @@ const linkRouter = require("./routes/link");
 const urlRouter = require("./routes/url");
 const preferencesRouter = require("./routes/preferences");
 
-var app = express();
+const app = express();
 
+// Web socket
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+  cors: {
+    origin: process.env.FRONT_END,
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+});
 app.use(
   cors({
     origin: `${process.env.FRONT_END}`,
@@ -52,6 +64,11 @@ app.use(
     }),
   })
 );
+
+io.on("connection", (socket) => {
+  console.log("user connected");
+});
+app.set("io", io);
 
 //Login Authentication
 passport.use(
@@ -133,4 +150,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
 });
 
-module.exports = app;
+// module.exports = app;
+module.exports = httpServer;

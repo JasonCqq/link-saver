@@ -10,13 +10,14 @@ import { BehaviorSubject } from "rxjs";
 export class LinkService {
   constructor(
     private http: HttpClient,
-    private userService: UserService,
+    private userService: UserService
   ) {}
+
   private apiUrl = environment.apiUrl;
 
   // Thumbnail state for link-item/main-nav/settings
   private thumbnailsSubject = new BehaviorSubject<boolean>(
-    this.userService.getUser()?.settings.previews ?? true,
+    this.userService.getUser()?.settings.previews ?? true
   );
   thumbnails$ = this.thumbnailsSubject.asObservable();
 
@@ -32,17 +33,12 @@ export class LinkService {
           id: id,
           userID: this.userService.getUser()?.user.id,
         },
-        { withCredentials: true },
+        { withCredentials: true }
       )
       .subscribe();
   }
 
-  editLink(
-    id: string,
-    title: string,
-    folder: string,
-    bookmarked: boolean,
-  ) {
+  editLink(id: string, title: string, folder: string, bookmarked: boolean) {
     return this.http.put(
       `${this.apiUrl}/link/edit`,
       {
@@ -55,7 +51,7 @@ export class LinkService {
 
       {
         withCredentials: true,
-      },
+      }
     );
   }
 
@@ -69,7 +65,7 @@ export class LinkService {
         },
         {
           withCredentials: true,
-        },
+        }
       )
       .subscribe();
   }
@@ -84,7 +80,7 @@ export class LinkService {
         },
         {
           withCredentials: true,
-        },
+        }
       )
       .subscribe();
   }

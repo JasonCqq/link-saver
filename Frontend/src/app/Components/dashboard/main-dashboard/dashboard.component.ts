@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { DashboardService } from "../dashboard.service";
 import { Link } from "../../../Interfaces/Link";
 import { Subject, takeUntil } from "rxjs";
@@ -7,20 +7,28 @@ import { LinkService } from "../links/link-item/link-item.service";
 import { fadeIn, fadeOut } from "src/app/app.component";
 import { TempRenderService } from "./tempRender.service";
 
+import { SocketService } from "./socket.service";
+
 @Component({
-    selector: "app-dashboard",
-    templateUrl: "./dashboard.component.html",
-    styleUrls: ["./dashboard.component.scss"],
-    animations: [fadeIn, fadeOut],
-    standalone: false
+  selector: "app-dashboard",
+  templateUrl: "./dashboard.component.html",
+  styleUrls: ["./dashboard.component.scss"],
+  animations: [fadeIn, fadeOut],
+  standalone: false,
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
     private dashboardService: DashboardService,
     private mainNavService: MainNavService,
     private linkService: LinkService,
-    private tempRenderService: TempRenderService
+    private tempRenderService: TempRenderService,
+
+    // For thumbnail updates
+    private socketService: SocketService,
+    private cdr: ChangeDetectorRef
   ) {}
+
+  socket = this.socketService.getSocket();
 
   private destroy$ = new Subject<void>();
   links: Link[] = [];
@@ -52,6 +60,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.setupThumbnailSubscription();
     this.setupAddLinkSubscription();
     this.setupEditLinkSubscription();
+
+    this.socket.on("thumbnail-ready", (updatedLink) => {
+      const i = this.links.findIndex((link) => link.id === updatedLink.id);
+
+      // Update cached thumbnail
+      if (i !== -1) {
+        this.links[i].pURL = `${updatedLink.pURL}?t=${Date.now()}`;
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   // Filter links based on title
@@ -71,6 +89,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+
+    // Clean up socket listener
+    const socket = this.socketService.getSocket();
+    socket.off("thumbnail-ready");
   }
 
   // Displays search results

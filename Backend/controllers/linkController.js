@@ -11,7 +11,7 @@ const cheerio = require("cheerio");
 const { createClient } = require("@supabase/supabase-js");
 const supabase = createClient(
   process.env.SUPABASE_URL,
-  process.env.SUPABASE_KEY,
+  process.env.SUPABASE_KEY
 );
 
 function formatLinks(links) {
@@ -82,7 +82,7 @@ exports.create_link = [
               try {
                 thumbnail = await sharp(Buffer.from(imageBuffer))
                   .resize(200, 200)
-                  .webp({ quality: 40 })
+                  .webp({ quality: 50 })
                   .toBuffer();
               } catch (err) {
                 thumbnail = "";
@@ -90,6 +90,7 @@ exports.create_link = [
               console.timeEnd("sharp");
             }
 
+            // Create link in database
             console.time("database operation");
             const link = await prisma.Link.create({
               data: {
@@ -109,7 +110,6 @@ exports.create_link = [
               },
             });
             console.timeEnd("database operation");
-
             if (thumbnail === "") {
               res.status(200).json({ link: link });
             } else if (thumbnail) {
@@ -139,6 +139,7 @@ exports.create_link = [
                   });
 
                 console.timeEnd("supabase");
+                req.app.get("io").emit("thumbnail-ready", updatedLink);
                 if (error) {
                   console.error("Supabase Error: ", error);
                 }
@@ -310,7 +311,7 @@ exports.get_links = asyncHandler(async (req, res) => {
         }
 
         return { ...link, thumbnail: publicURL.publicUrl };
-      }),
+      })
     );
 
     const formattedLinks = formatLinks(updatedLinks);
