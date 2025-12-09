@@ -14,7 +14,7 @@
     > .folders-item {
       display: flex;
       align-items: center;
-      border: 2px solid var(--text);
+      border: 1px solid var(--textSec);
       border-radius: 8px;
       padding: 5px 10px;
       gap: 5px;
@@ -23,7 +23,7 @@
       touch-action: auto !important;
 
       > p {
-        font-weight: 600;
+        font-weight: 500;
       }
 
       > .faq-icon {
@@ -47,7 +47,7 @@
         }
 
         > p {
-          font-weight: 600;
+          font-weight: 500;
         }
       }
 

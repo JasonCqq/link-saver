@@ -31,6 +31,7 @@ export class VersionHistoryComponent {
         "Extension for saving tabs (coming soon)",
       ],
       qols: [
+        "Moved link options to hover on pc, hold on mobile",
         "Added icons to urls in url bank",
         "Updated mass edit position",
         "Removed unused features",
