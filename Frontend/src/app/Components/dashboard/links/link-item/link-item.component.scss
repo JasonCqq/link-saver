@@ -87,7 +87,8 @@
         padding-left: 3px;
         padding-bottom: 3px;
         width: 100%;
-
+        white-space: nowrap;
+        overflow: hidden;
         @media screen and (max-width: 340px) {
           font-size: 0.6rem;
         }
@@ -158,23 +159,26 @@
   }
 
   > .link-options {
-    color: var(--accent);
+    color: white;
     display: flex;
     align-items: center;
-    height: auto;
+    justify-content: center;
+    gap: 5px;
     transition: color 0.1s ease-in-out;
 
-    > * {
-      font-size: 1.25rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #3f3f46;
+    padding: 5px 5px;
+    border-radius: 8px;
+    margin-right: 5px;
 
+    > * {
       &:hover {
         cursor: pointer;
-        color: white;
+        color: var(--accent);
       }
-    }
-
-    > .link-edit {
-      font-size: 1.1rem;
     }
   }
 }

@@ -37,6 +37,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   previews: any;
 
+  showLinkOptions: number | null = null;
+  setShowLinkOptions(index: number | null) {
+    this.showLinkOptions = index;
+  }
+  
   clearPrompt: boolean = false;
   togglePrompt(): void {
     this.clearPrompt = !this.clearPrompt;

@@ -1,6 +1,8 @@
 import {
   Component,
+  ElementRef,
   EventEmitter,
+  HostListener,
   Input,
   OnDestroy,
   OnInit,
@@ -12,15 +14,16 @@ import { Subject, takeUntil } from "rxjs";
 import { MainNavService } from "../../main-nav/main-nav.service";
 
 @Component({
-    selector: "app-link-item",
-    templateUrl: "./link-item.component.html",
-    styleUrls: ["./link-item.component.scss"],
-    standalone: false
+  selector: "app-link-item",
+  templateUrl: "./link-item.component.html",
+  styleUrls: ["./link-item.component.scss"],
+  standalone: false,
 })
 export class LinkComponent implements OnInit, OnDestroy {
   constructor(
     private linkService: LinkService,
     private mainNavService: MainNavService,
+    private elementRef: ElementRef
   ) {}
 
   @Input() itemData: any;
@@ -33,6 +36,37 @@ export class LinkComponent implements OnInit, OnDestroy {
   editForm: boolean = false;
   massEditting: boolean = false;
   specialRequest: string = "none";
+
+  // For mobile menu hover
+  @Input() index!: number;
+  @Input() isOptionsVisible: boolean = false;
+  @Output() showOptionsChange = new EventEmitter<number | null>();
+
+  onMouseEnter() {
+    this.showOptionsChange.emit(this.index);
+  }
+
+  onMouseLeave() {
+    this.showOptionsChange.emit(null);
+  }
+
+  // For mobile menu hover
+  showLinkOptions: boolean = false;
+  toggleLinkOptions(event: TouchEvent) {
+    event.stopPropagation();
+    this.showOptionsChange.emit(this.isOptionsVisible ? null : this.index);
+  }
+
+  // For mobile menu hover
+  @HostListener("document:touchstart", ["$event"])
+  onDocumentTouch(event: TouchEvent) {
+    if (
+      this.isOptionsVisible &&
+      !this.elementRef.nativeElement.contains(event.target)
+    ) {
+      this.showOptionsChange.emit(null);
+    }
+  }
 
   toggleEdit(): void {
     this.editForm = !this.editForm;
@@ -68,7 +102,7 @@ export class LinkComponent implements OnInit, OnDestroy {
 
         if (bool === false) {
           const itemBorder = document.querySelector(
-            ".link-item",
+            ".link-item"
           ) as HTMLElement;
           itemBorder.classList.remove(".link-item-border");
           this.addingID = false;

@@ -3,6 +3,9 @@
   [ngClass]="addingID && massEditting ? 'link-item-border' : ''"
   (click)="addMassID(itemData.id)"
   pTooltip="{{ itemData.title }}"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+  (touchstart)="toggleLinkOptions($event)"
 >
   <a
     [ngClass]="massEditting ? 'disabled' : 'link-item-wrapper'"
@@ -29,7 +32,7 @@
       [ngClass]="previews ? 'link-details' : 'link-details-no-previews'"
     >
       <p class="link-title">{{ itemData.title }}</p>
-      <p class="link-url">{{ itemData.url | slice: 0 : 20 }}</p>
+      <p class="link-url">{{ itemData.url }}</p>
       <p class="link-date">
         {{ itemData.createdAt | date: "shortDate" }}
       </p>
@@ -39,40 +42,36 @@
   </a>
 
   <!--Link CRUD Options-->
-  @if (!massEditting) {
+  <!-- @if (!massEditting) { -->
+  @if (isOptionsVisible) {
     <div class="link-options">
       @if (specialRequest !== "Trash") {
-        <mat-icon
-          fontIcon="close"
-          class="link-delete"
+        <i
+          class="pi pi-times link-delete"
           (click)="moveToTrash()"
           pTooltip="Move to trash"
-        ></mat-icon>
+        ></i>
       }
       @if (specialRequest !== "Trash") {
-        <mat-icon
-          fontIcon="edit"
-          class="link-edit"
+        <i
+          class="pi pi-pen-to-square link-edit"
           (click)="toggleEdit()"
           pTooltip="Edit Link"
-          style="scale: 0.9"
-        ></mat-icon>
+        ></i>
       }
       @if (specialRequest === "Trash") {
-        <mat-icon
-          fontIcon="restore"
-          class="link-restore"
+        <i
+          class="pi pi-history link-restore"
           (click)="restoreLink()"
           pTooltip="Restore Link"
-        ></mat-icon>
+        ></i>
       }
       @if (specialRequest === "Trash") {
-        <mat-icon
-          fontIcon="close"
-          class="link-delete"
+        <i
+          class="pi pi-times link-delete"
           (click)="permanentDelete()"
           pTooltip="Remove Permanently"
-        ></mat-icon>
+        ></i>
       }
     </div>
   }

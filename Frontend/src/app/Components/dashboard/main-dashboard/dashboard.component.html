@@ -41,9 +41,12 @@
     @fadeIn
     @fadeOut
   >
-    @for (link of tempLinks; track link) {
+    @for (link of tempLinks; track link; let i = $index) {
       <div>
         <app-link-item
+          [index]="i"
+          [isOptionsVisible]="showLinkOptions === i"
+          (showOptionsChange)="setShowLinkOptions($event)"
           [itemData]="link"
           (linkUpdate)="linkEvent($event)"
           (linkPermDelete)="deletePerm($event)"
