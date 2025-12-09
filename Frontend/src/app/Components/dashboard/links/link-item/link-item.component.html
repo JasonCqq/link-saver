@@ -74,6 +74,11 @@
         ></i>
       }
     </div>
+
+    <div class="link-options-left">
+      <i class="pi pi-globe" pTooltip="Open web view"></i>
+      <i class="pi pi-eye" (click)="setShowEmbed()" pTooltip="Open embed"></i>
+    </div>
   }
 </div>
 
@@ -84,5 +89,3 @@
     (toggleEdit)="toggleEdit()"
   ></app-link-edit-form>
 }
-
-

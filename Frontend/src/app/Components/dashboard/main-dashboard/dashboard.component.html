@@ -50,6 +50,7 @@
           [itemData]="link"
           (linkUpdate)="linkEvent($event)"
           (linkPermDelete)="deletePerm($event)"
+          (showEmbed)="setEmbed($event)"
         ></app-link-item>
       </div>
     }
@@ -58,4 +59,11 @@
   <!-- <button type="button" (click)="scrollToTop()" class="to-top">
     Back to Top
   </button> -->
+
+  @if (showEmbed) {
+    <app-viewer
+      [itemData]="showEmbedLink"
+      (closeEmbedEmit)="closeEmbed()"
+    ></app-viewer>
+  }
 </main>

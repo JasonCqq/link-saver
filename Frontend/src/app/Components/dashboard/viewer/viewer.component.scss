@@ -1,0 +1,52 @@
+main {
+  width: fit-content;
+  height: fit-content;
+
+  background: rgba(255, 255, 255, 0.19);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.21);
+  border-radius: 8px;
+
+  position: fixed;
+
+  margin-bottom: 5vh;
+  margin-right: 1%;
+  bottom: 0;
+  right: 0;
+
+  > span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .title {
+      height: 30px;
+      text-align: center;
+      padding-top: 5px;
+      cursor: grab;
+      max-width: 90%;
+
+      &:active {
+        cursor: grabbing;
+      }
+    }
+
+    .pi-circle-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: rgb(255, 90, 90);
+      margin-left: 7px;
+      margin-top: 7px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+  }
+
+  iframe {
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+}

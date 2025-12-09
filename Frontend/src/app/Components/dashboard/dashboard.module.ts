@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 import { MatIconModule } from "@angular/material/icon";
 import { MatNativeDateModule } from "@angular/material/core";
 import { ReactiveFormsModule } from "@angular/forms";
+import { DragDropModule } from "@angular/cdk/drag-drop";
 
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { DashboardComponent } from "./main-dashboard/dashboard.component";
@@ -33,6 +34,7 @@ import { InputIconModule } from "primeng/inputicon";
 import { FloatLabelModule } from "primeng/floatlabel";
 import { ToggleSwitchModule } from "primeng/toggleswitch";
 import { ProgressSpinnerModule } from "primeng/progressspinner";
+import { ViewerComponent } from "./viewer/viewer.component";
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { ProgressSpinnerModule } from "primeng/progressspinner";
     LinkEditFormComponent,
     MassEditFormComponent,
     UrlbankComponent,
+    ViewerComponent,
   ],
   imports: [
     CommonModule,
@@ -53,6 +56,7 @@ import { ProgressSpinnerModule } from "primeng/progressspinner";
     MatIconModule,
     MatNativeDateModule,
     ReactiveFormsModule,
+    DragDropModule,
 
     ButtonModule,
     DialogModule,

@@ -41,14 +41,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
   setShowLinkOptions(index: number | null) {
     this.showLinkOptions = index;
   }
-  
+
   clearPrompt: boolean = false;
   togglePrompt(): void {
     this.clearPrompt = !this.clearPrompt;
   }
 
-  scrollToTop(): void {
-    window.scrollTo(0, 0);
+  // Embed player
+  showEmbed: boolean = false;
+  showEmbedLink: any | null = null;
+  setEmbed(link: any) {
+    this.showEmbedLink = link;
+    this.showEmbed = true;
+  }
+
+  closeEmbed() {
+    this.showEmbed = false;
+    this.showEmbedLink = null;
   }
 
   deleteAllTrash(): void {

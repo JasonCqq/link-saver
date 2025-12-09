@@ -158,27 +158,38 @@
     }
   }
 
-  > .link-options {
+  > .link-options,
+  .link-options-left {
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 10px;
     transition: color 0.1s ease-in-out;
 
     position: absolute;
     top: 0;
-    right: 0;
     background-color: #3f3f46;
     padding: 5px 5px;
     border-radius: 8px;
-    margin-right: 5px;
 
     > * {
+      font-size: 15px;
+
       &:hover {
         cursor: pointer;
         color: var(--accent);
       }
     }
+  }
+
+  .link-options {
+    right: 0;
+    margin-right: 5px;
+  }
+
+  .link-options-left {
+    left: 0;
+    margin-left: 5px;
   }
 }

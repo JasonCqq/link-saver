@@ -37,6 +37,12 @@ export class LinkComponent implements OnInit, OnDestroy {
   massEditting: boolean = false;
   specialRequest: string = "none";
 
+  // For embed player
+  @Output() showEmbed = new EventEmitter<Link>();
+  setShowEmbed() {
+    this.showEmbed.emit(this.itemData);
+  }
+
   // For mobile menu hover
   @Input() index!: number;
   @Input() isOptionsVisible: boolean = false;
