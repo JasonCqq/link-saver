@@ -36,6 +36,8 @@ import { ToggleSwitchModule } from "primeng/toggleswitch";
 import { ProgressSpinnerModule } from "primeng/progressspinner";
 import { ViewerComponent } from "./viewer/viewer.component";
 
+import { SafeUrlPipe } from "./safeUrlPipe";
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -51,6 +53,7 @@ import { ViewerComponent } from "./viewer/viewer.component";
     ViewerComponent,
   ],
   imports: [
+    SafeUrlPipe,
     CommonModule,
     DashboardRoutingModule,
     MatIconModule,

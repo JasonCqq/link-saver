@@ -20,6 +20,10 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    cursor: grab;
+    &:active {
+      cursor: grabbing;
+    }
 
     .title {
       height: 30px;
@@ -27,10 +31,6 @@ main {
       padding-top: 5px;
       cursor: grab;
       max-width: 90%;
-
-      &:active {
-        cursor: grabbing;
-      }
     }
 
     .pi-circle-fill {

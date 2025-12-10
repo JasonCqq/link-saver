@@ -48,15 +48,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   // Embed player
-  showEmbed: boolean = false;
   showEmbedLink: any | null = null;
   setEmbed(link: any) {
-    this.showEmbedLink = link;
-    this.showEmbed = true;
+    this.showEmbedLink = null;
+    setTimeout(() => (this.showEmbedLink = link)); // recreate component
   }
 
   closeEmbed() {
-    this.showEmbed = false;
     this.showEmbedLink = null;
   }
 

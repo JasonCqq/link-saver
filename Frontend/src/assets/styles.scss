@@ -126,7 +126,7 @@ html {
   background-color: var(--background);
   height: auto;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 body {
@@ -166,13 +166,16 @@ code {
 
 // Scrollbar
 ::-webkit-scrollbar {
-  width: 15px;
+  width: 12.5px;
+  border-radius: 8px;
 }
 ::-webkit-scrollbar-track {
   background: var(--background);
+  border-radius: 8px;
 }
 ::-webkit-scrollbar-thumb {
   background: var(--text);
+  border-radius: 8px;
 }
 
 // CSS Reset

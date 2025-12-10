@@ -1,0 +1,45 @@
+[
+  {
+    "provider_name": "YouTube",
+    "provider_url": "youtube.com",
+    "query": "v=",
+    "link": "https://www.youtube.com/embed/"
+  },
+  {
+    "provider_name": "Vimeo",
+    "provider_url": "vimeo.com",
+    "query": "/",
+    "link": "https://player.vimeo.com/video/"
+  },
+  {
+    "provider_name": "Dailymotion",
+    "provider_url": "dailymotion.com",
+    "query": "video/",
+    "link": "https://geo.dailymotion.com/player.html?video="
+  },
+  {
+    "provider_name": "Streamable",
+    "provider_url": "streamable.com",
+    "query": "/",
+    "link": "https://streamable.com/e/"
+  },
+
+  {
+    "provider_name": "Pornhub",
+    "provider_url": "pornhub.com",
+    "query": "viewkey=",
+    "link": "https://www.pornhub.com/embed/"
+  },
+  {
+    "provider_name": "XVideos",
+    "provider_url": "xvideos.com",
+    "query": "video.",
+    "link": "https://www.xvideos.com/embedframe/"
+  },
+  {
+    "provider_name": "rule34video",
+    "provider_url": "rule34video.com",
+    "query": "video/",
+    "link": "https://rule34video.com/embed/"
+  }
+]

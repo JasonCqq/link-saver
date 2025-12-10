@@ -78,6 +78,11 @@
     <div class="link-options-left">
       <i class="pi pi-globe" pTooltip="Open web view"></i>
       <i class="pi pi-eye" (click)="setShowEmbed()" pTooltip="Open embed"></i>
+      <i
+        class="pi pi-search-plus"
+        (click)="expand = !expand"
+        pTooltip="Expand preview"
+      ></i>
     </div>
   }
 </div>
@@ -88,4 +93,11 @@
     [itemData]="itemData"
     (toggleEdit)="toggleEdit()"
   ></app-link-edit-form>
+}
+
+@if (expand) {
+  <div class="expanded-img">
+    <i class="pi pi-circle-fill" (click)="expand = !expand"></i>
+    <img src="{{ itemData.pURL }}" alt="Refresh to view" />
+  </div>
 }

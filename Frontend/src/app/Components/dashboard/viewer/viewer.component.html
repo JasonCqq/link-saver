@@ -1,15 +1,15 @@
 <main cdkDrag>
-  <span>
+  <span cdkDragHandle>
     <i class="pi pi-circle-fill" (click)="close()"></i>
-    <p class="title" cdkDragHandle>{{ itemData.title }}</p>
+    <p class="title">{{ itemData.title }}</p>
   </span>
 
   <iframe
-    src="https://player.vimeo.com/video/862154481"
+    [src]="fullLink | safeUrl"
     frameborder="0"
     width="560"
     height="315"
-    scrolling="no"
+    scrolling="yes"
     allowfullscreen
   ></iframe>
 </main>

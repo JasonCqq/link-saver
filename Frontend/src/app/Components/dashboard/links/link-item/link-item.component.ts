@@ -43,6 +43,17 @@ export class LinkComponent implements OnInit, OnDestroy {
     this.showEmbed.emit(this.itemData);
   }
 
+  // For web view
+  // showWebView(){
+
+  // }
+
+  // For image expansion
+  expand: boolean = false;
+  // expandImg(){
+  //   this.expand = true;
+  // }
+
   // For mobile menu hover
   @Input() index!: number;
   @Input() isOptionsVisible: boolean = false;
