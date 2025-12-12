@@ -49,29 +49,18 @@ exports.create_link = [
       }
 
       // Scrape for title/screenshot
-      let thumbnail = "";
+      let thumbnail;
       let title = "";
       try {
         console.time("fetch");
         const browser = await getBrowser();
         const page = await browser.newPage();
 
-        // Block items that aren't needed for metadata
-        await page.route("**/*", (route) => {
-          const url = route.request().url();
-          const resourceType = route.request().resourceType();
-
-          // Only allow document (HTML) and script (for dynamic meta tags)
-          if (["document", "script"].includes(resourceType)) {
-            route.continue();
-          } else {
-            route.abort();
-          }
-        });
         await page.goto(decodedUrl, {
           waitUntil: "domcontentloaded",
         });
 
+        // Scrape metadata
         const metadata = await page.evaluate(() => {
           const getMetaContent = (property) => {
             let meta = document.querySelector(`meta[property="${property}"]`);
@@ -93,8 +82,6 @@ exports.create_link = [
           };
         });
 
-        await page.close();
-        console.log(metadata);
         console.timeEnd("fetch");
 
         // Get title
@@ -102,27 +89,90 @@ exports.create_link = [
           metadata.ogTitle ??
           metadata.twitterTitle ??
           metadata.title ??
-          "Untitled";
-        thumbnail = metadata.ogImage ?? metadata.twitterImage ?? "";
+          "Untitled Webpage";
+        thumbnail = metadata.ogImage ?? metadata.twitterImage;
 
-        // Get Image
-        if (thumbnail !== "") {
-          console.time("image fetch");
-          const imageResponse = await fetch(thumbnail);
-          const imageBuffer = await imageResponse.arrayBuffer();
-          console.timeEnd("image fetch");
+        // Get image or screenshot
+        let imageBuffer;
+        if (thumbnail === null) {
+          console.log("No OG image found, looking for relevant image in page");
 
-          console.time("sharp");
+          console.time("selector");
+          await page.waitForLoadState("networkidle", { timeout: 3000 });
+
+          // Try to find a relevant image in the page
+          const pageImage = await page.evaluate(() => {
+            const imgs = [...document.images].filter(
+              (img) =>
+                img.src &&
+                !img.src.startsWith("data:") &&
+                img.width >= 100 &&
+                img.height >= 100
+            );
+            return imgs[0]?.src || null;
+          });
+
+          if (pageImage) {
+            console.log("Found relevant image:", pageImage);
+            try {
+              const imageResponse = await fetch(pageImage);
+              if (imageResponse.ok) {
+                imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
+              } else {
+                throw new Error("Image fetch failed");
+              }
+            } catch (err) {
+              console.log("Image fetch failed, taking screenshot");
+              await page.waitForLoadState("load");
+              imageBuffer = await page.screenshot({ type: "png" });
+            }
+          } else {
+            console.log("No suitable image found, taking screenshot");
+            await page.waitForLoadState("load");
+            imageBuffer = await page.screenshot({ type: "png" });
+          }
+          console.timeEnd("selector");
+
+          console.time("sharp#1");
           try {
             thumbnail = await sharp(Buffer.from(imageBuffer))
               .webp({ quality: 75 })
               .toBuffer();
           } catch (err) {
             thumbnail = "";
-            console.error(err); // Fixed: console.error
+            console.error(err);
           }
-          console.timeEnd("sharp");
+          console.timeEnd("sharp#1");
+
+          // OG:Image found
+        } else if (thumbnail !== null) {
+          console.time("image fetch");
+          try {
+            const imageResponse = await fetch(thumbnail);
+            if (!imageResponse.ok) throw new Error("Fetch failed");
+            imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
+          } catch (err) {
+            console.log("Thumbnail fetch failed, taking screenshot instead");
+            await page.waitForLoadState("load");
+            imageBuffer = await page.screenshot({ type: "png" });
+          }
+
+          console.timeEnd("image fetch");
+
+          console.time("sharp#2");
+          try {
+            thumbnail = await sharp(Buffer.from(imageBuffer))
+              .webp({ quality: 75 })
+              .toBuffer();
+          } catch (err) {
+            thumbnail = "";
+            console.error(err);
+          }
+          console.timeEnd("sharp#2");
         }
+
+        await page.close();
+        console.log(metadata);
 
         // Create link in database
         console.time("database operation");
