@@ -76,7 +76,11 @@
     </div>
 
     <div class="link-options-left">
-      <i class="pi pi-globe" pTooltip="Open web view"></i>
+      <i
+        class="pi pi-globe"
+        (click)="showWebView()"
+        pTooltip="Open web view"
+      ></i>
       <i class="pi pi-eye" (click)="setShowEmbed()" pTooltip="Open embed"></i>
       <i
         class="pi pi-search-plus"
@@ -100,4 +104,12 @@
     <i class="pi pi-circle-fill" (click)="expand = !expand"></i>
     <img src="{{ itemData.pURL }}" alt="Refresh to view" />
   </div>
+}
+
+@if (webView && webViewHtml) {
+  <!-- <main class="web-view-container">
+    <div class="web-view" [innerHTML]="webViewHtml"></div>
+  </main> -->
+
+  <app-web-view [htmlData]="webViewHtml"></app-web-view>
 }

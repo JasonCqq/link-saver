@@ -1,0 +1,10 @@
+@import "../../../../../assets/styles.scss";
+
+.overlay {
+  position: fixed;
+  z-index: 9999;
+  background: var(--background);
+  overflow: auto;
+  width: 50vw;
+  height: 50vh;
+}

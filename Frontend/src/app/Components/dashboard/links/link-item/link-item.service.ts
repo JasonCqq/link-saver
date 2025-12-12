@@ -25,6 +25,21 @@ export class LinkService {
     this.thumbnailsSubject.next(state);
   }
 
+  parseLink(id: string, url: string) {
+    return this.http.post(
+      `${this.apiUrl}/link/parse`,
+      {
+        id: id,
+        userID: this.userService.getUser()?.user.id,
+        url: url,
+      },
+
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
   async visitedLink(id: string) {
     await this.http
       .put(

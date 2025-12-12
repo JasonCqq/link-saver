@@ -13,6 +13,8 @@ import { Link } from "src/app/Interfaces/Link";
 import { Subject, takeUntil } from "rxjs";
 import { MainNavService } from "../../main-nav/main-nav.service";
 
+import { DomSanitizer } from "@angular/platform-browser";
+
 @Component({
   selector: "app-link-item",
   templateUrl: "./link-item.component.html",
@@ -23,7 +25,9 @@ export class LinkComponent implements OnInit, OnDestroy {
   constructor(
     private linkService: LinkService,
     private mainNavService: MainNavService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+
+    private sanitizer: DomSanitizer
   ) {}
 
   @Input() itemData: any;
@@ -43,10 +47,24 @@ export class LinkComponent implements OnInit, OnDestroy {
     this.showEmbed.emit(this.itemData);
   }
 
-  // For web view
-  // showWebView(){
+  webView: boolean = false;
+  webViewHtml: any | null = null;
 
-  // }
+  // For web view
+  showWebView() {
+    this.linkService
+      .parseLink(this.itemData.id, this.itemData.url)
+      .subscribe((data) => {
+        this.webView = true;
+        this.webViewHtml = data;
+
+        this.webViewHtml = this.sanitizer.bypassSecurityTrustHtml(
+          this.webViewHtml
+        );
+
+        console.log(data);
+      });
+  }
 
   // For image expansion
   expand: boolean = false;

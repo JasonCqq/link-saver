@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import providersData from "../../../../assets/config/embeds.json";
+import providersData from "../../../../../assets/config/embeds.json";
 
 interface Provider {
   provider_name: string;

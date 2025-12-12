@@ -34,9 +34,10 @@ import { InputIconModule } from "primeng/inputicon";
 import { FloatLabelModule } from "primeng/floatlabel";
 import { ToggleSwitchModule } from "primeng/toggleswitch";
 import { ProgressSpinnerModule } from "primeng/progressspinner";
-import { ViewerComponent } from "./viewer/viewer.component";
+import { ViewerComponent } from "./links/viewer/viewer.component";
 
 import { SafeUrlPipe } from "./safeUrlPipe";
+import { WebViewComponent } from "./links/web-view/web-view.component";
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { SafeUrlPipe } from "./safeUrlPipe";
     MassEditFormComponent,
     UrlbankComponent,
     ViewerComponent,
+    WebViewComponent,
   ],
   imports: [
     SafeUrlPipe,
