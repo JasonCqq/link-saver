@@ -148,4 +148,4 @@ exports.deleteAll_urls = [
 ];
 
 // For drag and drop
-exports.update_url = asyncHandler(async (req, res) => {});
+// exports.update_url = asyncHandler(async (req, res) => {});

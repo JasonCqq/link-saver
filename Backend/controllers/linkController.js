@@ -2,10 +2,11 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const prisma = require("../prisma/prismaClient");
 const { decode } = require("html-entities");
+
+const { getBrowser } = require("../routes/utils/browser.js");
+
 const sharp = require("sharp");
 const fetch = require("node-fetch-commonjs");
-const ogs = require("open-graph-scraper");
-const cheerio = require("cheerio");
 
 // Supabase
 const { createClient } = require("@supabase/supabase-js");
@@ -52,122 +53,154 @@ exports.create_link = [
       let title = "";
       try {
         console.time("fetch");
+        const browser = await getBrowser();
+        const page = await browser.newPage();
 
-        const options = {
-          url: decodedUrl,
-          onlyGetOpenGraphInfo: true,
-        };
+        // Block items that aren't needed for metadata
+        await page.route("**/*", (route) => {
+          const url = route.request().url();
+          const resourceType = route.request().resourceType();
 
-        ogs(options)
-          .then(async (data) => {
-            const { html, result } = data;
-            console.timeEnd("fetch");
+          // Only allow document (HTML) and script (for dynamic meta tags)
+          if (["document", "script"].includes(resourceType)) {
+            route.continue();
+          } else {
+            route.abort();
+          }
+        });
+        await page.goto(decodedUrl, {
+          waitUntil: "domcontentloaded",
+        });
 
-            // Get Title
-            if (!result.ogTitle && !result.ogSiteName) {
-              const $ = await cheerio.load(html);
-              title = $("title").text();
-            } else {
-              title = result.ogTitle || result.ogSiteName;
-            }
+        const metadata = await page.evaluate(() => {
+          const getMetaContent = (property) => {
+            let meta = document.querySelector(`meta[property="${property}"]`);
+            if (meta) return meta.getAttribute("content");
 
-            // Get Image
-            if (result.ogImage && result.ogImage[0]) {
-              console.time("image fetch");
-              const imageResponse = await fetch(result.ogImage[0].url);
-              const imageBuffer = await imageResponse.arrayBuffer();
-              console.timeEnd("image fetch");
+            meta = document.querySelector(`meta[name="${property}"]`);
+            if (meta) return meta.getAttribute("content");
 
-              console.time("sharp");
-              try {
-                thumbnail = await sharp(Buffer.from(imageBuffer))
-                  .webp({ quality: 40 })
-                  .toBuffer();
-              } catch (err) {
-                thumbnail = "";
-              }
-              console.timeEnd("sharp");
-            }
+            return null;
+          };
 
-            // Create link in database
-            console.time("database operation");
-            const link = await prisma.Link.create({
-              data: {
-                url: decodedUrl,
-                user: {
-                  connect: {
-                    id: req.body.userID,
-                  },
-                },
-                ...(req.body.folder
-                  ? { folder: { connect: { id: req.body.folder } } }
-                  : {}),
-                title: title,
-                bookmarked: JSON.parse(req.body.bookmarked),
-                thumbnail: "",
-                visits: 0,
+          return {
+            ogTitle: getMetaContent("og:title"),
+            ogImage: getMetaContent("og:image"),
+            ogType: getMetaContent("og:type"),
+            twitterTitle: getMetaContent("twitter:title"),
+            twitterImage: getMetaContent("twitter:image"),
+            title: document.title,
+          };
+        });
+
+        await page.close();
+        console.log(metadata);
+        console.timeEnd("fetch");
+
+        // Get title
+        title =
+          metadata.ogTitle ??
+          metadata.twitterTitle ??
+          metadata.title ??
+          "Untitled";
+        thumbnail = metadata.ogImage ?? metadata.twitterImage ?? "";
+
+        // Get Image
+        if (thumbnail !== "") {
+          console.time("image fetch");
+          const imageResponse = await fetch(thumbnail);
+          const imageBuffer = await imageResponse.arrayBuffer();
+          console.timeEnd("image fetch");
+
+          console.time("sharp");
+          try {
+            thumbnail = await sharp(Buffer.from(imageBuffer))
+              .webp({ quality: 75 })
+              .toBuffer();
+          } catch (err) {
+            thumbnail = "";
+            console.error(err); // Fixed: console.error
+          }
+          console.timeEnd("sharp");
+        }
+
+        // Create link in database
+        console.time("database operation");
+        const link = await prisma.Link.create({
+          data: {
+            url: decodedUrl,
+            user: {
+              connect: {
+                id: req.body.userID,
               },
-            });
-            console.timeEnd("database operation");
-            if (thumbnail === "") {
-              res.status(200).json({ link: link });
-            } else if (thumbnail) {
-              console.time("supabase");
-              const linkID = link.id;
+            },
+            ...(req.body.folder
+              ? { folder: { connect: { id: req.body.folder } } }
+              : {}),
+            title: title,
+            bookmarked: JSON.parse(req.body.bookmarked),
+            thumbnail: "",
+            visits: 0,
+          },
+        });
+        console.timeEnd("database operation");
 
-              let imagePath = `thumbnails/${req.body.userID}/${linkID}`;
-              let publicUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/thumbnails/${imagePath}`;
+        if (thumbnail === "") {
+          res.status(200).json({ link: link });
+        } else if (thumbnail) {
+          console.time("supabase");
+          const linkID = link.id;
 
-              const updatedLink = await prisma.Link.update({
-                where: {
-                  id: linkID,
-                },
-                data: {
-                  thumbnail: imagePath,
-                  pURL: publicUrl,
-                },
+          let imagePath = `thumbnails/${req.body.userID}/${linkID}`;
+          let publicUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/thumbnails/${imagePath}`;
+
+          const updatedLink = await prisma.Link.update({
+            where: {
+              id: linkID,
+            },
+            data: {
+              thumbnail: imagePath,
+              pURL: publicUrl,
+            },
+          });
+
+          res.status(202).json({ link: updatedLink });
+
+          (async () => {
+            const { error } = await supabase.storage
+              .from("thumbnails")
+              .upload(imagePath, thumbnail, {
+                contentType: "image/webp",
               });
 
-              res.status(202).json({ link: updatedLink });
-
-              (async () => {
-                const { error } = await supabase.storage
-                  .from("thumbnails")
-                  .upload(imagePath, thumbnail, {
-                    contentType: "image/webp",
-                  });
-
-                console.timeEnd("supabase");
-                req.app.get("io").emit("thumbnail-ready", updatedLink);
-                if (error) {
-                  console.error("Supabase Error: ", error);
-                }
-              })();
+            console.timeEnd("supabase");
+            req.app.get("io").emit("thumbnail-ready", updatedLink);
+            if (error) {
+              console.error("Supabase Error: ", error);
             }
-          })
-          .catch(async () => {
-            // Fallback to default link
-            const link = await prisma.Link.create({
-              data: {
-                url: decodedUrl,
-                user: {
-                  connect: {
-                    id: req.body.userID,
-                  },
-                },
-                ...(req.body.folder
-                  ? { folder: { connect: { id: req.body.folder } } }
-                  : {}),
-                title: decodedUrl,
-                bookmarked: JSON.parse(req.body.bookmarked),
-                thumbnail: "",
-              },
-            });
-            res.status(200).json({ link: link });
-          });
+          })();
+        }
       } catch (error) {
         console.error("Error fetching or processing:", error);
-        res.status(500).json("Server Error");
+
+        // Fallback to default link
+        const link = await prisma.Link.create({
+          data: {
+            url: decodedUrl,
+            user: {
+              connect: {
+                id: req.body.userID,
+              },
+            },
+            ...(req.body.folder
+              ? { folder: { connect: { id: req.body.folder } } }
+              : {}),
+            title: decodedUrl,
+            bookmarked: JSON.parse(req.body.bookmarked),
+            thumbnail: "",
+          },
+        });
+        res.status(200).json({ link: link });
       }
     }
   }),

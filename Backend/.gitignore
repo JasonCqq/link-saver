@@ -7,3 +7,6 @@ ts.ts
 /playwright/.cache/
 
 test.js
+
+# Playwright
+/playwright/.auth/

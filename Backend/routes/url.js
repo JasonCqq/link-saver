@@ -13,6 +13,6 @@ router.delete("/delete", urlController.delete_urls);
 
 router.delete("/deleteAll", urlController.deleteAll_urls);
 
-router.put("/update", urlController.update_url);
+// router.put("/update", urlController.update_url);
 
 module.exports = router;

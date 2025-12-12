@@ -25,6 +25,8 @@ const linkRouter = require("./routes/link");
 const urlRouter = require("./routes/url");
 const preferencesRouter = require("./routes/preferences");
 
+const { closeBrowser } = require("./routes/utils/browser.js");
+
 const app = express();
 
 // Web socket
@@ -66,6 +68,20 @@ app.use(
 );
 
 app.set("io", io);
+
+// Shutting down database connections, browser, http server, socket
+async function gracefulShutdown(signal) {
+  console.log(`${signal} received, shutting down...`);
+  await io.close();
+  await httpServer.close();
+  await closeBrowser();
+  await prisma.$disconnect();
+  process.exit(0);
+}
+
+// dev + production
+process.on("SIGINT", () => gracefulShutdown("SIGINT"));
+process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));
 
 //Login Authentication
 passport.use(
