@@ -51,6 +51,7 @@
           (linkUpdate)="linkEvent($event)"
           (linkPermDelete)="deletePerm($event)"
           (showEmbed)="setEmbed($event)"
+          (showWebPreview)="setWebView($event)"
         ></app-link-item>
       </div>
     }
@@ -60,10 +61,17 @@
     Back to Top
   </button> -->
 
-  @if (showEmbedLink) {
+  @if (!hideEmbedLink && showEmbedLink) {
     <app-viewer
       [itemData]="showEmbedLink"
       (closeEmbedEmit)="closeEmbed()"
     ></app-viewer>
+  }
+
+  @if (!hideWebPreview && showWebPreview) {
+    <app-web-view
+      [linkData]="showWebPreview"
+      (closeWindow)="closeWebView()"
+    ></app-web-view>
   }
 </main>

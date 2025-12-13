@@ -4,6 +4,11 @@ import { environment } from "../../../../../environments/environment";
 import { UserService } from "src/app/Components/user/user.service";
 import { BehaviorSubject } from "rxjs";
 
+interface RenderResponse {
+  method: "iframe" | "shadowdom";
+  content: string;
+}
+
 @Injectable({
   providedIn: "root",
 })
@@ -26,7 +31,7 @@ export class LinkService {
   }
 
   parseLink(id: string, url: string) {
-    return this.http.post(
+    return this.http.post<RenderResponse>(
       `${this.apiUrl}/link/parse`,
       {
         id: id,

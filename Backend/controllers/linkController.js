@@ -256,6 +256,188 @@ exports.create_link = [
   }),
 ];
 
+// exports.parse_link = [
+//   body("userID").trim().escape(),
+//   body("id").trim().escape(),
+//   body("url", "Invalid URL").isURL().trim().isLength({ min: 1 }).escape(),
+
+//   asyncHandler(async (req, res) => {
+//     const errs = validationResult(req);
+
+//     if (!errs.isEmpty()) {
+//       const firstError = errs.array({ onlyFirstError: true })[0].msg;
+//       res.status(400).json(firstError);
+//     } else {
+//       // Decodes URL after URL gets trim/escape in body.
+//       let decodedUrl = decode(req.body.url, { level: "html5" });
+
+//       if (
+//         !decodedUrl.startsWith("http://") &&
+//         !decodedUrl.startsWith("https://")
+//       ) {
+//         decodedUrl = "https://" + decodedUrl;
+//       }
+
+//       console.log("1");
+
+//       const browser = await getBrowser();
+//       const page = await browser.newPage();
+//       await page.goto(decodedUrl);
+//       await page.waitForLoadState("domcontentloaded", { timeout: 3000 });
+
+//       console.log("2");
+
+//       const html = await page.content();
+//       const originalDomain = new URL(decodedUrl).hostname;
+//       const baseUrl = new URL(decodedUrl).origin;
+
+//       console.log("3");
+
+//       // Add base tag to fix relative URLs
+//       let sanitized = html.replace(
+//         /<head>/i,
+//         `<head><base href="${baseUrl}/" target="_blank">`
+//       );
+
+//       // Strip scripts and inline handlers
+//       sanitized = sanitized
+//         .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, "")
+//         .replace(/on\w+\s*=\s*["'][^"']*["']/gi, "")
+//         .replace(/javascript:/gi, "");
+
+//       // Remove external domain links
+//       sanitized = sanitized.replace(
+//         /<a[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi,
+//         (match, href, content) => {
+//           try {
+//             const dest = new URL(href, baseUrl);
+//             if (dest.hostname !== originalDomain) {
+//               return content; // Keep text, remove link
+//             }
+//             return match;
+//           } catch {
+//             return content;
+//           }
+//         }
+//       );
+
+//       // Remove ad domains
+//       const adDomains = [
+//         "doubleclick.net",
+//         "googlesyndication.com",
+//         "googleadservices.com",
+//         "adservice.google.com",
+//         "adnxs.com",
+//         "taboola.com",
+//         "outbrain.com",
+//         "amazon-adsystem.com",
+//       ];
+
+//       sanitized = sanitized.replace(
+//         /<(iframe|img|a)[^>]*(?:src|href)=["']([^"']+)["'][^>]*>/gi,
+//         (match, tag, url) => {
+//           return adDomains.some((domain) => url.includes(domain)) ? "" : match;
+//         }
+//       );
+
+//       // Remove iframes (they can break sandboxing)
+//       sanitized = sanitized.replace(/<iframe[\s\S]*?<\/iframe>/gi, "");
+
+//       res.status(200).json(sanitized);
+//     }
+//   }),
+// ];
+
+exports.parse_link = [
+  body("userID").trim().escape(),
+  body("id").trim().escape(),
+  body("url", "Invalid URL").isURL().trim().isLength({ min: 1 }).escape(),
+
+  asyncHandler(async (req, res) => {
+    const errs = validationResult(req);
+
+    if (!errs.isEmpty()) {
+      const firstError = errs.array({ onlyFirstError: true })[0].msg;
+      res.status(400).json(firstError);
+    } else {
+      // Decodes URL after URL gets trim/escape in body.
+      let decodedUrl = decode(req.body.url, { level: "html5" });
+
+      if (
+        !decodedUrl.startsWith("http://") &&
+        !decodedUrl.startsWith("https://")
+      ) {
+        decodedUrl = "https://" + decodedUrl;
+      }
+
+      try {
+        console.log("1");
+        const browser = await getBrowser();
+        const page = await browser.newPage();
+
+        // Navigate to page
+        const response = await page.goto(decodedUrl, {
+          waitUntil: "domcontentloaded", // Faster than networkidle
+          timeout: 10000,
+        });
+
+        console.log("2");
+
+        // Check X-Frame-Options header quickly
+        const headers = response?.headers();
+        const xFrameOptions = headers["x-frame-options"]?.toLowerCase();
+        const csp = headers["content-security-policy"]?.toLowerCase();
+
+        // Check if iframe is blocked
+        const iframeBlocked =
+          xFrameOptions === "deny" ||
+          (csp &&
+            (csp.includes("frame-ancestors 'none'") ||
+              csp.includes("frame-ancestors https:")));
+
+        if (iframeBlocked) {
+          // Fallback to Shadow DOM
+          console.log("Iframe blocked, using Shadow DOM");
+
+          const content = await page.evaluate(() => {
+            document.querySelectorAll("*").forEach((el) => {
+              const styles = window.getComputedStyle(el);
+              el.setAttribute("style", styles.cssText);
+            });
+
+            const fullUrl = window.location.href;
+            document.querySelectorAll("img[src]").forEach((img) => {
+              try {
+                img.src = new URL(img.src, fullUrl).href;
+              } catch (e) {}
+            });
+
+            return document.documentElement.outerHTML;
+          });
+
+          await page.close();
+
+          return res.json({
+            method: "shadowdom",
+            content: content,
+          });
+        }
+
+        // Iframe is allowed
+        const html = await page.content();
+        await page.close();
+
+        res.json({
+          method: "iframe",
+          content: html,
+        });
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    }
+  }),
+];
+
 exports.delete_link = [
   body("id").trim().escape(),
   body("userID").trim().escape(),

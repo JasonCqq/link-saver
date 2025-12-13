@@ -11,6 +11,8 @@ router.use(securityCheck.authenticateReq);
 
 router.post("/create", linkController.create_link);
 
+router.post("/parse", linkController.parse_link);
+
 router.put("/visit", linkController.visited_link);
 
 router.put("/delete", linkController.delete_link);

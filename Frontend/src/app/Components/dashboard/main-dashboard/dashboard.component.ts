@@ -22,7 +22,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private mainNavService: MainNavService,
     private linkService: LinkService,
     private tempRenderService: TempRenderService,
-
     // For thumbnail updates
     private socketService: SocketService,
     private cdr: ChangeDetectorRef
@@ -37,25 +36,43 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   previews: any;
 
+  // For options displaying and working hovering over links
   showLinkOptions: number | null = null;
   setShowLinkOptions(index: number | null) {
     this.showLinkOptions = index;
   }
 
-  clearPrompt: boolean = false;
-  togglePrompt(): void {
-    this.clearPrompt = !this.clearPrompt;
+  // Web View
+  showWebPreview: any | null = null;
+  hideWebPreview: boolean = true;
+
+  setWebView(link: any) {
+    this.closeWebView();
+    this.showWebPreview = link;
+    setTimeout(() => (this.hideWebPreview = false)); // recreate component
+  }
+  closeWebView() {
+    this.hideWebPreview = true;
   }
 
   // Embed player
   showEmbedLink: any | null = null;
+  hideEmbedLink: boolean = true;
+
   setEmbed(link: any) {
+    this.closeEmbed();
     this.showEmbedLink = null;
+
     setTimeout(() => (this.showEmbedLink = link)); // recreate component
+    this.hideEmbedLink = false;
+  }
+  closeEmbed() {
+    this.hideEmbedLink = true;
   }
 
-  closeEmbed() {
-    this.showEmbedLink = null;
+  clearPrompt: boolean = false;
+  togglePrompt(): void {
+    this.clearPrompt = !this.clearPrompt;
   }
 
   deleteAllTrash(): void {

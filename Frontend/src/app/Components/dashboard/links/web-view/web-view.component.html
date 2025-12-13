@@ -2,7 +2,22 @@
   <div class="web-view-container" [innerHTML]="sanitizedHtml"></div>
 </div> -->
 
-<div class="overlay">
-  <!-- <button class="close-btn" (click)="close()">✕ Close</button> -->
-  <div #container></div>
+<div class="overlay" cdkDrag>
+  <span cdkDragHandle>
+    <i class="pi pi-circle-fill" (click)="close()"></i>
+  </span>
+
+  <iframe
+    *ngIf="renderMethod === 'iframe' && proxyUrl"
+    [src]="proxyUrl"
+    style="width: 100%; height: 600px; border: none"
+  ></iframe>
+
+  <div *ngIf="renderMethod === 'shadowdom'" #container></div>
 </div>
+
+<!-- <iframe 
+  src="/proxy?url=https://example.com"
+  sandbox="allow-same-origin allow-scripts"
+  style={{ border: 'none', width: '100%', height: '600px' }}
+/> -->

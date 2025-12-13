@@ -1,15 +1,17 @@
-<main cdkDrag>
-  <span cdkDragHandle>
-    <i class="pi pi-circle-fill" (click)="close()"></i>
-    <p class="title">{{ itemData.title }}</p>
-  </span>
+@if (itemData) {
+  <main cdkDrag>
+    <span cdkDragHandle>
+      <i class="pi pi-circle-fill" (click)="close()"></i>
+      <p class="title">{{ itemData.title }}</p>
+    </span>
 
-  <iframe
-    [src]="fullLink | safeUrl"
-    frameborder="0"
-    width="560"
-    height="315"
-    scrolling="yes"
-    allowfullscreen
-  ></iframe>
-</main>
+    <iframe
+      [src]="fullLink | safeUrl"
+      frameborder="0"
+      width="560"
+      height="315"
+      scrolling="yes"
+      allowfullscreen
+    ></iframe>
+  </main>
+}
