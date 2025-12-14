@@ -30,7 +30,7 @@ main {
       text-align: center;
       padding-top: 5px;
       cursor: grab;
-      max-width: 90%;
+      max-width: 50%;
     }
 
     .pi-circle-fill {
@@ -48,5 +48,9 @@ main {
   iframe {
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
+
+    @media screen and (max-width: 560px) {
+      width: 99vw;
+    }
   }
 }

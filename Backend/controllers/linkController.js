@@ -256,98 +256,6 @@ exports.create_link = [
   }),
 ];
 
-// exports.parse_link = [
-//   body("userID").trim().escape(),
-//   body("id").trim().escape(),
-//   body("url", "Invalid URL").isURL().trim().isLength({ min: 1 }).escape(),
-
-//   asyncHandler(async (req, res) => {
-//     const errs = validationResult(req);
-
-//     if (!errs.isEmpty()) {
-//       const firstError = errs.array({ onlyFirstError: true })[0].msg;
-//       res.status(400).json(firstError);
-//     } else {
-//       // Decodes URL after URL gets trim/escape in body.
-//       let decodedUrl = decode(req.body.url, { level: "html5" });
-
-//       if (
-//         !decodedUrl.startsWith("http://") &&
-//         !decodedUrl.startsWith("https://")
-//       ) {
-//         decodedUrl = "https://" + decodedUrl;
-//       }
-
-//       console.log("1");
-
-//       const browser = await getBrowser();
-//       const page = await browser.newPage();
-//       await page.goto(decodedUrl);
-//       await page.waitForLoadState("domcontentloaded", { timeout: 3000 });
-
-//       console.log("2");
-
-//       const html = await page.content();
-//       const originalDomain = new URL(decodedUrl).hostname;
-//       const baseUrl = new URL(decodedUrl).origin;
-
-//       console.log("3");
-
-//       // Add base tag to fix relative URLs
-//       let sanitized = html.replace(
-//         /<head>/i,
-//         `<head><base href="${baseUrl}/" target="_blank">`
-//       );
-
-//       // Strip scripts and inline handlers
-//       sanitized = sanitized
-//         .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, "")
-//         .replace(/on\w+\s*=\s*["'][^"']*["']/gi, "")
-//         .replace(/javascript:/gi, "");
-
-//       // Remove external domain links
-//       sanitized = sanitized.replace(
-//         /<a[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi,
-//         (match, href, content) => {
-//           try {
-//             const dest = new URL(href, baseUrl);
-//             if (dest.hostname !== originalDomain) {
-//               return content; // Keep text, remove link
-//             }
-//             return match;
-//           } catch {
-//             return content;
-//           }
-//         }
-//       );
-
-//       // Remove ad domains
-//       const adDomains = [
-//         "doubleclick.net",
-//         "googlesyndication.com",
-//         "googleadservices.com",
-//         "adservice.google.com",
-//         "adnxs.com",
-//         "taboola.com",
-//         "outbrain.com",
-//         "amazon-adsystem.com",
-//       ];
-
-//       sanitized = sanitized.replace(
-//         /<(iframe|img|a)[^>]*(?:src|href)=["']([^"']+)["'][^>]*>/gi,
-//         (match, tag, url) => {
-//           return adDomains.some((domain) => url.includes(domain)) ? "" : match;
-//         }
-//       );
-
-//       // Remove iframes (they can break sandboxing)
-//       sanitized = sanitized.replace(/<iframe[\s\S]*?<\/iframe>/gi, "");
-
-//       res.status(200).json(sanitized);
-//     }
-//   }),
-// ];
-
 exports.parse_link = [
   body("userID").trim().escape(),
   body("id").trim().escape(),
@@ -469,6 +377,13 @@ exports.perma_delete_link = [
         userId: req.body.userID,
       },
     });
+
+    const imagePath = `thumbnails/${req.body.userID}/${req.body.id}`;
+    const { error } = await supabase.storage
+      .from("thumbnails")
+      .remove(imagePath);
+
+    if (error) console.error("Supabase delete error:", error.message);
 
     res.status(200).json({});
   }),

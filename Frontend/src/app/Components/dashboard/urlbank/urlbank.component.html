@@ -20,6 +20,15 @@
   </div>
 
   <div class="url-grid">
+    @if (loadingService.isLoading$ | async) {
+      <p-progress-spinner
+        strokeWidth="5"
+        fill="transparent"
+        animationDuration=".75s"
+        [style]="{ width: '35px', height: '35px' }"
+      />
+    }
+
     @for (u of this.urls; track u) {
       <div class="url-item">
         <div class="url-options">

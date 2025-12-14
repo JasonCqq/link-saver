@@ -13,7 +13,6 @@
     [href]="'//' + itemData.url"
     target="_blank"
     (click)="visitedLink()"
-    (auxclick)="visitedLink()"
   >
     @if (this.previews) {
       <div class="link-preview">
@@ -98,7 +97,6 @@
     [(visible)]="editForm"
   ></app-link-edit-form>
 }
-
 
 @if (expand) {
   <div class="expanded-img" cdkDrag>

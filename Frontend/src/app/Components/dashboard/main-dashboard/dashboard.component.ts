@@ -9,6 +9,7 @@ import { TempRenderService } from "./tempRender.service";
 
 import { SocketService } from "./socket.service";
 import { ConfirmationService, MessageService } from "primeng/api";
+import { LoadingService } from "../../LoadingInterceptor.service";
 
 @Component({
   selector: "app-dashboard",
@@ -24,6 +25,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private mainNavService: MainNavService,
     private linkService: LinkService,
     private tempRenderService: TempRenderService,
+    public loadingService: LoadingService,
+
     // For thumbnail updates
     private socketService: SocketService,
     private cdr: ChangeDetectorRef,
@@ -74,6 +77,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   closeEmbed() {
     this.hideEmbedLink = true;
   }
+
+  infoBox: boolean = false;
 
   clearPrompt: boolean = false;
   togglePrompt(): void {

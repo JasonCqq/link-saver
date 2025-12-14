@@ -17,6 +17,8 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
 
+const rateLimit = require("express-rate-limit");
+
 // Routes
 const homeRouter = require("./routes/home");
 const userRouter = require("./routes/user");
@@ -26,6 +28,53 @@ const urlRouter = require("./routes/url");
 const preferencesRouter = require("./routes/preferences");
 
 const { closeBrowser } = require("./routes/utils/browser.js");
+
+// ========== RATE LIMITERS ==========
+
+// 1. CRITICAL: Authentication (brute force protection)
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 10 minutes
+  max: 5,
+  message: "Too many authentication attempts, please try again later",
+  skipSuccessfulRequests: true,
+});
+
+// 2. CRITICAL: Password verification (shared folders)
+const passwordLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 10 minutes
+  max: 5,
+  message: "Too many password attempts, please try again later",
+  skipSuccessfulRequests: true,
+});
+
+// 3. CRITICAL: Email/OTP sending
+const otpLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 3,
+  message: "Too many OTP requests, please try again later",
+});
+
+// 4. HEAVY: Page parsing/rendering (expensive operation)
+const parseLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 10,
+  message: "Too many parse requests, please slow down",
+});
+
+// 5. MODERATE: Account creation
+const signupLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 3,
+  message: "Too many signup attempts, please try again later",
+});
+
+// 6. GENERAL: API endpoints
+const apiLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 60,
+  message: "Too many requests, please try again later",
+  skip: (req) => req.path === "/check", // Skip health check
+});
 
 const app = express();
 
@@ -140,11 +189,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use(apiLimiter);
 // Routes
 app.use("/", homeRouter);
+
+app.use("/user/create", signupLimiter); // Signup
+app.use("/user/login", authLimiter); // Login
+app.use("/user/forgot_password", otpLimiter); // OTP generation
+app.use("/user/verify_otp", authLimiter); // OTP verification
+app.use("/user/change_password_otp", authLimiter); // Password reset
 app.use("/user", userRouter);
+
+app.post("/folders/public/:id", passwordLimiter); // Password verification
 app.use("/folders", folderRouter);
+
+app.post("/link/parse", parseLimiter);
 app.use("/link", linkRouter);
+
 app.use("/url", urlRouter);
 app.use("/preferences", preferencesRouter);
 

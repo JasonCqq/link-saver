@@ -6,12 +6,12 @@ router.get("/:userId", foldersController.get_folder);
 
 router.get(
   "/search_link/:folderId/:userId",
-  foldersController.search_folder_links,
+  foldersController.search_folder_links
 );
 
 router.get("/public/:id", foldersController.get_shared_folder);
 
-router.post("/public", foldersController.get_authorized_folder);
+router.post("/public/:id", foldersController.get_authorized_folder);
 
 const securityCheck = require("../routes/routeAuthenticate");
 router.use(securityCheck.authenticateReq);

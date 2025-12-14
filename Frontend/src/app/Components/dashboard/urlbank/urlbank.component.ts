@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { takeUntil, Subject } from "rxjs";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ConfirmationService, MessageService } from "primeng/api";
+import { LoadingService } from "../../LoadingInterceptor.service";
 
 // Separates URLs in textarea into an array of URLs
 function extractUrls(text: string) {
@@ -25,7 +26,8 @@ export class UrlbankComponent implements OnInit, OnDestroy {
     private urlBankService: UrlBankService,
     public snackBar: MatSnackBar,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    public loadingService: LoadingService
   ) {}
   private destroy$ = new Subject<void>();
 

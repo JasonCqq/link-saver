@@ -4,10 +4,20 @@
   position: fixed !important;
   z-index: 9999;
   background: var(--background);
-  width: 50vw;
+  width: 60vw;
   height: 50vh;
-  left: 50%;
+  left: 40%;
   bottom: 50%;
+
+  @media screen and (max-width: 1000px) {
+    width: 75vw;
+    left: 25%;
+  }
+
+  @media screen and (max-width: 520px) {
+    width: 90vw;
+    left: 10%;
+  }
 
   > span {
     display: flex;

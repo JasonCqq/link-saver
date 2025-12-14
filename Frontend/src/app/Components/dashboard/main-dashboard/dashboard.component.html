@@ -6,6 +6,52 @@
 
 <p-toast />
 
+@if (tempTitle !== "Trash") {
+  <span class="info">
+    <p-button
+      severity="info"
+      label="For website/embeds"
+      icon="pi pi-info-circle"
+      iconPos="left"
+      (click)="infoBox = !infoBox"
+    ></p-button>
+    <p-dialog
+      header="Please Note:"
+      [modal]="true"
+      [(visible)]="infoBox"
+      [style]="{ width: '25rem' }"
+    >
+      <div class="flex items-center gap-4 mb-4">
+        <h2>Video Embeds</h2>
+        <p style="font-size: 12px">
+          Not all video embeds will load correctly. If you’d like support added
+          for a specific embeddable site, please contact me via the email at the
+          bottom of the homepage or through my GitHub. Currently we support
+          popular sites like youtube/vimeo etc.!
+        </p>
+      </div>
+      <div class="flex items-center gap-4 mb-4">
+        <h2>Web Preview Support</h2>
+        <p style="font-size: 12px">
+          Most websites will load using the web preview feature, even if they’re
+          not officially supported. That said, unsupported sites may have broken
+          styling or could temporarily affect the appearance of the current
+          page.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-4 mb-4">
+        <h2>Early Access Notice</h2>
+        <p style="font-size: 12px">
+          This website is still in its early stages of development. Any
+          suggestions, bug reports, or feature requests are greatly
+          appreciated—feel free to send them my way!
+        </p>
+      </div>
+    </p-dialog>
+  </span>
+}
+
 <main class="dashboard-container default-dash-container">
   <!-- Delete All Links Prompt -->
   @if (tempTitle === "Trash") {
@@ -26,6 +72,15 @@
     @fadeOut
     style="padding-top: 20px"
   >
+    @if (loadingService.isLoading$ | async) {
+      <p-progress-spinner
+        strokeWidth="5"
+        fill="transparent"
+        animationDuration=".75s"
+        [style]="{ width: '35px', height: '35px' }"
+      />
+    }
+
     @for (link of tempLinks; track link; let i = $index) {
       <div>
         <app-link-item

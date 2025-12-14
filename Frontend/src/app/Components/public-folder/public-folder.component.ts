@@ -5,26 +5,21 @@ import { Link } from "src/app/Interfaces/Link";
 import { FormControl, FormGroup } from "@angular/forms";
 
 @Component({
-    selector: "app-public-folder",
-    templateUrl: "./public-folder.component.html",
-    styleUrls: ["./public-folder.component.scss"],
-    standalone: false
+  selector: "app-public-folder",
+  templateUrl: "./public-folder.component.html",
+  styleUrls: ["./public-folder.component.scss"],
+  standalone: false,
 })
 export class PublicFolderComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
-    private service: PublicFolderService,
+    private service: PublicFolderService
   ) {}
 
   currentSort: string = "date";
   author: any;
   folderName: any;
   links: Link[] = [];
-
-  passwordLocked: boolean = false;
-  passwordForm = new FormGroup({
-    password: new FormControl(),
-  });
 
   ngOnInit(): void {
     this.service.getPublicFolder(this.route.snapshot.params["id"]).subscribe({
@@ -45,19 +40,24 @@ export class PublicFolderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {}
 
+  passwordLocked: boolean = false;
+  passwordForm = new FormGroup({
+    password: new FormControl(),
+  });
+
   formErrors: any;
   authorizeFolder(): void {
     this.service
       .authorizeFolder(
         this.route.snapshot.params["id"],
-        this.passwordForm.value.password,
+        this.passwordForm.value.password
       )
       .subscribe({
         next: (res) => {
+          this.passwordLocked = false;
           this.author = res.authorName;
           this.folderName = res.folderName;
           this.links = res.links;
-          this.passwordLocked = false;
         },
         error: (error) => {
           this.formErrors = error.error;

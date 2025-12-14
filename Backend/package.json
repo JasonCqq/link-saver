@@ -21,6 +21,7 @@
     "dotenv": "^16.3.1",
     "express": "~4.16.1",
     "express-async-handler": "^1.2.0",
+    "express-rate-limit": "^8.2.1",
     "express-session": "^1.18.0",
     "express-validator": "^7.0.1",
     "fs": "^0.0.1-security",
