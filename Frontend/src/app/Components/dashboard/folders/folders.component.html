@@ -7,82 +7,129 @@
 
 <main class="folders-container">
   <!-- Sharing Folder Form -->
-  @if (shareWindowOpened) {
-    <div class="folders-share-overlay">
-      <form
-        class="folders-share"
-        [formGroup]="shareFolderForm"
-        (submit)="shareFolder()"
-      >
-        <mat-icon
-          fontIcon="close"
-          (click)="toggleShareWindow()"
-          class="folders-share-close"
-        ></mat-icon>
-        <h3>Share</h3>
-        <section class="folders-share-url">
-          This folder's URL will be located here:
-          @if (tempShareUrl) {
-            <p>linkstorage.net/public/{{ tempShareUrl }}</p>
-          }
-          @if (tempShareUrl) {
-            <p style="color: #517ee1">Success!</p>
-          }
-        </section>
+  <p-dialog
+    header="Share Folder"
+    [modal]="true"
+    [(visible)]="shareWindowOpened"
+    [style]="{ width: '25rem' }"
+  >
+    <form [formGroup]="shareFolderForm" (submit)="shareFolder()">
+      <div class="items-center gap-4 mb-4">
+        This folder's URL will be located here:
+        @if (tempShareUrl) {
+          <p>linkstorage.net/public/{{ tempShareUrl }}</p>
+        }
+        @if (tempShareUrl) {
+          <!-- <p style="color: #517ee1">Success!</p> -->
+        }
+      </div>
 
-        <span>
-          <p style="padding-bottom: 8px">Password Locked</p>
-          <p-toggleswitch
-            #passwordToggle
-            formControlName="passwordToggle"
-            (click)="togglePasswordInput()"
-          />
-        </span>
+      <div class="flex items-center gap-4 mb-4">
+        <label for="passwordToggle">Password</label>
+        <p-toggleswitch
+          #passwordToggle
+          formControlName="passwordToggle"
+          (click)="togglePasswordInput()"
+        />
+      </div>
 
+      <div class="flex items-center gap-4 mb-4">
         <p-floatlabel variant="on">
           <label>Password</label>
           <input pInputText type="password" formControlName="password" />
         </p-floatlabel>
+      </div>
 
-        <p-button type="submit" class="folders-share-button">Share</p-button>
-        <p class="folders-share-hint">
-          -Your username will be shown when sharing
-        </p>
-      </form>
-    </div>
-  }
+      <p-button label="Submit" type="submit" />
+    </form>
+  </p-dialog>
 
-  <div class="folders-buttons">
-    @if (folderOpened) {
+  @if (folderOpened) {
+    <div class="folders-buttons">
       <p-button class="folders-button folders-back" (click)="closeFolder()">
         < Go Back
       </p-button>
-    }
 
-    @if (folderOpened && tempShare) {
-      <p-button
-        class="folders-button folders-share"
-        (click)="toggleShareWindow()"
-      >
-        Share Folder
-      </p-button>
-    }
+      @if (tempShare) {
+        <p-button
+          class="folders-button folders-share"
+          (click)="toggleShareWindow()"
+        >
+          Share Folder
+        </p-button>
+      }
 
-    @if (folderOpened && !tempShare) {
-      <p-button class="folders-button folders-share" (click)="unshareFolder()">
-        <mat-icon fontIcon="share"></mat-icon>
-        Unshare
-      </p-button>
-    }
-  </div>
+      @if (!tempShare) {
+        <p-button
+          severity="info"
+          class="folders-button folders-share"
+          (click)="unshareFolder()"
+        >
+          Unshare Folder
+        </p-button>
+      }
+    </div>
+  }
 
   <!--Folders Tab-->
   @if (!folderOpened) {
-    <section class="folders-grid">
-      <div class="folders-item" (click)="toggleWindow()">
+    <!--Create Folder Button-->
+    <div (click)="toggleWindow()" class="create-folder-button">
+      <span style="display: flex; align-items: center; gap: 5px">
         <i class="pi pi-plus" style="font-size: 0.8rem"></i>
-        <p>Create Folder</p>
-      </div>
+        <p>Create Folder</p></span
+      >
+    </div>
+
+    <!--Create Folder Form-->
+    <p-dialog
+      header="Create Folder"
+      [modal]="true"
+      [(visible)]="windowOpened"
+      [style]="{ width: '25rem' }"
+    >
+      <form [formGroup]="createFolderForm" (submit)="createFolder()">
+        <div class="flex items-center gap-4 mb-4">
+          <label for="folderName">Name</label>
+          <input
+            pInputText
+            #folderName
+            class="flex-auto"
+            autocomplete="off"
+            type="text"
+            formControlName="folderName"
+            required
+          />
+        </div>
+        <p-button label="Create" type="submit" />
+      </form>
+    </p-dialog>
+
+    <!-- Edit Folder Form -->
+    <p-dialog
+      header="Edit Folder"
+      [modal]="true"
+      [(visible)]="editWindowOpened"
+      [style]="{ width: '25rem' }"
+    >
+      <form [formGroup]="createFolderForm" (submit)="editFolder()">
+        <div class="flex items-center gap-4 mb-4">
+          <label for="editFolderName">Name</label>
+          <input
+            pInputText
+            class="flex-auto"
+            autocomplete="off"
+            type="text"
+            #editFolderName
+            formControlName="editFolderName"
+          />
+        </div>
+        <p-button label="Submit" type="submit" />
+      </form>
+    </p-dialog>
+
+    <!-- Folders Items Grid -->
+    <section class="folders-grid">
       @if (loadingService.isLoading$ | async) {
         <p-progress-spinner
           strokeWidth="5"
@@ -91,77 +138,15 @@
           [style]="{ width: '35px', height: '35px' }"
         />
       }
-      <!--Create Folder Form-->
-      @if (windowOpened) {
-        <div class="folders-create-overlay">
-          <form
-            class="folders-create"
-            [formGroup]="createFolderForm"
-            (submit)="createFolder()"
-          >
-            <mat-icon
-              fontIcon="close"
-              (click)="toggleWindow()"
-              class="folders-create-close"
-            ></mat-icon>
-            <h3>Create a Folder</h3>
-
-            <p-floatlabel variant="on">
-              <label for="folderName">Folder Name</label>
-              <input
-                pInputText
-                type="text"
-                #folderName
-                formControlName="folderName"
-                required
-              />
-            </p-floatlabel>
-
-            <p-button type="submit" class="folders-create-button"
-              >Create</p-button
-            >
-          </form>
-        </div>
-      }
-      <!--Edit Folder Form-->
-      @if (editWindowOpened) {
-        <div class="folders-create-overlay">
-          <form
-            class="folders-create"
-            [formGroup]="createFolderForm"
-            (submit)="editFolder()"
-          >
-            <mat-icon
-              fontIcon="close"
-              (click)="toggleEditWindow('none')"
-              class="folders-create-close"
-            ></mat-icon>
-            <h3>Edit</h3>
-
-            <p-floatlabel variant="on">
-              <label for="editFolderName">Folder Name</label>
-              <input
-                pInputText
-                type="text"
-                #editFolderName
-                formControlName="editFolderName"
-              />
-            </p-floatlabel>
-
-            <p-button type="submit" class="folders-create-button"
-              >Edit</p-button
-            >
-          </form>
-        </div>
-      }
       @for (folder of folders; track folder) {
         <div
           class="folders-item"
           (click)="openFolder(folder.id)"
           pTooltip="{{ folder.name }} has {{ folder.links.length }} links"
+          tooltipPosition="bottom"
         >
           <div class="folders-item-flex">
-            <mat-icon fontIcon="folder"></mat-icon>
+            <i class="pi pi-folder"></i>
             <p>
               {{ folder.name | slice: 0 : 10
               }}{{ folder.name.length > 10 ? "..." : "" }}

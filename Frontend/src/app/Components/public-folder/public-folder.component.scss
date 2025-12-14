@@ -20,7 +20,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      color: var(--text2);
+      color: var(--text);
       width: 100vw;
       font-weight: 600;
 
@@ -159,7 +159,6 @@
   margin-right: auto;
   left: 0;
   right: 0;
-  background: rgba($color: var(--background2), $alpha: 0.5);
 
   > a,
   p {

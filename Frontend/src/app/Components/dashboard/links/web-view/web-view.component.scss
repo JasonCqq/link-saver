@@ -1,16 +1,11 @@
 @import "../../../../../assets/styles.scss";
 
 .overlay {
-  border: 1px solid rgba(255, 255, 255, 0.21);
-  border-radius: 8px;
-
   position: fixed !important;
   z-index: 9999;
   background: var(--background);
-  overflow: auto;
   width: 50vw;
   height: 50vh;
-
   left: 50%;
   bottom: 50%;
 
@@ -21,7 +16,7 @@
     cursor: grab;
     height: 30px;
 
-    background: rgba(255, 255, 255, 0.19);
+    background: var(--background2);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);

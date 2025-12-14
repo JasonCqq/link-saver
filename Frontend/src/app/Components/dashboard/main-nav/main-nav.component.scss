@@ -6,6 +6,7 @@
   flex-direction: column;
   padding-left: 5vw;
   background-color: var(--background);
+  padding-bottom: 2vh;
 
   > .nav-flex {
     display: flex;
@@ -18,8 +19,8 @@
     }
 
     > .nav-title {
-      font-size: 1.5rem;
-      font-weight: 800;
+      font-size: 1.35rem;
+      font-weight: 600;
       margin: 2vh 0 1vh 0vw;
 
       @media screen and (max-width: 940px) {

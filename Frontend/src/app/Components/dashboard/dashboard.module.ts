@@ -20,7 +20,9 @@ import { UrlbankComponent } from "./urlbank/urlbank.component";
 
 import { ButtonModule } from "primeng/button";
 import { DialogModule } from "primeng/dialog";
-
+import { ConfirmPopupModule } from "primeng/confirmpopup";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { ToastModule } from "primeng/toast";
 import { InputTextModule } from "primeng/inputtext";
 import { TextareaModule } from "primeng/textarea";
 import { MenuModule } from "primeng/menu";
@@ -62,7 +64,7 @@ import { WebViewComponent } from "./links/web-view/web-view.component";
     MatNativeDateModule,
     ReactiveFormsModule,
     DragDropModule,
-
+    ToastModule,
     ButtonModule,
     DialogModule,
     InputTextModule,
@@ -77,6 +79,8 @@ import { WebViewComponent } from "./links/web-view/web-view.component";
     FloatLabelModule,
     ToggleSwitchModule,
     ProgressSpinnerModule,
+    ConfirmDialogModule,
+    ConfirmPopupModule,
   ],
 
   exports: [LinkComponent],

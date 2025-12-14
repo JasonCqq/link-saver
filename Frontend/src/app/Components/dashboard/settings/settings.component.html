@@ -3,36 +3,6 @@
 <main class="settings-page">
   <div class="settings-flex">
     <h1>User Settings</h1>
-
-    @if (deletePrompt) {
-      <div class="settings-delete-overlay">
-        <section class="settings-delete-prompt">
-          <div style="display: flex">
-            <h2>Confirm Account Deletion</h2>
-
-            <mat-icon
-              fontIcon="close"
-              (click)="toggleDeletePrompt()"
-              class="close-form"
-              style="margin-left: auto"
-            ></mat-icon>
-          </div>
-
-          <p style="color: red">This action is permanent.</p>
-          <p>Type 'confirmdelete' to confirm</p>
-
-          <input pInputText id="delete-confirm" type="text" required />
-
-          <p-button
-            severity="danger"
-            (click)="deleteAccount()"
-            class="settings-delete"
-          >
-            Deactivate
-          </p-button>
-        </section>
-      </div>
-    }
   </div>
 
   <div class="settings-grid">
@@ -54,9 +24,41 @@
         severity="danger"
         class="settings-delete"
         (click)="toggleDeletePrompt()"
+        label="Delete Account"
       >
-        Deactivate
       </p-button>
+
+      <p-dialog
+        header="Delete Account"
+        [modal]="true"
+        [(visible)]="deletePrompt"
+        [style]="{ width: '25rem' }"
+      >
+        <span class="p-text-secondary block mb-4"
+          >This action is permanent. <br />
+        </span>
+
+        <span class="p-text-secondary block mb-4">
+          Type "confirmdelete" to continue.<br />
+        </span>
+
+        <div class="flex items-center gap-4 mb-4">
+          <input
+            pInputText
+            id="delete-confirm"
+            class="flex-auto"
+            autocomplete="off"
+            type="text"
+            required
+          />
+        </div>
+
+        <p-button
+          severity="danger"
+          label="Confirm"
+          (click)="(toggleDeletePrompt); (deleteAccount)"
+        />
+      </p-dialog>
     </section>
 
     <section class="settings-item">

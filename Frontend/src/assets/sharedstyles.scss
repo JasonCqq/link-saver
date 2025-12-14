@@ -6,7 +6,6 @@
   grid-template-columns: repeat(auto-fit, 175px);
   column-gap: 15px;
   row-gap: 2vh;
-  margin-top: 20px;
 
   @media screen and (max-width: 400px) {
     grid-template-columns: repeat(auto-fit, 150px);
@@ -16,7 +15,6 @@
 .default-dash-container {
   padding-left: 5vw;
   height: auto;
-  background-color: var(--background);
 
   @media screen and (max-width: 720px) {
     padding-left: 5vw;

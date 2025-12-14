@@ -5,33 +5,16 @@
 ></app-main-nav>
 
 <main class="dashboard-container default-dash-container">
+  <!-- Delete All Links Prompt -->
   @if (tempTitle === "Trash") {
+    <p-toast />
     <span>
       <p-button
-        (click)="togglePrompt()"
+        (onClick)="confirm1($event)"
+        label="Clear All"
         severity="danger"
-        [style]="{ margin: '15px 0px 0px 0px' }"
-        >Clear All</p-button
-      >
-      @if (clearPrompt) {
-        <section class="clear-prompt-overlay">
-          <div class="clear-prompt">
-            <h1>Clear all links?</h1>
-            <p style="color: rgb(215, 57, 57)">This action is permanent.</p>
-            <div class="clear-prompt-flex">
-              <p-button
-                class="clear-prompt-yes"
-                (click)="deleteAllTrash(); togglePrompt()"
-                severity="danger"
-              >
-                Yes
-              </p-button>
-
-              <p-button (click)="togglePrompt()">No</p-button>
-            </div>
-          </div>
-        </section>
-      }
+      />
+      <p-confirmpopup />
     </span>
   }
 

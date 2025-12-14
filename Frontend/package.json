@@ -24,6 +24,7 @@
     "@primeuix/themes": "^2.0.1",
     "dotenv": "^16.4.5",
     "fs": "^0.0.1-security",
+    "primeflex": "^4.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^20.3.0",
     "process": "^0.11.10",

@@ -8,6 +8,7 @@ import { fadeIn, fadeOut } from "src/app/app.component";
 import { TempRenderService } from "./tempRender.service";
 
 import { SocketService } from "./socket.service";
+import { ConfirmationService, MessageService } from "primeng/api";
 
 @Component({
   selector: "app-dashboard",
@@ -15,6 +16,7 @@ import { SocketService } from "./socket.service";
   styleUrls: ["./dashboard.component.scss"],
   animations: [fadeIn, fadeOut],
   standalone: false,
+  providers: [ConfirmationService, MessageService],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
@@ -24,7 +26,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private tempRenderService: TempRenderService,
     // For thumbnail updates
     private socketService: SocketService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    // Primeng
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) {}
 
   socket = this.socketService.getSocket();
@@ -173,6 +178,42 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.tempLinks = null;
         this.showOnly(this.mainNavService.getTitle());
       });
+  }
+
+  // Trash delete all confirmation dialog
+  confirm1(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: "Are you sure that you want to proceed?",
+      header: "Confirmation",
+      closable: true,
+      closeOnEscape: true,
+      icon: "pi pi-exclamation-triangle",
+      rejectButtonProps: {
+        label: "Cancel",
+        severity: "secondary",
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: "Save",
+      },
+      accept: () => {
+        this.deleteAllTrash();
+        this.messageService.add({
+          severity: "info",
+          summary: "Confirmed",
+          detail: "All links deleted",
+        });
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: "error",
+          summary: "Rejected",
+          detail: "Cancelled",
+          life: 3000,
+        });
+      },
+    });
   }
 
   // Moves link

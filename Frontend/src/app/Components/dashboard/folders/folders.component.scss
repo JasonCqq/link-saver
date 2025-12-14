@@ -1,13 +1,33 @@
 @import "../../../../assets/sharedstyles.scss";
 
 .folders-container {
-  margin-top: 2vh;
   margin-left: 5vw;
+
+  .create-folder-button {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--textSec);
+    border-radius: 8px;
+    padding: 8px 15px;
+    margin-bottom: 20px;
+    gap: 5px;
+    max-width: fit-content;
+
+    background: lch(8.3 1.867 272);
+    border: 1px solid lch(18.24 4.707 272);
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 4px 44px;
+    touch-action: auto !important;
+
+    &:hover {
+      cursor: pointer;
+      border-color: var(--text);
+    }
+  }
 
   > .folders-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, 200px);
-    row-gap: 2vh;
+    row-gap: 1vh;
     column-gap: 0.5vw;
     width: 95%;
 
@@ -16,8 +36,12 @@
       align-items: center;
       border: 1px solid var(--textSec);
       border-radius: 8px;
-      padding: 5px 10px;
+      padding: 10px 10px;
       gap: 5px;
+
+      background: lch(8.3 1.867 272);
+      border: 1px solid lch(18.24 4.707 272);
+      box-shadow: rgba(0, 0, 0, 0.07) 0px 4px 44px;
 
       transition: border-color 0.1s ease-in-out;
       touch-action: auto !important;
@@ -33,18 +57,14 @@
 
       &:hover {
         cursor: pointer;
-        border-color: var(--accent);
+        border-color: var(--text);
       }
 
       > .folders-item-flex {
         display: flex;
         width: 100%;
-        gap: 5px;
+        gap: 10px;
         align-items: center;
-
-        > mat-icon {
-          color: var(--text);
-        }
 
         > p {
           font-weight: 500;
@@ -55,7 +75,7 @@
         display: flex;
         align-items: center;
         margin-left: auto;
-        gap: 5px;
+        gap: 10px;
 
         > * {
           transition: transform 0.1s;
@@ -66,94 +86,11 @@
         }
       }
     }
-
-    > .folders-create-overlay {
-      position: fixed;
-      background-color: rgba(0, 0, 0, 0.8);
-      height: 100vh;
-      width: 100vw;
-      top: 0;
-      left: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 99;
-
-      > .folders-create {
-        width: fit-content;
-        height: fit-content;
-        background-color: var(--background);
-        border-radius: 8px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        padding: 2vh 4vw;
-
-        > h3 {
-          padding-bottom: 10px;
-        }
-
-        > .folders-create-close {
-          transform: scale(1);
-
-          &:hover {
-            color: var(--accent);
-            cursor: pointer;
-          }
-        }
-      }
-    }
-  }
-
-  > .folders-share-overlay {
-    position: fixed;
-    background-color: rgba(0, 0, 0, 0.8);
-    height: 100vh;
-    width: 100vw;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 99;
-
-    > .folders-share {
-      width: fit-content;
-      height: fit-content;
-      background-color: var(--background);
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      padding: 3vh 2vw;
-      z-index: 99;
-
-      > .folders-share-close {
-        transform: scale(1);
-        &:hover {
-          color: var(--accent);
-          cursor: pointer;
-        }
-      }
-
-      > .folders-share-url {
-        padding-bottom: 4vh;
-
-        > p {
-          color: var(--accent);
-          margin-top: 10px;
-        }
-      }
-
-      > .folders-share-hint {
-        font-size: 0.8rem;
-        margin-top: 5px;
-      }
-    }
   }
 
   > .folders-buttons {
     display: flex;
     gap: 10px;
+    margin-bottom: 20px;
   }
 }

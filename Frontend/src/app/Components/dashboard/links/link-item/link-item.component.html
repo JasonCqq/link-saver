@@ -3,6 +3,7 @@
   [ngClass]="addingID && massEditting ? 'link-item-border' : ''"
   (click)="addMassID(itemData.id)"
   pTooltip="{{ itemData.title }}"
+  tooltipPosition="top"
   (mouseenter)="onMouseEnter()"
   (mouseleave)="onMouseLeave()"
   (touchstart)="toggleLinkOptions($event)"
@@ -100,8 +101,11 @@
 }
 
 @if (expand) {
-  <div class="expanded-img">
-    <i class="pi pi-circle-fill" (click)="expand = !expand"></i>
+  <div class="expanded-img" cdkDrag>
+    <span cdkDragHandle>
+      <i class="pi pi-circle-fill" (click)="expand = !expand"></i>
+    </span>
+
     <img src="{{ itemData.pURL }}" alt="Refresh to view" />
   </div>
 }

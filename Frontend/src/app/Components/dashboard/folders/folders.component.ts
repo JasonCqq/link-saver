@@ -15,11 +15,11 @@ interface shareUrl {
 }
 
 @Component({
-    selector: "app-folders",
-    templateUrl: "./folders.component.html",
-    styleUrls: ["./folders.component.scss"],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: "app-folders",
+  templateUrl: "./folders.component.html",
+  styleUrls: ["./folders.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FoldersComponent implements OnInit, OnDestroy {
   constructor(
@@ -28,7 +28,7 @@ export class FoldersComponent implements OnInit, OnDestroy {
     private mainNavService: MainNavService,
     private linkService: LinkService,
     public loadingService: LoadingService,
-    private readonly changeDetector: ChangeDetectorRef,
+    private readonly changeDetector: ChangeDetectorRef
   ) {}
 
   private destroy$ = new Subject<void>();
@@ -180,29 +180,25 @@ export class FoldersComponent implements OnInit, OnDestroy {
   tempEditID: string = "";
 
   toggleEditWindow(id: string): void {
-    if (id === "none") {
-      this.editWindowOpened = !this.editWindowOpened;
-    } else {
-      this.editWindowOpened = !this.editWindowOpened;
+    this.editWindowOpened = !this.editWindowOpened;
 
-      const folderIndex = this.folders.findIndex((folder) => {
-        return folder.id === id;
-      });
+    const folderIndex = this.folders.findIndex((folder) => {
+      return folder.id === id;
+    });
 
-      const folderName = this.folders[folderIndex].name;
-      this.createFolderForm.patchValue({
-        editFolderName: folderName,
-      });
+    const folderName = this.folders[folderIndex].name;
+    this.createFolderForm.patchValue({
+      editFolderName: folderName,
+    });
 
-      this.tempEditID = id;
-    }
+    this.tempEditID = id;
   }
 
   editFolder(): void {
     if (this.tempEditID) {
       this.foldersService.editFolder(
         this.tempEditID,
-        this.createFolderForm.value.editFolderName,
+        this.createFolderForm.value.editFolderName
       );
     }
 
@@ -254,13 +250,13 @@ export class FoldersComponent implements OnInit, OnDestroy {
 
       case "Nameup":
         this.tempLinks?.sort((a: any, b: any) =>
-          a.title.localeCompare(b.title),
+          a.title.localeCompare(b.title)
         );
         break;
 
       case "Namedown":
         this.tempLinks?.sort((a: any, b: any) =>
-          b.title.localeCompare(a.title),
+          b.title.localeCompare(a.title)
         );
         break;
     }
