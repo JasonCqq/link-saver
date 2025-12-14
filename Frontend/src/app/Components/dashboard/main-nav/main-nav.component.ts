@@ -97,9 +97,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
   @Output() sortByResults: EventEmitter<string> = new EventEmitter<string>();
 
   createForm: boolean = false;
-  toggleForm(): void {
-    this.createForm = !this.createForm;
-  }
 
   query = new FormGroup({
     linkQuery: new FormControl(),
@@ -135,9 +132,5 @@ export class MainNavComponent implements OnInit, OnDestroy {
   toggleMassEdit(): void {
     this.mainNavService.toggleMassEdit();
   }
-
   massEditForm: boolean = false;
-  toggleMassEditForm(): void {
-    this.massEditForm = !this.massEditForm;
-  }
 }

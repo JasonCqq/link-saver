@@ -43,7 +43,6 @@
   </a>
 
   <!--Link CRUD Options-->
-  <!-- @if (!massEditting) { -->
   @if (isOptionsVisible) {
     <div class="link-options">
       @if (specialRequest !== "Trash") {
@@ -56,7 +55,7 @@
       @if (specialRequest !== "Trash") {
         <i
           class="pi pi-pen-to-square link-edit"
-          (click)="toggleEdit()"
+          (click)="editForm = true"
           pTooltip="Edit Link"
         ></i>
       }
@@ -96,9 +95,10 @@
 @if (editForm) {
   <app-link-edit-form
     [itemData]="itemData"
-    (toggleEdit)="toggleEdit()"
+    [(visible)]="editForm"
   ></app-link-edit-form>
 }
+
 
 @if (expand) {
   <div class="expanded-img" cdkDrag>

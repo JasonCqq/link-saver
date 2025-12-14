@@ -1,34 +1,34 @@
-<div class="create-form-overlay">
-  <form class="add-link-form" [formGroup]="linkForm" (submit)="submitForm()">
-    <span style="display: flex">
-      <h1>Add Link</h1>
-      <mat-icon
-        fontIcon="close"
-        (click)="closeForm.emit()"
-        class="create-form-close"
-        style="margin-left: auto"
-      ></mat-icon>
-    </span>
+<p-dialog
+  header="Add Link"
+  [modal]="true"
+  [style]="{ width: '25rem' }"
+  [(visible)]="visible"
+  (onHide)="visibleChange.emit(false)"
+>
+  <form [formGroup]="linkForm" (submit)="submitForm()" style="overflow: hidden">
+    <div class="flex items-center gap-8 mb-4" style="padding-top: 10px">
+      <p-floatlabel variant="on">
+        <label for="url">URL</label>
+        <input pInputText type="url" #url formControlName="url" required />
+      </p-floatlabel>
+    </div>
 
-    <p-floatlabel variant="on">
-      <label for="url">URL</label>
-      <input pInputText type="url" #url formControlName="url" required />
-    </p-floatlabel>
+    <div class="items-center gap-4 mb-8" style="padding-bottom: 50px">
+      <p-select
+        formControlName="folder"
+        #folder
+        [options]="folders"
+        optionLabel="name"
+        optionValue="id"
+        placeholder="Select folder"
+      ></p-select>
+    </div>
 
-    <p-select
-      formControlName="folder"
-      #folder
-      [options]="folders"
-      optionLabel="name"
-      optionValue="id"
-      placeholder="Select folder"
-    ></p-select>
-
-    <span>
+    <div class="gap-4 mb-4">
       <p style="padding-bottom: 8px">Bookmark</p>
       <p-toggleswitch #bookmarked formControlName="bookmarked" />
-    </span>
+    </div>
 
     <p-button type="submit" [disabled]="linkForm.invalid">Submit</p-button>
   </form>
-</div>
+</p-dialog>

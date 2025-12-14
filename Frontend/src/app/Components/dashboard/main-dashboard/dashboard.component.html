@@ -23,6 +23,7 @@
     [ngClass]="previews === true ? 'content-grid' : 'content-grid-no-previews'"
     @fadeIn
     @fadeOut
+    style="padding-top: 20px"
   >
     @for (link of tempLinks; track link; let i = $index) {
       <div>

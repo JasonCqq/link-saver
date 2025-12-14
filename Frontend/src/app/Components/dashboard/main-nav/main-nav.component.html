@@ -1,8 +1,7 @@
-@if (massEditForm) {
-  <app-mass-edit-form
-    (toggleMassEditForm)="toggleMassEditForm()"
-  ></app-mass-edit-form>
-}
+<app-mass-edit-form
+  [(visible)]="massEditForm"
+  (massEditting)="toggleMassEdit()"
+></app-mass-edit-form>
 
 <nav class="main-nav">
   <div class="nav-flex">
@@ -11,7 +10,8 @@
 
   <div class="nav-container">
     <div class="nav-buttons">
-      <p-button (click)="toggleForm()"> Add Link </p-button>
+      <p-button (click)="createForm = true"> Add Link </p-button>
+      <app-link-form [(visible)]="createForm"></app-link-form>
 
       <p-iconfield [formGroup]="query">
         <p-inputicon class="pi pi-search" />
@@ -53,7 +53,7 @@
 
         @if (massEditting) {
           <p-button
-            (click)="toggleMassEditForm()"
+            (click)="massEditForm = true"
             pTooltip="Apply Edit"
             severity="success"
             >Apply
@@ -61,9 +61,5 @@
         }
       </div>
     </div>
-
-    @if (createForm === true) {
-      <app-link-form (closeForm)="toggleForm()"></app-link-form>
-    }
   </div>
 </nav>

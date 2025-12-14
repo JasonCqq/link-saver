@@ -4,6 +4,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  Input,
 } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { LinkFormService } from "./link-form.service";
@@ -11,18 +12,18 @@ import { DashboardService } from "../../dashboard.service";
 import { Subject, takeUntil } from "rxjs";
 
 @Component({
-    selector: "app-link-form",
-    templateUrl: "./link-form.component.html",
-    styleUrls: ["./link-form.component.scss"],
-    standalone: false
+  selector: "app-link-form",
+  templateUrl: "./link-form.component.html",
+  standalone: false,
 })
 export class LinkFormComponent implements OnInit, OnDestroy {
   constructor(
     private linkFormService: LinkFormService,
-    private dashboardService: DashboardService,
+    private dashboardService: DashboardService
   ) {}
 
-  @Output() closeForm = new EventEmitter();
+  @Input() visible = false;
+  @Output() visibleChange = new EventEmitter<boolean>();
 
   private destroy$ = new Subject<void>();
 
@@ -52,10 +53,10 @@ export class LinkFormComponent implements OnInit, OnDestroy {
     this.linkFormService.submitLinkForm(
       this.linkForm.value.url ?? "",
       this.linkForm.value.folder ?? "",
-      this.linkForm.value.bookmarked ?? false,
+      this.linkForm.value.bookmarked ?? false
     );
 
-    this.closeForm.emit();
+    this.visibleChange.emit(false);
   }
 
   folders: any;

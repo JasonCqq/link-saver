@@ -1,10 +1,11 @@
 <app-main-sidebar></app-main-sidebar>
+<p-toast />
 
 <main>
   <div class="url-title">
     <h1>URL Bank</h1>
     <p style="color: rgb(199, 199, 199); font-size: 12px">
-      (Total of {{ this.urls ? this.urls.length : "" }} urls)
+      Total of {{ this.urls ? this.urls.length : "" }} urls
     </p>
   </div>
 
@@ -12,23 +13,11 @@
     <p-button class="url-util-add" (click)="toggleUrlForm()"
       >Add URL(s)</p-button
     >
-    <p-button
-      class="url-util-del"
-      (click)="toggleDelAllPrompt()"
-      severity="danger"
-    >
-      Delete All
-    </p-button>
-  </div>
 
-  @if (delAllPrompt) {
-    <p class="del-prompt" (click)="deleteAllUrls()">
-      Click here to confirm Delete All.
-    </p>
-  }
-  @if (!delAllPrompt) {
-    <p class="del-note">Deletes are permanent</p>
-  }
+    <p-button (onClick)="confirm1($event)" label="Delete All" severity="danger">
+    </p-button>
+    <p-confirmpopup />
+  </div>
 
   <div class="url-grid">
     @for (u of this.urls; track u) {
@@ -60,28 +49,25 @@
   </div>
 </main>
 
-@if (urlFormPop) {
-  <div class="add-url-form">
-    <form [formGroup]="urlForm" (submit)="submitUrlForm()">
-      <div style="display: flex">
-        <h1>Add URL(s)</h1>
-        <p style="color: gray; font-size: 10px; margin-left: 10px">
-          Invalid urls may be omitted
-        </p>
-        <span
-          class="material-icons-round"
-          (click)="toggleUrlForm()"
-          style="margin-left: auto"
-        >
-          close
-        </span>
-      </div>
+<!-- Add URL Form -->
+<p-dialog
+  header="Add URL(s)"
+  [modal]="true"
+  [(visible)]="urlFormPop"
+  [style]="{ width: '25rem' }"
+>
+  <form [formGroup]="urlForm" (submit)="submitUrlForm()">
+    <div class="items-center gap-4 mb-4">
+      <p>Invalid urls may be omitted</p>
 
-      <p>
+      <p style="margin-top: 10px">
         Example: <br />
         https://url.com <br />
         https://url.com
       </p>
+    </div>
+
+    <div class="flex items-center gap-4 mb-4">
       <textarea
         #urls
         formControlName="urls"
@@ -91,7 +77,8 @@
         pTextarea
         [autoResize]="true"
       ></textarea>
-      <p-button type="submit" [disabled]="!urlForm.dirty">Submit</p-button>
-    </form>
-  </div>
-}
+    </div>
+
+    <p-button label="Submit" type="submit" [disabled]="!urlForm.dirty" />
+  </form>
+</p-dialog>

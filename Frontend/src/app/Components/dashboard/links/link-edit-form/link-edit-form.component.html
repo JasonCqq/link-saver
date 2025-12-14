@@ -1,38 +1,34 @@
-<div class="link-item-edit-overlay">
-  <form
-    class="link-item-edit"
-    [formGroup]="editForm"
-    (submit)="submitEditForm()"
-  >
-    <span>
-      <mat-icon
-        fontIcon="close"
-        (click)="toggleEditForm()"
-        class="close-form"
-      ></mat-icon>
-    </span>
+<p-dialog
+  header="Edit Link"
+  [modal]="true"
+  [style]="{ width: '25rem' }"
+  [(visible)]="visible"
+  (onHide)="visibleChange.emit(false)"
+>
+  <form [formGroup]="editForm" (submit)="submitEditForm()">
+    <div class="flex items-center gap-8 mb-4" style="padding-top: 10px">
+      <p-floatlabel variant="on">
+        <label for="editTitle">Title</label>
+        <input pInputText type="text" #editTitle formControlName="editTitle" />
+      </p-floatlabel>
+    </div>
 
-    <h1>EDIT</h1>
+    <div class="items-center gap-4 mb-8" style="padding-bottom: 50px">
+      <p-select
+        formControlName="editFolder"
+        #editFolder
+        [options]="folders"
+        optionLabel="name"
+        optionValue="id"
+        placeholder="Select folder"
+      ></p-select>
+    </div>
 
-    <p-floatlabel variant="on">
-      <label for="editTitle">Title</label>
-      <input pInputText type="text" #editTitle formControlName="editTitle" />
-    </p-floatlabel>
-
-    <p-select
-      formControlName="editFolder"
-      #editFolder
-      [options]="folders"
-      optionLabel="name"
-      optionValue="id"
-      placeholder="Select folder"
-    ></p-select>
-
-    <span>
+    <div class="gap-4 mb-4">
       <p style="padding-bottom: 8px">Bookmark</p>
       <p-toggleswitch #editBookmarked formControlName="editBookmarked" />
-    </span>
+    </div>
 
     <p-button type="submit" [disabled]="!editForm.dirty">Confirm Edit</p-button>
   </form>
-</div>
+</p-dialog>

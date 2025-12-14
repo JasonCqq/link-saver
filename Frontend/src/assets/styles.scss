@@ -98,6 +98,18 @@
     }
   }
 
+  .p-confirmpopup {
+    border: 1px solid lch(18.24 4.707 272);
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 4px 44px;
+    --p-confirmpopup-background: var(--background2);
+  }
+
+  .p-dialog {
+    --p-dialog-background: var(--background2);
+    border: 1px solid lch(18.24 4.707 272);
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 4px 44px;
+  }
+
   .p-button {
     padding: 6px 10px;
   }

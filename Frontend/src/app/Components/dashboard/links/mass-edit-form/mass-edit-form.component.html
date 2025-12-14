@@ -1,12 +1,60 @@
-<div class="mass-edit-overlay">
-  <form [formGroup]="massEditForm" (submit)="submitMassEditForm()">
-    <mat-icon
-      fontIcon="close"
-      class="close-form"
-      (click)="toggleForm()"
-    ></mat-icon>
-    <h1>Mass Edit</h1>
+<p-dialog
+  header="Mass Edit Links"
+  [modal]="true"
+  [style]="{ width: '25rem' }"
+  [(visible)]="visible"
+  (onHide)="visibleChange.emit(false)"
+>
+  <form
+    [formGroup]="massEditForm"
+    (submit)="submitMassEditForm()"
+    style="overflow: hidden"
+  >
+    <div class="items-center gap-4 mb-4" style="padding-top: 10px">
+      <p-floatlabel variant="on">
+        <label for="massTitle">Title (Optional)</label>
+        <input pInputText type="text" #massTitle formControlName="massTitle" />
+      </p-floatlabel>
+    </div>
 
+    <div class="items-center gap-4 mb-4" style="padding-bottom: 30px">
+      <p-select
+        formControlName="massFolder"
+        #massFolder
+        [options]="folders"
+        optionLabel="name"
+        optionValue="id"
+        placeholder="Select folder"
+      ></p-select>
+    </div>
+
+    <div class="gap-4 mb-4">
+      <p style="padding-bottom: 8px">Bookmark</p>
+      <p-toggleswitch
+        name="Bookmark"
+        formControlName="massBookmark"
+        #massBookmark
+      />
+    </div>
+
+    <div class="flex items-center gap-8 mb-4" style="padding-top: 10px">
+      @if (title !== "Trash") {
+        <p-button (click)="submitMassResDelForm('delete')" severity="danger">
+          Move to Trash
+        </p-button>
+      }
+      @if (title === "Trash") {
+        <p-button (click)="submitMassResDelForm('restore')" severity="success">
+          Restore All
+        </p-button>
+      }
+    </div>
+    <p-button type="submit" [disabled]="!massEditForm.dirty">Submit</p-button>
+  </form>
+</p-dialog>
+
+<!--
+  <form [formGroup]="massEditForm" (submit)="submitMassEditForm()">
     <div class="mass-edit-flex">
       @if (title !== "Trash") {
         <p-button (click)="submitMassResDelForm('delete')" severity="danger">
@@ -45,4 +93,4 @@
 
     <p-button type="submit" [disabled]="!massEditForm.dirty">Submit</p-button>
   </form>
-</div>
+</div> -->

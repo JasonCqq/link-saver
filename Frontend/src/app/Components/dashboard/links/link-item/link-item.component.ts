@@ -85,10 +85,6 @@ export class LinkComponent implements OnInit, OnDestroy {
     }
   }
 
-  toggleEdit(): void {
-    this.editForm = !this.editForm;
-  }
-
   addingID: boolean = false;
   addMassID(id: string) {
     if (this.massEditting === true) {

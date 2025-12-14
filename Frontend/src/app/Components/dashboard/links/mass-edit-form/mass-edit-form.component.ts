@@ -4,6 +4,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  Input,
 } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { DashboardService } from "../../dashboard.service";
@@ -12,20 +13,24 @@ import { MainNavService } from "../../main-nav/main-nav.service";
 import { FoldersService } from "../../folders/folders.service";
 
 @Component({
-    selector: "app-mass-edit-form",
-    templateUrl: "./mass-edit-form.component.html",
-    styleUrls: ["./mass-edit-form.component.scss"],
-    standalone: false
+  selector: "app-mass-edit-form",
+  templateUrl: "./mass-edit-form.component.html",
+  standalone: false,
 })
 export class MassEditFormComponent implements OnInit, OnDestroy {
   constructor(
     private dashboardService: DashboardService,
     private mainNavService: MainNavService,
-    private foldersService: FoldersService,
+    private foldersService: FoldersService
   ) {}
 
   title: any;
   folders: any;
+
+  @Input() visible = false;
+  @Output() visibleChange = new EventEmitter<boolean>();
+  @Output() massEditting = new EventEmitter();
+
   private destroy$ = new Subject<void>();
 
   ngOnInit(): void {
@@ -48,12 +53,6 @@ export class MassEditFormComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  @Output() toggleMassEditForm: EventEmitter<any> = new EventEmitter<any>();
-
-  toggleForm(): void {
-    this.toggleMassEditForm.emit();
-  }
-
   massEditForm = new FormGroup({
     massTitle: new FormControl(),
     massFolder: new FormControl(),
@@ -65,14 +64,14 @@ export class MassEditFormComponent implements OnInit, OnDestroy {
       .submitMassEdit(
         this.massEditForm.value.massTitle,
         this.massEditForm.value.massFolder,
-        this.massEditForm.value.massBookmark,
+        this.massEditForm.value.massBookmark
       )
       .subscribe(() => {
         this.title === "Folders"
           ? this.foldersService.notifyFolders()
           : this.dashboardService.notify();
-        this.toggleForm();
-        this.mainNavService.toggleMassEdit();
+        this.visibleChange.emit(false);
+        this.massEditting.emit();
       });
   }
 
@@ -92,8 +91,8 @@ export class MassEditFormComponent implements OnInit, OnDestroy {
       this.title === "Folders"
         ? this.foldersService.notifyFolders()
         : this.dashboardService.notify();
-      this.toggleForm();
-      this.mainNavService.toggleMassEdit();
+      this.visibleChange.emit(false);
+      this.massEditting.emit();
     });
   }
 }

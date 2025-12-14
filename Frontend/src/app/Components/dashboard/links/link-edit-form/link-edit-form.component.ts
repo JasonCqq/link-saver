@@ -14,23 +14,24 @@ import { FoldersService } from "../../folders/folders.service";
 import { TempRenderService } from "../../main-dashboard/tempRender.service";
 
 @Component({
-    selector: "app-link-edit-form",
-    templateUrl: "./link-edit-form.component.html",
-    styleUrls: ["./link-edit-form.component.scss"],
-    standalone: false
+  selector: "app-link-edit-form",
+  templateUrl: "./link-edit-form.component.html",
+  standalone: false,
 })
 export class LinkEditFormComponent implements OnInit, OnDestroy {
   constructor(
     private linkService: LinkService,
     private dashboardService: DashboardService,
     private foldersService: FoldersService,
-    private tempRenderService: TempRenderService,
+    private tempRenderService: TempRenderService
   ) {}
 
   private destroy$ = new Subject<void>();
 
   @Input() itemData: any;
-  @Output() toggleEdit: EventEmitter<any> = new EventEmitter();
+
+  @Input() visible = false;
+  @Output() visibleChange = new EventEmitter<boolean>();
   folders: any;
 
   ngOnInit(): void {
@@ -59,22 +60,18 @@ export class LinkEditFormComponent implements OnInit, OnDestroy {
     editBookmarked: new FormControl(),
   });
 
-  toggleEditForm(): void {
-    this.toggleEdit.emit();
-  }
-
   submitEditForm(): void {
     this.linkService
       .editLink(
         this.itemData.id,
         this.editForm.value.editTitle,
         this.editForm.value.editFolder,
-        this.editForm.value.editBookmarked,
+        this.editForm.value.editBookmarked
       )
       .subscribe((res: any) => {
         this.tempRenderService.updateLink(res.link);
         this.foldersService.notifyFolders();
-        this.toggleEdit.emit();
+        this.visibleChange.emit(false);
       });
   }
 }

@@ -3,6 +3,7 @@ import { UrlBankService } from "./urlbank.service";
 import { FormControl, FormGroup } from "@angular/forms";
 import { takeUntil, Subject } from "rxjs";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { ConfirmationService, MessageService } from "primeng/api";
 
 // Separates URLs in textarea into an array of URLs
 function extractUrls(text: string) {
@@ -16,12 +17,15 @@ function extractUrls(text: string) {
   selector: "app-urlbank",
   templateUrl: "./urlbank.component.html",
   styleUrls: ["./urlbank.component.scss"],
+  providers: [ConfirmationService, MessageService],
   standalone: false,
 })
 export class UrlbankComponent implements OnInit, OnDestroy {
   constructor(
     private urlBankService: UrlBankService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
   ) {}
   private destroy$ = new Subject<void>();
 
@@ -55,13 +59,36 @@ export class UrlbankComponent implements OnInit, OnDestroy {
   deleteAllUrls() {
     this.urlBankService.deleteAllUrls().subscribe(() => {
       this.urls = [];
-      this.toggleDelAllPrompt();
     });
   }
 
-  delAllPrompt: boolean = false;
-  toggleDelAllPrompt() {
-    this.delAllPrompt = !this.delAllPrompt;
+  // Delete all popup dialog
+  confirm1(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: "Are you sure that you want to proceed?",
+      header: "Confirmation",
+      closable: true,
+      closeOnEscape: true,
+      icon: "pi pi-exclamation-triangle",
+      rejectButtonProps: {
+        label: "Cancel",
+        severity: "secondary",
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: "Save",
+      },
+      accept: () => {
+        this.deleteAllUrls();
+        this.messageService.add({
+          severity: "info",
+          summary: "Confirmed",
+          detail: "All links deleted",
+        });
+      },
+      reject: () => {},
+    });
   }
 
   getUrls() {
