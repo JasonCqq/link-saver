@@ -10,6 +10,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { LinkFormService } from "./link-form.service";
 import { DashboardService } from "../../dashboard.service";
 import { Subject, takeUntil } from "rxjs";
+import { MessageService } from "primeng/api";
 
 @Component({
   selector: "app-link-form",
@@ -19,7 +20,8 @@ import { Subject, takeUntil } from "rxjs";
 export class LinkFormComponent implements OnInit, OnDestroy {
   constructor(
     private linkFormService: LinkFormService,
-    private dashboardService: DashboardService
+    private dashboardService: DashboardService,
+    private messageService: MessageService
   ) {}
 
   @Input() visible = false;
@@ -55,6 +57,13 @@ export class LinkFormComponent implements OnInit, OnDestroy {
       this.linkForm.value.folder ?? "",
       this.linkForm.value.bookmarked ?? false
     );
+
+    this.messageService.add({
+      severity: "success",
+      summary: "Success",
+      detail: "Link being added",
+      life: 3000,
+    });
 
     this.visibleChange.emit(false);
   }

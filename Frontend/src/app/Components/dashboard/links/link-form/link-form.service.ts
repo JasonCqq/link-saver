@@ -37,6 +37,7 @@ export class LinkFormService {
         next: (res: any) => {
           this.tempRenderService.pushLink(res.link);
           this.folderService.notifyFolders();
+          
         },
         error: (error) => {
           alert(error.error);

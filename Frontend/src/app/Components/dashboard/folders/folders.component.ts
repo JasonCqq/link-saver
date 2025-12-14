@@ -7,8 +7,8 @@ import { Subject, takeUntil } from "rxjs";
 import { Link } from "src/app/Interfaces/Link";
 import { MainNavService } from "../main-nav/main-nav.service";
 import { LinkService } from "../links/link-item/link-item.service";
-import { ChangeDetectionStrategy } from "@angular/core";
 import { LoadingService } from "../../LoadingInterceptor.service";
+import { MessageService } from "primeng/api";
 
 interface shareUrl {
   url: string;
@@ -18,7 +18,7 @@ interface shareUrl {
   selector: "app-folders",
   templateUrl: "./folders.component.html",
   styleUrls: ["./folders.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [MessageService],
   standalone: false,
 })
 export class FoldersComponent implements OnInit, OnDestroy {
@@ -28,7 +28,8 @@ export class FoldersComponent implements OnInit, OnDestroy {
     private mainNavService: MainNavService,
     private linkService: LinkService,
     public loadingService: LoadingService,
-    private readonly changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private messageService: MessageService
   ) {}
 
   private destroy$ = new Subject<void>();
@@ -104,6 +105,14 @@ export class FoldersComponent implements OnInit, OnDestroy {
   createFolder(): void {
     if (this.createFolderForm.value.folderName.length > 0) {
       this.foldersService.createFolder(this.createFolderForm.value.folderName);
+
+      this.messageService.add({
+        severity: "success",
+        summary: "Success",
+        detail: "Folder Created",
+        life: 3000,
+      });
+
       this.toggleWindow();
       this.createFolderForm.patchValue({
         folderName: "",
@@ -160,6 +169,14 @@ export class FoldersComponent implements OnInit, OnDestroy {
         const response = res as shareUrl;
         this.tempShareUrl = response.url;
         this.tempShare = false;
+
+        this.messageService.add({
+          severity: "success",
+          summary: "Success",
+          detail: "Folder Shared",
+          life: 3000,
+        });
+
         this.changeDetector.detectChanges();
       });
   }
@@ -170,6 +187,13 @@ export class FoldersComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.tempShare = !this.tempShare;
         this.changeDetector.detectChanges();
+
+        this.messageService.add({
+          severity: "success",
+          summary: "Success",
+          detail: "Folder Unshared",
+          life: 3000,
+        });
       });
   }
 
@@ -202,11 +226,61 @@ export class FoldersComponent implements OnInit, OnDestroy {
       );
     }
 
+    this.messageService.add({
+      severity: "success",
+      summary: "Success",
+      detail: "Folder Edited",
+      life: 3000,
+    });
     this.toggleEditWindow("none");
   }
 
   deleteFolder(id: string): void {
     this.foldersService.deleteFolder(id);
+
+    this.messageService.add({
+      severity: "success",
+      summary: "Success",
+      detail: "Folder Deleted",
+      life: 3000,
+    });
+  }
+
+  // Dupe code from dashboard
+  // For options displaying and working hovering over links
+  showLinkOptions: number | null = null;
+  setShowLinkOptions(index: number | null) {
+    this.showLinkOptions = index;
+  }
+
+  // Web View
+  showWebPreview: any | null = null;
+  hideWebPreview: boolean = true;
+
+  setWebView(link: any) {
+    this.closeWebView();
+    this.showWebPreview = link;
+    setTimeout(() => (this.hideWebPreview = false)); // recreate component
+    this.changeDetector.detectChanges();
+  }
+  closeWebView() {
+    this.hideWebPreview = true;
+  }
+
+  // Embed player
+  showEmbedLink: any | null = null;
+  hideEmbedLink: boolean = true;
+
+  setEmbed(link: any) {
+    this.closeEmbed();
+    this.showEmbedLink = null;
+
+    setTimeout(() => (this.showEmbedLink = link)); // recreate component
+    this.changeDetector.detectChanges();
+    this.hideEmbedLink = false;
+  }
+  closeEmbed() {
+    this.hideEmbedLink = true;
   }
 
   // Moves link

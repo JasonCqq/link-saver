@@ -12,6 +12,7 @@ import { DashboardService } from "../../dashboard.service";
 import { Subject, takeUntil } from "rxjs";
 import { FoldersService } from "../../folders/folders.service";
 import { TempRenderService } from "../../main-dashboard/tempRender.service";
+import { MessageService } from "primeng/api";
 
 @Component({
   selector: "app-link-edit-form",
@@ -23,7 +24,8 @@ export class LinkEditFormComponent implements OnInit, OnDestroy {
     private linkService: LinkService,
     private dashboardService: DashboardService,
     private foldersService: FoldersService,
-    private tempRenderService: TempRenderService
+    private tempRenderService: TempRenderService,
+    private messageService: MessageService
   ) {}
 
   private destroy$ = new Subject<void>();
@@ -71,6 +73,14 @@ export class LinkEditFormComponent implements OnInit, OnDestroy {
       .subscribe((res: any) => {
         this.tempRenderService.updateLink(res.link);
         this.foldersService.notifyFolders();
+
+        this.messageService.add({
+          severity: "success",
+          summary: "Success",
+          detail: "Link editted",
+          life: 3000,
+        });
+
         this.visibleChange.emit(false);
       });
   }

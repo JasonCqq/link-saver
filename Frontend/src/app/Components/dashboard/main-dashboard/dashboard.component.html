@@ -4,10 +4,11 @@
   (sortByResults)="sortResults($event)"
 ></app-main-nav>
 
+<p-toast />
+
 <main class="dashboard-container default-dash-container">
   <!-- Delete All Links Prompt -->
   @if (tempTitle === "Trash") {
-    <p-toast />
     <span>
       <p-button
         (onClick)="confirm1($event)"
@@ -40,10 +41,6 @@
       </div>
     }
   </section>
-
-  <!-- <button type="button" (click)="scrollToTop()" class="to-top">
-    Back to Top
-  </button> -->
 
   @if (!hideEmbedLink && showEmbedLink) {
     <app-viewer

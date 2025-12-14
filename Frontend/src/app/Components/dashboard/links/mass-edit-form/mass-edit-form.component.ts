@@ -11,6 +11,7 @@ import { DashboardService } from "../../dashboard.service";
 import { Subject, takeUntil } from "rxjs";
 import { MainNavService } from "../../main-nav/main-nav.service";
 import { FoldersService } from "../../folders/folders.service";
+import { MessageService } from "primeng/api";
 
 @Component({
   selector: "app-mass-edit-form",
@@ -21,7 +22,8 @@ export class MassEditFormComponent implements OnInit, OnDestroy {
   constructor(
     private dashboardService: DashboardService,
     private mainNavService: MainNavService,
-    private foldersService: FoldersService
+    private foldersService: FoldersService,
+    private messageService: MessageService
   ) {}
 
   title: any;
@@ -70,6 +72,14 @@ export class MassEditFormComponent implements OnInit, OnDestroy {
         this.title === "Folders"
           ? this.foldersService.notifyFolders()
           : this.dashboardService.notify();
+
+        this.messageService.add({
+          severity: "success",
+          summary: "Success",
+          detail: "Mass link edits applied",
+          life: 3000,
+        });
+
         this.visibleChange.emit(false);
         this.massEditting.emit();
       });
@@ -91,6 +101,14 @@ export class MassEditFormComponent implements OnInit, OnDestroy {
       this.title === "Folders"
         ? this.foldersService.notifyFolders()
         : this.dashboardService.notify();
+
+      this.messageService.add({
+        severity: "success",
+        summary: "Success",
+        detail: "Links all restored/deleted",
+        life: 3000,
+      });
+
       this.visibleChange.emit(false);
       this.massEditting.emit();
     });

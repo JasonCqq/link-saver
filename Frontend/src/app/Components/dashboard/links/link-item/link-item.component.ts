@@ -12,6 +12,7 @@ import { LinkService } from "./link-item.service";
 import { Link } from "src/app/Interfaces/Link";
 import { Subject, takeUntil } from "rxjs";
 import { MainNavService } from "../../main-nav/main-nav.service";
+import { MessageService } from "primeng/api";
 
 @Component({
   selector: "app-link-item",
@@ -23,7 +24,8 @@ export class LinkComponent implements OnInit, OnDestroy {
   constructor(
     private linkService: LinkService,
     private mainNavService: MainNavService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private messageService: MessageService
   ) {}
 
   @Input() itemData: any;
@@ -137,16 +139,34 @@ export class LinkComponent implements OnInit, OnDestroy {
   moveToTrash(): void {
     this.linkService.moveToTrash(this.itemData.id);
     this.linkUpdate.emit(this.itemData.id);
+    this.messageService.add({
+      severity: "success",
+      summary: "Success",
+      detail: "Link Moved to Trash",
+      life: 3000,
+    });
   }
 
   permanentDelete(): void {
-    this.linkService
-      .permanentDelete(this.itemData.id)
-      .subscribe(() => this.linkPermDelete.emit(this.itemData.id));
+    this.linkService.permanentDelete(this.itemData.id).subscribe(() => {
+      this.linkPermDelete.emit(this.itemData.id);
+      this.messageService.add({
+        severity: "success",
+        summary: "Success",
+        detail: "Link Permanently Deleted",
+        life: 3000,
+      });
+    });
   }
 
   restoreLink(): void {
     this.linkService.restoreLink(this.itemData.id);
     this.linkUpdate.emit(this.itemData.id);
+    this.messageService.add({
+      severity: "success",
+      summary: "Success",
+      detail: "Link Restored",
+      life: 3000,
+    });
   }
 }

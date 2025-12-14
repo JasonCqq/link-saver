@@ -43,16 +43,24 @@ export class UrlbankComponent implements OnInit, OnDestroy {
   copyUrl(url: string) {
     navigator.clipboard.writeText(url);
 
-    this.snackBar.open("Copied to clipboard");
-    setTimeout(() => {
-      this.snackBar.dismiss();
-    }, 1000);
+    this.messageService.add({
+      severity: "info",
+      summary: "Info",
+      detail: "URL Copied to clipboard",
+      life: 3000,
+    });
   }
 
   deleteUrl(id: string) {
     this.urlBankService.deleteUrl(id).subscribe(() => {
       const url = this.urls.findIndex((u: any) => u.id === id);
       this.urls.splice(url, 1);
+      this.messageService.add({
+        severity: "success",
+        summary: "Success",
+        detail: "URL Deleted",
+        life: 3000,
+      });
     });
   }
 
@@ -117,6 +125,13 @@ export class UrlbankComponent implements OnInit, OnDestroy {
       next: () => {
         this.getUrls();
         this.urlForm.reset();
+
+        this.messageService.add({
+          severity: "success",
+          summary: "Success",
+          detail: "URL(s) added",
+          life: 3000,
+        });
       },
       error: (error: any) => {
         alert(error.error);

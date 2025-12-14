@@ -4,6 +4,7 @@
   (searchResults)="displayResults($event)"
   (sortByResults)="sortResults($event)"
 ></app-main-nav>
+<p-toast />
 
 <main class="folders-container">
   <!-- Sharing Folder Form -->
@@ -18,9 +19,6 @@
         This folder's URL will be located here:
         @if (tempShareUrl) {
           <p>linkstorage.net/public/{{ tempShareUrl }}</p>
-        }
-        @if (tempShareUrl) {
-          <!-- <p style="color: #517ee1">Success!</p> -->
         }
       </div>
 
@@ -177,10 +175,15 @@
         previews === true ? 'content-grid' : 'content-grid-no-previews'
       "
     >
-      @for (link of tempLinks; track link) {
+      @for (link of tempLinks; track link; let i = $index) {
         <div>
           <app-link-item
+            [index]="i"
+            [isOptionsVisible]="showLinkOptions === i"
+            (showOptionsChange)="setShowLinkOptions($event)"
             [itemData]="link"
+            (showEmbed)="setEmbed($event)"
+            (showWebPreview)="setWebView($event)"
             (linkUpdate)="deleteLink($event)"
           ></app-link-item>
         </div>
@@ -188,3 +191,17 @@
     </section>
   }
 </main>
+
+@if (!hideEmbedLink && showEmbedLink) {
+  <app-viewer
+    [itemData]="showEmbedLink"
+    (closeEmbedEmit)="closeEmbed()"
+  ></app-viewer>
+}
+
+@if (!hideWebPreview && showWebPreview) {
+  <app-web-view
+    [linkData]="showWebPreview"
+    (closeWindow)="closeWebView()"
+  ></app-web-view>
+}
