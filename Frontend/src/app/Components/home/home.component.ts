@@ -10,29 +10,23 @@ import {
   transition,
 } from "@angular/animations";
 
-
-
-
 @Component({
-    selector: "app-home",
-    templateUrl: "./home.component.html",
-    styleUrls: ["./home.component.scss"],
-    animations: [
-        trigger("fadeInOut", [
-            state("visible", style({ opacity: 1 })),
-            state("hidden", style({ opacity: 0 })),
-            transition("visible => hidden", [animate("250ms ease-in-out")]),
-            transition("hidden => visible", [animate("250ms ease-in-out")]),
-        ]),
-    ],
-    standalone: false
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.scss"],
+  animations: [
+    trigger("fadeInOut", [
+      state("visible", style({ opacity: 1 })),
+      state("hidden", style({ opacity: 0 })),
+      transition("visible => hidden", [animate("250ms ease-in-out")]),
+      transition("hidden => visible", [animate("250ms ease-in-out")]),
+    ]),
+  ],
+  standalone: false,
 })
 export class HomeComponent implements OnInit, OnDestroy {
   // Checks for user
-  constructor(
-    private userService: UserService,
-
-  ) {}
+  constructor(private userService: UserService) {}
 
   private destroy$ = new Subject<void>();
 
@@ -43,14 +37,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.user = user?.user;
     });
 
-
     setInterval(() => {
       if (this.activePic < 3) {
         this.changePic(this.activePic + 1);
       } else {
         this.changePic(0);
       }
-    }, 8000);
+    }, 15000);
   }
 
   ngOnDestroy(): void {
@@ -123,27 +116,20 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     {
       id: 4,
-      question: "What features are available on linkstorage?",
-      answer:
-        "LinkStorage offers a range of features including filtering by visits, name, date, searching, thumbnail previews, and folders.",
-    },
-
-    {
-      id: 5,
       question: "Any restriction on types of links can I save?",
       answer:
         "There are no restrictions on the types of links you can save. You can save anything, including links to websites, articles, videos, and more.",
     },
 
     {
-      id: 6,
+      id: 5,
       question: "Can I share my folders/links to others?",
       answer:
         "Yes, you can generate shareable links for your folders publicly or privately behind a password for others.",
     },
 
     {
-      id: 7,
+      id: 6,
       question: "How can I suggest features/improvements?",
       answer:
         "We value your input! To suggest new features or improvements for LinkStorage, please visit our Contact Section below or through github. We're always eager to hear your ideas and make our platform even better based on user feedback.",
