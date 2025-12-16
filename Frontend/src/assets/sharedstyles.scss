@@ -3,12 +3,12 @@
 .content-grid {
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 175px);
-  column-gap: 15px;
-  row-gap: 2vh;
+  grid-template-columns: repeat(auto-fit, 200px);
+  column-gap: 17.5px;
+  row-gap: 10px;
 
   @media screen and (max-width: 400px) {
-    grid-template-columns: repeat(auto-fit, 150px);
+    grid-template-columns: repeat(auto-fit, 155px);
   }
 }
 

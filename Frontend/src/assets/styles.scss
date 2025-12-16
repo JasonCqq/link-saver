@@ -5,73 +5,46 @@
 @import "primeicons/primeicons.css";
 
 @font-face {
-  font-family: "AlbertSans";
-  src: url("../assets/fonts/AlbertSans-Thin.ttf") format("truetype");
-  font-weight: 100;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "AlbertSans";
-  src: url("../assets/fonts/AlbertSans-ExtraLight.ttf") format("truetype");
-  font-weight: 200;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "AlbertSans";
-  src: url("../assets/fonts/AlbertSans-Light.ttf") format("truetype");
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "AlbertSans";
-  src: url("../assets/fonts/AlbertSans-Regular.ttf") format("truetype");
+  font-family: "GoogleSans";
+  src: url("../assets/fonts/GoogleSans-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "AlbertSans";
-  src: url("../assets/fonts/AlbertSans-Medium.ttf") format("truetype");
+  font-family: "GoogleSans";
+  src: url("../assets/fonts/GoogleSans-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "AlbertSans";
-  src: url("../assets/fonts/AlbertSans-SemiBold.ttf") format("truetype");
+  font-family: "GoogleSans";
+  src: url("../assets/fonts/GoogleSans-SemiBold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "AlbertSans";
-  src: url("../assets/fonts/AlbertSans-Bold.ttf") format("truetype");
+  font-family: "GoogleSans";
+  src: url("../assets/fonts/GoogleSans-Bold.ttf") format("truetype");
   font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "AlbertSans";
-  src: url("../assets/fonts/AlbertSans-ExtraBold.ttf") format("truetype");
-  font-weight: 800;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "AlbertSans";
-  src: url("../assets/fonts/AlbertSans-Black.ttf") format("truetype");
-  font-weight: 900;
   font-style: normal;
 }
 
 :root,
 :host {
   .p-drawer {
+    max-width: 235px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+
     --p-drawer-background: var(--background) !important;
     --p-drawer-border-color: var(--background) !important;
+
+    .p-drawer-title {
+      font-size: 17px;
+    }
   }
 
   .p-menu {
@@ -79,10 +52,15 @@
     --p-menu-border-color: var(--background) !important;
 
     --p-menu-item-border-radius: 8px;
-    --p-menu-item-gap: 14px;
+    --p-menu-item-gap: 10px;
 
     .p-menu-submenu-label {
       color: var(--textSec);
+      font-size: 12px;
+    }
+
+    .p-menu-item-label {
+      font-size: 13px;
     }
   }
 
@@ -149,7 +127,7 @@ html {
   background-color: var(--background);
   height: auto;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 body {
@@ -159,6 +137,7 @@ body {
   color: var(--text);
   background-color: var(--background);
   height: auto;
+  font-weight: 500;
 }
 
 body,
@@ -166,7 +145,7 @@ input,
 textarea,
 button {
   font-family:
-    "AlbertSans",
+    "GoogleSans",
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
@@ -178,12 +157,12 @@ button {
     "Helvetica Neue",
     sans-serif !important;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 code {
   font-family:
-    "AlbertSans", source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    "GoogleSans", source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 

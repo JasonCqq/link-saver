@@ -14,6 +14,7 @@
     target="_blank"
     (click)="visitedLink()"
   >
+    <p class="link-url">{{ itemData.url }}</p>
     @if (this.previews) {
       <div class="link-preview">
         @if (itemData.pURL) {
@@ -25,6 +26,58 @@
           </p>
         }
       </div>
+
+      <!--Link CRUD Options-->
+      @if (isOptionsVisible) {
+        <div class="link-options">
+          @if (specialRequest !== "Trash") {
+            <i
+              class="pi pi-times link-delete"
+              (click)="onOptionClick($event); moveToTrash()"
+              pTooltip="Move to trash"
+            ></i>
+          }
+          @if (specialRequest !== "Trash") {
+            <i
+              class="pi pi-pen-to-square link-edit"
+              (click)="onOptionClick($event); editForm = true"
+              pTooltip="Edit Link"
+            ></i>
+          }
+          @if (specialRequest === "Trash") {
+            <i
+              class="pi pi-history link-restore"
+              (click)="onOptionClick($event); restoreLink()"
+              pTooltip="Restore Link"
+            ></i>
+          }
+          @if (specialRequest === "Trash") {
+            <i
+              class="pi pi-times link-delete"
+              (click)="onOptionClick($event); permanentDelete()"
+              pTooltip="Remove Permanently"
+            ></i>
+          }
+        </div>
+
+        <div class="link-options-left">
+          <i
+            class="pi pi-globe"
+            (click)="onOptionClick($event); setShowWebView()"
+            pTooltip="Open web view"
+          ></i>
+          <i
+            class="pi pi-eye"
+            (click)="onOptionClick($event); setShowEmbed()"
+            pTooltip="Open embed"
+          ></i>
+          <i
+            class="pi pi-search-plus"
+            (click)="onOptionClick($event); expand = !expand"
+            pTooltip="Expand preview"
+          ></i>
+        </div>
+      }
     }
 
     <div
@@ -32,62 +85,16 @@
       [ngClass]="previews ? 'link-details' : 'link-details-no-previews'"
     >
       <p class="link-title">{{ itemData.title }}</p>
-      <p class="link-url">{{ itemData.url }}</p>
-      <p class="link-date">
-        {{ itemData.createdAt | date: "shortDate" }}
-      </p>
 
-      <p class="link-visits">{{ itemData.visits }} visits</p>
+      <section>
+        <p class="link-date">
+          {{ itemData.createdAt | date: "shortDate" }}
+        </p>
+
+        <p class="link-visits">{{ itemData.visits }} visits</p>
+      </section>
     </div>
   </a>
-
-  <!--Link CRUD Options-->
-  @if (isOptionsVisible) {
-    <div class="link-options">
-      @if (specialRequest !== "Trash") {
-        <i
-          class="pi pi-times link-delete"
-          (click)="moveToTrash()"
-          pTooltip="Move to trash"
-        ></i>
-      }
-      @if (specialRequest !== "Trash") {
-        <i
-          class="pi pi-pen-to-square link-edit"
-          (click)="editForm = true"
-          pTooltip="Edit Link"
-        ></i>
-      }
-      @if (specialRequest === "Trash") {
-        <i
-          class="pi pi-history link-restore"
-          (click)="restoreLink()"
-          pTooltip="Restore Link"
-        ></i>
-      }
-      @if (specialRequest === "Trash") {
-        <i
-          class="pi pi-times link-delete"
-          (click)="permanentDelete()"
-          pTooltip="Remove Permanently"
-        ></i>
-      }
-    </div>
-
-    <div class="link-options-left">
-      <i
-        class="pi pi-globe"
-        (click)="setShowWebView()"
-        pTooltip="Open web view"
-      ></i>
-      <i class="pi pi-eye" (click)="setShowEmbed()" pTooltip="Open embed"></i>
-      <i
-        class="pi pi-search-plus"
-        (click)="expand = !expand"
-        pTooltip="Expand preview"
-      ></i>
-    </div>
-  }
 </div>
 
 <!-- Edit Form -->

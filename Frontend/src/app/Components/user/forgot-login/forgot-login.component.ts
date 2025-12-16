@@ -56,6 +56,11 @@ export class ForgotLoginComponent {
       return;
     }
 
+    console.log(
+      this.forgotPasswordForm.getRawValue().forgot_email ?? "",
+      this.forgotPasswordForm.value.forgot_otp ?? ""
+    );
+
     this.userService
       .submitOTP(
         this.forgotPasswordForm.getRawValue().forgot_email ?? "",

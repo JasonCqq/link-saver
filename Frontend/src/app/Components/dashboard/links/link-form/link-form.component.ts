@@ -65,6 +65,7 @@ export class LinkFormComponent implements OnInit, OnDestroy {
       life: 3000,
     });
 
+    this.linkForm.reset();
     this.visibleChange.emit(false);
   }
 

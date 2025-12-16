@@ -33,14 +33,13 @@
       <p-floatlabel variant="on">
         <input
           pInputText
-          type="number"
-          id="forgot_new_pass"
-          formControlName="forgot_new_pass"
+          id="forgot_otp"
+          formControlName="forgot_otp"
           [ngClass]="{
-            'p-invalid': forgot_new_pass?.invalid && forgot_new_pass?.touched,
+            'p-invalid': forgot_otp?.invalid && forgot_otp?.touched,
           }"
         />
-        <label for="forgot_new_pass">OTP Code</label>
+        <label for="forgot_otp">OTP Code</label>
       </p-floatlabel>
     }
 
@@ -54,6 +53,17 @@
       </p-button>
     }
 
+    @if (step1 && !step2) {
+      <p-button
+        [disabled]="forgotPasswordForm.invalid"
+        (click)="submitOTPApplication()"
+        class="submit-code"
+        type="button"
+      >
+        Submit Code
+      </p-button>
+    }
+
     @if (loadingService.isLoading$ | async) {
       <p-progress-spinner
         strokeWidth="5"
@@ -63,17 +73,6 @@
       />
     }
   </form>
-
-  @if (step1 && !step2) {
-    <p-button
-      [disabled]="forgotPasswordForm.invalid"
-      (click)="submitOTPApplication()"
-      class="submit-code"
-      type="button"
-    >
-      Submit Code
-    </p-button>
-  }
 
   @if (step2) {
     <form

@@ -3,17 +3,9 @@ const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const prisma = require("../prisma/prismaClient");
 
+const { Resend } = require("resend");
+
 require("dotenv").config();
-// nodemailer settings
-const nodemailer = require("nodemailer");
-const transporter = nodemailer.createTransport({
-  host: "smtp.sendgrid.net",
-  port: 587,
-  auth: {
-    user: "apikey",
-    pass: `${process.env.SENDGRID_API_KEY}`,
-  },
-});
 
 exports.generateOTP = [
   body("email", "Invalid Email").trim().isEmail().escape(),
@@ -60,11 +52,11 @@ exports.generateOTP = [
           });
         });
 
-        const info = await transporter.sendMail({
-          to: `${req.body.email}`,
-          from: "jason.cq.huang@gmail.com",
+        const resend = new Resend(`${process.env.EMAILER_API_KEY}`);
+        const { data, error } = await resend.emails.send({
+          from: "Linkstorage <noreply@notifications.linkstorage.net>",
+          to: [`${req.body.email}`],
           subject: `${tempCode} is your Linkstorage OTP Code`,
-          text: `Linkstorage: Your OTP Code is: ${tempCode} , if you didn't request this, you can safely ignore it.`,
           html:
             "<h1 style='font-size: 1.25rem; color:black;'>Linkstorage</h1>" +
             "<p style='font-size: 1rem; color: black;'>Hi there!</p>" +
@@ -91,6 +83,7 @@ exports.verifyOTP = [
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
     } else if (!req.body.email || !req.body.otp) {
+      console.log(req.body.email, req.body.otp);
       res.status(400).json("Email and OTP code are required");
     } else {
       const user = await prisma.User.findUnique({

@@ -181,7 +181,7 @@ exports.login_user = [
           res
             .status(400)
             .json(
-              "No Google account found, please use regular login or create a google account",
+              "No Google account found, please use regular login or create a google account"
             );
         }
       } else {
@@ -246,6 +246,13 @@ exports.delete_user = [
     if (!check) {
       res.status(401).json("Not authenticated");
     } else {
+      const imagePath = `thumbnails/${req.body.userID}`;
+      const { error } = await supabase.storage
+        .from("thumbnails")
+        .remove(imagePath);
+
+      if (error) console.error("Supabase delete error:", error.message);
+
       await prisma.User.delete({
         where: {
           id: req.body.userID,

@@ -81,6 +81,7 @@ export class LinkEditFormComponent implements OnInit, OnDestroy {
           life: 3000,
         });
 
+        this.editForm.reset();
         this.visibleChange.emit(false);
       });
   }

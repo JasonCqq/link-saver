@@ -77,7 +77,6 @@
     margin-left: 6vw;
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: repeat(auto-fit, 175px);
 
     position: relative;
 
@@ -90,7 +89,7 @@
     }
 
     @media screen and (max-width: 400px) {
-      grid-template-columns: repeat(auto-fit, 150px);
+      grid-template-columns: repeat(auto-fit, 155px);
     }
 
     @media screen and (max-width: 340px) {

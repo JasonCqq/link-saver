@@ -52,9 +52,6 @@ export class LinkComponent implements OnInit, OnDestroy {
 
   // For image expansion
   expand: boolean = false;
-  // expandImg(){
-  //   this.expand = true;
-  // }
 
   // For mobile menu hover
   @Input() index!: number;
@@ -85,6 +82,11 @@ export class LinkComponent implements OnInit, OnDestroy {
     ) {
       this.showOptionsChange.emit(null);
     }
+  }
+
+  onOptionClick(event: MouseEvent) {
+    event.preventDefault(); // stops <a href> navigation
+    event.stopPropagation(); // stops bubbling to <a>
   }
 
   addingID: boolean = false;
