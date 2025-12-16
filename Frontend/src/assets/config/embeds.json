@@ -23,7 +23,12 @@
     "query": "/",
     "link": "https://streamable.com/e/"
   },
-
+  {
+    "provider_name": "EPorner",
+    "provider_url": "eporner.com",
+    "query": "video-",
+    "link": "https://www.eporner.com/embed/"
+  },
   {
     "provider_name": "Pornhub",
     "provider_url": "pornhub.com",

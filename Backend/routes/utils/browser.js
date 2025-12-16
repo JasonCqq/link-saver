@@ -23,3 +23,4 @@ async function closeBrowser() {
 }
 
 module.exports = { getBrowser, closeBrowser };
+

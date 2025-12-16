@@ -51,54 +51,159 @@ exports.create_link = [
       // Scrape for title/screenshot
       let thumbnail;
       let title = "";
+      let page;
+      let browser;
+
       try {
-        console.time("fetch");
-        const browser = await getBrowser();
-        const page = await browser.newPage();
+        try {
+          console.time("fetch");
 
-        await page.goto(decodedUrl, {
-          waitUntil: "domcontentloaded",
-        });
+          // Try fast path first (works for 90% of sites)
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 5000);
 
-        // Scrape metadata
-        const metadata = await page.evaluate(() => {
-          const getMetaContent = (property) => {
-            let meta = document.querySelector(`meta[property="${property}"]`);
-            if (meta) return meta.getAttribute("content");
+          const response = await fetch(decodedUrl, {
+            signal: controller.signal,
+            headers: {
+              "User-Agent":
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+              Accept:
+                "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+              "Accept-Language": "en-US,en;q=0.9",
+              "Accept-Encoding": "gzip, deflate, br",
+              DNT: "1",
+              Connection: "keep-alive",
+              "Upgrade-Insecure-Requests": "1",
+              "Sec-Fetch-Dest": "document",
+              "Sec-Fetch-Mode": "navigate",
+              "Sec-Fetch-Site": "none",
+              "Sec-Fetch-User": "?1",
+              "Cache-Control": "max-age=0",
+            },
+          });
+          clearTimeout(timeoutId);
 
-            meta = document.querySelector(`meta[name="${property}"]`);
-            if (meta) return meta.getAttribute("content");
+          const html = await response.text();
 
+          // Check for bot detection pages
+          if (
+            html.includes("Just a moment") ||
+            html.includes("cf-browser-verification") ||
+            html.includes("challenge-platform") ||
+            html.length < 500
+          ) {
+            throw new Error(
+              "Bot detection triggered, falling back to Playwright"
+            );
+          }
+
+          // More flexible regex patterns for better title extraction
+          const extractMeta = (property) => {
+            const patterns = [
+              new RegExp(
+                `<meta\\s+property=["']${property}["']\\s+content=["']([^"']+)["']`,
+                "is"
+              ),
+              new RegExp(
+                `<meta\\s+content=["']([^"']+)["']\\s+property=["']${property}["']`,
+                "is"
+              ),
+              new RegExp(
+                `<meta\\s+name=["']${property}["']\\s+content=["']([^"']+)["']`,
+                "is"
+              ),
+              new RegExp(
+                `<meta\\s+content=["']([^"']+)["']\\s+name=["']${property}["']`,
+                "is"
+              ),
+            ];
+
+            for (const pattern of patterns) {
+              const match = html.match(pattern);
+              if (match) return match[1].trim();
+            }
             return null;
           };
 
-          return {
-            ogTitle: getMetaContent("og:title"),
-            ogImage: getMetaContent("og:image"),
-            ogType: getMetaContent("og:type"),
-            twitterTitle: getMetaContent("twitter:title"),
-            twitterImage: getMetaContent("twitter:image"),
-            title: document.title,
-          };
-        });
+          // Extract title and thumbnail with better accuracy
+          title =
+            extractMeta("og:title") ||
+            extractMeta("twitter:title") ||
+            html.match(/<title[^>]*>([^<]+)<\/title>/is)?.[1]?.trim() ||
+            "";
 
-        console.timeEnd("fetch");
+          thumbnail = extractMeta("og:image") || extractMeta("twitter:image");
 
-        // Get title
-        title =
-          metadata.ogTitle ??
-          metadata.twitterTitle ??
-          metadata.title ??
-          "Untitled Webpage";
-        thumbnail = metadata.ogImage ?? metadata.twitterImage;
+          console.timeEnd("fetch");
+        } catch (error) {
+          console.log("Fast fetch failed, using Playwright:", error.message);
+          console.time("playwright-fetch");
+          browser = await getBrowser();
+          page = await browser.newPage();
+
+          await page.goto(decodedUrl, {
+            waitUntil: "domcontentloaded",
+          });
+
+          // Scrape metadata
+          const metadata = await page.evaluate(() => {
+            const getMetaContent = (property) => {
+              let meta = document.querySelector(`meta[property="${property}"]`);
+              if (meta) return meta.getAttribute("content");
+
+              meta = document.querySelector(`meta[name="${property}"]`);
+              if (meta) return meta.getAttribute("content");
+
+              return null;
+            };
+
+            return {
+              ogTitle: getMetaContent("og:title"),
+              ogImage: getMetaContent("og:image"),
+              ogType: getMetaContent("og:type"),
+              twitterTitle: getMetaContent("twitter:title"),
+              twitterImage: getMetaContent("twitter:image"),
+              title: document.title,
+            };
+          });
+
+          console.timeEnd("playwright-fetch");
+
+          // Get title
+          title =
+            metadata.ogTitle ??
+            metadata.twitterTitle ??
+            metadata.title ??
+            "Untitled Webpage";
+          thumbnail = metadata.ogImage ?? metadata.twitterImage;
+        }
 
         // Get image or screenshot
         let imageBuffer;
-        if (thumbnail === null) {
-          console.log("No OG image found, looking for relevant image in page");
+
+        // Check if we need a screenshot (no thumbnail found)
+        if (!thumbnail) {
+          console.log("No OG image found, need screenshot");
+
+          // Create browser/page if not exists (fast fetch succeeded but no OG image)
+          if (!page) {
+            console.time("new browser for screenshot");
+            if (!browser) {
+              browser = await getBrowser();
+            }
+            page = await browser.newPage();
+            await page.goto(decodedUrl, {
+              waitUntil: "domcontentloaded",
+            });
+            console.timeEnd("new browser for screenshot");
+          }
 
           console.time("selector");
-          await page.waitForLoadState("networkidle", { timeout: 3000 });
+          await page
+            .waitForLoadState("networkidle", { timeout: 3000 })
+            .catch(() => {
+              console.log("Network idle timeout, continuing anyway");
+            });
 
           // Try to find a relevant image in the page
           const pageImage = await page.evaluate(() => {
@@ -123,12 +228,12 @@ exports.create_link = [
               }
             } catch (err) {
               console.log("Image fetch failed, taking screenshot");
-              await page.waitForLoadState("load");
+              await page.waitForLoadState("load").catch(() => {});
               imageBuffer = await page.screenshot({ type: "png" });
             }
           } else {
             console.log("No suitable image found, taking screenshot");
-            await page.waitForLoadState("load");
+            await page.waitForLoadState("load").catch(() => {});
             imageBuffer = await page.screenshot({ type: "png" });
           }
           console.timeEnd("selector");
@@ -144,35 +249,50 @@ exports.create_link = [
           }
           console.timeEnd("sharp#1");
 
-          // OG:Image found
-        } else if (thumbnail !== null) {
+          // OG:Image found - fetch it
+        } else {
+          console.log("OG image found:", thumbnail);
           console.time("image fetch");
           try {
             const imageResponse = await fetch(thumbnail);
             if (!imageResponse.ok) throw new Error("Fetch failed");
             imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
-          } catch (err) {
-            console.log("Thumbnail fetch failed, taking screenshot instead");
-            await page.waitForLoadState("load");
-            imageBuffer = await page.screenshot({ type: "png" });
-          }
 
-          console.timeEnd("image fetch");
-
-          console.time("sharp#2");
-          try {
+            console.timeEnd("image fetch");
+            console.time("sharp#2");
             thumbnail = await sharp(Buffer.from(imageBuffer))
               .webp({ quality: 75 })
               .toBuffer();
+            console.timeEnd("sharp#2");
           } catch (err) {
-            thumbnail = "";
-            console.error(err);
+            console.log("Thumbnail fetch failed, taking screenshot instead");
+
+            // Create browser/page if needed for screenshot fallback
+            if (!page) {
+              console.time("new browser for screenshot fallback");
+              if (!browser) {
+                browser = await getBrowser();
+              }
+              page = await browser.newPage();
+              await page.goto(decodedUrl, {
+                waitUntil: "domcontentloaded",
+              });
+              console.timeEnd("new browser for screenshot fallback");
+            }
+
+            await page.waitForLoadState("load").catch(() => {});
+            imageBuffer = await page.screenshot({ type: "png" });
+
+            thumbnail = await sharp(Buffer.from(imageBuffer))
+              .webp({ quality: 75 })
+              .toBuffer();
           }
-          console.timeEnd("sharp#2");
         }
 
-        await page.close();
-        console.log(metadata);
+        // Close page if it was created
+        if (page) {
+          await page.close();
+        }
 
         // Create link in database
         console.time("database operation");
@@ -232,6 +352,11 @@ exports.create_link = [
         }
       } catch (error) {
         console.error("Error fetching or processing:", error);
+
+        // Cleanup on error
+        if (page) {
+          await page.close().catch(() => {});
+        }
 
         // Fallback to default link
         const link = await prisma.Link.create({
@@ -393,6 +518,19 @@ exports.perma_delete_all = [
   body("userID").trim().escape(),
 
   asyncHandler(async (req, res) => {
+    // First, get all trashed links with their IDs for deletion
+    const trashedLinks = await prisma.Link.findMany({
+      where: {
+        trash: true,
+        userId: req.body.userID,
+      },
+      select: {
+        id: true,
+        thumbnail: true, // Get the thumbnail path
+      },
+    });
+
+    // Delete from database
     await prisma.Link.deleteMany({
       where: {
         trash: true,
@@ -400,7 +538,28 @@ exports.perma_delete_all = [
       },
     });
 
-    res.status(200).json({});
+    // Build array of file paths to delete from Supabase
+    const filePaths = trashedLinks
+      .filter((link) => link.thumbnail) // Only include links that have thumbnails
+      .map((link) => link.thumbnail); // Use the stored thumbnail path
+
+    // Delete files from Supabase storage if there are any
+    if (filePaths.length > 0) {
+      const { error } = await supabase.storage
+        .from("thumbnails")
+        .remove(filePaths);
+
+      if (error) {
+        console.error("Supabase bulk delete error:", error.message);
+      } else {
+        console.log(`Deleted ${filePaths.length} thumbnails from storage`);
+      }
+    }
+
+    res.status(200).json({
+      deleted: trashedLinks.length,
+      thumbnailsDeleted: filePaths.length,
+    });
   }),
 ];
 
