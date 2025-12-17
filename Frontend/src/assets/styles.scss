@@ -93,7 +93,7 @@
   }
 
   .p-select {
-    --p-select-padding-y: 6px;
+    --p-select-padding-y: 6.5px;
 
     .p-select-overlay {
       margin-top: 5px;
@@ -105,14 +105,14 @@
   }
 
   .p-inputtext {
-    --p-inputtext-padding-y: 6px;
+    --p-inputtext-padding-y: 6.5px;
     width: clamp(200px, calc(20vw + 5rem), 250px);
   }
 }
 
 :root {
   --accent: #2e60cd;
-  --background: #090909;
+  --background: #09090b;
   --background2: #17181b;
   --text: #eef1f3;
   --text2: #0d0f11;

@@ -7,8 +7,12 @@
   column-gap: 17.5px;
   row-gap: 10px;
 
+  @media screen and (max-width: 440px) {
+    grid-template-columns: repeat(auto-fit, 165px);
+  }
+
   @media screen and (max-width: 400px) {
-    grid-template-columns: repeat(auto-fit, 155px);
+    grid-template-columns: repeat(auto-fit, 150px);
   }
 }
 

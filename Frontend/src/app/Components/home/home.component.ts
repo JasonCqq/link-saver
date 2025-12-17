@@ -32,21 +32,26 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   user: any;
 
+  // For gallery images auto next
+  intervalId!: number;
+
   ngOnInit() {
     this.userService.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       this.user = user?.user;
     });
 
-    setInterval(() => {
-      if (this.activePic < 3) {
-        this.changePic(this.activePic + 1);
-      } else {
-        this.changePic(0);
-      }
-    }, 15000);
+    this.resetInterval();
+  }
+
+  resetInterval() {
+    clearInterval(this.intervalId);
+    this.intervalId = window.setInterval(() => {
+      this.changePic(this.activePic < 3 ? this.activePic + 1 : 0);
+    }, 10000);
   }
 
   ngOnDestroy(): void {
+    clearInterval(this.intervalId);
     this.destroy$.next();
     this.destroy$.complete();
   }
@@ -59,6 +64,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.activePic === index) {
       return;
     }
+
+    this.resetInterval(); // reset timer
 
     this.animState = "hidden"; // Start animation
     setTimeout(() => {

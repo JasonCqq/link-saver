@@ -435,24 +435,36 @@
 
   .home_contact {
     height: auto;
-    margin-bottom: 12.5vh;
-    margin-top: 10vh;
+    margin-bottom: 15vh;
+    margin-top: 17.5vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 25px;
+    width: 100%;
+    margin-left: auto;
 
     > .contact-title {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      width: max-content;
+      font-weight: 700;
+      font-size: 3rem;
+    }
 
-      transition: color 0.1s ease-in-out;
-      &:hover {
-        color: var(--accent);
-        cursor: pointer;
-      }
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      background: lch(8.3 1.867 272);
+      border: 1px solid lch(18.24 4.707 272);
+      box-shadow: rgba(0, 0, 0, 0.07) 0px 4px 44px;
+      padding: 15px 25px;
+      border-radius: 8px;
+      gap: 5px;
+    }
+
+    .pi {
+      font-size: 1.5rem;
     }
   }
 

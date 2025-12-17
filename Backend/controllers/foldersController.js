@@ -307,7 +307,6 @@ exports.get_authorized_folder = [
   body("password").trim().escape(),
 
   asyncHandler(async (req, res) => {
-    console.log("hi");
     const folder = await prisma.Share.findUnique({
       where: {
         id: JSON.parse(req.params.id),

@@ -3,29 +3,45 @@
 .main-nav {
   height: auto;
   display: flex;
-  flex-direction: column;
-  padding-left: 5vw;
-  background-color: var(--background);
-  padding-bottom: 2vh;
+  align-items: center;
+  padding: 10px 25px;
+  margin-left: 5vw;
+  margin-top: 2vh;
+  margin-bottom: 25px;
+  width: fit-content;
+  border-radius: 8px;
+  background: lch(8.3 1.867 272);
+  border: 1px solid lch(18.24 4.707 272);
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 4px 44px;
+
+  @media screen and (max-width: 730px) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    background: transparent;
+    border: 1px solid transparent;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 4px 44px;
+    padding: 0px;
+    margin-top: 3vh;
+  }
 
   > .nav-flex {
     display: flex;
     align-items: flex-end;
+    padding-right: 1vw;
+    border-right: 1px solid gray;
 
-    @media screen and (max-width: 490px) {
+    @media screen and (max-width: 730px) {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      border-right: 1px solid transparent;
     }
 
     > .nav-title {
       font-size: 1.35rem;
       font-weight: 600;
-      margin: 2vh 0 1vh 0vw;
-
-      @media screen and (max-width: 940px) {
-        margin: 5vh 0 1vh 0vw;
-      }
     }
   }
 
@@ -33,18 +49,22 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    padding-left: 1vw;
 
-    @media screen and (max-width: 440px) {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 8px;
+    @media screen and (max-width: 730px) {
+      padding-left: 0;
+      padding-top: 10px;
     }
 
     > .nav-buttons {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 5px;
       flex-wrap: wrap;
+
+      @media screen and (max-width: 730px) {
+        gap: 10px;
+      }
 
       .mass-edit {
         display: flex;
