@@ -6,16 +6,16 @@
 <a href="https://linkstorage.net" target="_blank">https://linkstorage.net</a>
     
 ## App Showcase 
-https://github.com/user-attachments/assets/8d6230d2-0a61-4584-802e-e02006b067c8
+https://github.com/user-attachments/assets/10ac8c09-22f7-4c96-bed8-ee8a0f50e0f7
 
 
 
 <h3 align="center">linkstorage.net</h3>
     Need a place to store links you want to revisit?
         <br />
-    This is the perfect website to store and organize all your favorite links and websites for easy access later. 
+    You can preview, watch, visit the links within the website!
         <br />
-    Sign up now and start curating your personalized collection of saved links today!
+    This is the perfect website to store and organize all your favorite links and websites for easy access later. 
     <br />
     <a href="https://github.com/JasonCqq/link-saver/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     <a href="https://github.com/JasonCqq/link-saver/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
@@ -40,7 +40,8 @@ https://github.com/user-attachments/assets/8d6230d2-0a61-4584-802e-e02006b067c8
 </details>
 
 ## Features
-- [ ] Storing URLs with previews
+- [ ] Storing URLs with previews / screenshots
+- [ ] Preview websites with embeds or mini web browser 
 - [ ] URL Bank, store urls in text format, can add many urls at once
 - [ ] Sorting by visits/dates/name, Searching, and Bookmarking links easily
 - [ ] Folders to store links
@@ -79,7 +80,7 @@ Overall, I'm happy with the outcome of the app. I will continue to update, optim
 <!-- ROADMAP -->
 
 ## Upcoming Features
-- [ ] Ability to use linkstorage without an account
+- [ ] Import / Export
 - [ ] Browser extension to store current tabs
 - [ ] Copy other user's public folders
 - [ ] Sectioning Features
