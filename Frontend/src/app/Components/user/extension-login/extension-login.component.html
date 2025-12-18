@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <title>Connect Extension</title>
+  </head>
+  <body>
+    <h1>Connect Extension</h1>
+    <p>Logged in as: {{ user }}</p>
+    <button id="authorize">Authorize Extension</button>
+
+    <script>
+      document
+        .getElementById("authorize")
+        .addEventListener("click", async () => {
+          try {
+            // Generate token (uses existing Passport session)
+            const response = await fetch("/api/extension/generate-token", {
+              method: "POST",
+              credentials: "include", // Sends session cookie
+            });
+
+            const data = await response.json();
+
+            if (response.status === 401) {
+              // Not logged in - redirect to login
+              window.location.href = "/login?redirect=/extension-connect";
+              return;
+            }
+
+            // Check if response was successful
+            if (!response.ok) {
+              alert("Failed to generate token");
+              return;
+            }
+
+            const EXTENSION_ID = "oocabgbbkhbipjpkchfejjglaaccckbn";
+
+            // Send to extension
+            chrome.runtime.sendMessage(
+              EXTENSION_ID,
+              {
+                type: "AUTH_TOKEN",
+                token: data.token,
+                user: data.user,
+              },
+              (res) => {
+                if (chrome.runtime.lastError) {
+                  console.error(
+                    "Failed to send to extension:",
+                    chrome.runtime.lastError
+                  );
+                  alert(
+                    "Failed to connect to extension. Make sure it's installed."
+                  );
+                  return;
+                }
+
+                // Success!
+                alert("Extension connected successfully!");
+                window.close();
+              }
+            );
+          } catch (error) {
+            alert("Failed to connect extension");
+          }
+        });
+    </script>
+  </body>
+</html>
