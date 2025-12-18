@@ -1,71 +1,129 @@
 <a name="readme-top"></a>
 
-<!-- PROJECT LOGO -->
 <br />
 <div align="center">
-<a href="https://linkstorage.net" target="_blank">https://linkstorage.net</a>
-    
-## App Showcase 
-https://github.com/user-attachments/assets/10ac8c09-22f7-4c96-bed8-ee8a0f50e0f7
 
+<a href="https://linkstorage.net" target="_blank">
+  <strong>https://linkstorage.net</strong>
+</a>
 
+<br /><br />
 
-<h3 align="center">linkstorage.net</h3>
-    Need a place to store links you want to revisit?
-        <br />
-    You can preview, watch, visit the links within the website!
-        <br />
-    This is the perfect website to store and organize all your favorite links and websites for easy access later. 
-    <br />
-    <a href="https://github.com/JasonCqq/link-saver/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
-    <a href="https://github.com/JasonCqq/link-saver/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+## 🔗 LinkStorage
 
+Need a place to store links you want to revisit?
 
-  </p>
+**LinkStorage** is a web application that lets you save, organize, preview, and revisit your favorite links — all in one place.  
+You can preview, watch, or visit links directly within the website, making it easy to manage everything you want to come back to later.
+
+<br />
+
+<a href="https://github.com/JasonCqq/link-saver/issues/new?labels=bug&template=bug-report---.md">🐛 Report Bug</a>
+·
+<a href="https://github.com/JasonCqq/link-saver/issues/new?labels=enhancement&template=feature-request---.md">✨ Request Feature</a>
+
 </div>
 
-<!-- TABLE OF CONTENTS -->
+---
+
+## 🎬 App Showcase
+
+https://github.com/user-attachments/assets/10ac8c09-22f7-4c96-bed8-ee8a0f50e0f7
+
+---
+
+## 📑 Table of Contents
+
 <details>
-  <summary>Table of Contents</summary>
+  <summary>Click to expand</summary>
   <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#browser-extension">Browser Extension</a></li>
+    <li><a href="#learning-experience">Learning Experience</a></li>
+    <li><a href="#built-with">Built With</a></li>
+    <li><a href="#upcoming-features">Upcoming Features</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
 
-## Features
-- [ ] Storing URLs with previews / screenshots
-- [ ] Preview websites with embeds or mini web browser 
-- [ ] URL Bank, store urls in text format, can add many urls at once
-- [ ] Sorting by visits/dates/name, Searching, and Bookmarking links easily
-- [ ] Folders to store links
-- [ ] Share folders publicly/privately (Check one out here! https://linkstorage.net/public/1)
-- [ ] Mass edit links with ease
-- [ ] User authentication w/ bcrypt/passport/express-session
-- [ ] User security with email confirmations and OTP system
-- [ ] Responsive design and useful tooltips for UX
+---
 
-## Learning Experience
+## 📖 About The Project
 
-This project/app was created to not only learn Angular along with a SQL database to compare the difference
-<br />
-from React and MongoDB, but also, I wanted to create something I could use. Overall, I enjoyed using Angular
-<br />
-more than React due to the structure that Angular provides, although React is much easier to get going with.
-<br />
-I also preferred PostgreSQL over MongoDB as a database. PostgreSQL felt more fluid especially with the relational data.
-<br />
-Overall, I'm happy with the outcome of the app. I will continue to update, optimize, and push out new features for the site.
+LinkStorage was built to solve a simple problem:  
+**saving links is easy — previewing, and revisiting them fast along with other features is not.**
+
+This project focuses on:
+
+- An experience to revisit links better with video embeds, or visiting links within the site
+- Rich previews / screenshots
+- Clean organization
+- Flexible storage option
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Built With
+---
+
+## ✨ Features
+
+- 📸 Store URLs with automatic previews or screenshots
+- 🌐 Preview websites using video embeds or a mini web browser
+- 📝 URL Bank — store links in plain text and add many at once
+- 🔍 Search, sort (by visits, date, name), and bookmark links
+- 📁 Organize links using folders
+- 🔗 Share folders publicly or privately  
+  👉 Example: https://linkstorage.net/public/1
+- ✏️ Mass-edit links with ease
+- 🔐 Secure authentication (bcrypt, Passport, express-session)
+- ✉️ Email verification & OTP-based security
+- 📱 Fully responsive design with UX-focused tooltips
+
+---
+
+## 🧩 Browser Extension
+
+LinkStorage also includes a **browser extension** that makes saving links even faster.
+
+### What the extension does:
+
+- Save the current tab or multiple tabs with one click
+- Send links directly to your:
+  - Dashboard
+  - URL Bank
+  - Bookmarks
+- Syncs securely with your LinkStorage account
+- Designed for speed and minimal friction
+
+🧪 **Status:**  
+The extension is currently **in the process of being uploaded to the Google Chrome Web Store**.
+
+🔗 **Extension Repository:**  
+👉 https://github.com/JasonCqq/linkstorage-extension
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
+
+## 🧠 Learning Experience
+
+This project was created not only to build something useful, but also to explore and compare different technologies.
+
+- Learned Angular and compared it to React
+- Transitioned from MongoDB to PostgreSQL for relational data
+- Gained experience with Prisma and structured schemas
+- Built real-time features with Socket.IO
+- Improved backend reliability with Playwright fallbacks
+
+Overall, Angular’s structure and PostgreSQL’s relational model felt more natural for this project.  
+The app will continue to be updated, optimized, and expanded with new features.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
+
+## 🛠️ Built With
 
 - ![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
 - ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
@@ -75,55 +133,53 @@ Overall, I'm happy with the outcome of the app. I will continue to update, optim
 - ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 - ![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
 - ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ROADMAP -->
-
-## Upcoming Features
-- [ ] Import / Export
-- [ ] Browser extension to store current tabs
-- [ ] Copy other user's public folders
-- [ ] Sectioning Features
-
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
-You can propose your own features or issues by contacting or creating requests on github.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- CONTRIBUTING -->
+---
 
-## Contributing
+## 🚧 Upcoming Features
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+- 📤 Import / Export links
+- 🧩 Browser extension enhancements
+- 📂 Copy other users’ public folders
+- 🗂️ Advanced sectioning & organization tools
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+See the open issues for a full list of planned features and known issues.
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome and appreciated!
+
+1. Fork the project
+2. Create your feature branch  
+   `git checkout -b feature/AmazingFeature`
+3. Commit your changes  
+   `git commit -m 'Add AmazingFeature'`
+4. Push to the branch  
+   `git push origin feature/AmazingFeature`
 5. Open a Pull Request
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- CONTACT -->
-
-## Contact
-
-Jason Huang - jason.cq.huang@gmail.com
-
-Project Link: [LinkStorage](https://github.com/JasonCqq/link-saver)
+Don’t forget to ⭐ the repo if you find it useful!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- MARKDOWN LINKS & IMAGES -->
+---
 
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/JasonCqq/link-saver/graphs/contributors
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/JasonCqq/link-saver/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/JasonCqq/link-saver/issues
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/in/jason-huang-38813324b/
+## 📬 Contact
+
+**Jason Huang**  
+📧 jason.cq.huang@gmail.com
+
+🔗 Project Repository:  
+https://github.com/JasonCqq/link-saver
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## 📄 License
+
+MIT License

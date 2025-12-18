@@ -13,11 +13,9 @@ export class LinkFormService {
     private http: HttpClient,
     private userService: UserService,
     private folderService: FoldersService,
-    private tempRenderService: TempRenderService,
-  ) {
-  }
+    private tempRenderService: TempRenderService
+  ) {}
   private apiUrl = environment.apiUrl;
-
 
   async submitLinkForm(url: string, folder: string, bookmarked: boolean) {
     await this.http
@@ -25,7 +23,7 @@ export class LinkFormService {
         `${this.apiUrl}/link/create`,
         {
           userID: this.userService.getUser()?.user.id,
-          url: url,
+          urls: [url],
           folder: folder,
           bookmarked: bookmarked,
         },
@@ -35,9 +33,8 @@ export class LinkFormService {
       )
       .subscribe({
         next: (res: any) => {
-          this.tempRenderService.pushLink(res.link);
+          this.tempRenderService.pushLink(res[0]);
           this.folderService.notifyFolders();
-          
         },
         error: (error) => {
           alert(error.error);

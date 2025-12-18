@@ -101,6 +101,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.setupEditLinkSubscription();
 
     this.socket.on("thumbnail-ready", (updatedLink) => {
+      console.log(updatedLink);
       const i = this.links.findIndex((link) => link.id === updatedLink.id);
 
       // Update cached thumbnail
