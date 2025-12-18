@@ -15,7 +15,7 @@ import {
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatIconModule } from "@angular/material/icon";
 
-import { Observable, map } from "rxjs";
+import { Observable, map, catchError, of } from "rxjs";
 import { ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from "./app.component";
@@ -66,7 +66,16 @@ function initializeAppFactory(
   return () =>
     httpClient
       .get<User>(`${environment.apiUrl}/check`, { withCredentials: true })
-      .pipe(map((res) => userService.setUser(res)));
+      .pipe(
+        map((res) => userService.setUser(res)),
+        catchError((err) => {
+          if (err.status === 401) {
+            userService.setUser(null); // not logged in is OK
+            return of(null); // allow app to bootstrap
+          }
+          throw err; // real errors should still crash
+        })
+      );
 }
 
 @NgModule({
