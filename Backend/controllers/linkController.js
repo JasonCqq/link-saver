@@ -211,8 +211,8 @@ exports.create_link = [
               (img) =>
                 img.src &&
                 !img.src.startsWith("data:") &&
-                img.width >= 100 &&
-                img.height >= 100
+                img.width >= 200 &&
+                img.height >= 200
             );
             return imgs[0]?.src || null;
           });
@@ -301,7 +301,7 @@ exports.create_link = [
             url: decodedUrl,
             user: {
               connect: {
-                id: req.body.userID,
+                id: req.user.id,
               },
             },
             ...(req.body.folder
@@ -321,7 +321,7 @@ exports.create_link = [
           console.time("supabase");
           const linkID = link.id;
 
-          let imagePath = `thumbnails/${req.body.userID}/${linkID}`;
+          let imagePath = `thumbnails/${req.user.id}/${linkID}`;
           let publicUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/thumbnails/${imagePath}`;
 
           const updatedLink = await prisma.Link.update({
@@ -364,7 +364,7 @@ exports.create_link = [
             url: decodedUrl,
             user: {
               connect: {
-                id: req.body.userID,
+                id: req.user.id,
               },
             },
             ...(req.body.folder
@@ -479,7 +479,7 @@ exports.delete_link = [
     await prisma.Link.update({
       where: {
         id: req.body.id,
-        userId: req.body.userID,
+        userId: req.user.id,
       },
 
       data: {
@@ -499,11 +499,11 @@ exports.perma_delete_link = [
       where: {
         id: req.body.id,
         trash: true,
-        userId: req.body.userID,
+        userId: req.user.id,
       },
     });
 
-    const imagePath = `thumbnails/${req.body.userID}/${req.body.id}`;
+    const imagePath = `thumbnails/${req.user.id}/${req.body.id}`;
     const { error } = await supabase.storage
       .from("thumbnails")
       .remove(imagePath);
@@ -522,7 +522,7 @@ exports.perma_delete_all = [
     const trashedLinks = await prisma.Link.findMany({
       where: {
         trash: true,
-        userId: req.body.userID,
+        userId: req.user.id,
       },
       select: {
         id: true,
@@ -534,7 +534,7 @@ exports.perma_delete_all = [
     await prisma.Link.deleteMany({
       where: {
         trash: true,
-        userId: req.body.userID,
+        userId: req.user.id,
       },
     });
 
@@ -571,7 +571,7 @@ exports.restore_link = [
     await prisma.Link.update({
       where: {
         id: req.body.id,
-        userId: req.body.userID,
+        userId: req.user.id,
       },
 
       data: {
@@ -602,7 +602,7 @@ exports.edit_link = [
       const link = await prisma.Link.update({
         where: {
           id: req.body.id,
-          userId: req.body.userID,
+          userId: req.user.id,
         },
 
         data: {
@@ -621,7 +621,7 @@ exports.edit_link = [
 ];
 
 exports.get_links = asyncHandler(async (req, res) => {
-  if (!req.params.userId || req.session.user.id !== req.params.userId) {
+  if (!req.params.userId || req.user.id !== req.params.userId) {
     res.status(401).json("Not authenticated");
   }
 
@@ -673,7 +673,7 @@ exports.visited_link = [
       await prisma.Link.update({
         where: {
           id: req.body.id,
-          userId: req.body.userID,
+          userId: req.user.id,
         },
 
         data: {
@@ -687,7 +687,7 @@ exports.visited_link = [
 ];
 
 exports.search_link = asyncHandler(async (req, res) => {
-  if (!req.params.userId || req.session.user.id !== req.params.userId) {
+  if (!req.params.userId || req.user.id !== req.params.userId) {
     res.status(401).json("Not authenticated");
   }
 
@@ -759,7 +759,7 @@ exports.mass_edit_links = [
           await prisma.Link.update({
             where: {
               id: id,
-              userId: req.body.userID,
+              userId: req.user.id,
             },
 
             data: {
@@ -809,7 +809,7 @@ exports.mass_restore_delete_links = [
           await prisma.Link.update({
             where: {
               id: id,
-              userId: req.body.userID,
+              userId: req.user.id,
             },
 
             data: {

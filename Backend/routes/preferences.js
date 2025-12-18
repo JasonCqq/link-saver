@@ -4,8 +4,8 @@ const preferencesController = require("../controllers/preferencesController");
 const securityCheck = require("./routeAuthenticate");
 
 function checkPreference(req, res, next) {
-  if (!req.session.sortBy) {
-    req.session.sortBy = "Latest";
+  if (!req.sortBy) {
+    req.sortBy = "Latest";
   }
   next();
 }

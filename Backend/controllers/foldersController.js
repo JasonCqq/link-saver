@@ -15,7 +15,7 @@ function formatLinks(links) {
 }
 
 exports.get_folder = asyncHandler(async (req, res) => {
-  if (!req.params.userId || req.session.user.id !== req.params.userId) {
+  if (!req.params.userId || req.user.id !== req.params.userId) {
     res.status(401).json("Not authenticated");
   }
 
@@ -58,13 +58,13 @@ exports.create_folder = [
           name: req.body.name,
 
           user: {
-            connect: { id: req.body.userID },
+            connect: { id: req.user.id },
           },
 
           shares: {
             create: {
               user: {
-                connect: { id: req.body.userID },
+                connect: { id: req.user.id },
               },
             },
           },
@@ -91,7 +91,7 @@ exports.edit_folder = [
       await prisma.Folder.update({
         where: {
           id: req.body.id,
-          userId: req.body.userID,
+          userId: req.user.id,
         },
 
         data: {
@@ -112,7 +112,7 @@ exports.delete_folder = [
     await prisma.Folder.delete({
       where: {
         id: req.body.id,
-        userId: req.body.userID,
+        userId: req.user.id,
       },
     });
     res.status(200).json({});
@@ -120,7 +120,7 @@ exports.delete_folder = [
 ];
 
 exports.search_folder_links = asyncHandler(async (req, res) => {
-  if (!req.params.userId || req.session.user.id !== req.params.userId) {
+  if (!req.params.userId || req.user.id !== req.params.userId) {
     res.status(401).json("Not authenticated");
   }
 
@@ -256,7 +256,7 @@ exports.create_shared_folder = [
 
             user: {
               connect: {
-                id: req.body.userID,
+                id: req.user.id,
               },
             },
 

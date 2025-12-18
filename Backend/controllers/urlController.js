@@ -9,14 +9,10 @@ const cheerio = require("cheerio");
 require("dotenv").config();
 
 exports.get_urls = asyncHandler(async (req, res) => {
-  if (!req.params.userId || req.session.user.id !== req.params.userId) {
-    res.status(401).json("Not authenticated");
-  }
-
   try {
     const urls = await prisma.URL.findMany({
       where: {
-        userId: req.params.userId,
+        userId: req.user.id,
       },
 
       orderBy: {
@@ -41,6 +37,8 @@ exports.create_urls = [
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
       res.status(400).json(firstError);
     } else {
+      console.log(req.body.urls, req.body.urls.length);
+
       // Decodes each url after trim/escape
       let urls = req.body.urls.map((u) => {
         let decodedUrl = decode(u, { level: "html5" });
@@ -99,7 +97,7 @@ exports.create_urls = [
                 logo: u.logo,
                 user: {
                   connect: {
-                    id: req.body.userID,
+                    id: req.user.id,
                   },
                 },
               },
@@ -123,7 +121,7 @@ exports.delete_urls = [
     await prisma.URL.delete({
       where: {
         id: req.body.id,
-        userId: req.body.userID,
+        userId: req.user.id,
       },
     });
 
@@ -138,7 +136,7 @@ exports.deleteAll_urls = [
     await prisma.URL.deleteMany({
       where: {
         userId: {
-          contains: req.body.userID,
+          contains: req.user.id,
         },
       },
     });

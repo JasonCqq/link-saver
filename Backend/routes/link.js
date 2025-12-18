@@ -2,12 +2,12 @@ var express = require("express");
 var router = express.Router();
 const linkController = require("../controllers/linkController");
 
+const securityCheck = require("../routes/routeAuthenticate");
+router.use(securityCheck.authenticateReq);
+
 router.get("/links/:userId", linkController.get_links);
 
 router.get("/search/:userId", linkController.search_link);
-
-const securityCheck = require("../routes/routeAuthenticate");
-router.use(securityCheck.authenticateReq);
 
 router.post("/create", linkController.create_link);
 

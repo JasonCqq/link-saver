@@ -26,7 +26,7 @@ interface User {
 export class UserService {
   constructor(
     private http: HttpClient,
-    private router: Router,
+    private router: Router
   ) {}
 
   // Guest User
@@ -49,8 +49,8 @@ export class UserService {
   private userSubject = new BehaviorSubject<User | null>(this.emptyUser);
   user$ = this.userSubject.asObservable();
 
-  setUser(user: User) {
-    this.userSubject.next(user);
+  setUser(user: User | null) {
+    this.userSubject.next(user || this.emptyUser);
   }
   getUser() {
     return this.userSubject.value;
@@ -70,7 +70,7 @@ export class UserService {
         password: password,
         isExternal: external,
       },
-      { withCredentials: true },
+      { withCredentials: true }
     );
   }
 
@@ -78,7 +78,7 @@ export class UserService {
     username: string,
     email: string,
     password: string,
-    external: boolean,
+    external: boolean
   ) {
     return this.http.post(
       `${this.apiUrl}/user/create`,
@@ -88,7 +88,7 @@ export class UserService {
         password: password,
         isExternal: external,
       },
-      { withCredentials: true },
+      { withCredentials: true }
     );
   }
 
@@ -134,7 +134,7 @@ export class UserService {
         newPass: newPass,
         newPass2: newPass2,
       },
-      { withCredentials: true },
+      { withCredentials: true }
     );
   }
 
@@ -142,7 +142,7 @@ export class UserService {
     return this.http.post(
       `${this.apiUrl}/user/forgot_password`,
       { email: forgot_email },
-      { withCredentials: true },
+      { withCredentials: true }
     );
   }
 
@@ -150,14 +150,14 @@ export class UserService {
     return this.http.post(
       `${this.apiUrl}/user/verify_otp`,
       { email: forgot_email, otp: forgot_otp },
-      { withCredentials: true },
+      { withCredentials: true }
     );
   }
 
   submitNewPassword(
     forgot_email: string,
     forgot_new_pass: string,
-    forgot_new_pass2: string,
+    forgot_new_pass2: string
   ) {
     return this.http.post(
       `${this.apiUrl}/user/change_password_otp`,
@@ -166,7 +166,7 @@ export class UserService {
         new_pass: forgot_new_pass,
         new_pass2: forgot_new_pass2,
       },
-      { withCredentials: true },
+      { withCredentials: true }
     );
   }
 }

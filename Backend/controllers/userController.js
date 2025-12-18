@@ -125,7 +125,7 @@ exports.create_user = [
               creationDate: newUser.creationDate,
               external_account: newUser.external_account,
             };
-            req.session.user = userData;
+            req.user = userData;
             res.status(200).json({ user: userData, settings: newUserSettings });
           });
         } catch (err) {
@@ -175,8 +175,14 @@ exports.login_user = [
             external_account: user.external_account,
           };
 
-          req.session.user = userData;
-          res.status(200).json({ user: userData, settings: user.userSettings });
+          req.login(user, (err) => {
+            if (err) return next(err);
+
+            // req.session.user = userData;
+            return res
+              .status(200)
+              .json({ user: userData, settings: user.userSettings });
+          });
         } else {
           res
             .status(400)
@@ -208,10 +214,14 @@ exports.login_user = [
               creationDate: user.creationDate,
             };
 
-            req.session.user = userData;
-            res
-              .status(200)
-              .json({ user: userData, settings: user.userSettings });
+            req.login(user, (err) => {
+              if (err) return next(err);
+
+              // req.session.user = userData;
+              return res
+                .status(200)
+                .json({ user: userData, settings: user.userSettings });
+            });
           }
         })(req, res, next);
       }
@@ -219,34 +229,38 @@ exports.login_user = [
   },
 ];
 
-exports.logout_user = asyncHandler(async (req, res) => {
-  req.session.user = null;
+exports.logout_user = asyncHandler(async (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
 
-  req.session.save(function (err) {
-    if (err) next(err);
-    req.session.regenerate(function (err) {
-      if (err) next(err);
-      res.status(200).json({});
+    req.session.destroy((err) => {
+      if (err) {
+        return next(err);
+      }
+
+      res.clearCookie("connect.sid"); // Clear session cookie
+      res.status(200).json({ message: "Logged out successfully" });
     });
   });
 });
-
 exports.delete_user = [
   body("userID").trim().escape(),
 
   asyncHandler(async (req, res) => {
     const user = await prisma.User.findUnique({
       where: {
-        id: req.body.userID,
+        id: req.user.id,
       },
     });
 
-    const check = req.session.user;
+    const check = req.user;
 
     if (!check) {
       res.status(401).json("Not authenticated");
     } else {
-      const imagePath = `thumbnails/${req.body.userID}`;
+      const imagePath = `thumbnails/${req.user.id}`;
       const { error } = await supabase.storage
         .from("thumbnails")
         .remove(imagePath);
@@ -255,7 +269,7 @@ exports.delete_user = [
 
       await prisma.User.delete({
         where: {
-          id: req.body.userID,
+          id: req.user.id,
         },
       });
 
@@ -272,7 +286,7 @@ exports.delete_user = [
 
 exports.get_settings = [
   asyncHandler(async (req, res) => {
-    if (!req.params.userId || req.session.user.id !== req.params.userId) {
+    if (!req.params.userId || req.user.id !== req.params.userId) {
       res.status(401).json("Not authenticated");
     }
 
@@ -312,7 +326,7 @@ exports.change_password = [
       }
 
       const user = await prisma.User.findUnique({
-        where: { id: req.body.userID },
+        where: { id: req.user.id },
       });
 
       const check = await bcrypt.compare(req.body.currentPass, user.password);
@@ -324,7 +338,7 @@ exports.change_password = [
           }
 
           await prisma.User.update({
-            where: { id: req.body.userID },
+            where: { id: req.user.id },
             data: {
               password: hashedPass,
             },

@@ -2,10 +2,10 @@ var express = require("express");
 var router = express.Router();
 const urlController = require("../controllers/urlController");
 
-router.get("/:userId", urlController.get_urls);
-
 const securityCheck = require("../routes/routeAuthenticate");
 router.use(securityCheck.authenticateReq);
+
+router.get("/:userId", urlController.get_urls);
 
 router.post("/create", urlController.create_urls);
 

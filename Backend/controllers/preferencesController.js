@@ -5,11 +5,11 @@ exports.user_sortBy = [
   body("sortBy").trim().escape(),
 
   asyncHandler(async (req, res) => {
-    req.session.sortBy = req.body.sortBy;
-    res.status(200).json({ sortBy: req.session.sortBy });
+    req.sortBy = req.body.sortBy;
+    res.status(200).json({ sortBy: req.sortBy });
   }),
 ];
 
 exports.user_getSortBy = asyncHandler(async (req, res) => {
-  res.status(200).json({ sortBy: req.session.sortBy });
+  res.status(200).json({ sortBy: req.sortBy });
 });

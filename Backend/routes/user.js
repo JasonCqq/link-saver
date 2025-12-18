@@ -9,8 +9,6 @@ router.post("/create", userController.create_user);
 
 router.get("/logout", userController.logout_user);
 
-router.get("/settings/:userId", userController.get_settings);
-
 router.post("/login", userController.login_user);
 
 // Forgot Password Process
@@ -22,6 +20,8 @@ router.post("/change_password_otp", userController.change_password_otp);
 
 const securityCheck = require("../routes/routeAuthenticate");
 router.use(securityCheck.authenticateReq);
+
+router.get("/settings/:userId", userController.get_settings);
 
 router.delete("/delete_account", userController.delete_user);
 
