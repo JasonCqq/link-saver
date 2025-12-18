@@ -38,6 +38,7 @@
     "@angular/build": "^20.3.12",
     "@angular/cli": "~20.3.12",
     "@angular/compiler-cli": "^20.3.14",
+    "@types/chrome": "^0.1.32",
     "@types/jasmine": "~4.3.0",
     "@types/node": "^20.12.7",
     "@typescript-eslint/eslint-plugin": "^6.4.1",

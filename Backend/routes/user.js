@@ -3,6 +3,7 @@ var router = express.Router();
 const userController = require("../controllers/userController");
 const otpController = require("../controllers/otpController");
 const crypto = require("crypto");
+const prisma = require("../prisma/prismaClient");
 
 router.post("/create", userController.create_user);
 
@@ -27,20 +28,14 @@ router.delete("/delete_account", userController.delete_user);
 router.put("/change_password", userController.change_password);
 
 // Generate extension token (user must be logged in via Passport session)
-router.post("/extension/generate-token", async (req, res) => {
-  if (!req.isAuthenticated()) {
-    return res
-      .status(401)
-      .json({ error: "Not logged in", redirectTo: "/login" });
-  }
-
+router.post("/extension/generate-token/:userId", async (req, res) => {
   try {
     // Generate random token
     const token = crypto.randomBytes(32).toString("hex");
 
     // Save to database
-    await prisma.User.update({
-      where: { id: req.user.id },
+    const user = await prisma.User.update({
+      where: { id: req.params.userId },
       data: {
         extensionToken: token,
         extensionTokenCreatedAt: new Date(),
@@ -50,11 +45,14 @@ router.post("/extension/generate-token", async (req, res) => {
     res.json({
       token: token,
       user: {
-        id: req.user.id,
-        username: req.user.username,
+        id: user.id,
+        username: user.username,
       },
     });
+
+    console.log("Token Generated");
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Failed to generate token" });
   }
 });

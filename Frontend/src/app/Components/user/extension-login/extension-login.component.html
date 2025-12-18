@@ -1,68 +1,26 @@
 <html>
   <head>
-    <title>Connect Extension</title>
+    <title>Linkstorage - Connect Extension</title>
   </head>
   <body>
-    <h1>Connect Extension</h1>
-    <p>Logged in as: {{ user }}</p>
-    <button id="authorize">Authorize Extension</button>
+    <a href="https://linkstorage.net" target="_blank" class="logo"
+      >linkstorag<span>e</span></a
+    >
+    <h2>Connect Extension</h2>
 
-    <script>
-      document
-        .getElementById("authorize")
-        .addEventListener("click", async () => {
-          try {
-            // Generate token (uses existing Passport session)
-            const response = await fetch("/api/extension/generate-token", {
-              method: "POST",
-              credentials: "include", // Sends session cookie
-            });
+    <section class="user">
+      <p>Logged in as:</p>
+      <p style="padding-top: 5px">Username: {{ user.username }}</p>
+      <p>Email: {{ user.email }}</p>
+    </section>
 
-            const data = await response.json();
+    <p class="note">
+      This extension will allow you to automatically <br />
+      save tabs into your linkstorage account.
+    </p>
 
-            if (response.status === 401) {
-              // Not logged in - redirect to login
-              window.location.href = "/login?redirect=/extension-connect";
-              return;
-            }
-
-            // Check if response was successful
-            if (!response.ok) {
-              alert("Failed to generate token");
-              return;
-            }
-
-            const EXTENSION_ID = "oocabgbbkhbipjpkchfejjglaaccckbn";
-
-            // Send to extension
-            chrome.runtime.sendMessage(
-              EXTENSION_ID,
-              {
-                type: "AUTH_TOKEN",
-                token: data.token,
-                user: data.user,
-              },
-              (res) => {
-                if (chrome.runtime.lastError) {
-                  console.error(
-                    "Failed to send to extension:",
-                    chrome.runtime.lastError
-                  );
-                  alert(
-                    "Failed to connect to extension. Make sure it's installed."
-                  );
-                  return;
-                }
-
-                // Success!
-                alert("Extension connected successfully!");
-                window.close();
-              }
-            );
-          } catch (error) {
-            alert("Failed to connect extension");
-          }
-        });
-    </script>
+    <button id="authorize" (click)="authorizeExtension()">
+      Authorize Extension
+    </button>
   </body>
 </html>
