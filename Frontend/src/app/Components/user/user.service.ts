@@ -29,28 +29,11 @@ export class UserService {
     private router: Router
   ) {}
 
-  // Guest User
-  emptyUser = {
-    user: {
-      id: "",
-      username: "",
-      email: "",
-      creationDate: new Date(0),
-      external_account: false,
-    },
-    settings: {
-      id: "",
-      userId: "",
-      previews: true,
-      emailNotifications: true,
-    },
-  };
-
-  private userSubject = new BehaviorSubject<User | null>(this.emptyUser);
+  private userSubject = new BehaviorSubject<User | null>(null);
   user$ = this.userSubject.asObservable();
 
   setUser(user: User | null) {
-    this.userSubject.next(user || this.emptyUser);
+    this.userSubject.next(user);
   }
   getUser() {
     return this.userSubject.value;
