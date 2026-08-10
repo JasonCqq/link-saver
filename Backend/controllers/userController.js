@@ -139,10 +139,11 @@ exports.create_user = [
                 console.log(err);
                 res.status(500).json({ errors: "Session creation failed" });
               }
-            });
 
-            req.user = userData;
-            res.status(200).json({ user: userData, settings: newUserSettings });
+              return res
+                .status(200)
+                .json({ user: userData, settings: newUserSettings });
+            });
           });
         } catch (err) {
           console.log(err);
@@ -233,7 +234,6 @@ exports.login_user = [
             req.login(user, (err) => {
               if (err) return next(err);
 
-              // req.session.user = userData;
               return res
                 .status(200)
                 .json({ user: userData, settings: user.userSettings });
