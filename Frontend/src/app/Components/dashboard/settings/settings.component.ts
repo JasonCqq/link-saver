@@ -2,17 +2,14 @@ import { Component, OnInit } from "@angular/core";
 import { UserService } from "../../user/user.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
-
 @Component({
-    selector: "app-settings",
-    templateUrl: "./settings.component.html",
-    styleUrls: ["./settings.component.scss"],
-    standalone: false
+  selector: "app-settings",
+  templateUrl: "./settings.component.html",
+  styleUrls: ["./settings.component.scss"],
+  standalone: false,
 })
 export class SettingsComponent implements OnInit {
-  constructor(
-    private userService: UserService,
-  ) {}
+  constructor(private userService: UserService) {}
 
   user: any;
 
@@ -53,7 +50,7 @@ export class SettingsComponent implements OnInit {
       .changePassword(
         this.passwordChangeForm.value.currentPass ?? "",
         this.passwordChangeForm.value.newPass ?? "",
-        this.passwordChangeForm.value.newPass2 ?? "",
+        this.passwordChangeForm.value.newPass2 ?? ""
       )
       .subscribe({
         next: () => {
@@ -71,8 +68,6 @@ export class SettingsComponent implements OnInit {
     this.passwordChangeOverlay = !this.passwordChangeOverlay;
   }
 
- 
-
   deletePrompt: boolean = false;
   toggleDeletePrompt(): void {
     this.deletePrompt = !this.deletePrompt;
@@ -83,7 +78,15 @@ export class SettingsComponent implements OnInit {
       (<HTMLInputElement>document.getElementById("delete-confirm")).value ===
       "confirmdelete"
     ) {
+      console.log(
+        (<HTMLInputElement>document.getElementById("delete-confirm")).value
+      );
       this.userService.deleteAccount();
+    } else {
+      console.log(
+        (<HTMLInputElement>document.getElementById("delete-confirm")).value
+      );
+      console.log("hi");
     }
   }
 }

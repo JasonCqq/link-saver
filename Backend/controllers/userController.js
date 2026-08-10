@@ -19,6 +19,13 @@ async function verifyToken(token) {
   return payload["email"];
 }
 
+// Supabase
+const { createClient } = require("@supabase/supabase-js");
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+);
+
 exports.create_user = [
   body("username").trim().escape(),
   body("password", "Password must be between 8-20 characters")
@@ -249,23 +256,37 @@ exports.delete_user = [
   body("userID").trim().escape(),
 
   asyncHandler(async (req, res) => {
-    const user = await prisma.User.findUnique({
-      where: {
-        id: req.user.id,
-      },
-    });
-
     const check = req.user;
 
     if (!check) {
       res.status(401).json("Not authenticated");
     } else {
-      const imagePath = `thumbnails/${req.user.id}`;
-      const { error } = await supabase.storage
-        .from("thumbnails")
-        .remove(imagePath);
+      const folderPath = `thumbnails/${req.user.id}`;
 
-      if (error) console.error("Supabase delete error:", error.message);
+      // 1. List all files inside the nested user folder
+      const { data: files, error: listError } = await supabase.storage
+        .from("thumbnails")
+        .list(folderPath); // Passes "thumbnails/userId" as the prefix
+
+      if (listError) {
+        throw listError;
+      }
+
+      if (files && files.length > 0) {
+        // 2. Map files to their full paths including the nested structure
+        const filePaths = files.map(
+          (file) => `thumbnails/${req.user.id}/${file.name}`
+        );
+
+        // 3. Delete the files using an array of full paths
+        const { error: deleteError } = await supabase.storage
+          .from("thumbnails")
+          .remove(filePaths);
+
+        if (deleteError) {
+          throw deleteError;
+        }
+      }
 
       await prisma.User.delete({
         where: {
@@ -283,7 +304,6 @@ exports.delete_user = [
     }
   }),
 ];
-
 exports.get_settings = [
   asyncHandler(async (req, res) => {
     if (!req.params.userId || req.user.id !== req.params.userId) {

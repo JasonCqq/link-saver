@@ -39,7 +39,7 @@
         </span>
 
         <span class="p-text-secondary block mb-4">
-          Type "confirmdelete" to continue.<br />
+          Type "confirmdelete" to continue. *May take a bit<br />
         </span>
 
         <div class="flex items-center gap-4 mb-4">
@@ -53,11 +53,7 @@
           />
         </div>
 
-        <p-button
-          severity="danger"
-          label="Confirm"
-          (click)="(toggleDeletePrompt); (deleteAccount)"
-        />
+        <p-button severity="danger" label="Confirm" (click)="deleteAccount()" />
       </p-dialog>
     </section>
 
