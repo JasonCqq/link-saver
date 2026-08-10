@@ -137,14 +137,8 @@ exports.create_user = [
             req.login(newUser, (err) => {
               if (err) {
                 console.log(err);
-                return res
-                  .status(500)
-                  .json({ errors: "Session creation failed" });
+                res.status(500).json({ errors: "Session creation failed" });
               }
-
-              return res
-                .status(200)
-                .json({ user: userData, settings: newUserSettings });
             });
 
             req.user = userData;
