@@ -39,6 +39,9 @@ export class ExtensionLoginComponent {
 
       // Not Logged In
       if (response.status === 401) {
+        alert(
+          "After logging in, please close the popup and click authorize account on extension again"
+        );
         window.location.href = `${this.tempApiUrl}/user/login?redirect=/extension-connect`;
         return;
       }
