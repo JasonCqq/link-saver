@@ -16,7 +16,11 @@ export class ExtensionLoginComponent {
   private apiUrl = environment.apiUrl;
   user: any;
 
-  EXTENSION_ID = "fkldpphgfldaflolfdknbepghncgagdc";
+  tempApiUrl = environment.production ? "https://linkstorage.net" : this.apiUrl;
+
+  EXTENSION_ID = environment.production
+    ? "fkldpphgfldaflolfdknbepghncgagdc"
+    : "oocabgbbkhbipjpkchfejjglaaccckbn";
 
   async authorizeExtension() {
     try {
@@ -35,7 +39,7 @@ export class ExtensionLoginComponent {
 
       // Not Logged In
       if (response.status === 401) {
-        window.location.href = `${this.apiUrl}/user/login?redirect=/extension-connect`;
+        window.location.href = `${this.tempApiUrl}/user/login?redirect=/extension-connect`;
         return;
       }
 
