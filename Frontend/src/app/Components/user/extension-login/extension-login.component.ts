@@ -16,7 +16,7 @@ export class ExtensionLoginComponent {
   private apiUrl = environment.apiUrl;
   user: any;
 
-  EXTENSION_ID = "oocabgbbkhbipjpkchfejjglaaccckbn";
+  EXTENSION_ID = "fkldpphgfldaflolfdknbepghncgagdc";
 
   async authorizeExtension() {
     try {
@@ -35,8 +35,7 @@ export class ExtensionLoginComponent {
 
       // Not Logged In
       if (response.status === 401) {
-        window.location.href =
-          "http://localhost:4200/user/login?redirect=/extension-connect";
+        window.location.href = `${this.apiUrl}/user/login?redirect=/extension-connect`;
         return;
       }
 
