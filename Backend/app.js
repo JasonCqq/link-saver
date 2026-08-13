@@ -87,11 +87,24 @@ const io = new Server(httpServer, {
     credentials: true,
   },
 });
+
+const allowedOrigins = [
+  `${process.env.FRONT_END}`,
+  "chrome-extension://fkldpphgfldaflolfdknbepghncgagdc",
+];
+
 app.use(
   cors({
-    origin: `${process.env.FRONT_END}`,
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
