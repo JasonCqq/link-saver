@@ -128,9 +128,8 @@ async function createSingleLink({
     ? await sharp(imageBuffer).webp({ quality: 75 }).toBuffer()
     : null;
 
-  console.log("test");
   if (page) await page.close();
-  console.log("test2");
+
   /* ================= DATABASE ================= */
   title = decode(title || "", { level: "html5" });
   try {
@@ -146,11 +145,9 @@ async function createSingleLink({
       },
     });
 
-    console.log("HII");
     if (processedImage) {
       const imagePath = `thumbnails/${userId}/${link.id}`;
       const publicUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/thumbnails/${imagePath}`;
-
       const updatedLink = await prisma.Link.update({
         where: { id: link.id },
         data: {
@@ -158,18 +155,13 @@ async function createSingleLink({
           pURL: publicUrl,
         },
       });
-
       if (processedImage) {
         uploadThumbnailAsync(link.id, processedImage, userId, io).catch((err) =>
           console.error(`Thumbnail upload failed for ${link.id}:`, err)
         );
       }
-
-      console.log("HII");
-
       io.emit("thumbnail-ready", updatedLink);
     }
-    console.log("HII");
     return link;
   } catch (err) {
     console.error(err);
@@ -204,44 +196,79 @@ exports.create_link = [
     .isArray({ min: 1 })
     .withMessage("URLs must be a non-empty array"),
 
-  body("urls.*").isURL().withMessage("Invalid URL in list"),
   body("folder").trim().escape(),
   body("bookmarked").trim().escape(),
+
   asyncHandler(async (req, res) => {
     const errs = validationResult(req);
 
     if (!errs.isEmpty()) {
       const firstError = errs.array({ onlyFirstError: true })[0].msg;
-      res.status(400).json(firstError);
-    } else {
-      const io = req.app.get("io");
-      const success = [];
-      const fails = [];
+      return res.status(400).json(firstError);
+    }
 
-      for (const url of req.body.urls) {
-        try {
-          const link = await createSingleLink({
-            rawUrl: url,
-            userId: req.user.id,
-            folderId: req.body.folder,
-            bookmarked: JSON.parse(req.body.bookmarked),
-            io: io,
-          });
+    const io = req.app.get("io");
+    const success = [];
+    const fails = [];
 
-          if (link) {
-            success.push(link);
-          } else {
-            fails.push(link);
-          }
-        } catch (err) {
-          console.error(err);
-        }
+    for (const url of req.body.urls) {
+      // Skip invalid/unsupported URLs
+      if (!isValidUrl(url)) {
+        fails.push({
+          url,
+          error: "Invalid or unsupported URL",
+        });
+        continue;
       }
 
-      res.status(207).json(success);
+      try {
+        const link = await createSingleLink({
+          rawUrl: url,
+          userId: req.user.id,
+          folderId: req.body.folder,
+          bookmarked: JSON.parse(req.body.bookmarked),
+          io,
+        });
+
+        if (link) {
+          success.push(link);
+        } else {
+          fails.push({
+            url,
+            error: "Failed to save link",
+          });
+        }
+      } catch (err) {
+        console.error(`Failed to save ${url}:`, err);
+
+        fails.push({
+          url,
+          error: "Failed to save link",
+        });
+      }
     }
+
+    return res.status(207).json({
+      success,
+      fails,
+      message:
+        fails.length > 0
+          ? `${success.length} link(s) saved, ${fails.length} link(s) skipped.`
+          : `${success.length} link(s) saved successfully.`,
+    });
   }),
 ];
+
+function isValidUrl(url) {
+  try {
+    const parsed = new URL(url);
+
+    // Only allow normal web URLs
+    return ["http:", "https:"].includes(parsed.protocol);
+  } catch {
+    return false;
+  }
+}
 
 exports.parse_link = [
   body("userID").trim().escape(),
