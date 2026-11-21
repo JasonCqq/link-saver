@@ -50,5 +50,12 @@
     "prisma": "^5.12.1",
     "sitemap": "^8.0.0",
     "ts-node": "^10.9.1"
+  },
+  "allowScripts": {
+    "@prisma/client@5.13.0": true,
+    "@prisma/engines@5.13.0": true,
+    "bcrypt@5.1.1": true,
+    "prisma@5.13.0": true,
+    "sharp@0.33.3": true
   }
 }

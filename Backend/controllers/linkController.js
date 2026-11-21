@@ -43,92 +43,138 @@ async function createSingleLink({
   let thumbnail = null;
   let page;
   let browser;
+  let imageBuffer;
+  let processedImage = null;
 
   try {
-    /* ================= FAST FETCH ================= */
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-    const response = await fetch(decodedUrl, {
-      signal: controller.signal,
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-      },
-    });
-
-    clearTimeout(timeoutId);
-    const html = await response.text();
-
-    if (
-      html.includes("Just a moment") ||
-      html.includes("cf-browser-verification") ||
-      html.length < 500
-    ) {
-      throw new Error("Bot detection");
-    }
-
-    const extractMeta = (property) => {
-      const regex = new RegExp(
-        `<meta[^>]+(?:property|name)=["']${property}["'][^>]+content=["']([^"']+)["']`,
-        "i"
-      );
-      return html.match(regex)?.[1] ?? null;
-    };
-    title =
-      extractMeta("og:title") ||
-      extractMeta("twitter:title") ||
-      html.match(/<title[^>]*>([^<]+)<\/title>/i)?.[1] ||
-      "";
-
-    thumbnail = extractMeta("og:image") || extractMeta("twitter:image");
-  } catch {
-    /* ================= PLAYWRIGHT FALLBACK ================= */
-
-    browser = await getBrowser();
-    page = await browser.newPage();
-
-    await page.goto(decodedUrl, { waitUntil: "domcontentloaded" });
-
-    const metadata = await page.evaluate(() => ({
-      ogTitle:
-        document.querySelector('meta[property="og:title"]')?.content ??
-        document.title,
-      ogImage:
-        document.querySelector('meta[property="og:image"]')?.content ?? null,
-    }));
-
-    title = metadata.ogTitle;
-    thumbnail = metadata.ogImage;
-  }
-
-  /* ================= IMAGE HANDLING ================= */
-
-  let imageBuffer;
-
-  if (thumbnail) {
     try {
-      const imgRes = await fetch(thumbnail);
-      imageBuffer = Buffer.from(await imgRes.arrayBuffer());
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+      let response;
+      let html;
+
+      try {
+        response = await fetch(decodedUrl, {
+          signal: controller.signal,
+          headers: {
+            "User-Agent":
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+          },
+        });
+          if (!response.ok) {
+            throw new Error(`Page request failed with status ${response.status}`);
+          }
+          html = await response.text();
+      } finally {
+        clearTimeout(timeoutId);
+      }
+
+      if (
+        html.includes("Just a moment") ||
+        html.includes("cf-browser-verification") ||
+        html.length < 500
+      ) {
+        throw new Error("Page metadata unavailable");
+      }
+
+      const extractMeta = (property) => {
+        const regex = new RegExp(
+          `<meta[^>]+(?:property|name)=["']${property}["'][^>]+content=["']([^"']+)["']`,
+          "i"
+        );
+        return html.match(regex)?.[1] ?? null;
+      };
+      title =
+        extractMeta("og:title") ||
+        extractMeta("twitter:title") ||
+        html.match(/<title[^>]*>([^<]+)<\/title>/i)?.[1] ||
+        "";
+      thumbnail = extractMeta("og:image") || extractMeta("twitter:image");
     } catch {
-      thumbnail = null;
+      try {
+        browser = await getBrowser();
+        page = await browser.newPage();
+        await page.goto(decodedUrl, {
+          waitUntil: "domcontentloaded",
+          timeout: 10000,
+        });
+
+        const metadata = await page.evaluate(() => ({
+          ogTitle:
+            document.querySelector('meta[property="og:title"]')?.content ??
+            document.title,
+          ogImage:
+            document.querySelector('meta[property="og:image"]')?.content ??
+            null,
+        }));
+
+        title = metadata.ogTitle || "";
+        thumbnail = metadata.ogImage;
+      } catch (error) {
+        console.error(`Page metadata unavailable for ${decodedUrl}:`, error);
+      }
+    }
+
+    if (thumbnail) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+        let imageResponse;
+
+        try {
+          imageResponse = await fetch(thumbnail, { signal: controller.signal });
+          if (!imageResponse.ok) {
+            throw new Error(
+              `Image request failed with status ${imageResponse.status}`
+            );
+          }
+
+          if (!imageResponse.headers.get("content-type")?.startsWith("image/")) {
+            throw new Error("Image URL did not return an image");
+          }
+
+          imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
+        } finally {
+          clearTimeout(timeoutId);
+        }
+
+        if (imageBuffer.length === 0) {
+          throw new Error("Image response was empty");
+        }
+      } catch (error) {
+        console.error(`Thumbnail unavailable for ${decodedUrl}:`, error);
+        thumbnail = null;
+        imageBuffer = null;
+      }
+    }
+
+    if (!imageBuffer) {
+      try {
+        if (!page) {
+          browser ??= await getBrowser();
+          page = await browser.newPage();
+          await page.goto(decodedUrl, { waitUntil: "load", timeout: 10000 });
+        }
+        imageBuffer = await page.screenshot({ type: "png", fullPage: false });
+      } catch (error) {
+        console.error(`Preview screenshot unavailable for ${decodedUrl}:`, error);
+      }
+    }
+
+    if (imageBuffer) {
+      try {
+        processedImage = await sharp(imageBuffer).webp({ quality: 75 }).toBuffer();
+      } catch (error) {
+        console.error(`Thumbnail processing failed for ${decodedUrl}:`, error);
+      }
+    }
+  } finally {
+    if (page) {
+      await page.close().catch((error) => {
+        console.error(`Failed to close preview page for ${decodedUrl}:`, error);
+      });
     }
   }
-
-  if (!thumbnail) {
-    if (!page) {
-      browser ??= await getBrowser();
-      page = await browser.newPage();
-      await page.goto(decodedUrl, { waitUntil: "load" });
-    }
-    imageBuffer = await page.screenshot({ type: "png" });
-  }
-
-  const processedImage = imageBuffer
-    ? await sharp(imageBuffer).webp({ quality: 75 }).toBuffer()
-    : null;
-
-  if (page) await page.close();
 
   /* ================= DATABASE ================= */
   title = decode(title || "", { level: "html5" });
@@ -155,12 +201,14 @@ async function createSingleLink({
           pURL: publicUrl,
         },
       });
-      if (processedImage) {
+
+
+      if (updatedLink) {
         uploadThumbnailAsync(link.id, processedImage, userId, io).catch((err) =>
           console.error(`Thumbnail upload failed for ${link.id}:`, err)
         );
-      }
-      io.emit("thumbnail-ready", updatedLink);
+      } 
+
     }
     return link;
   } catch (err) {
@@ -261,7 +309,15 @@ exports.create_link = [
 
 function isValidUrl(url) {
   try {
-    const parsed = new URL(url);
+    if (typeof url !== "string" || !url.trim()) {
+      return false;
+    }
+
+    const trimmedUrl = url.trim();
+    const candidateUrl = /^[a-z][a-z\d+.-]*:\/\//i.test(trimmedUrl)
+      ? trimmedUrl
+      : `https://${trimmedUrl}`;
+    const parsed = new URL(candidateUrl);
 
     // Only allow normal web URLs
     return ["http:", "https:"].includes(parsed.protocol);

@@ -2,7 +2,7 @@
   class="link-item"
   [ngClass]="addingID && massEditting ? 'link-item-border' : ''"
   (click)="addMassID(itemData.id)"
-  pTooltip="{{ itemData.title }}"
+  pTooltip="{{ itemData.title ? itemData.title : itemData.url }}"
   tooltipPosition="top"
   (mouseenter)="onMouseEnter()"
   (mouseleave)="onMouseLeave()"
